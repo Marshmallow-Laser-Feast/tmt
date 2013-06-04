@@ -91,7 +91,7 @@ void TheMeasuresTaken::drawVisualizationArea()
     
     ofNoFill();
     ofSetLineWidth( 1.0f );
-    ofSetColor( ofColor::white );
+    ofSetColor( ofColor::darkGray );
     
     ofTranslate( ( ofGetWindowWidth() - PROJECTION_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - PROJECTION_AREA_HEIGHT ) * 0.5f );
     

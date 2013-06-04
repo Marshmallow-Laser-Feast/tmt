@@ -7,7 +7,7 @@
 #include "PathAnalyser.h"
 
 #define PROJECTION_AREA_WIDTH   1080
-#define PROJECTION_AREA_HEIGHT  720
+#define PROJECTION_AREA_HEIGHT  400
 
 
 class TheMeasuresTaken : public ofBaseApp
