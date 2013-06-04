@@ -174,7 +174,7 @@ public:
                 ofPoint delta           = currentPoint - prevPoint;
                 ofPoint normal          = getSampleNormal( i );
                 
-                float   rot             = ofClamp(abs(getSampleRotation( i ).z) / maxSegmentRotation, 0.0f, 1.0f);
+                float   rot             = ofClamp(abs(getSampleRotation( i ).z) / 1.0f, 0.0f, 1.0f);
             
                 ofLine( currentPoint, currentPoint + normal * rot * length );
             }
