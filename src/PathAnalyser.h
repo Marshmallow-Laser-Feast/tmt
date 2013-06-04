@@ -24,7 +24,6 @@ public:
     ,curvature( 0.0f )
     ,acceleration( 0.0f )
     ,velocity( 0.0f )
-    ,maxSegmentRotation( 0.0f )
     ,maxLength( 0.0f )
     ,maxSamples( 0 )
     ,maxHistory( 0 )
@@ -45,11 +44,6 @@ public:
     void setMaxHistory( int value )
     {
         maxHistory              = value;
-    }
-    
-    void setMaxSegmentRotation( float value )
-    {
-        maxSegmentRotation      = value;
     }
     
     void setMaxLength( float value )
@@ -270,7 +264,7 @@ private:
                 prevPoint.set( samples[ i - 1 ] );
                 currentPoint.set( samples[ i ] );
                 
-                curvature               += ofClamp(abs(getSampleRotation( i ).z) / maxSegmentRotation, 0.0f, 1.0f);
+                curvature               += ofClamp(abs(getSampleRotation( i ).z) / 1.0f, 0.0f, 1.0f);
                 acceleration            += prevPoint.distance( currentPoint ) / avgDistance;
                 
                 sampleCount++;
@@ -292,7 +286,6 @@ private:
     
 private:
     
-    float           maxSegmentRotation;
     float           maxLength;
     
     int             maxSamples;
