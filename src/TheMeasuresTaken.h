@@ -14,6 +14,8 @@
 #include "MultiTouchInput.h"
 #include "FlockingInput.h"
 
+#include "InputAnalyser.h"
+
 ////////////////////////////
 //   PROJECTION SETTINGS  //
 ////////////////////////////
@@ -27,18 +29,22 @@
 
 #define INPUT_WIDTH                     640
 #define INPUT_HEIGHT                    480
+#define INPUT_TIMEOUT_FRAMES            60
 #define INPUT_COUNT                     2
+
+#define MAX_PATH_ANALYSER_SAMPLES       60
+#define MAX_PATH_ANALYSER_HISTORY       60 * 5
+#define MAX_PATH_ANALYSER_LENGTH        3700.0f
 
 // Flocking input settings
 
 #define FLOCKING_SAMPLE_COUT            10
-#define FLOCKING_MIN_VEL                -4
-#define FLOCKING_MAX_VEL                4
+#define FLOCKING_MAX_SPEED              10.0
 #define FLOCKING_COLUMNS                20
 #define FLOCKING_ROWS                   20
-#define FLOCKING_MIN_FORCE              -100
-#define FLOCKING_MAX_FORCE              0
-#define FLOCKING_ATTRAC_RAD_RATIO       0.5f
+#define FLOCKING_MIN_FORCE              -200
+#define FLOCKING_MAX_FORCE              100
+#define FLOCKING_ATTRAC_RAD_RATIO       0.8f
 
 // Gui & Params
 
@@ -77,8 +83,13 @@ private:
     
     MultiTouchInput     *multitouchInput;
     FlockingInput       *flockingInput;
-    Input               *inputs[ INPUT_COUNT ];
-    Input               *currentInput;
+    
+    InputAnalyser       *multiTouchInputAnalyser;
+    InputAnalyser       *flockingInputAnalyser;
+    
+    InputAnalyser       *inputAnalysers[ INPUT_COUNT ];
+    
+    InputAnalyser       *currentInputAnalyser;
     
     // Gui & Params
     

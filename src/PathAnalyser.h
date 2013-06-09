@@ -51,6 +51,14 @@ public:
         maxLength               = value;
     }
     
+    void addSample( const ofPoint &sample )
+    {
+        samples.push_back( sample );
+        times.push_back( ofGetElapsedTimef() );
+        
+        updateAnalysis();
+    };
+    
     void addSample( float x, float y, float z )
     {
         samples.push_back( ofPoint( x, y, z ) );
@@ -162,26 +170,20 @@ public:
         }
     };
     
-    void drawCurvature( float length )
+    void drawCurvature( float lineLength )
     {
         if( samples.size() > 1 )
         {            
             for( int i = 1; i < samples.size() - 1; ++i )
             {
-                ofPoint prevPoint       = samples[ i - 1 ];
-                ofPoint currentPoint    = samples[ i ];
-                
-                ofPoint delta           = currentPoint - prevPoint;
-                ofPoint normal          = getSampleNormal( i );
-                
-                float   rot             = ofClamp(abs(getSampleRotation( i ).z) / 1.0f, 0.0f, 1.0f);
+                float   rot             = ofClamp(abs(getSampleRotation( i ).z) / 0.15f, 0.0f, 1.0f);
             
-                ofLine( currentPoint, currentPoint + normal * rot * length );
+                ofLine( samples[ i ], samples[ i ] + getSampleNormal( i ).rotated(0, 0, 90.0f) * rot * lineLength );
             }
         }
     };
     
-    void drawQuality( float length )
+    void drawAcceleration( float lineLength )
     {
         if( samples.size() > 1 )
         {
@@ -192,10 +194,9 @@ public:
                 ofPoint prevPoint       = samples[ i - 1 ];
                 ofPoint currentPoint    = samples[ i ];
                 
-                ofPoint delta           = currentPoint - prevPoint;
-                ofPoint normal          = getSampleNormal( i );
+                float distance          = currentPoint.distance( prevPoint );
                 
-                ofLine( currentPoint, currentPoint + normal.rotated(0, 0, 180.0f) * (delta.length() / avgDistance) * 40.0f );
+                ofLine( currentPoint, currentPoint + getSampleNormal( i ).rotated(0, 0, 270.0f) * (distance / avgDistance) * lineLength );
             }
         }
     };
@@ -264,7 +265,7 @@ private:
                 prevPoint.set( samples[ i - 1 ] );
                 currentPoint.set( samples[ i ] );
                 
-                curvature               += ofClamp(abs(getSampleRotation( i ).z) / 1.0f, 0.0f, 1.0f);
+                curvature               += ofClamp(abs(getSampleRotation( i ).z) / 0.15f, 0.0f, 1.0f);
                 acceleration            += prevPoint.distance( currentPoint ) / avgDistance;
                 
                 sampleCount++;

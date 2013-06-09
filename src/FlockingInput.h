@@ -22,16 +22,16 @@ public:
     FlockingInput(  int     sampleCount,
                     float   width,
                     float   height,
-                    float   minVel,
-                    float   maxVel,
                     int     columns,
                     int     rows,
+                    float   maxSpeed,
                     float   minForce,
                     float   maxForce,
                     float   attractorRadiusRatio  )
     {
         flock.setup( 0, width / 2, height / 2 );
         flock.setBounds( 0, 0, width, height );
+        flock.setMaxSpeed( maxSpeed );
         
         samples.resize( sampleCount );
         
@@ -47,7 +47,7 @@ public:
         for( int i = 0; i < sampleCount; i++)
         {
             flock.add( ofRandom(width), ofRandom(height) );
-            flock.get( i )->setVel( ofRandom( minVel, maxVel ), ofRandom( minVel, maxVel ) );
+            flock.get( i )->setVel( ofRandom( -20, 20 ), ofRandom( -20, 20 ) );
         }
         
         float columnSize    = width / (float)columns;

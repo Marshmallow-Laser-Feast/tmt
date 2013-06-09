@@ -194,6 +194,7 @@
 		419F114A176151B200BF91D6 /* Boid3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boid3d.h; sourceTree = "<group>"; };
 		419F114B176151B200BF91D6 /* Flock2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flock2d.h; sourceTree = "<group>"; };
 		419F114C176151B200BF91D6 /* Flock3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flock3d.h; sourceTree = "<group>"; };
+		41BC2BDE176475B500628D8F /* InputAnalyser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAnalyser.h; sourceTree = "<group>"; };
 		41F156C717620B0C004DD184 /* MultiTouchInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiTouchInput.h; sourceTree = "<group>"; };
 		41F156C917620EF6004DD184 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = /System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = "<absolute>"; };
 		41F156CC1762109E004DD184 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -772,7 +773,6 @@
 		419F11221761450A00BF91D6 /* Input */ = {
 			isa = PBXGroup;
 			children = (
-				419F11341761467600BF91D6 /* Analysis */,
 				41F33AE8175EA57200405014 /* Input.h */,
 				41F33AE9175EA8EF00405014 /* FlockingInput.h */,
 				41F156C717620B0C004DD184 /* MultiTouchInput.h */,
@@ -801,6 +801,7 @@
 			isa = PBXGroup;
 			children = (
 				4181ED4B175BFB42000965E5 /* PathAnalyser.h */,
+				41BC2BDE176475B500628D8F /* InputAnalyser.h */,
 			);
 			name = Analysis;
 			sourceTree = "<group>";
@@ -1587,6 +1588,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				419F11341761467600BF91D6 /* Analysis */,
 				419F11221761450A00BF91D6 /* Input */,
 				419F11331761466300BF91D6 /* Bootstrap */,
 				419F11321761465C00BF91D6 /* App */,
