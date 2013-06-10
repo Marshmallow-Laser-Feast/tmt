@@ -1,6 +1,18 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="1">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters" path="Visualisation Parameters" tooltip="">
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Dot Trails" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Dot Trails" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Dot Trails" value="12" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Dot Trails" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Dot Trails" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Dot Trails" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Connected Dots" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Connected Dots" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Connected Dots" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Connected Dots" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Connected Dots Offset" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Connected Dots Offset" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Connected Dots Offset" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Connected Dots Offset" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Nearest Dots" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Nearest Dots" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Nearest Dots" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Nearest Dots" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Line Visualizer Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Line Visualizer Count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Line Visualizer Count" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Line Visualizer Count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Fixed Point Visualizer Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Fixed Point Visualizer Count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Fixed Point Visualizer Count" value="30" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Fixed Point Visualizer Count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Fixed Point Visualizer Offset" value="10" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Fixed Point Visualizer Offset" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Fixed Point Visualizer Offset" value="60" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Fixed Point Visualizer Offset" tooltip=""></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

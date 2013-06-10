@@ -1,27 +1,27 @@
 <positions>
     <element name="Connected Dots Count">
         <x>0.000000000</x>
-        <y>520.000000000</y>
+        <y>719.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Connected Dots Offset">
         <x>0.000000000</x>
-        <y>584.000000000</y>
+        <y>743.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Dot Trails Visualizer Count">
         <x>0.000000000</x>
-        <y>477.000000000</y>
+        <y>695.000000000</y>
         <width>1440.000000000</width>
-        <height>19.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Dot Trails Visualizer Ratio">
         <x>0.000000000</x>
-        <y>413.000000000</y>
+        <y>671.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Dot Trails Visualizer Trails Count">
         <x>0.000000000</x>
@@ -31,51 +31,51 @@
     </element>
     <element name="Dot Visualizer Ratio">
         <x>0.000000000</x>
-        <y>369.000000000</y>
+        <y>647.000000000</y>
         <width>1440.000000000</width>
-        <height>20.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Fixed Point Visualizer Count">
         <x>0.000000000</x>
-        <y>776.000000000</y>
+        <y>815.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>41.000000000</height>
     </element>
     <element name="Fixed Point Visualizer Offset">
         <x>0.000000000</x>
-        <y>840.000000000</y>
+        <y>880.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="ILDA Draw Lines">
         <x>0.000000000</x>
-        <y>241.000000000</y>
+        <y>599.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="ILDA Draw Points">
         <x>0.000000000</x>
-        <y>305.000000000</y>
+        <y>623.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="ILDA Point Count">
         <x>0.000000000</x>
-        <y>177.000000000</y>
+        <y>575.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Laser Color">
         <x>0.000000000</x>
-        <y>113.000000000</y>
+        <y>551.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="Line Visualizer Count">
         <x>0.000000000</x>
-        <y>712.000000000</y>
+        <y>791.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="MyCircleRadius">
         <x>0.000000000</x>
@@ -85,8 +85,8 @@
     </element>
     <element name="Nearst Dots Visualizer Count">
         <x>0.000000000</x>
-        <y>648.000000000</y>
+        <y>767.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
 </positions>

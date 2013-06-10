@@ -264,6 +264,7 @@
 		41E52EBF1765FBA000B8EF2E /* NearestDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearestDotsVisualizer.h; sourceTree = "<group>"; };
 		41E52EC01765FF3C00B8EF2E /* LineVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineVisualizer.h; sourceTree = "<group>"; };
 		41E52EC11766112400B8EF2E /* FixedPointVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FixedPointVisualizer.h; sourceTree = "<group>"; };
+		41E52EC217661B0400B8EF2E /* QualitiesVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QualitiesVisualizer.h; sourceTree = "<group>"; };
 		41ECF21F17658B7600361DDB /* MSAPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics.h; sourceTree = "<group>"; };
 		41ECF22017658B7600361DDB /* MSAPhysics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics2D.h; sourceTree = "<group>"; };
 		41ECF22117658B7600361DDB /* MSAPhysics3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics3D.h; sourceTree = "<group>"; };
@@ -1142,6 +1143,7 @@
 				41E52EBF1765FBA000B8EF2E /* NearestDotsVisualizer.h */,
 				41E52EC01765FF3C00B8EF2E /* LineVisualizer.h */,
 				41E52EC11766112400B8EF2E /* FixedPointVisualizer.h */,
+				41E52EC217661B0400B8EF2E /* QualitiesVisualizer.h */,
 			);
 			name = Visualisation;
 			sourceTree = "<group>";
@@ -2537,7 +2539,7 @@
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 				);
-				SDKROOT = "";
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -2597,7 +2599,7 @@
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 				);
-				SDKROOT = "";
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};

@@ -25,6 +25,7 @@
 #include "NearestDotsVisualizer.h"
 #include "LineVisualizer.h"
 #include "FixedPointVisualizer.h"
+#include "QualitiesVisualizer.h"
 
 ////////////////////////////
 //      APP SETTINGS      //
@@ -54,7 +55,7 @@
 
 // Flocking input settings
 
-#define FLOCKING_SAMPLE_COUT                    20
+#define FLOCKING_SAMPLE_COUT                    60
 #define FLOCKING_MAX_SPEED                      20.0
 #define FLOCKING_COLUMNS                        20
 #define FLOCKING_ROWS                           20
@@ -113,7 +114,7 @@
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
-#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <t>  Toggle Timeline  <i>  Toggle Input Visualization"
+#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <t>  Toggle Timeline  <i>  Toggle Input Visualization  <c>  Collapse Timeline"
 
 ////////////////////////////
 //     Visualization      //
@@ -122,7 +123,7 @@
 #define SCREEN_VIS_AREA_WIDTH                   1080
 #define SCREEN_VIS_AREA_HEIGHT                  600
 
-#define VISUALIZER_COUNT                        6
+#define VISUALIZER_COUNT                        7
 
 ////////////////////////////
 //  Narrative & Timeline  //
@@ -219,6 +220,7 @@ private:
     NearestDotsVisualizer               *nearestDotsVisualizer;
     LineVisualizer                      *lineVisualizer;
     FixedPointVisualizer                *fixedPointVisualizer;
+    QualitiesVisualizer                 *qualitiesVisualizer;
     
     std::vector<ofPolyline>             visualizationData;
     

@@ -86,8 +86,8 @@ void TheMeasuresTaken::setup()
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPX );
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPY );
     
-    ildaParams.addFloat( PARAM_NAME_ILDA_MIN_POINT_COUNT ).setRange( 0.0f, 1.0f ).setClamp( true );
-    ildaParams.addFloat( PARAM_NAME_ILDA_MAX_POINT_COUNT ).setRange( 0.0f, 1.0f ).setClamp( true );
+    ildaParams.addInt( PARAM_NAME_ILDA_MIN_POINT_COUNT );
+    ildaParams.addInt( PARAM_NAME_ILDA_MAX_POINT_COUNT );
     
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
@@ -132,7 +132,7 @@ void TheMeasuresTaken::setup()
     timeline.addCurves( CURVE_FIXEDPOINTVISALIZER_OFFSET, ofRange(0, 1.0f) );
     
     timeline.setOffset( ofVec2f( 0.0f, ofGetWindowHeight() - timeline.getHeight() ) );
-        
+    
     timeline.toggleShow();
     
     // Visualisation
@@ -143,6 +143,7 @@ void TheMeasuresTaken::setup()
     nearestDotsVisualizer   = new NearestDotsVisualizer();
     lineVisualizer          = new LineVisualizer();
     fixedPointVisualizer    = new FixedPointVisualizer();
+    qualitiesVisualizer     = new QualitiesVisualizer();
     
     visualizers[0]          = dotVisualizer;
     visualizers[1]          = dotTrailsVisualizer;
@@ -150,8 +151,15 @@ void TheMeasuresTaken::setup()
     visualizers[3]          = nearestDotsVisualizer;
     visualizers[4]          = lineVisualizer;
     visualizers[5]          = fixedPointVisualizer;
+    visualizers[6]          = qualitiesVisualizer;
     
     visualizeInput          = false;
+    
+    qualitiesVisualizer->setUSamples( 5 );
+    qualitiesVisualizer->setUCount( 10 );
+    qualitiesVisualizer->setVCount( 20 );
+    qualitiesVisualizer->setSize( INPUT_WIDTH, INPUT_HEIGHT );
+    qualitiesVisualizer->setNoiseHeight( 1000.0f );
     
     // Ilda
     
@@ -162,6 +170,8 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
+    
     // Update GUI
     
     msa::controlfreak::update();
@@ -233,16 +243,6 @@ void TheMeasuresTaken::update()
     
     ildaFrame.clear();
     
-    if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
-    {
-        ildaFrame.drawCalibration();
-    } else {
-        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
-        {
-            ildaFrame.addPoly( *it );
-        }
-    }
-    
     ildaFrame.params.output.color.set( timeline.getColor( CURVE_ILDA_COLOR ) );
     
     ildaFrame.params.output.transform.doFlipX       = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
@@ -255,6 +255,19 @@ void TheMeasuresTaken::update()
     ildaFrame.params.draw.points                    = timeline.isSwitchOn( CURVE_ILDA_DRAW_POINTS );
     
     ildaFrame.polyProcessor.params.targetPointCount = ofLerp( (float)ildaParams[ PARAM_NAME_ILDA_MIN_POINT_COUNT ], (float)ildaParams[ PARAM_NAME_ILDA_MAX_POINT_COUNT ], timeline.getValue( CURVE_ILDA_POINT_COUNT ) );
+    
+    if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
+    {
+        ildaFrame.drawCalibration();
+    } else {
+        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
+        {
+            ildaFrame.addPoly( *it );
+        }
+    }
+    
+    etherdream.setPoints(ildaFrame);
+
 }
 
 //--------------------------------------------------------------
@@ -277,7 +290,7 @@ void TheMeasuresTaken::draw()
     
     ofTranslate( ( ofGetWindowWidth() - PROJECTION_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - PROJECTION_AREA_HEIGHT ) * 0.5f + PROJECTION_AREA_HEIGHT );
     
-    ofDrawBitmapString( GUIDE_STRING, 100.0f, 20.0f );
+    ofDrawBitmapString( GUIDE_STRING, 0.0f, 20.0f );
     
     ofPopStyle();
     ofPopMatrix();
@@ -346,6 +359,12 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         visualizeInput  = !visualizeInput;
     }
+    
+    if( key == 'c' )
+    {
+        timeline.collapseAllTracks();
+        timeline.setOffset( ofVec2f( 0.0f, ofGetWindowHeight() - timeline.getHeight() ) );
+    }
 }
 
 //--------------------------------------------------------------
@@ -363,7 +382,7 @@ void TheMeasuresTaken::mouseMoved(int x, int y )
 //--------------------------------------------------------------
 void TheMeasuresTaken::mouseDragged(int x, int y, int button)
 {
-    
+
 }
 
 //--------------------------------------------------------------
@@ -375,6 +394,7 @@ void TheMeasuresTaken::mousePressed(int x, int y, int button)
 //--------------------------------------------------------------
 void TheMeasuresTaken::mouseReleased(int x, int y, int button)
 {
+    timeline.setOffset( ofVec2f( 0.0f, ofGetWindowHeight() - timeline.getHeight() ) );
 }
 
 //--------------------------------------------------------------
