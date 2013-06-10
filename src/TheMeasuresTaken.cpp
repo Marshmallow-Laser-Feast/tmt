@@ -67,11 +67,6 @@ void TheMeasuresTaken::setup()
     visualizationParams.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
     
     outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
-    
-    outputParams.addFloat( PARAM_NAME_CALIBRATION_X1 ).setRange( 0.0f, 1.0f ).setClamp( true );
-    outputParams.addFloat( PARAM_NAME_CALIBRATION_Y1 ).setRange( 0.0f, 1.0f ).setClamp( true );
-    outputParams.addFloat( PARAM_NAME_CALIBRATION_X2 ).setRange( 0.0f, 1.0f ).setClamp( true );
-    outputParams.addFloat( PARAM_NAME_CALIBRATION_Y2 ).setRange( 0.0f, 1.0f ).setClamp( true );
         
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_LINES );
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_POINTS );
@@ -84,7 +79,11 @@ void TheMeasuresTaken::setup()
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPX );
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPY );
     
+    ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT );
+    ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE );
+    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
     ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SPACING );
     
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
@@ -125,13 +124,10 @@ void TheMeasuresTaken::setup()
     visualizers[5]          = fixedPointVisualizer;
     visualizers[6]          = qualitiesVisualizer;
     
-    visualizeInput          = false;
+    offset.set( 0.0f, 0.0f, 0.0f );
+    scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
     
-    qualitiesVisualizer->setUSamples( 5 );
-    qualitiesVisualizer->setUCount( 10 );
-    qualitiesVisualizer->setVCount( 20 );
-    qualitiesVisualizer->setSize( INPUT_WIDTH, INPUT_HEIGHT );
-    qualitiesVisualizer->setNoiseHeight( 1000.0f );
+    visualizeInput          = false;
     
     // Ilda
     
@@ -161,23 +157,6 @@ void TheMeasuresTaken::update()
     {
         cameraInput->update();
     }
-    
-    // Calculate projection offset and scale
-    
-    float x1                = (float)outputParams[ PARAM_NAME_CALIBRATION_X1 ] * PROJECTION_AREA_WIDTH;
-    float y1                = (float)outputParams[ PARAM_NAME_CALIBRATION_Y1 ] * PROJECTION_AREA_HEIGHT;
-    
-    float x2                = (float)outputParams[ PARAM_NAME_CALIBRATION_X2 ] * PROJECTION_AREA_WIDTH;
-    float y2                = (float)outputParams[ PARAM_NAME_CALIBRATION_Y2 ] * PROJECTION_AREA_HEIGHT;
-    
-    float outputWidth       = x2 - x1;
-    float outputHeight      = y2 - y1;
-    
-    float scaleX            = outputWidth / (float)INPUT_WIDTH;
-    float scaleY            = outputHeight / (float)INPUT_HEIGHT;
-    
-    offset.set( x1, x2, 0.0f );
-    scale.set( scaleX, scaleY, 1.0f );
     
     // Update current input analyser
     
@@ -224,16 +203,20 @@ void TheMeasuresTaken::update()
     
     ildaFrame.clear();
         
-    ildaFrame.params.output.transform.doFlipX       = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
-    ildaFrame.params.output.transform.doFlipY       = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPY ];
+    ildaFrame.params.output.transform.doFlipX           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
+    ildaFrame.params.output.transform.doFlipY           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPY ];
     
-    ildaFrame.params.output.doCapX                  = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPX ];
-    ildaFrame.params.output.doCapY                  = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPY ];
+    ildaFrame.params.output.doCapX                      = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPX ];
+    ildaFrame.params.output.doCapY                      = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPY ];
     
-    ildaFrame.params.draw.lines                     = (bool)ildaParams[ PARAM_NAME_ILDA_DRAW_LINES ];
-    ildaFrame.params.draw.points                    = (bool)ildaParams[ PARAM_NAME_ILDA_DRAW_POINTS ];
+    ildaFrame.params.draw.lines                         = (bool)ildaParams[ PARAM_NAME_ILDA_DRAW_LINES ];
+    ildaFrame.params.draw.points                        = (bool)ildaParams[ PARAM_NAME_ILDA_DRAW_POINTS ];
     
-    ildaFrame.polyProcessor.params.targetPointCount = (int)ildaParams[ PARAM_NAME_ILDA_POINT_COUNT ];
+    ildaFrame.polyProcessor.params.smoothAmount         = (int)ildaParams[ PARAM_NAME_ILDA_SMOOTH_AMOUNT ];
+    ildaFrame.polyProcessor.params.optimizeTolerance    = (float)ildaParams[ PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ];
+    ildaFrame.polyProcessor.params.collapse             = (bool)ildaParams[ PARAM_NAME_ILDA_COLLAPSE ];
+    ildaFrame.polyProcessor.params.targetPointCount     = (int)ildaParams[ PARAM_NAME_ILDA_POINT_COUNT ];
+    ildaFrame.polyProcessor.params.spacing              = (float)ildaParams[ PARAM_NAME_ILDA_SPACING ];
     
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
@@ -244,6 +227,8 @@ void TheMeasuresTaken::update()
             ildaFrame.addPoly( *it );
         }
     }
+    
+    ildaFrame.update();
     
     etherdream.setPoints(ildaFrame);
 
@@ -267,7 +252,7 @@ void TheMeasuresTaken::draw()
     
     ofSetColor( 125 );
     
-    ofTranslate( ( ofGetWindowWidth() - PROJECTION_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - PROJECTION_AREA_HEIGHT ) * 0.5f + PROJECTION_AREA_HEIGHT );
+    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f + SCREEN_VIS_AREA_HEIGHT );
     
     ofDrawBitmapString( GUIDE_STRING, 0.0f, 20.0f );
     
@@ -400,19 +385,7 @@ void TheMeasuresTaken::drawVisualization()
     
     ofSetColor( 255 );
     
-    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
-    ofTranslate( offset * ofVec3f( -1, -1, 1.0f ) );
-    ofScale( (float)SCREEN_VIS_AREA_WIDTH / (float)PROJECTION_AREA_WIDTH , (float)SCREEN_VIS_AREA_HEIGHT / (float)PROJECTION_AREA_HEIGHT );
-    
-    for ( vector<ofPolyline>::iterator it = visualizationData.begin(); it != visualizationData.end(); ++it )
-    {
-        it->draw();
-        
-        for ( vector<ofPoint>::iterator pit = it->getVertices().begin() ; pit != it->getVertices().end(); ++pit )
-        {
-            ofCircle( *pit , 2.0f );
-        }
-    }
+    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     
     ofPopStyle();
     ofPopMatrix();

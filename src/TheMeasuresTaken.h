@@ -36,8 +36,6 @@
 //   PROJECTION SETTINGS  //
 ////////////////////////////
 
-#define PROJECTION_AREA_WIDTH                   1080
-#define PROJECTION_AREA_HEIGHT                  600
 
 ////////////////////////////
 //     INPUT SETTINGS     //
@@ -76,11 +74,6 @@
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
 
-#define PARAM_NAME_CALIBRATION_X1               "X1"
-#define PARAM_NAME_CALIBRATION_Y1               "Y1"
-#define PARAM_NAME_CALIBRATION_X2               "X2"
-#define PARAM_NAME_CALIBRATION_Y2               "Y2"
-
 #define PARAM_NAME_DOT_VIS_RATIO                "Dots Ratio"
 
 #define PARAM_NAME_DOT_TRAILS_VIS_RATIO         "Dots Trails Ratio"
@@ -106,7 +99,11 @@
 #define PARAM_NAME_ILDA_DOCAPX                  "Cap X"
 #define PARAM_NAME_ILDA_DOCAPY                  "Cap Y"
 
+#define PARAM_NAME_ILDA_SMOOTH_AMOUNT           "Smooth Amount"
+#define PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE      "Optimize Tolerance"
+#define PARAM_NAME_ILDA_COLLAPSE                "Collapse"
 #define PARAM_NAME_ILDA_POINT_COUNT             "Point Count"
+#define PARAM_NAME_ILDA_SPACING                 "Spacing"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
