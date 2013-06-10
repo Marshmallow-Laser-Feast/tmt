@@ -1,4 +1,28 @@
 <positions>
+    <element name="Dot Trails Visualizer Count">
+        <x>0.000000000</x>
+        <y>859.000000000</y>
+        <width>1440.000000000</width>
+        <height>21.000000000</height>
+    </element>
+    <element name="Dot Trails Visualizer Ratio">
+        <x>0.000000000</x>
+        <y>795.000000000</y>
+        <width>1440.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="Dot Trails Visualizer Trails Count">
+        <x>0.000000000</x>
+        <y>840.000000000</y>
+        <width>1440.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="Dot Visualizer Ratio">
+        <x>0.000000000</x>
+        <y>725.000000000</y>
+        <width>1440.000000000</width>
+        <height>46.000000000</height>
+    </element>
     <element name="MyCircleRadius">
         <x>0.000000000</x>
         <y>52.000000000</y>

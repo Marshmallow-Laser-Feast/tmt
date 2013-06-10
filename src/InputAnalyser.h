@@ -161,6 +161,81 @@ public:
         }
     };
     
+    float getAvarageLength( int historyOffset = 0 )
+    {
+        float   value   = 0.0f;
+        
+        for( std::vector<PathAnalyser*>::iterator it = pathAnalysers.begin(); it != pathAnalysers.end(); ++it )
+        {
+            if( (*it)->getLengths().size() > 0 )
+            {
+                value   += (*it)->getLengths()[ MAX( 0, (*it)->getLengths().size() - ( historyOffset + 1 ) ) ];
+            }
+        }
+        
+        return value / (float)pathAnalysers.size();
+    };
+    
+    float getAvarageAmplitude( int historyOffset = 0 )
+    {
+        float   value   = 0.0f;
+        
+        for( std::vector<PathAnalyser*>::iterator it = pathAnalysers.begin(); it != pathAnalysers.end(); ++it )
+        {
+            if( (*it)->getAmplitudes().size() > 0 )
+            {
+                value   += (*it)->getAmplitudes()[ MAX( 0, (*it)->getAmplitudes().size() - ( historyOffset + 1 ) ) ];
+            }
+        }
+        
+        return value / (float)pathAnalysers.size();
+    };
+    
+    float getAvarageCurvature( int historyOffset = 0 )
+    {
+        float   value   = 0.0f;
+        
+        for( std::vector<PathAnalyser*>::iterator it = pathAnalysers.begin(); it != pathAnalysers.end(); ++it )
+        {
+            if( (*it)->getCurvatures().size() > 0 )
+            {
+                value   += (*it)->getCurvatures()[ MAX( 0, (*it)->getCurvatures().size() - ( historyOffset + 1 ) ) ];
+            }
+        }
+        
+        return value / (float)pathAnalysers.size();
+    };
+    
+    float getAvarageAcceleration( int historyOffset = 0 )
+    {
+        float   value   = 0.0f;
+        
+        for( std::vector<PathAnalyser*>::iterator it = pathAnalysers.begin(); it != pathAnalysers.end(); ++it )
+        {
+            if( (*it)->getAccelerations().size() > 0 )
+            {
+                value   += (*it)->getAccelerations()[ MAX( 0, (*it)->getAccelerations().size() - ( historyOffset + 1 ) ) ];
+            }
+        }
+        
+        return value / (float)pathAnalysers.size();
+    };
+    
+    float getAvarageVelocity( int historyOffset = 0 )
+    {
+        float   value   = 0.0f;
+        
+        for( std::vector<PathAnalyser*>::iterator it = pathAnalysers.begin(); it != pathAnalysers.end(); ++it )
+        {
+            if( (*it)->getVelocities().size() > 0 )
+            {
+                value   += (*it)->getVelocities()[ MAX( 0, (*it)->getVelocities().size() - ( historyOffset + 1 ) ) ];
+            }
+        }
+        
+        return value / (float)pathAnalysers.size();
+    };
+    
     Input * getInput()
     {
         return input;

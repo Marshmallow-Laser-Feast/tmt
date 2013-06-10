@@ -1,0 +1,11 @@
+<ofxMSAControlFreak version="1.000000000" bFullSchema="1">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Input Parameters" path="Input Parameters" tooltip="">
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Input" value="1" min="0" max="3" doClamp="1" inc="1" doSnap="0" path="Input Parameters.Input" tooltip="" selectedLabel="Flocking">
+            <label0>MultiTouch</label0>
+            <label1>Flocking</label1>
+            <label2>Camera</label2>
+        </Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Camera Threshold" value="0" min="0" max="255" doClamp="1" inc="1" doSnap="0" path="Input Parameters.Camera Threshold" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Min Blob Size" value="0.000000000" min="0.000000000" max="2000.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Input Parameters.Camera Min Blob Size" tooltip=""></Parameter>
+    </Parameter>
+</ofxMSAControlFreak>

@@ -24,14 +24,16 @@ public:
                     float   height,
                     int     columns,
                     int     rows,
-                    float   maxSpeed,
+                    float   maxSpeed_,
                     float   minForce,
                     float   maxForce,
                     float   attractorRadiusRatio  )
+    :maxSpeed( maxSpeed_ )
+    ,t( 0.0f )
+    
     {
         flock.setup( 0, width / 2, height / 2 );
         flock.setBounds( 0, 0, width, height );
-        flock.setMaxSpeed( maxSpeed );
         
         samples.resize( sampleCount );
         
@@ -70,6 +72,10 @@ public:
     
     virtual void update()
     {
+        t   += 2.0f;
+        
+        flock.setMaxSpeed( maxSpeed * ofNoise( t ) );
+        
         flock.update();
         
         int boidIndex   = 0;
@@ -92,6 +98,9 @@ public:
 private:
     
     Flock2d                         flock;
+    
+    float                           maxSpeed;
+    float                           t;
     
     std::vector<PointInputSampleT>  samples;
     

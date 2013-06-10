@@ -103,6 +103,11 @@ public:
         velocities.clear();
     }
     
+    const deque<ofPoint> & getSamples() const
+    {
+        return samples;
+    }
+    
     const deque<float> & getLengths() const
     {
         return lengths;
@@ -146,6 +151,11 @@ public:
     const float getAcceleration() const
     {
         return acceleration;
+    };
+    
+    const float getVelocity() const
+    {
+        return velocity;
     };
     
     void draw()

@@ -1,0 +1,6 @@
+<ofxMSAControlFreak version="1.000000000" bFullSchema="1">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters" path="Visualisation Parameters" tooltip="">
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Dot Trails" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Min Dot Trails" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Dot Trails" value="12" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Max Dot Trails" tooltip=""></Parameter>
+    </Parameter>
+</ofxMSAControlFreak>
