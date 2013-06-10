@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <map>
+
 #include "IVisualizer.h"
 
 #include "ofMain.h"
@@ -37,7 +39,9 @@ public:
     {
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
-        int lineCount   = MIN( inputAnalyser->getPathAnalysers().size() / 2, count );
+        int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
+        
+        std::map<int, int>  connectionMap;
         
         for( int i = 0; i < lineCount; ++i )
         {
@@ -52,12 +56,15 @@ public:
             {
                 float currentDistance   = currentPoint.distance( inputAnalyser->getPathAnalysers()[j]->getSamples().back() ) ;
                 
-                if( j != i && currentDistance < closestDistance )
+                if( j != i && connectionMap[i] != j && connectionMap[j] != i && currentDistance < closestDistance )
                 {
                     closestIndex        = j;
                     closestDistance     = currentDistance;
                 }
             }
+            
+            connectionMap[i]            = closestIndex;
+            connectionMap[closestIndex] = i;
             
             line.addVertex( offset + currentPoint * scale );
             line.addVertex( offset + inputAnalyser->getPathAnalysers()[closestIndex]->getSamples().back() * scale );

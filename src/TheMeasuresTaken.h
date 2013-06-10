@@ -2,8 +2,7 @@
 
 #include "ofMain.h"
 
-#include "ofMain.h"
-#include "ofxTimeline.h"
+#include "ofxMidi.h"
 
 #include "ofxEtherdream.h"
 #include "ofxIldaFrame.h"
@@ -46,7 +45,7 @@
 
 #define INPUT_WIDTH                             640
 #define INPUT_HEIGHT                            480
-#define INPUT_TIMEOUT_FRAMES                    60
+#define INPUT_TIMEOUT_FRAMES                    20
 #define INPUT_COUNT                             3
 
 #define MAX_PATH_ANALYSER_SAMPLES               60
@@ -82,26 +81,24 @@
 #define PARAM_NAME_CALIBRATION_X2               "X2"
 #define PARAM_NAME_CALIBRATION_Y2               "Y2"
 
-#define PARAM_NAME_VIS_DOT_TRAILS_MIN           "Min Dot Trails"
-#define PARAM_NAME_VIS_DOT_TRAILS_MAX           "Max Dot Trails"
+#define PARAM_NAME_DOT_VIS_RATIO                "Dots Ratio"
 
-#define PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MIN  "Min Connected Dots"
-#define PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MAX  "Max Connected Dots"
+#define PARAM_NAME_DOT_TRAILS_VIS_RATIO         "Dots Trails Ratio"
+#define PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT  "Dots Trails Count"
 
-#define PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MIN "Min Connected Dots Offset"
-#define PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MAX "Max Connected Dots Offset"
+#define PARAM_NAME_CONNECTED_DOT_VIS_COUNT      "Connected Dots Count"
+#define PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET   "Connected Neighbor Offset"
 
-#define PARAM_NAME_VIS_NEAREST_DOT_COUNT_MIN    "Min Nearest Dots"
-#define PARAM_NAME_VIS_NEAREST_DOT_COUNT_MAX    "Max Nearest Dots"
+#define PARAM_NAME_NEAREST_DOT_VIS_COUNT        "Nearest Dots Count"
 
-#define PARAM_NAME_VIS_LINE_COUNT_MIN           "Min Line Visualizer Count"
-#define PARAM_NAME_VIS_LINE_COUNT_MAX           "Max Line Visualizer Count"
+#define PARAM_NAME_LINE_VIS_COUNT               "Line Vis Count"
 
-#define PARAM_NAME_VIS_FIXED_POINT_COUNT_MIN    "Min Fixed Point Visualizer Count"
-#define PARAM_NAME_VIS_FIXED_POINT_COUNT_MAX    "Max Fixed Point Visualizer Count"
+#define PARAM_NAME_FIXED_POINT_VIS_COUNT        "Fixed Point Vis Count"
+#define PARAM_NAME_FIXED_POINT_FIX              "Fixed Point Vis FIX Bang"
+#define PARAM_NAME_FIXED_POINT_CLEAR            "Fixed Point Vis Clear Bang"
 
-#define PARAM_NAME_VIS_FIXED_POINT_OFFSET_MIN   "Min Fixed Point Visualizer Offset"
-#define PARAM_NAME_VIS_FIXED_POINT_OFFSET_MAX   "Max Fixed Point Visualizer Offset"
+#define PARAM_NAME_ILDA_DRAW_LINES              "Draw Lines"
+#define PARAM_NAME_ILDA_DRAW_POINTS             "Draw Points"
 
 #define PARAM_NAME_ILDA_FLIPX                   "Flip X"
 #define PARAM_NAME_ILDA_FLIPY                   "Flip Y"
@@ -109,12 +106,11 @@
 #define PARAM_NAME_ILDA_DOCAPX                  "Cap X"
 #define PARAM_NAME_ILDA_DOCAPY                  "Cap Y"
 
-#define PARAM_NAME_ILDA_MIN_POINT_COUNT         "Min Point Count"
-#define PARAM_NAME_ILDA_MAX_POINT_COUNT         "Max Point Count"
+#define PARAM_NAME_ILDA_POINT_COUNT             "Point Count"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
-#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <t>  Toggle Timeline  <i>  Toggle Input Visualization  <c>  Collapse Timeline"
+#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <l>  List Midi Ports"
 
 ////////////////////////////
 //     Visualization      //
@@ -125,34 +121,7 @@
 
 #define VISUALIZER_COUNT                        7
 
-////////////////////////////
-//  Narrative & Timeline  //
-////////////////////////////
-
-#define TIMELINE_DURATION_IN_SECONDS            15 * 60
-
-#define CURVE_ILDA_COLOR                        "Laser Color"
-
-#define CURVE_ILDA_POINT_COUNT                  "ILDA Point Count"
-#define CURVE_ILDA_DRAW_LINES                   "ILDA Draw Lines"
-#define CURVE_ILDA_DRAW_POINTS                  "ILDA Draw Points"
-
-#define CURVE_DOTVISUALIZER_DOT_RATIO           "Dot Visualizer Ratio"
-
-#define CURVE_DOTTRAILSVISUALIZER_DOT_RATIO     "Dot Trails Visualizer Ratio"
-#define CURVE_DOTTRAILSVISUALIZER_TRAILS_COUNT  "Dot Trails Visualizer Count"
-
-#define CURVE_NEARESTDOTVISUALIZER_COUNT        "Nearst Dots Visualizer Count"
-
-#define CURVE_CONNECTEDVISUALIZER_COUNT         "Connected Dots Count"
-#define CURVE_CONNECTEDVISUALIZER_OFFSET        "Connected Dots Offset"
-
-#define CURVE_LINEVISUALIZER_COUNT              "Line Visualizer Count"
-
-#define CURVE_FIXEDPOINTVISALIZER_COUNT         "Fixed Point Visualizer Count"
-#define CURVE_FIXEDPOINTVISALIZER_OFFSET        "Fixed Point Visualizer Offset"
-
-class TheMeasuresTaken : public ofBaseApp
+class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
 
 public:
@@ -170,6 +139,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    void newMidiMessage(ofxMidiMessage& eventArgs);
     
 private:
     
@@ -205,7 +175,8 @@ private:
     
     // Timeline
     
-    ofxTimeline                         timeline;
+    ofxMidiIn                           midiIn;
+	ofxMidiMessage                      midiMessage;
     
     // Visualisation
     
