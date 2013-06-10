@@ -37,16 +37,39 @@ void TheMeasuresTaken::setup()
     // Setup Gui & Params
     
     inputParams.setName("Input Parameters");
+    cameraParams.setName( "Camera Parameters" );
     visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
+    ildaParams.setName( "ILDA Parameters" );
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
     
-    inputParams.addInt( PARAM_NAME_CAMERA_THRESHOLD ).setRange( 0, 255 ).setClamp( true );
-    inputParams.addFloat( PARAM_NAME_CAMERA_MIN_BLOB_SIZE ).setRange( 0, 2000.0f ).setClamp( true );
+    cameraParams.addInt( PARAM_NAME_CAMERA_THRESHOLD ).setRange( 0, 255 ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_MIN_BLOB_SIZE ).setRange( 0, 2000.0f ).setClamp( true );
+    cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
+    cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     
     visualizationParams.addInt( PARAM_NAME_VIS_DOT_TRAILS_MIN );
     visualizationParams.addInt( PARAM_NAME_VIS_DOT_TRAILS_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_NEAREST_DOT_COUNT_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_NEAREST_DOT_COUNT_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_LINE_COUNT_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_LINE_COUNT_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_FIXED_POINT_COUNT_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_FIXED_POINT_COUNT_MAX );
+    
+    visualizationParams.addInt( PARAM_NAME_VIS_FIXED_POINT_OFFSET_MIN );
+    visualizationParams.addInt( PARAM_NAME_VIS_FIXED_POINT_OFFSET_MAX );
     
     outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
     
@@ -55,15 +78,30 @@ void TheMeasuresTaken::setup()
     outputParams.addFloat( PARAM_NAME_CALIBRATION_X2 ).setRange( 0.0f, 1.0f ).setClamp( true );
     outputParams.addFloat( PARAM_NAME_CALIBRATION_Y2 ).setRange( 0.0f, 1.0f ).setClamp( true );
     
+    ildaParams.addBool( PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY );
+    
+    ildaParams.addBool( PARAM_NAME_ILDA_FLIPX );
+    ildaParams.addBool( PARAM_NAME_ILDA_FLIPY );
+    
+    ildaParams.addBool( PARAM_NAME_ILDA_DOCAPX );
+    ildaParams.addBool( PARAM_NAME_ILDA_DOCAPY );
+    
+    ildaParams.addFloat( PARAM_NAME_ILDA_MIN_POINT_COUNT ).setRange( 0.0f, 1.0f ).setClamp( true );
+    ildaParams.addFloat( PARAM_NAME_ILDA_MAX_POINT_COUNT ).setRange( 0.0f, 1.0f ).setClamp( true );
+    
     gui.addPage(inputParams);
+    gui.addPage( cameraParams );
     gui.addPage(visualizationParams);
     gui.addPage(outputParams);
+    gui.addPage(ildaParams);
     
     gui.toggleDraw();
     
     inputParams.loadXmlSchema();
+    cameraParams.loadXmlSchema();
     visualizationParams.loadXmlSchema();
     outputParams.loadXmlSchema();
+    ildaParams.loadXmlSchema();
     
     // Timeline
     
@@ -73,9 +111,25 @@ void TheMeasuresTaken::setup()
     timeline.setLoopType( OF_LOOP_NONE );
     timeline.setAutosave( false );
     
+    timeline.addColors( CURVE_ILDA_COLOR );
+    timeline.addCurves( CURVE_ILDA_POINT_COUNT );
+    timeline.addSwitches( CURVE_ILDA_DRAW_LINES );
+    timeline.addSwitches( CURVE_ILDA_DRAW_POINTS );
+    
     timeline.addCurves( CURVE_DOTVISUALIZER_DOT_RATIO, ofRange(0, 1.0f) );
+    
     timeline.addCurves( CURVE_DOTTRAILSVISUALIZER_DOT_RATIO, ofRange(0, 1.0f) );
     timeline.addCurves( CURVE_DOTTRAILSVISUALIZER_TRAILS_COUNT, ofRange(0, 1.0f) );
+    
+    timeline.addCurves( CURVE_CONNECTEDVISUALIZER_COUNT, ofRange(0, 1.0f) );
+    timeline.addCurves( CURVE_CONNECTEDVISUALIZER_OFFSET, ofRange(0, 1.0f) );
+    
+    timeline.addCurves( CURVE_NEARESTDOTVISUALIZER_COUNT, ofRange(0, 1.0f) );
+    
+    timeline.addCurves( CURVE_LINEVISUALIZER_COUNT, ofRange(0, 1.0f) );
+    
+    timeline.addCurves( CURVE_FIXEDPOINTVISALIZER_COUNT, ofRange(0, 1.0f) );
+    timeline.addCurves( CURVE_FIXEDPOINTVISALIZER_OFFSET, ofRange(0, 1.0f) );
     
     timeline.setOffset( ofVec2f( 0.0f, ofGetWindowHeight() - timeline.getHeight() ) );
         
@@ -83,13 +137,26 @@ void TheMeasuresTaken::setup()
     
     // Visualisation
     
-    dotVisualizer       = new DotVisualizer();
-    dotTrailsVisualizer = new DotTrailsVisualizer();
+    dotVisualizer           = new DotVisualizer();
+    dotTrailsVisualizer     = new DotTrailsVisualizer();
+    connectedDotVisualizer  = new ConnectedDotsVisualizer();
+    nearestDotsVisualizer   = new NearestDotsVisualizer();
+    lineVisualizer          = new LineVisualizer();
+    fixedPointVisualizer    = new FixedPointVisualizer();
     
-    visualizers[0]      = dotVisualizer;
-    visualizers[1]      = dotTrailsVisualizer;
+    visualizers[0]          = dotVisualizer;
+    visualizers[1]          = dotTrailsVisualizer;
+    visualizers[2]          = connectedDotVisualizer;
+    visualizers[3]          = nearestDotsVisualizer;
+    visualizers[4]          = lineVisualizer;
+    visualizers[5]          = fixedPointVisualizer;
     
-    visualizeInput      = false;
+    visualizeInput          = false;
+    
+    // Ilda
+    
+    etherdream.setup();
+    etherdream.setPPS(30000);
 }
 
 //--------------------------------------------------------------
@@ -103,10 +170,15 @@ void TheMeasuresTaken::update()
     
     currentInputAnalyser    = inputAnalysers[ inputParams[ PARAM_NAME_CURRENT_INPUT ] ];
     
-    // Update camera input parameters
+    // Update camera settings
     
-    cameraInput->setThreshold( inputParams[ PARAM_NAME_CAMERA_THRESHOLD ] );
-    cameraInput->setMinBlobArea( inputParams[ PARAM_NAME_CAMERA_MIN_BLOB_SIZE ] );
+    cameraInput->setThreshold( cameraParams[ PARAM_NAME_CAMERA_THRESHOLD ] );
+    cameraInput->setMinBlobArea( cameraParams[ PARAM_NAME_CAMERA_MIN_BLOB_SIZE ] );
+    
+    if( currentInputAnalyser != cameraInputAnalyser && ( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_COLOR ] || (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] ) )
+    {
+        cameraInput->update();
+    }
     
     // Calculate projection offset and scale
     
@@ -135,7 +207,17 @@ void TheMeasuresTaken::update()
     
     dotTrailsVisualizer->setRenderRatio( timeline.getValue( CURVE_DOTTRAILSVISUALIZER_DOT_RATIO ) );
     dotTrailsVisualizer->setTrailCount( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_DOT_TRAILS_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_DOT_TRAILS_MAX ], timeline.getValue( CURVE_DOTTRAILSVISUALIZER_TRAILS_COUNT ) ) );
-        
+    
+    connectedDotVisualizer->setCount( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MAX ], timeline.getValue( CURVE_CONNECTEDVISUALIZER_COUNT ) ) );
+    connectedDotVisualizer->setNeighborsOffset( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MAX ], timeline.getValue( CURVE_CONNECTEDVISUALIZER_OFFSET ) ) );
+    
+    nearestDotsVisualizer->setCount( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_NEAREST_DOT_COUNT_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_NEAREST_DOT_COUNT_MAX ], timeline.getValue( CURVE_NEARESTDOTVISUALIZER_COUNT ) ) );
+    
+    lineVisualizer->setCount( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_LINE_COUNT_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_LINE_COUNT_MAX ], timeline.getValue( CURVE_LINEVISUALIZER_COUNT ) ) );
+    
+    fixedPointVisualizer->setCount( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_FIXED_POINT_COUNT_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_FIXED_POINT_COUNT_MAX ], timeline.getValue( CURVE_FIXEDPOINTVISALIZER_COUNT ) ) );
+    fixedPointVisualizer->setFixedPointOffset( ofLerp( (float)visualizationParams[ PARAM_NAME_VIS_FIXED_POINT_OFFSET_MIN ], (float)visualizationParams[ PARAM_NAME_VIS_FIXED_POINT_OFFSET_MAX ], timeline.getValue( CURVE_FIXEDPOINTVISALIZER_OFFSET ) ) );
+    
     // Collect data from all visualizers
     
     visualizationData.clear();
@@ -146,6 +228,33 @@ void TheMeasuresTaken::update()
         
         visualizationData.insert( visualizationData.end(), visualizedLines->begin(), visualizedLines->end() );
     }
+    
+    // Ilda
+    
+    ildaFrame.clear();
+    
+    if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
+    {
+        ildaFrame.drawCalibration();
+    } else {
+        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
+        {
+            ildaFrame.addPoly( *it );
+        }
+    }
+    
+    ildaFrame.params.output.color.set( timeline.getColor( CURVE_ILDA_COLOR ) );
+    
+    ildaFrame.params.output.transform.doFlipX       = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
+    ildaFrame.params.output.transform.doFlipY       = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPY ];
+    
+    ildaFrame.params.output.doCapX                  = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPX ];
+    ildaFrame.params.output.doCapY                  = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPY ];
+    
+    ildaFrame.params.draw.lines                     = timeline.isSwitchOn( CURVE_ILDA_DRAW_LINES );
+    ildaFrame.params.draw.points                    = timeline.isSwitchOn( CURVE_ILDA_DRAW_POINTS );
+    
+    ildaFrame.polyProcessor.params.targetPointCount = ofLerp( (float)ildaParams[ PARAM_NAME_ILDA_MIN_POINT_COUNT ], (float)ildaParams[ PARAM_NAME_ILDA_MAX_POINT_COUNT ], timeline.getValue( CURVE_ILDA_POINT_COUNT ) );
 }
 
 //--------------------------------------------------------------
@@ -174,6 +283,34 @@ void TheMeasuresTaken::draw()
     ofPopMatrix();
     
     timeline.draw();
+    
+    float verticalOffset    = 0.0f;
+    float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
+    
+    ofPushMatrix();
+    
+    if( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_COLOR ] )
+    {
+        ofTranslate( ofGetWidth() - INPUT_WIDTH * scale , 0.0f );
+        ofScale( scale, scale );
+        cameraInput->drawColor();
+        
+        verticalOffset      = INPUT_HEIGHT * scale;
+    }
+    
+    ofPopMatrix();
+    
+    ofPushMatrix();
+    
+    if( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] )
+    {
+        ofTranslate( ofGetWidth() - INPUT_WIDTH * scale, verticalOffset );
+        ofScale( scale, scale );
+        
+        cameraInput->drawThreshold();
+    }
+    
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -187,8 +324,10 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 's' )
     {
         inputParams.saveXmlSchema();
+        cameraParams.saveXmlSchema();
         visualizationParams.saveXmlSchema();
         outputParams.saveXmlSchema();
+        ildaParams.saveXmlSchema();
         
         timeline.save();
     }

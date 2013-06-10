@@ -11,6 +11,11 @@
 		419F1136176149E600BF91D6 /* TheMeasuresTaken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* TheMeasuresTaken.cpp */; };
 		419F114D176151B200BF91D6 /* Boid2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F1147176151B200BF91D6 /* Boid2d.cpp */; };
 		419F114E176151B200BF91D6 /* Boid3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 419F1149176151B200BF91D6 /* Boid3d.cpp */; };
+		41E52EBA1765EF3300B8EF2E /* etherdream.c in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB01765EF3300B8EF2E /* etherdream.c */; };
+		41E52EBB1765EF3300B8EF2E /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB21765EF3300B8EF2E /* Makefile */; };
+		41E52EBC1765EF3300B8EF2E /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB31765EF3300B8EF2E /* test.c */; };
+		41E52EBD1765EF3300B8EF2E /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB41765EF3300B8EF2E /* Makefile */; };
+		41E52EBE1765EF3300B8EF2E /* ofxEtherdream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB81765EF3300B8EF2E /* ofxEtherdream.cpp */; };
 		41ECF23317658BD200361DDB /* Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41ECF23117658BD200361DDB /* Rope.cpp */; };
 		41ECF24717658CA100361DDB /* MSAObjCPointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41ECF24317658CA100361DDB /* MSAObjCPointer.cpp */; };
 		41ECF250176592C300361DDB /* MSAVideoInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41ECF24E176592C300361DDB /* MSAVideoInput.cpp */; };
@@ -232,6 +237,33 @@
 		41BC2BDE176475B500628D8F /* InputAnalyser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputAnalyser.h; sourceTree = "<group>"; };
 		41DB8FF91765C253003A0485 /* DotVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotVisualizer.h; sourceTree = "<group>"; };
 		41E52E6F1765DCB300B8EF2E /* DotTrailsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotTrailsVisualizer.h; sourceTree = "<group>"; };
+		41E52E711765E67E00B8EF2E /* ConnectedDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectedDotsVisualizer.h; sourceTree = "<group>"; };
+		41E52E731765EECA00B8EF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		41E52E741765EECA00B8EF2E /* license.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.md; sourceTree = "<group>"; };
+		41E52E941765EECB00B8EF2E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		41E52E961765EECB00B8EF2E /* ofxIldaFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIldaFrame.h; sourceTree = "<group>"; };
+		41E52E971765EECB00B8EF2E /* ofxIldaPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIldaPoint.h; sourceTree = "<group>"; };
+		41E52E981765EECB00B8EF2E /* ofxIldaPoly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIldaPoly.h; sourceTree = "<group>"; };
+		41E52E991765EECB00B8EF2E /* ofxIldaPolyProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIldaPolyProcessor.h; sourceTree = "<group>"; };
+		41E52E9A1765EECB00B8EF2E /* ofxIldaRenderTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIldaRenderTarget.h; sourceTree = "<group>"; };
+		41E52EA61765EF3300B8EF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		41E52EA91765EF3300B8EF2E /* fatfs_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fatfs_readme.txt; sourceTree = "<group>"; };
+		41E52EAA1765EF3300B8EF2E /* openocd.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openocd.cfg; sourceTree = "<group>"; };
+		41E52EAB1765EF3300B8EF2E /* protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
+		41E52EAD1765EF3300B8EF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		41E52EAF1765EF3300B8EF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		41E52EB01765EF3300B8EF2E /* etherdream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = etherdream.c; sourceTree = "<group>"; };
+		41E52EB11765EF3300B8EF2E /* etherdream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = etherdream.h; sourceTree = "<group>"; };
+		41E52EB21765EF3300B8EF2E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		41E52EB31765EF3300B8EF2E /* test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
+		41E52EB41765EF3300B8EF2E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		41E52EB51765EF3300B8EF2E /* license.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.md; sourceTree = "<group>"; };
+		41E52EB61765EF3300B8EF2E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		41E52EB81765EF3300B8EF2E /* ofxEtherdream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEtherdream.cpp; sourceTree = "<group>"; };
+		41E52EB91765EF3300B8EF2E /* ofxEtherdream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEtherdream.h; sourceTree = "<group>"; };
+		41E52EBF1765FBA000B8EF2E /* NearestDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearestDotsVisualizer.h; sourceTree = "<group>"; };
+		41E52EC01765FF3C00B8EF2E /* LineVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineVisualizer.h; sourceTree = "<group>"; };
+		41E52EC11766112400B8EF2E /* FixedPointVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FixedPointVisualizer.h; sourceTree = "<group>"; };
 		41ECF21F17658B7600361DDB /* MSAPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics.h; sourceTree = "<group>"; };
 		41ECF22017658B7600361DDB /* MSAPhysics2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics2D.h; sourceTree = "<group>"; };
 		41ECF22117658B7600361DDB /* MSAPhysics3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysics3D.h; sourceTree = "<group>"; };
@@ -983,6 +1015,93 @@
 			name = Libs;
 			sourceTree = "<group>";
 		};
+		41E52E721765EECA00B8EF2E /* ofxIlda */ = {
+			isa = PBXGroup;
+			children = (
+				41E52E731765EECA00B8EF2E /* .gitignore */,
+				41E52E741765EECA00B8EF2E /* license.md */,
+				41E52E941765EECB00B8EF2E /* README.md */,
+				41E52E951765EECB00B8EF2E /* src */,
+			);
+			name = ofxIlda;
+			path = ../../../addons/ofxIlda;
+			sourceTree = "<group>";
+		};
+		41E52E951765EECB00B8EF2E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				41E52E961765EECB00B8EF2E /* ofxIldaFrame.h */,
+				41E52E971765EECB00B8EF2E /* ofxIldaPoint.h */,
+				41E52E981765EECB00B8EF2E /* ofxIldaPoly.h */,
+				41E52E991765EECB00B8EF2E /* ofxIldaPolyProcessor.h */,
+				41E52E9A1765EECB00B8EF2E /* ofxIldaRenderTarget.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		41E52EA51765EF3300B8EF2E /* ofxEtherdream */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EA61765EF3300B8EF2E /* .gitignore */,
+				41E52EA71765EF3300B8EF2E /* libs */,
+				41E52EB51765EF3300B8EF2E /* license.md */,
+				41E52EB61765EF3300B8EF2E /* README.md */,
+				41E52EB71765EF3300B8EF2E /* src */,
+			);
+			name = ofxEtherdream;
+			path = ../../../addons/ofxEtherdream;
+			sourceTree = "<group>";
+		};
+		41E52EA71765EF3300B8EF2E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EA81765EF3300B8EF2E /* common */,
+				41E52EAC1765EF3300B8EF2E /* driver */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		41E52EA81765EF3300B8EF2E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EA91765EF3300B8EF2E /* fatfs_readme.txt */,
+				41E52EAA1765EF3300B8EF2E /* openocd.cfg */,
+				41E52EAB1765EF3300B8EF2E /* protocol.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		41E52EAC1765EF3300B8EF2E /* driver */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EAD1765EF3300B8EF2E /* .gitignore */,
+				41E52EAE1765EF3300B8EF2E /* libetherdream */,
+				41E52EB41765EF3300B8EF2E /* Makefile */,
+			);
+			path = driver;
+			sourceTree = "<group>";
+		};
+		41E52EAE1765EF3300B8EF2E /* libetherdream */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EAF1765EF3300B8EF2E /* .gitignore */,
+				41E52EB01765EF3300B8EF2E /* etherdream.c */,
+				41E52EB11765EF3300B8EF2E /* etherdream.h */,
+				41E52EB21765EF3300B8EF2E /* Makefile */,
+				41E52EB31765EF3300B8EF2E /* test.c */,
+			);
+			path = libetherdream;
+			sourceTree = "<group>";
+		};
+		41E52EB71765EF3300B8EF2E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				41E52EB81765EF3300B8EF2E /* ofxEtherdream.cpp */,
+				41E52EB91765EF3300B8EF2E /* ofxEtherdream.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		41ECF21317658B7500361DDB /* ofxMSAPhysics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1019,6 +1138,10 @@
 				41ECF24A1765917200361DDB /* IVisualizer.h */,
 				41DB8FF91765C253003A0485 /* DotVisualizer.h */,
 				41E52E6F1765DCB300B8EF2E /* DotTrailsVisualizer.h */,
+				41E52E711765E67E00B8EF2E /* ConnectedDotsVisualizer.h */,
+				41E52EBF1765FBA000B8EF2E /* NearestDotsVisualizer.h */,
+				41E52EC01765FF3C00B8EF2E /* LineVisualizer.h */,
+				41E52EC11766112400B8EF2E /* FixedPointVisualizer.h */,
 			);
 			name = Visualisation;
 			sourceTree = "<group>";
@@ -1926,6 +2049,8 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				41E52EA51765EF3300B8EF2E /* ofxEtherdream */,
+				41E52E721765EECA00B8EF2E /* ofxIlda */,
 				419F1142176151B200BF91D6 /* ofxBoids */,
 				41ECF251176592F000361DDB /* ofxLibdc */,
 				41F156CB1762109E004DD184 /* ofxMSAControlFreak */,
@@ -2338,6 +2463,11 @@
 				41ECF4B917659BCD00361DDB /* BlobOperators.cpp in Sources */,
 				41ECF4BB17659BCD00361DDB /* BlobResult.cpp in Sources */,
 				41ECF4BC17659BCD00361DDB /* ComponentLabeling.cpp in Sources */,
+				41E52EBA1765EF3300B8EF2E /* etherdream.c in Sources */,
+				41E52EBB1765EF3300B8EF2E /* Makefile in Sources */,
+				41E52EBC1765EF3300B8EF2E /* test.c in Sources */,
+				41E52EBD1765EF3300B8EF2E /* Makefile in Sources */,
+				41E52EBE1765EF3300B8EF2E /* ofxEtherdream.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

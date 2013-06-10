@@ -5,6 +5,9 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 
+#include "ofxEtherdream.h"
+#include "ofxIldaFrame.h"
+
 #include "ofxMSAControlFreak/src/ofxMSAControlFreak.h"
 #include "ofxMSAControlFreakGui/src/ofxMSAControlFreakGui.h"
 
@@ -18,6 +21,10 @@
 #include "IVisualizer.h"
 #include "DotVisualizer.h"
 #include "DotTrailsVisualizer.h"
+#include "ConnectedDotsVisualizer.h"
+#include "NearestDotsVisualizer.h"
+#include "LineVisualizer.h"
+#include "FixedPointVisualizer.h"
 
 ////////////////////////////
 //      APP SETTINGS      //
@@ -47,7 +54,7 @@
 
 // Flocking input settings
 
-#define FLOCKING_SAMPLE_COUT                    10
+#define FLOCKING_SAMPLE_COUT                    20
 #define FLOCKING_MAX_SPEED                      20.0
 #define FLOCKING_COLUMNS                        20
 #define FLOCKING_ROWS                           20
@@ -63,6 +70,9 @@
 
 #define PARAM_NAME_CAMERA_THRESHOLD             "Camera Threshold"
 #define PARAM_NAME_CAMERA_MIN_BLOB_SIZE         "Camera Min Blob Size"
+#define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
+#define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
+#define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
 
@@ -74,6 +84,35 @@
 #define PARAM_NAME_VIS_DOT_TRAILS_MIN           "Min Dot Trails"
 #define PARAM_NAME_VIS_DOT_TRAILS_MAX           "Max Dot Trails"
 
+#define PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MIN  "Min Connected Dots"
+#define PARAM_NAME_VIS_CONNECTED_DOT_COUNT_MAX  "Max Connected Dots"
+
+#define PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MIN "Min Connected Dots Offset"
+#define PARAM_NAME_VIS_CONNECTED_DOT_OFFSET_MAX "Max Connected Dots Offset"
+
+#define PARAM_NAME_VIS_NEAREST_DOT_COUNT_MIN    "Min Nearest Dots"
+#define PARAM_NAME_VIS_NEAREST_DOT_COUNT_MAX    "Max Nearest Dots"
+
+#define PARAM_NAME_VIS_LINE_COUNT_MIN           "Min Line Visualizer Count"
+#define PARAM_NAME_VIS_LINE_COUNT_MAX           "Max Line Visualizer Count"
+
+#define PARAM_NAME_VIS_FIXED_POINT_COUNT_MIN    "Min Fixed Point Visualizer Count"
+#define PARAM_NAME_VIS_FIXED_POINT_COUNT_MAX    "Max Fixed Point Visualizer Count"
+
+#define PARAM_NAME_VIS_FIXED_POINT_OFFSET_MIN   "Min Fixed Point Visualizer Offset"
+#define PARAM_NAME_VIS_FIXED_POINT_OFFSET_MAX   "Max Fixed Point Visualizer Offset"
+
+#define PARAM_NAME_ILDA_FLIPX                   "Flip X"
+#define PARAM_NAME_ILDA_FLIPY                   "Flip Y"
+
+#define PARAM_NAME_ILDA_DOCAPX                  "Cap X"
+#define PARAM_NAME_ILDA_DOCAPY                  "Cap Y"
+
+#define PARAM_NAME_ILDA_MIN_POINT_COUNT         "Min Point Count"
+#define PARAM_NAME_ILDA_MAX_POINT_COUNT         "Max Point Count"
+
+#define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
+
 #define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <t>  Toggle Timeline  <i>  Toggle Input Visualization"
 
 ////////////////////////////
@@ -83,7 +122,7 @@
 #define SCREEN_VIS_AREA_WIDTH                   1080
 #define SCREEN_VIS_AREA_HEIGHT                  600
 
-#define VISUALIZER_COUNT                        2
+#define VISUALIZER_COUNT                        6
 
 ////////////////////////////
 //  Narrative & Timeline  //
@@ -91,9 +130,26 @@
 
 #define TIMELINE_DURATION_IN_SECONDS            15 * 60
 
+#define CURVE_ILDA_COLOR                        "Laser Color"
+
+#define CURVE_ILDA_POINT_COUNT                  "ILDA Point Count"
+#define CURVE_ILDA_DRAW_LINES                   "ILDA Draw Lines"
+#define CURVE_ILDA_DRAW_POINTS                  "ILDA Draw Points"
+
 #define CURVE_DOTVISUALIZER_DOT_RATIO           "Dot Visualizer Ratio"
+
 #define CURVE_DOTTRAILSVISUALIZER_DOT_RATIO     "Dot Trails Visualizer Ratio"
 #define CURVE_DOTTRAILSVISUALIZER_TRAILS_COUNT  "Dot Trails Visualizer Count"
+
+#define CURVE_NEARESTDOTVISUALIZER_COUNT        "Nearst Dots Visualizer Count"
+
+#define CURVE_CONNECTEDVISUALIZER_COUNT         "Connected Dots Count"
+#define CURVE_CONNECTEDVISUALIZER_OFFSET        "Connected Dots Offset"
+
+#define CURVE_LINEVISUALIZER_COUNT              "Line Visualizer Count"
+
+#define CURVE_FIXEDPOINTVISALIZER_COUNT         "Fixed Point Visualizer Count"
+#define CURVE_FIXEDPOINTVISALIZER_OFFSET        "Fixed Point Visualizer Offset"
 
 class TheMeasuresTaken : public ofBaseApp
 {
@@ -139,8 +195,10 @@ private:
     // Gui & Params
     
     msa::controlfreak::ParameterGroup   inputParams;
+    msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   visualizationParams;
     msa::controlfreak::ParameterGroup   outputParams;
+    msa::controlfreak::ParameterGroup   ildaParams;
     
     msa::controlfreak::gui::Gui         gui;
     
@@ -157,8 +215,17 @@ private:
     
     DotVisualizer                       *dotVisualizer;
     DotTrailsVisualizer                 *dotTrailsVisualizer;
+    ConnectedDotsVisualizer             *connectedDotVisualizer;
+    NearestDotsVisualizer               *nearestDotsVisualizer;
+    LineVisualizer                      *lineVisualizer;
+    FixedPointVisualizer                *fixedPointVisualizer;
     
     std::vector<ofPolyline>             visualizationData;
     
     bool                                visualizeInput;
+    
+    // Ilda
+    
+    ofxIlda::Frame                      ildaFrame;
+    ofxEtherdream                       etherdream;
 };

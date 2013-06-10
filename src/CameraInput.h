@@ -89,10 +89,15 @@ public:
         }
     };
     
-    void draw()
+    void drawColor()
+    {
+        cvColorImage.draw(0, 0);
+    };
+    
+    void drawThreshold()
     {
         cvGrayscaleImage.draw(0, 0);
-    }
+    };
     
     virtual const vector<PointInputSampleT> & getSamples() const
     {
