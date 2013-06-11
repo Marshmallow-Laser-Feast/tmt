@@ -69,7 +69,6 @@
 		41F1576C17621D92004DD184 /* Panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F1575B17621D92004DD184 /* Panel.cpp */; };
 		41F1576D17621D92004DD184 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F1575E17621D92004DD184 /* Renderer.cpp */; };
 		41F1577D17621DBE004DD184 /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F1577917621DBE004DD184 /* ofxMSAInteractiveObject.cpp */; };
-		41F15999176222B9004DD184 /* ofxTextInputField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41F157A8176222B3004DD184 /* ofxTextInputField.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -364,10 +363,6 @@
 		41F1577717621DBE004DD184 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		41F1577917621DBE004DD184 /* ofxMSAInteractiveObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSAInteractiveObject.cpp; sourceTree = "<group>"; };
 		41F1577A17621DBE004DD184 /* ofxMSAInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAInteractiveObject.h; sourceTree = "<group>"; };
-		41F1579B176222B3004DD184 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		41F157A6176222B3004DD184 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		41F157A8176222B3004DD184 /* ofxTextInputField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTextInputField.cpp; sourceTree = "<group>"; };
-		41F157A9176222B3004DD184 /* ofxTextInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTextInputField.h; sourceTree = "<group>"; };
 		41F33AE8175EA57200405014 /* Input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		41F33AE9175EA8EF00405014 /* FlockingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlockingInput.h; sourceTree = "<group>"; };
 		452417865e4bfb10c9cbf8a2e12a0b57 /* internal.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = internal.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/internal.hpp; sourceTree = SOURCE_ROOT; };
@@ -1278,26 +1273,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		41F1579A176222B3004DD184 /* ofxTextInputField */ = {
-			isa = PBXGroup;
-			children = (
-				41F1579B176222B3004DD184 /* .gitignore */,
-				41F157A6176222B3004DD184 /* README */,
-				41F157A7176222B3004DD184 /* src */,
-			);
-			name = ofxTextInputField;
-			path = ../../../addons/ofxTextInputField;
-			sourceTree = "<group>";
-		};
-		41F157A7176222B3004DD184 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				41F157A8176222B3004DD184 /* ofxTextInputField.cpp */,
-				41F157A9176222B3004DD184 /* ofxTextInputField.h */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
 		428eb732fd42504f37bca78a611f4f2f /* calib3d */ = {
 			isa = PBXGroup;
 			children = (
@@ -1380,7 +1355,6 @@
 				41ECF21317658B7500361DDB /* ofxMSAPhysics */,
 				419F10E71761446400BF91D6 /* ofxMultiTouchPad */,
 				a0b90d3b0adb9c1716816714bf7f212b /* ofxOpenCv */,
-				41F1579A176222B3004DD184 /* ofxTextInputField */,
 				41F1572117621D2F004DD184 /* ofxXmlSettings */,
 			);
 			name = addons;
@@ -1697,7 +1671,6 @@
 				41F1576C17621D92004DD184 /* Panel.cpp in Sources */,
 				41F1576D17621D92004DD184 /* Renderer.cpp in Sources */,
 				41F1577D17621DBE004DD184 /* ofxMSAInteractiveObject.cpp in Sources */,
-				41F15999176222B9004DD184 /* ofxTextInputField.cpp in Sources */,
 				41ECF23317658BD200361DDB /* Rope.cpp in Sources */,
 				41ECF24717658CA100361DDB /* MSAObjCPointer.cpp in Sources */,
 				41ECF286176592F000361DDB /* Camera.cpp in Sources */,
