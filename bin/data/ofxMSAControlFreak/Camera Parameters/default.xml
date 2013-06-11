@@ -1,22 +1,22 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Camera Parameters">
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X1" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y1" value="0.375000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y1" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X2" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y2" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Camera Flip X" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Camera Flip Y" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Camera Flip X" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Camera Flip Y" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Color Input" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw ROI" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Contours" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Contour Source" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Contour Source" value="2"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc brightness" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc gamma" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc shutter" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc gain" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="2666"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="100"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
