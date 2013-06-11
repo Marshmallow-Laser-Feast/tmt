@@ -192,7 +192,7 @@ void TheMeasuresTaken::setup()
         ofDirectory dir;
         dir.listDir("inputVideo");
         if(dir.size() > 0) {
-            videoPlayer.loadMovie(dir.getPath(0));
+            videoPlayer.loadMovie(dir.getPath(dir.size() - 1));
             videoPlayer.setLoopState(OF_LOOP_NORMAL);
             cameraParams[PARAM_NAME_VIDEO_FRAME].setRange(0, videoPlayer.getTotalNumFrames());
         }
