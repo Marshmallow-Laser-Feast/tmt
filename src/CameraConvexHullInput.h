@@ -32,8 +32,9 @@ public:
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
         params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
-        params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 100);
+        params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
+        params.addInt(PARAM_NAME_RESAMPLE_COUNT).setClamp(true).setRange(0, 1000);
     };
     
     ~CameraConvexHullInput()
@@ -55,6 +56,7 @@ public:
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
             float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
             float smoothing = params[PARAM_NAME_SMOOTHING];
+            int resampleCount = params[PARAM_NAME_RESAMPLE_COUNT];
             
             samples.clear();
             
@@ -95,7 +97,8 @@ public:
                 
                 line.close();
                 
-                line.simplify( simplify );
+                if(resampleCount) line = line.getResampledByCount(resampleCount);
+                if(simplify > 0) line.simplify( simplify );
                 
                 for( int j = 0; j < line.getVertices().size(); ++j )
                 {
