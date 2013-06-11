@@ -214,7 +214,7 @@ private:
     FixedPointVisualizer                *fixedPointVisualizer;
     QualitiesVisualizer                 *qualitiesVisualizer;
     
-    std::vector<ofPolyline>             visualizationData;
+//    std::vector<ofPolyline>             visualizationData;
     
     bool                                visualizeInput;
     

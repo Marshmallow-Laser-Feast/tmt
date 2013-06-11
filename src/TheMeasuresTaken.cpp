@@ -262,14 +262,14 @@ void TheMeasuresTaken::update()
     
     // Collect data from all visualizers
     
-    visualizationData.clear();
+//    visualizationData.clear();
     
-    for( int i = 0; i < VISUALIZER_COUNT; ++i )
-    {
-        PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
-        
-        visualizationData.insert( visualizationData.end(), visualizedLines->begin(), visualizedLines->end() );
-    }
+//    for( int i = 0; i < VISUALIZER_COUNT; ++i )
+//    {
+//        PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+    
+//        visualizationData.insert( visualizationData.end(), visualizedLines->begin(), visualizedLines->end() );
+//    }
     
     // Ilda
     
@@ -306,10 +306,13 @@ void TheMeasuresTaken::update()
     {
         ildaFrame.drawCalibration();
     } else {
-        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
-        {
-            ildaFrame.addPoly( *it );
+        for( int i = 0; i < VISUALIZER_COUNT; ++i )       {
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+            ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
         }
+//        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
+//        {
+//        }
     }
     
     ildaFrame.update();
@@ -413,7 +416,6 @@ void TheMeasuresTaken::keyPressed(int key)
         visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
-//        qualitiesVisualizer->();
         for(int i=0; i<VISUALIZER_COUNT; i++) {
             visualizers[i]->params.saveXmlValues();
         }

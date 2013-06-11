@@ -24,11 +24,16 @@ public:
     
     IVisualizer()
     {
-        params.addFloat("color");
+        params.addFloat("brightness").setClamp(true);
     };
     
     virtual ~IVisualizer()
     {};
+    
+    
+    float getBrightness() const {
+        return params["brightness"];
+    }
     
 public:
     
