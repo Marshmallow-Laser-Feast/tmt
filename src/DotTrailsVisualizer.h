@@ -22,10 +22,13 @@ public:
     :renderRatio( 0.0f )
     ,trailCount( 0 )
     
-    {};
+    {
+        params.setName("DotTrailsVisualizer");
+    };
     
     ~DotTrailsVisualizer()
-    {};
+    {
+    };
     
 public:
     

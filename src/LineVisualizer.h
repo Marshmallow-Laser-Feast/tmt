@@ -29,7 +29,10 @@ public:
     
     :count( 0 )
     
-    {};
+    {
+        params.setName("LineVisualizer");
+
+    };
     
     ~LineVisualizer()
     {};

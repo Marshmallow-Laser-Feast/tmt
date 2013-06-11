@@ -22,7 +22,9 @@ public:
     :count( 0 )
     ,neighborsOffset( 0 )
     
-    {};
+    {
+        params.setName("ConnectedDotsVisualizer");
+    };
     
     ~ConnectedDotsVisualizer()
     {};

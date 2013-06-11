@@ -21,7 +21,9 @@ public:
     
     :count( 0 )
     
-    {};
+    {
+        params.setName("FixedPointVisualizer");
+    };
     
     ~FixedPointVisualizer()
     {};

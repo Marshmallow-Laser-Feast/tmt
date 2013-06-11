@@ -23,7 +23,10 @@ public:
     
     :count( 0 )
     
-    {};
+    {
+        params.setName("NearestDotsVisualizer");
+
+    };
     
     ~NearestDotsVisualizer()
     {};

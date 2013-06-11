@@ -36,7 +36,7 @@ public:
 //    ,noiseOffset( 0.0f )
     
     {
-        params.setName("Qualities");
+        params.setName("QualitiesVisualizer");
         params.addInt("smoothAmount").setClamp(true).setSnap(true);
         params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
         params.addFloat("noiseTimeSpeed").setClamp(true).setSnap(true);

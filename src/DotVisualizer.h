@@ -19,7 +19,10 @@ public:
     
     :renderRatio( 0.0f )
     
-    {};
+    {
+        params.setName("DotVisualizer");
+    
+    };
     
     ~DotVisualizer()
     {};
