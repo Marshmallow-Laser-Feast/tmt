@@ -40,8 +40,13 @@ public:
         params.setName("Qualities");
         params.addInt("smoothAmount").setClamp(true).setSnap(true);
         params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
-        params.addFloat("noisePosScale").setClamp(true).setSnap(true);
         params.addFloat("noiseTimeSpeed").setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale1").setRange(0, 100).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale2").setRange(0, 100).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScaleX").setRange(0, 100).setClamp(true).setSnap(true);
         params.addInt("numSegments").setClamp(true).setSnap(true);
     };
     
@@ -92,15 +97,21 @@ public:
         ofPolyline &poly = polylines->at(0);
         
         int numSegments = params["numSegments"];
-        float noisePosScale = params["noisePosScale"];
-//        float noiseTimeSpeed = params["noiseTimeSpeed"];
+        float noiseAmp1 = params["noiseAmp1"];
+        float noisePosScale1 = params["noisePosScale1"];
+        float noiseAmp2 = params["noiseAmp2"];
+        float noisePosScale2 = params["noisePosScale2"];
+        float noiseAmpX = params["noiseAmpX"];
+        float noisePosScaleX = params["noisePosScaleX"];
         int smoothAmount = params["smoothAmount"];
         float optimizeTolerance = params["optimizeTolerance"];
 
         for(int i=0; i<numSegments; i++) {
             ofVec3f p;
             p.x = ofMap(i, 0, numSegments-1, 0, 1);
-            p.y = ofSignedNoise(p.x * noisePosScale + timer);
+            float t = ofMap(i, 0, numSegments-1, -1, 1);
+            p.y = 0.5 + noiseAmp1 * 0.5 * ofSignedNoise(t * noisePosScale1 + timer) + noiseAmp2 * 0.5 * ofSignedNoise(t * noisePosScale2 + timer);
+            p.x += noiseAmpX * 0.5 * ofSignedNoise(t * noisePosScaleX + timer);
             poly.addVertex(p);
         }
 
@@ -131,7 +142,7 @@ private:
     void updateTimer() {
         float nowTime = ofGetElapsedTimef();
         float timeDiff = nowTime - lastFrameTime;
-        timer += nowTime * (float)params["noiseTimeSpeed"];
+        timer += timeDiff * (float)params["noiseTimeSpeed"];
         lastFrameTime = nowTime;
     }
 };
