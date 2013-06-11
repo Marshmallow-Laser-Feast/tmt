@@ -78,6 +78,10 @@
 #define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
 
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
+#define PARAM_NAME_LIBDC_BRIGHTNESS             "Libdc brightness"
+#define PARAM_NAME_LIBDC_GAMMA                  "Libdc gamma"
+#define PARAM_NAME_LIBDC_SHUTTER                "Libdc shutter"
+#define PARAM_NAME_LIBDC_GAIN                   "Libdc gain"
 #define PARAM_NAME_CAMERA_USE_VIDEO             "Use Video"
 #define PARAM_NAME_VIDEO_PLAY                   "Video Play"
 #define PARAM_NAME_VIDEO_FRAME                  "Video Frame"

@@ -56,6 +56,11 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
 
+    cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
+    cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
+    cameraParams.addFloat(PARAM_NAME_LIBDC_SHUTTER).setClamp(true).setSnap(true);
+    cameraParams.addFloat(PARAM_NAME_LIBDC_GAIN).setClamp(true).setSnap(true);
+
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
@@ -106,7 +111,7 @@ void TheMeasuresTaken::setup()
     ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f );
     ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
     ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
@@ -116,11 +121,11 @@ void TheMeasuresTaken::setup()
     
     gui.toggleDraw();
     
-    inputParams.loadXmlSchema();
-    cameraParams.loadXmlSchema();
-    visualizationParams.loadXmlSchema();
-    outputParams.loadXmlSchema();
-    ildaParams.loadXmlSchema();
+    inputParams.loadXmlValues();
+    cameraParams.loadXmlValues();
+    visualizationParams.loadXmlValues();
+    outputParams.loadXmlValues();
+    ildaParams.loadXmlValues();
     
     // Timeline
     
@@ -190,6 +195,10 @@ void TheMeasuresTaken::update()
         
     } else {
         videoPtr = &grabber;
+        if(cameraParams[PARAM_NAME_LIBDC_BRIGHTNESS].hasChanged()) grabber.setBrightness(cameraParams[PARAM_NAME_LIBDC_BRIGHTNESS]);
+        if(cameraParams[PARAM_NAME_LIBDC_GAMMA].hasChanged()) grabber.setGamma(cameraParams[PARAM_NAME_LIBDC_GAMMA]);
+        if(cameraParams[PARAM_NAME_LIBDC_SHUTTER].hasChanged()) grabber.setShutter(cameraParams[PARAM_NAME_LIBDC_SHUTTER]);
+        if(cameraParams[PARAM_NAME_LIBDC_GAIN].hasChanged()) grabber.setGain(cameraParams[PARAM_NAME_LIBDC_GAIN]);
     }
     
     videoPtr->update();
@@ -399,11 +408,11 @@ void TheMeasuresTaken::keyPressed(int key)
     
     if( key == 's' )
     {
-        inputParams.saveXmlSchema();
-        cameraParams.saveXmlSchema();
-        visualizationParams.saveXmlSchema();
-        outputParams.saveXmlSchema();
-        ildaParams.saveXmlSchema();
+        inputParams.saveXmlValues();
+        cameraParams.saveXmlValues();
+        visualizationParams.saveXmlValues();
+        outputParams.saveXmlValues();
+        ildaParams.saveXmlValues();
     }
     
     if( key == 'p' )
