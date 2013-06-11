@@ -75,7 +75,7 @@ void TheMeasuresTaken::setup()
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE );
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR );
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
-    cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
     
     cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD );
     cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR );
@@ -245,15 +245,15 @@ void TheMeasuresTaken::update()
         iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
     }
     
-    if( true/*videoPtr->isFrameNew()*/ )
-    {
+//    if( videoPtr->isFrameNew() )
+//    {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
         {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             
             iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
         }
-    }
+//    }
     
     // Update GUI
     
