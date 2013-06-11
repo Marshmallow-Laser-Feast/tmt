@@ -43,6 +43,7 @@
 #define PARAM_NAME_SMOOTHING                    "Smoothing"
 #define PARAM_NAME_TRACKING_DISTANCE            "Tracking distance"
 #define PARAM_NAME_TRACKING_PERSISTENCE         "Tracking persistence"
+#define PARAM_NAME_RESAMPLE_COUNT               "Resample count"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
