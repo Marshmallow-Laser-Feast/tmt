@@ -50,21 +50,21 @@ void TheMeasuresTaken::setup()
     cameraParams.addFloat( PARAM_NAME_CAMERA_MIN_BLOB_SIZE ).setRange( 0, 2000.0f ).setClamp( true );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
-    cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
-    visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true );
+    visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
-    visualizationParams.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true );
-    visualizationParams.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT );
+    visualizationParams.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    visualizationParams.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 1000 ).setClamp( true );
     
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_COUNT );
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET );
+    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ).setRange( 0, 1000 ).setClamp( true );
     
-    visualizationParams.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT );
+    visualizationParams.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
     
-    visualizationParams.addInt( PARAM_NAME_LINE_VIS_COUNT );
+    visualizationParams.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
     
-    visualizationParams.addInt( PARAM_NAME_FIXED_POINT_VIS_COUNT );
+    visualizationParams.addInt( PARAM_NAME_FIXED_POINT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
     visualizationParams.addBang( PARAM_NAME_FIXED_POINT_FIX );
     visualizationParams.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
     
@@ -81,11 +81,23 @@ void TheMeasuresTaken::setup()
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPX );
     ildaParams.addBool( PARAM_NAME_ILDA_DOCAPY );
     
-    ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT );
-    ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE );
+    ildaParams.addInt( PARAM_NAME_ILDA_BLANK_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    ildaParams.addInt( PARAM_NAME_ILDA_END_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    
+    ildaParams.addFloat( PARAM_NAME_ILDA_OFFSET_X ).setRange( -1.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    ildaParams.addFloat( PARAM_NAME_ILDA_OFFSET_Y ).setRange( -1.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    
+    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_X ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_Y ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    
+    ildaParams.addInt( PARAM_NAME_POINT_COUNT_ORIG );
+    ildaParams.addInt( PARAM_NAME_POINT_COUNT_PROC );
+    
+    ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT ).setRange( 0, 1000 ).setClamp( true );
+    ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f );
     ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
-    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT );
-    ildaParams.addFloat( PARAM_NAME_ILDA_SPACING );
+    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f );
     
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
@@ -231,6 +243,15 @@ void TheMeasuresTaken::update()
     ildaFrame.params.output.transform.doFlipX           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
     ildaFrame.params.output.transform.doFlipY           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPY ];
     
+    ildaFrame.params.output.transform.offset.x          = (float)ildaParams[ PARAM_NAME_ILDA_OFFSET_X ];
+    ildaFrame.params.output.transform.offset.y          = (float)ildaParams[ PARAM_NAME_ILDA_OFFSET_Y ];
+    
+    ildaFrame.params.output.transform.scale.x           = (float)ildaParams[ PARAM_NAME_ILDA_SCALE_X ];
+    ildaFrame.params.output.transform.scale.y           = (float)ildaParams[ PARAM_NAME_ILDA_SCALE_Y ];
+    
+    ildaFrame.params.output.blankCount                  = (int)ildaParams[ PARAM_NAME_ILDA_BLANK_COUNT ];
+    ildaFrame.params.output.endCount                    = (int)ildaParams[ PARAM_NAME_ILDA_END_COUNT ];
+    
     ildaFrame.params.output.doCapX                      = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPX ];
     ildaFrame.params.output.doCapY                      = (bool)ildaParams[ PARAM_NAME_ILDA_DOCAPY ];
     
@@ -242,6 +263,9 @@ void TheMeasuresTaken::update()
     ildaFrame.polyProcessor.params.collapse             = (bool)ildaParams[ PARAM_NAME_ILDA_COLLAPSE ];
     ildaFrame.polyProcessor.params.targetPointCount     = (int)ildaParams[ PARAM_NAME_ILDA_POINT_COUNT ];
     ildaFrame.polyProcessor.params.spacing              = (float)ildaParams[ PARAM_NAME_ILDA_SPACING ];
+    
+    ildaParams[ PARAM_NAME_POINT_COUNT_ORIG ].set( ildaFrame.stats.pointCountOrig );
+    ildaParams[ PARAM_NAME_POINT_COUNT_PROC ].set( ildaFrame.stats.pointCountProcessed );
     
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
@@ -277,7 +301,7 @@ void TheMeasuresTaken::draw()
     
     ofSetColor( 125 );
     
-    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f + SCREEN_VIS_AREA_HEIGHT );
+    ofTranslate( ( ofGetWindowWidth() - 1240.0f ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f + SCREEN_VIS_AREA_HEIGHT );
     
     ofDrawBitmapString( GUIDE_STRING, 0.0f, 20.0f );
     
@@ -349,6 +373,11 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 'o' )
     {
         visualizationParams[PARAM_NAME_FIXED_POINT_FIX].set( true );
+    }
+    
+    if( key == 'O' )
+    {
+        visualizationParams[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
     }
 }
 

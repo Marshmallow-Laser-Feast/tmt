@@ -99,6 +99,16 @@
 #define PARAM_NAME_ILDA_DOCAPX                  "Cap X"
 #define PARAM_NAME_ILDA_DOCAPY                  "Cap Y"
 
+#define PARAM_NAME_ILDA_BLANK_COUNT             "Blank Count"
+#define PARAM_NAME_ILDA_END_COUNT               "End Count"
+#define PARAM_NAME_ILDA_OFFSET_X                "Offset X"
+#define PARAM_NAME_ILDA_OFFSET_Y                "Offset Y"
+#define PARAM_NAME_ILDA_SCALE_X                 "Scale X"
+#define PARAM_NAME_ILDA_SCALE_Y                 "Scale Y"
+
+#define PARAM_NAME_POINT_COUNT_ORIG             "Point Count Orig"
+#define PARAM_NAME_POINT_COUNT_PROC             "Point Count Processed"
+
 #define PARAM_NAME_ILDA_SMOOTH_AMOUNT           "Smooth Amount"
 #define PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE      "Optimize Tolerance"
 #define PARAM_NAME_ILDA_COLLAPSE                "Collapse"
@@ -107,7 +117,7 @@
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
-#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <l>  List Midi Ports"
+#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <o> Fixed Point Set  <O> Fixed Point Clear  <l>  List Midi Ports"
 
 ////////////////////////////
 //     Visualization      //
