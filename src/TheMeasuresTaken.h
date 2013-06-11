@@ -66,6 +66,8 @@
 
 #define PARAM_NAME_CURRENT_INPUT                "Input"
 
+#define PARAM_NAME_ENABLED                      "Enabled"
+
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
 #define PARAM_NAME_CAMERA_ROI_X2                "Camera ROI X2"

@@ -68,6 +68,7 @@ void TheMeasuresTaken::setup()
     
     outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
         
+    ildaParams.addBool(PARAM_NAME_ENABLED);
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_LINES );
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_POINTS );
     
@@ -277,7 +278,7 @@ void TheMeasuresTaken::update()
     
     ildaFrame.update();
     
-    etherdream.setPoints(ildaFrame);
+    if(ildaParams[PARAM_NAME_ENABLED]) etherdream.setPoints(ildaFrame);
 
 }
 
