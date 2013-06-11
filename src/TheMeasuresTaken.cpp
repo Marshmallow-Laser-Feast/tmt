@@ -226,18 +226,18 @@ void TheMeasuresTaken::update()
     
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
-        iimageSeqInputs[i]->setCurrentFrameNew( true);//videoPtr->isFrameNew() );   // FIX
+        iimageSeqInputs[i]->setCurrentFrameNew( videoPtr->isFrameNew() );
     }
     
-//    if( videoPtr->isFrameNew() )
-//    {
+    if( videoPtr->isFrameNew() )
+    {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
         {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             
             iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
         }
-//    }
+    }
     
     // Update GUI
     
@@ -430,8 +430,6 @@ void TheMeasuresTaken::keyPressed(int key)
         for(int i=0; i<visualizers.size(); i++) {
             visualizers[i]->params.saveXmlValues();
         }
-
-        
     }
     
     if( key == 'p' )

@@ -83,13 +83,26 @@ public:
             vector<cv::Point>       allConvexHullPoints;
             vector<cv::Point2f>     allConvexHullFloatPoints;
             
+            ofPolyline              line;
+            
             for( int i = 0; i < contourFinder.size(); ++i )
             {
                 vector<cv::Point> convexHullPoints  = contourFinder.getConvexHull( i );
                 
+                line.clear();
+                
                 for( vector<cv::Point>::iterator it = convexHullPoints.begin(); it != convexHullPoints.end(); ++it )
                 {
-                    allConvexHullPoints.push_back( *it );
+                    line.lineTo( ofxCv::toOf( *it ) );
+                }
+                
+                line.close();
+                
+                line.simplify( 0.5f );
+                
+                for( int j = 0; j < line.getVertices().size(); ++j )
+                {
+                    allConvexHullPoints.push_back( cv::Point2f( line.getVertices()[j].x, line.getVertices()[j].y ) );
                 }
             }
             
