@@ -19,6 +19,12 @@ void TheMeasuresTaken::setup()
     
     iimageSeqInputs[0]              = cameraCentroidsInput;
     
+    for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+    {
+        iimageSeqInputs[i]->setDimensions( INPUT_WIDTH , INPUT_HEIGHT );
+        iimageSeqInputs[i]->init();
+    }
+    
     multiTouchInputAnalyser         = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
     flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
     cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES );
@@ -39,13 +45,19 @@ void TheMeasuresTaken::setup()
     // Setup Gui & Params
     
     inputParams.setName("Input Parameters");
+    cameraCentroidInputParams.setName( "Camera Centroid Input Parameters" );
     cameraParams.setName( "Camera Parameters" );
     visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
-    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
-
+    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera Centroids" );
+    
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_THRESHOLD );
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_BLUR );
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_DILATE );
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR );
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR );
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -55,6 +67,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
+    cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
 
     cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
@@ -114,6 +127,7 @@ void TheMeasuresTaken::setup()
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
     gui.addPage(inputParams);
+    gui.addPage( cameraCentroidInputParams );
     gui.addPage( cameraParams );
     gui.addPage(visualizationParams);
     gui.addPage(outputParams);
@@ -122,6 +136,7 @@ void TheMeasuresTaken::setup()
     gui.toggleDraw();
     
     inputParams.loadXmlValues();
+    cameraCentroidInputParams.loadXmlValues();
     cameraParams.loadXmlValues();
     visualizationParams.loadXmlValues();
     outputParams.loadXmlValues();
@@ -203,6 +218,11 @@ void TheMeasuresTaken::update()
     
     videoPtr->update();
     
+    for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+    {
+        iimageSeqInputs[i]->setCurrentFrameNew( videoPtr->isFrameNew() );
+    }
+    
     if( videoPtr->isFrameNew() )
     {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
@@ -222,6 +242,14 @@ void TheMeasuresTaken::update()
     // Select current input analyser
     
     currentInputAnalyser    = inputAnalysers[ inputParams[ PARAM_NAME_CURRENT_INPUT ] ];
+    
+    // Update Camera Centroid Settings
+    
+    cameraCentroidsInput->setThreshold((int)cameraCentroidInputParams[CAMERA_CENTROID_THRESHOLD]);
+    cameraCentroidsInput->setBlurAmount((int)cameraCentroidInputParams[CAMERA_CENTROID_BLUR]);
+    cameraCentroidsInput->setDilateAmount((int)cameraCentroidInputParams[CAMERA_CENTROID_DILATE]);
+    cameraCentroidsInput->setMinContourAreaRadius((int)cameraCentroidInputParams[CAMERA_CENTROID_MIN_CONTOUR]);
+    cameraCentroidsInput->setMaxContourAreaRadius((int)cameraCentroidInputParams[CAMERA_CENTROID_MAX_CONTOUR]);
     
     // Update current input analyser
     
@@ -373,6 +401,19 @@ void TheMeasuresTaken::draw()
             ofPopStyle();
         }
         
+        if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_CONTOURS] )
+        {
+            ofPushStyle();
+            
+            ofSetColor( ofColor::red );
+            
+            ofTranslate( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_WIDTH * scale ,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_HEIGHT * scale );
+            
+            cameraCentroidsInput->drawDebug();
+            
+            ofPopStyle();
+        }
+        
         verticalOffset      = INPUT_HEIGHT * scale;
     }
     
@@ -402,6 +443,7 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 's' )
     {
         inputParams.saveXmlValues();
+        cameraCentroidInputParams.saveXmlValues();
         cameraParams.saveXmlValues();
         visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();

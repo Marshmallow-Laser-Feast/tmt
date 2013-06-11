@@ -1,14 +1,14 @@
-<ofxMSAControlFreak version="1.000000000" bFullSchema="1">
-    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters" path="Visualisation Parameters" tooltip="">
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Ratio" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Visualisation Parameters.Dots Ratio" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Trails Ratio" value="1.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Visualisation Parameters.Dots Trails Ratio" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dots Trails Count" value="55" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Dots Trails Count" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Dots Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Connected Dots Count" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Neighbor Offset" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Connected Neighbor Offset" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Nearest Dots Count" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Line Vis Count" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Fixed Point Vis Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Fixed Point Vis Count" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis FIX Bang" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Fixed Point Vis FIX Bang" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis Clear Bang" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Visualisation Parameters.Fixed Point Vis Clear Bang" tooltip=""></Parameter>
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters">
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Ratio" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Trails Ratio" value="1.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dots Trails Count" value="55"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Dots Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Neighbor Offset" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Fixed Point Vis Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis FIX Bang" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis Clear Bang" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

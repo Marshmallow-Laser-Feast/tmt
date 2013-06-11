@@ -1,8 +1,5 @@
-<ofxMSAControlFreak version="1.000000000" bFullSchema="1">
-    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Output Parameters" path="Output Parameters" tooltip="">
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Output" value="0" min="0" max="2" doClamp="1" inc="1" doSnap="0" path="Output Parameters.Output" tooltip="" selectedLabel="Visualisation">
-            <label0>Visualisation</label0>
-            <label1>Calibration</label1>
-        </Parameter>
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Output Parameters">
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Output" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

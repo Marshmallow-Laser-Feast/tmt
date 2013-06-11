@@ -74,6 +74,13 @@
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
 #define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
 #define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
+#define PARAM_NAME_CAMERA_DRAW_CONTOURS         "Draw Contours"
+
+#define CAMERA_CENTROID_THRESHOLD               "Threshold"
+#define CAMERA_CENTROID_BLUR                    "Blur"
+#define CAMERA_CENTROID_DILATE                  "Dilate"
+#define CAMERA_CENTROID_MIN_CONTOUR             "Min Contour"
+#define CAMERA_CENTROID_MAX_CONTOUR             "Max Contour"
 
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_LIBDC_BRIGHTNESS             "Libdc brightness"
@@ -187,6 +194,7 @@ private:
     // Gui & Params
     
     msa::controlfreak::ParameterGroup   inputParams;
+    msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   visualizationParams;
     msa::controlfreak::ParameterGroup   outputParams;

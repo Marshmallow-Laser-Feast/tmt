@@ -23,6 +23,7 @@
 		41D2338C1767247900F88CA5 /* Tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41D2332C1767247900F88CA5 /* Tracker.cpp */; };
 		41D2338D1767247900F88CA5 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41D2332D1767247900F88CA5 /* Utilities.cpp */; };
 		41D2338E1767247900F88CA5 /* Wrappers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41D2332E1767247900F88CA5 /* Wrappers.cpp */; };
+		41D233E21767443F00F88CA5 /* ContourFinder2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41D233E01767443F00F88CA5 /* ContourFinder2.cpp */; };
 		41E52EBA1765EF3300B8EF2E /* etherdream.c in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB01765EF3300B8EF2E /* etherdream.c */; };
 		41E52EBB1765EF3300B8EF2E /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB21765EF3300B8EF2E /* Makefile */; };
 		41E52EBC1765EF3300B8EF2E /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = 41E52EB31765EF3300B8EF2E /* test.c */; };
@@ -189,6 +190,8 @@
 		41D233301767247900F88CA5 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.md; sourceTree = "<group>"; };
 		41D233321767247900F88CA5 /* ofxCv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCv.h; sourceTree = "<group>"; };
 		41D233331767247900F88CA5 /* update-projects.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "update-projects.py"; sourceTree = "<group>"; };
+		41D233E01767443F00F88CA5 /* ContourFinder2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContourFinder2.cpp; sourceTree = "<group>"; };
+		41D233E11767443F00F88CA5 /* ContourFinder2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContourFinder2.h; sourceTree = "<group>"; };
 		41DB8FF91765C253003A0485 /* DotVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotVisualizer.h; sourceTree = "<group>"; };
 		41E52E6F1765DCB300B8EF2E /* DotTrailsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotTrailsVisualizer.h; sourceTree = "<group>"; };
 		41E52E711765E67E00B8EF2E /* ConnectedDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectedDotsVisualizer.h; sourceTree = "<group>"; };
@@ -696,6 +699,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		41D233DF1767443000F88CA5 /* CVContourFinder2 */ = {
+			isa = PBXGroup;
+			children = (
+				41D233E01767443F00F88CA5 /* ContourFinder2.cpp */,
+				41D233E11767443F00F88CA5 /* ContourFinder2.h */,
+			);
+			name = CVContourFinder2;
+			sourceTree = "<group>";
+		};
 		41DB8FF61765C1D6003A0485 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,6 +719,7 @@
 		41DB8FF81765C1E0003A0485 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				41D233DF1767443000F88CA5 /* CVContourFinder2 */,
 				4162D97817670CE9009318F0 /* Boids */,
 			);
 			name = Libs;
@@ -1494,6 +1507,7 @@
 				41D2338C1767247900F88CA5 /* Tracker.cpp in Sources */,
 				41D2338D1767247900F88CA5 /* Utilities.cpp in Sources */,
 				41D2338E1767247900F88CA5 /* Wrappers.cpp in Sources */,
+				41D233E21767443F00F88CA5 /* ContourFinder2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
