@@ -17,9 +17,11 @@ void TheMeasuresTaken::setup()
     flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
     cameraCentroidsInput            = new CameraCentroidsInputs();
     cameraConvexHullInput           = new CameraConvexHullInput();
+    cameraContourInput              = new CameraContourInput();
     
     iimageSeqInputs[0]              = cameraCentroidsInput;
     iimageSeqInputs[1]              = cameraConvexHullInput;
+    iimageSeqInputs[2]              = cameraContourInput;
     
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
@@ -31,11 +33,13 @@ void TheMeasuresTaken::setup()
     flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
     cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES );
     cameraConvexHullInputAnalyser   = new InputAnalyser( cameraConvexHullInput, INPUT_TIMEOUT_FRAMES );
+    cameraContourAnalyser           = new InputAnalyser( cameraContourInput, INPUT_TIMEOUT_FRAMES );
     
     inputAnalysers[0]               = multiTouchInputAnalyser;
     inputAnalysers[1]               = flockingInputAnalyser;
     inputAnalysers[2]               = cameraCentroidsInputAnalyser;
     inputAnalysers[3]               = cameraConvexHullInputAnalyser;
+    inputAnalysers[4]               = cameraContourAnalyser;
     
     currentInputAnalyser    = inputAnalysers[0];
     
@@ -51,13 +55,14 @@ void TheMeasuresTaken::setup()
     inputParams.setName("Input Parameters");
     cameraCentroidInputParams.setName( "Camera Centroid Input Parameters" );
     cameraConvexHullInputParams.setName( "Camer ConvexHull Input Parameters" );
+    cameraContourInputParams.setName( "Camera Controur Input Parameters" );
     
     cameraParams.setName( "Camera Parameters" );
 //    visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
-    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 4, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull" );
+    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 5, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull", "Camera Contour" );
     
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_THRESHOLD ).setRange(0, 255).setClamp(true);
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_BLUR ).setRange(0, 50).setClamp(true);
@@ -72,6 +77,13 @@ void TheMeasuresTaken::setup()
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
     cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_DILATE );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MIN_CONTOUR );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MAX_CONTOUR );
+    cameraContourInputParams.addFloat( CAMERA_CONTOUR_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X2 ).setRange( 0, 1.0f ).setClamp( true );
@@ -80,7 +92,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
-    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 2, "Centroid", "ConvexHull" );
+    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 3, "Centroid", "ConvexHull", "Contour" );
 
     cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
@@ -127,6 +139,7 @@ void TheMeasuresTaken::setup()
     gui.addPage(inputParams);
     gui.addPage( cameraCentroidInputParams );
     gui.addPage( cameraConvexHullInputParams );
+    gui.addPage( cameraContourInputParams );
     gui.addPage( cameraParams );
 //    gui.addPage(visualizationParams);
     gui.addPage(outputParams);
@@ -137,6 +150,8 @@ void TheMeasuresTaken::setup()
     inputParams.loadXmlValues();
     cameraCentroidInputParams.loadXmlValues();
     cameraConvexHullInputParams.loadXmlValues();
+    cameraContourInputParams.loadXmlValues();
+    
     cameraParams.loadXmlValues();
 //    visualizationParams.loadXmlValues();
     outputParams.loadXmlValues();
@@ -227,10 +242,10 @@ void TheMeasuresTaken::update()
     
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
-        iimageSeqInputs[i]->setCurrentFrameNew( videoPtr->isFrameNew() );
+        iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
     }
     
-    if( videoPtr->isFrameNew() )
+    if( true/*videoPtr->isFrameNew()*/ )
     {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
         {
@@ -425,6 +440,8 @@ void TheMeasuresTaken::keyPressed(int key)
         inputParams.saveXmlValues();
         cameraCentroidInputParams.saveXmlValues();
         cameraConvexHullInputParams.saveXmlValues();
+        cameraContourInputParams.saveXmlValues();
+        
         cameraParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
