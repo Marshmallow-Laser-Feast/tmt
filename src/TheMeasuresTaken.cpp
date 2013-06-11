@@ -13,19 +13,19 @@ void TheMeasuresTaken::setup()
     
     // Initiate Inputs
     
-    multitouchInput         = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
-    flockingInput           = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
-    cameraInput             = new CameraInput();
+    multitouchInput                 = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
+    flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
+    cameraCentroidsInput            = new CameraCentroidsInputs();
     
-    iimageSeqInputs[0]      = cameraInput;
+    iimageSeqInputs[0]              = cameraCentroidsInput;
     
-    multiTouchInputAnalyser = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
-    flockingInputAnalyser   = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
-    cameraInputAnalyser     = new InputAnalyser( cameraInput, INPUT_TIMEOUT_FRAMES );
+    multiTouchInputAnalyser         = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
+    flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
+    cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES );
     
-    inputAnalysers[0]       = multiTouchInputAnalyser;
-    inputAnalysers[1]       = flockingInputAnalyser;
-    inputAnalysers[2]       = cameraInputAnalyser;
+    inputAnalysers[0]               = multiTouchInputAnalyser;
+    inputAnalysers[1]               = flockingInputAnalyser;
+    inputAnalysers[2]               = cameraCentroidsInputAnalyser;
     
     currentInputAnalyser    = inputAnalysers[0];
     
@@ -222,13 +222,6 @@ void TheMeasuresTaken::update()
     // Select current input analyser
     
     currentInputAnalyser    = inputAnalysers[ inputParams[ PARAM_NAME_CURRENT_INPUT ] ];
-    
-    // Update camera settings
-    
-    if( currentInputAnalyser != cameraInputAnalyser && ( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_COLOR ] || (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] ) )
-    {
-        cameraInput->update();
-    }
     
     // Update current input analyser
     

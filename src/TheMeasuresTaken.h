@@ -2,8 +2,6 @@
 
 #include "ofMain.h"
 
-#include "ofxCv.h"
-
 #include "ofxMidi.h"
 
 #include "ofxEtherdream.h"
@@ -19,7 +17,7 @@
 
 #include "MultiTouchInput.h"
 #include "FlockingInput.h"
-#include "CameraInput.h"
+#include "CameraCentroidsInput.h"
 
 #include "InputAnalyser.h"
 
@@ -174,13 +172,13 @@ private:
     
     MultiTouchInput                     *multitouchInput;
     FlockingInput                       *flockingInput;
-    CameraInput                         *cameraInput;
+    CameraCentroidsInputs               *cameraCentroidsInput;
     
     IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     
     InputAnalyser                       *multiTouchInputAnalyser;
     InputAnalyser                       *flockingInputAnalyser;
-    InputAnalyser                       *cameraInputAnalyser;
+    InputAnalyser                       *cameraCentroidsInputAnalyser;
     
     InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
     

@@ -258,7 +258,7 @@
 		41ECF23217658BD200361DDB /* Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rope.h; sourceTree = "<group>"; };
 		41ECF24317658CA100361DDB /* MSAObjCPointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSAObjCPointer.cpp; sourceTree = "<group>"; };
 		41ECF24417658CA100361DDB /* MSAObjCPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAObjCPointer.h; sourceTree = "<group>"; };
-		41ECF2481765903D00361DDB /* CameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraInput.h; sourceTree = "<group>"; };
+		41ECF2481765903D00361DDB /* CameraCentroidsInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraCentroidsInput.h; sourceTree = "<group>"; };
 		41ECF24A1765917200361DDB /* IVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVisualizer.h; sourceTree = "<group>"; };
 		41ECF262176592F000361DDB /* dc1394.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc1394.h; sourceTree = "<group>"; };
 		41ECF263176592F000361DDB /* dc1394_camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc1394_camera.h; sourceTree = "<group>"; };
@@ -544,7 +544,7 @@
 				41F33AE8175EA57200405014 /* Input.h */,
 				41F33AE9175EA8EF00405014 /* FlockingInput.h */,
 				41F156C717620B0C004DD184 /* MultiTouchInput.h */,
-				41ECF2481765903D00361DDB /* CameraInput.h */,
+				41ECF2481765903D00361DDB /* CameraCentroidsInput.h */,
 				4162D96C17670413009318F0 /* IImageSeqInput.h */,
 			);
 			name = Input;

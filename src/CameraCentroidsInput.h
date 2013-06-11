@@ -1,5 +1,5 @@
 //
-//  CameraInput.h
+//  CameraCentroidsInputs.h
 //  TheMeasuresTaken
 //
 //  Created by Ali Nakipoglu on 6/10/13.
@@ -12,15 +12,15 @@
 
 #include "IImageSeqInput.h"
 
-class CameraInput : public IImageSeqInput
+class CameraCentroidsInputs : public IImageSeqInput
 {
     
 public:
     
-    CameraInput()
+    CameraCentroidsInputs()
     {};
     
-    ~CameraInput()
+    ~CameraCentroidsInputs()
     {}
     
 public:
