@@ -53,12 +53,14 @@
 #define PARAM_NAME_CAMERA_DRAW_CONTOURS         "Draw Contours"
 #define PARAM_NAME_CAMERA_CONTOUR_SOURCE        "Contour Source"
 
-#define PARAM_NAME_CONTOUR_THRESHOLD                        "Threshold"
-#define PARAM_NAME_CONTOUR_BLUR                             "Blur"
-#define PARAM_NAME_CONTOUR_DILATE                           "Dilate"
-#define PARAM_NAME_CONTOUR_MIN_CONTOUR                      "Min Contour"
-#define PARAM_NAME_CONTOUR_MAX_CONTOUR                      "Max Contour"
-#define PARAM_NAME_CONTOUR_SIMPLIFY                     "Simplify"
+#define PARAM_NAME_CONTOUR_THRESHOLD            "Threshold"
+#define PARAM_NAME_CONTOUR_BLUR                 "Blur"
+#define PARAM_NAME_CONTOUR_DILATE               "Dilate"
+#define PARAM_NAME_CONTOUR_MIN_CONTOUR          "Min Contour"
+#define PARAM_NAME_CONTOUR_MAX_CONTOUR          "Max Contour"
+#define PARAM_NAME_CONTOUR_SIMPLIFY             "Simplify"
+#define PARAM_NAME_CONTOUR_STRETCH              "Contour Stretch"
+
 
 //#define CAMERA_CONVEX_HULL_THRESHOLD            "Threshold"
 //#define CAMERA_CONVEX_HULL_BLUR                 "Blur"

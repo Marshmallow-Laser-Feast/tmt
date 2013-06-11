@@ -30,6 +30,7 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
 
     };
     
@@ -50,7 +51,8 @@ public:
             contourFinder.setMinAreaRadius(params[PARAM_NAME_CONTOUR_MIN_CONTOUR]);
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
-
+            float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
+            
             samples.clear();
             
             ofImage image;
@@ -74,10 +76,18 @@ public:
                 vector<cv::Point> convexHullPoints  = contourFinder.getConvexHull( i );
                 
                 line.clear();
+                cv::Rect r(contourFinder.getBoundingRect(i));
                 
                 for( vector<cv::Point>::iterator it = convexHullPoints.begin(); it != convexHullPoints.end(); ++it )
                 {
-                    line.lineTo( ofxCv::toOf( *it ) );
+                    ofVec2f p( ofxCv::toOf( *it ));
+                    if(stretch > 0) {
+                        ofVec2f pNorm;
+                        pNorm.x = ofMap(p.x, r.x, r.x + r.width, 0, image.width);
+                        pNorm.y = ofMap(p.y, r.y, r.y + r.height, 0, image.height);
+                        p.interpolate(pNorm, stretch);
+                    }
+                    line.lineTo(p);
                 }
                 
                 line.close();
