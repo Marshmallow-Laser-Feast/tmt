@@ -99,8 +99,8 @@ void TheMeasuresTaken::setup()
     ildaParams.addFloat( PARAM_NAME_ILDA_OFFSET_X ).setRange( -1.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     ildaParams.addFloat( PARAM_NAME_ILDA_OFFSET_Y ).setRange( -1.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
-    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_X ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
-    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_Y ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_X ).setRange( 0, 4.0f ).setClamp( true ).setIncrement( 0.01f );
+    ildaParams.addFloat( PARAM_NAME_ILDA_SCALE_Y ).setRange( 0, 4.0f ).setClamp( true ).setIncrement( 0.01f );
     
     ildaParams.addInt( PARAM_NAME_POINT_COUNT_ORIG );
     ildaParams.addInt( PARAM_NAME_POINT_COUNT_PROC );
@@ -218,7 +218,7 @@ void TheMeasuresTaken::update()
 //    if( videoPtr->isFrameNew() )
 //    {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
-        {            
+        {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             
             iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
