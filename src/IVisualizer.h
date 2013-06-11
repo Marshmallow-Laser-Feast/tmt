@@ -13,6 +13,7 @@
 #include "ofMain.h"
 #include "TheMeasuresTaken.h"
 #include "Params.h"
+#include "ofxMSAControlFreak.h"
 
 #include "InputAnalyser.h"
 

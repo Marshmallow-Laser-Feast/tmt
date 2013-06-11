@@ -28,6 +28,7 @@ public:
         contourFinder.setThreshold( 125 );
         contourFinder.setBlur( 4 );
         contourFinder.setDilate( 3 );
+        params.setName("CameraCentroidsInputs");
     };
     
     ~CameraCentroidsInputs()

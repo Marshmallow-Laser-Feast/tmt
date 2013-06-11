@@ -15,35 +15,25 @@ void TheMeasuresTaken::setup()
     
     multitouchInput                 = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
     flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
-    cameraCentroidsInput            = new CameraCentroidsInputs();
-    cameraConvexHullInput           = new CameraConvexHullInput();
-    cameraContourInput              = new CameraContourInput();
+    iimageSeqInputs.push_back(cameraCentroidsInput            = new CameraCentroidsInputs());
+    iimageSeqInputs.push_back(cameraConvexHullInput           = new CameraConvexHullInput());
+    iimageSeqInputs.push_back(cameraContourInput              = new CameraContourInput());
     
-    iimageSeqInputs[0]              = cameraCentroidsInput;
-    iimageSeqInputs[1]              = cameraConvexHullInput;
-    iimageSeqInputs[2]              = cameraContourInput;
-    
-    for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+    for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
         iimageSeqInputs[i]->setDimensions( INPUT_WIDTH , INPUT_HEIGHT );
         iimageSeqInputs[i]->init();
     }
     
-    multiTouchInputAnalyser         = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
-    flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
-    cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES );
-    cameraConvexHullInputAnalyser   = new InputAnalyser( cameraConvexHullInput, INPUT_TIMEOUT_FRAMES );
-    cameraContourAnalyser           = new InputAnalyser( cameraContourInput, INPUT_TIMEOUT_FRAMES );
-    
-    inputAnalysers[0]               = multiTouchInputAnalyser;
-    inputAnalysers[1]               = flockingInputAnalyser;
-    inputAnalysers[2]               = cameraCentroidsInputAnalyser;
-    inputAnalysers[3]               = cameraConvexHullInputAnalyser;
-    inputAnalysers[4]               = cameraContourAnalyser;
+    inputAnalysers.push_back(multiTouchInputAnalyser         = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES ));
+    inputAnalysers.push_back(flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES ));
+    inputAnalysers.push_back(cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES ));
+    inputAnalysers.push_back(cameraConvexHullInputAnalyser   = new InputAnalyser( cameraConvexHullInput, INPUT_TIMEOUT_FRAMES ));
+    inputAnalysers.push_back(cameraContourAnalyser           = new InputAnalyser( cameraContourInput, INPUT_TIMEOUT_FRAMES ));
     
     currentInputAnalyser    = inputAnalysers[0];
     
-    for ( int i = 0 ; i < INPUT_COUNT ; ++i )
+    for ( int i = 0 ; i < inputAnalysers.size() ; ++i )
     {
         inputAnalysers[i]->setMaxPathAnalyserSamples( MAX_PATH_ANALYSER_SAMPLES );
         inputAnalysers[i]->setMaxPathAnalyserHistory( MAX_PATH_ANALYSER_HISTORY );
@@ -251,14 +241,14 @@ void TheMeasuresTaken::update()
     bool doFlipY = cameraParams[PARAM_NAME_CAMERA_FLIP_Y];
     if(doFlipX || doFlipY) imageInput.mirror(doFlipY, doFlipX);
 
-    for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+    for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
         iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
     }
     
 //    if( videoPtr->isFrameNew() )
 //    {
-        for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+        for( int i = 0; i < iimageSeqInputs.size(); ++i )
         {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             

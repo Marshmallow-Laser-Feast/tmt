@@ -9,6 +9,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Params.h"
+#include "ofxMSAControlFreak.h"
+
 
 template<typename T>
 class InputSample
@@ -22,6 +25,8 @@ public:
     ~InputSample(){};
     
 public:
+    msa::controlfreak::ParameterGroup params;
+
     
     void setSampleID( const int sampleID_ )
     {

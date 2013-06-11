@@ -72,7 +72,8 @@ private:
     CameraConvexHullInput               *cameraConvexHullInput;
     CameraContourInput                  *cameraContourInput;
     
-    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
+//    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
+    vector<IImageSeqInput*>             iimageSeqInputs;
     
     InputAnalyser                       *multiTouchInputAnalyser;
     InputAnalyser                       *flockingInputAnalyser;
@@ -80,7 +81,8 @@ private:
     InputAnalyser                       *cameraConvexHullInputAnalyser;
     InputAnalyser                       *cameraContourAnalyser;
     
-    InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
+//    InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
+    vector<InputAnalyser*>              inputAnalysers;
     
     InputAnalyser                       *currentInputAnalyser;
     

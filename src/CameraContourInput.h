@@ -30,6 +30,8 @@ public:
         contourFinder.setDilate( 3 );
         
         simplification  = 0.3f;
+        params.setName("CameraContourInput");
+
     };
     
     ~CameraContourInput()
