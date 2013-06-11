@@ -257,7 +257,6 @@ void TheMeasuresTaken::update()
     cameraCentroidsInput->setMaxContourAreaRadius((int)cameraCentroidInputParams[CAMERA_CENTROID_MAX_CONTOUR]);
     
     // Update Camera Convex Hull
-
     
     cameraConvexHullInput->setThreshold((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_THRESHOLD]);
     cameraConvexHullInput->setBlurAmount((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_BLUR]);
@@ -265,6 +264,7 @@ void TheMeasuresTaken::update()
     cameraConvexHullInput->setMinContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MIN_CONTOUR]);
     cameraConvexHullInput->setMaxContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MAX_CONTOUR]);
     cameraConvexHullInput->setSimplification( (float)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_SIMPLIFICATION] );
+    
     // Update current input analyser
     
     currentInputAnalyser->update();

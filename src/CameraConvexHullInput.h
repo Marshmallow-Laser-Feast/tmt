@@ -140,7 +140,25 @@ public:
     
     virtual void drawDebug()
     {
-        contourFinder.draw();
+        ofPolyline  line;
+        
+        for( int i = 0; i < contourFinder.size(); ++i )
+        {
+            vector<cv::Point> convexHullPoints  = contourFinder.getConvexHull( i );
+            
+            line.clear();
+            
+            for( vector<cv::Point>::iterator it = convexHullPoints.begin(); it != convexHullPoints.end(); ++it )
+            {
+                line.lineTo( ofxCv::toOf( *it ) );
+            }
+            
+            line.close();
+            
+            line.simplify( simplification );
+            
+            line.draw();
+        }
     };
     
 private:
