@@ -219,6 +219,7 @@
 		34bf591c646b5f6ef968d6209e7999fb /* CreEPS.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = CreEPS.cpp; path = ../../../addons/ofxVectorGraphics/libs/CreEPS.cpp; sourceTree = SOURCE_ROOT; };
 		36f0ff7f8d7342d220cc6319cac5ad59 /* dummy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = dummy.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/dummy.h; sourceTree = SOURCE_ROOT; };
 		3c232045833313b99efe0b14840b6108 /* ofxCvMain.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvMain.h; path = ../../../addons/ofxOpenCv/src/ofxCvMain.h; sourceTree = SOURCE_ROOT; };
+		4162D96C17670413009318F0 /* IImageSeqInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IImageSeqInput.h; sourceTree = "<group>"; };
 		4181ED4B175BFB42000965E5 /* PathAnalyser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathAnalyser.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
@@ -976,6 +977,7 @@
 				41F33AE9175EA8EF00405014 /* FlockingInput.h */,
 				41F156C717620B0C004DD184 /* MultiTouchInput.h */,
 				41ECF2481765903D00361DDB /* CameraInput.h */,
+				4162D96C17670413009318F0 /* IImageSeqInput.h */,
 			);
 			name = Input;
 			sourceTree = "<group>";

@@ -15,7 +15,9 @@ void TheMeasuresTaken::setup()
     
     multitouchInput         = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
     flockingInput           = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
-    cameraInput             = new CameraInput( INPUT_WIDTH, INPUT_HEIGHT );
+    cameraInput             = new CameraInput();
+    
+    iimageSeqInputs[0]      = cameraInput;
     
     multiTouchInputAnalyser = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
     flockingInputAnalyser   = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
@@ -133,11 +135,34 @@ void TheMeasuresTaken::setup()
     
     etherdream.setup();
     etherdream.setPPS(30000);
+    
+    // Camera &  Grabber
+    
+    pixelsSharedPtr         = ofPixelsSharedPtrT( new ofPixels() );
+    
+    grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );
+    grabber.setImageType( OF_IMAGE_GRAYSCALE );
+    
+    grabber.setup();
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    // Camera & Grabber
+    
+    grabber.update();
+    
+    if( grabber.isFrameNew() )
+    {
+        for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
+        {
+            pixelsSharedPtr->setFromPixels( grabber.getPixels() , grabber.getWidth(), grabber.getHeight(), OF_IMAGE_GRAYSCALE );
+            
+            iimageSeqInputs[i]->setPixels( pixelsSharedPtr );
+        }
+    }
+    
     qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
     
     // Update GUI
@@ -150,8 +175,8 @@ void TheMeasuresTaken::update()
     
     // Update camera settings
     
-    cameraInput->setThreshold( cameraParams[ PARAM_NAME_CAMERA_THRESHOLD ] );
-    cameraInput->setMinBlobArea( cameraParams[ PARAM_NAME_CAMERA_MIN_BLOB_SIZE ] );
+    //cameraInput->setThreshold( cameraParams[ PARAM_NAME_CAMERA_THRESHOLD ] );
+    //cameraInput->setMinBlobArea( cameraParams[ PARAM_NAME_CAMERA_MIN_BLOB_SIZE ] );
     
     if( currentInputAnalyser != cameraInputAnalyser && ( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_COLOR ] || (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] ) )
     {
@@ -268,7 +293,8 @@ void TheMeasuresTaken::draw()
     {
         ofTranslate( ofGetWidth() - INPUT_WIDTH * scale , 0.0f );
         ofScale( scale, scale );
-        cameraInput->drawColor();
+        
+        grabber.draw( 0.0f, 0.0f );
         
         verticalOffset      = INPUT_HEIGHT * scale;
     }
@@ -282,7 +308,7 @@ void TheMeasuresTaken::draw()
         ofTranslate( ofGetWidth() - INPUT_WIDTH * scale, verticalOffset );
         ofScale( scale, scale );
         
-        cameraInput->drawThreshold();
+        //cameraInput->drawThreshold();
     }
     
     ofPopMatrix();

@@ -10,7 +10,11 @@
 #include "ofxMSAControlFreak/src/ofxMSAControlFreak.h"
 #include "ofxMSAControlFreakGui/src/ofxMSAControlFreakGui.h"
 
+#include "Grabber.h"
+
 #include "Input.h"
+#include "IImageSeqInput.h"
+
 #include "MultiTouchInput.h"
 #include "FlockingInput.h"
 #include "CameraInput.h"
@@ -33,11 +37,6 @@
 #define FRAMERATE                               60
 
 ////////////////////////////
-//   PROJECTION SETTINGS  //
-////////////////////////////
-
-
-////////////////////////////
 //     INPUT SETTINGS     //
 ////////////////////////////
 
@@ -45,6 +44,7 @@
 #define INPUT_HEIGHT                            480
 #define INPUT_TIMEOUT_FRAMES                    20
 #define INPUT_COUNT                             3
+#define IMAGESEQINPUT_COUNT                     1
 
 #define MAX_PATH_ANALYSER_SAMPLES               60
 #define MAX_PATH_ANALYSER_HISTORY               60 * 5
@@ -152,6 +152,8 @@ private:
     FlockingInput                       *flockingInput;
     CameraInput                         *cameraInput;
     
+    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
+    
     InputAnalyser                       *multiTouchInputAnalyser;
     InputAnalyser                       *flockingInputAnalyser;
     InputAnalyser                       *cameraInputAnalyser;
@@ -198,4 +200,10 @@ private:
     
     ofxIlda::Frame                      ildaFrame;
     ofxEtherdream                       etherdream;
+    
+    // Camera
+    
+    ofPixelsSharedPtrT                  pixelsSharedPtr;
+    
+    ofxLibdc::Grabber                   grabber;
 };
