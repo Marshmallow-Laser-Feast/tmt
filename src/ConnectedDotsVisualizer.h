@@ -12,37 +12,33 @@
 
 #include "ofMain.h"
 
+#define PARAM_NAME_CONNECTED_DOT_VIS_COUNT      "Connected Dots Count"
+#define PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET   "Connected Neighbor Offset"
+
+
+
 class ConnectedDotsVisualizer : public IVisualizer
 {
     
 public:
     
     ConnectedDotsVisualizer()
-    
-    :count( 0 )
-    ,neighborsOffset( 0 )
-    
     {
         params.setName("ConnectedDotsVisualizer");
+        params.addInt( PARAM_NAME_CONNECTED_DOT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
+        params.addInt( PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ).setRange( 0, 1000 ).setClamp( true );
     };
     
     ~ConnectedDotsVisualizer()
     {};
     
 public:
-    
-    void setCount( int value )
-    {
-        count           = value;
-    };
-    
-    void setNeighborsOffset( int value )
-    {
-        neighborsOffset = value;
-    };
-    
+
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int count = params[ PARAM_NAME_CONNECTED_DOT_VIS_COUNT ];
+        int neighborOffset = params[ PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ];
+
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int lineCount   = MIN( inputAnalyser->getPathAnalysers().size() / 2, count );
@@ -52,7 +48,7 @@ public:
             ofPolyline  line;
             
             line.addVertex( offset + inputAnalyser->getPathAnalysers()[i]->getSamples().back() * scale );
-            line.addVertex( offset + inputAnalyser->getPathAnalysers()[ ( i + ( inputAnalyser->getPathAnalysers().size() / 2 ) + neighborsOffset ) % inputAnalyser->getPathAnalysers().size() ]->getSamples().back() * scale );
+            line.addVertex( offset + inputAnalyser->getPathAnalysers()[ ( i + ( inputAnalyser->getPathAnalysers().size() / 2 ) + neighborOffset ) % inputAnalyser->getPathAnalysers().size() ]->getSamples().back() * scale );
             
             result->push_back( line );
         }
@@ -61,9 +57,5 @@ public:
     };
     
 private:
-    
-    int count;
-    int neighborsOffset;
-    
 };
 

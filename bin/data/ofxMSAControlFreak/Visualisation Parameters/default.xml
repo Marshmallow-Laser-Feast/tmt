@@ -1,14 +1,3 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
-    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters">
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Ratio" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Trails Ratio" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dots Trails Count" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Dots Count" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Neighbor Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="165"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Fixed Point Vis Count" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis FIX Bang" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis Clear Bang" value="0"></Parameter>
-    </Parameter>
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualisation Parameters"></Parameter>
 </ofxMSAControlFreak>

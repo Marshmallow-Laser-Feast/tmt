@@ -86,22 +86,6 @@
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
 
-#define PARAM_NAME_DOT_VIS_RATIO                "Dots Ratio"
-
-#define PARAM_NAME_DOT_TRAILS_VIS_RATIO         "Dots Trails Ratio"
-#define PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT  "Dots Trails Count"
-
-#define PARAM_NAME_CONNECTED_DOT_VIS_COUNT      "Connected Dots Count"
-#define PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET   "Connected Neighbor Offset"
-
-#define PARAM_NAME_NEAREST_DOT_VIS_COUNT        "Nearest Dots Count"
-
-#define PARAM_NAME_LINE_VIS_COUNT               "Line Vis Count"
-
-#define PARAM_NAME_FIXED_POINT_VIS_COUNT        "Fixed Point Vis Count"
-#define PARAM_NAME_FIXED_POINT_FIX              "Fixed Point Vis FIX Bang"
-#define PARAM_NAME_FIXED_POINT_CLEAR            "Fixed Point Vis Clear Bang"
-
 #define PARAM_NAME_ILDA_DRAW_LINES              "Draw Lines"
 #define PARAM_NAME_ILDA_DRAW_POINTS             "Draw Points"
 
@@ -188,7 +172,7 @@ private:
     
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
-    msa::controlfreak::ParameterGroup   visualizationParams;
+//    msa::controlfreak::ParameterGroup   visualizationParams;
     msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     

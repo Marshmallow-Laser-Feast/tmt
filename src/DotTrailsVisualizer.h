@@ -12,18 +12,22 @@
 
 #include "ofMain.h"
 
+
+#define PARAM_NAME_DOT_TRAILS_VIS_RATIO         "Dots Trails Ratio"
+#define PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT  "Dots Trails Count"
+
+
 class DotTrailsVisualizer : public IVisualizer
 {
     
 public:
     
     DotTrailsVisualizer()
-    
-    :renderRatio( 0.0f )
-    ,trailCount( 0 )
-    
     {
         params.setName("DotTrailsVisualizer");
+        params.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setClamp( true );
+        params.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 100 ).setClamp( true );
+        
     };
     
     ~DotTrailsVisualizer()
@@ -31,20 +35,11 @@ public:
     };
     
 public:
-    
-    void setRenderRatio( float value )
-    {
-        renderRatio = ofClamp( value, 0.0f, 1.0f );
-    };
-    
-    void setTrailCount( int value )
-    {
-        trailCount  = value;
-    };
-    
+
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
-        int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * renderRatio;
+        int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * (float)params[PARAM_NAME_DOT_TRAILS_VIS_RATIO];
+        int trailCount = params[PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
@@ -64,8 +59,4 @@ public:
     };
     
 private:
-    
-    float   renderRatio;
-    int     trailCount;
-    
 };

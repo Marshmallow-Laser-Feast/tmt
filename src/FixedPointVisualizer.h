@@ -12,28 +12,28 @@
 
 #include "IVisualizer.h"
 
+#define PARAM_NAME_FIXED_POINT_VIS_COUNT        "Fixed Point Vis Count"
+#define PARAM_NAME_FIXED_POINT_FIX              "Fixed Point Vis FIX Bang"
+#define PARAM_NAME_FIXED_POINT_CLEAR            "Fixed Point Vis Clear Bang"
+
 class FixedPointVisualizer : public IVisualizer
 {
     
 public:
     
     FixedPointVisualizer()
-    
-    :count( 0 )
-    
     {
         params.setName("FixedPointVisualizer");
+        params.addInt( PARAM_NAME_FIXED_POINT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
+        params.addBang( PARAM_NAME_FIXED_POINT_FIX );
+        params.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
+        
     };
     
     ~FixedPointVisualizer()
     {};
     
 public:
-    
-    void setCount( int value )
-    {
-        count               = value;
-    };
     
     void setFixedPoints( InputAnalyser *inputAnalyser )
     {        
@@ -55,6 +55,20 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int count = params[ PARAM_NAME_FIXED_POINT_VIS_COUNT ];
+        
+        if( (bool)params[PARAM_NAME_FIXED_POINT_FIX] )
+        {
+            setFixedPoints( inputAnalyser );
+        }
+        
+        if( (bool)params[PARAM_NAME_FIXED_POINT_CLEAR] )
+        {
+            clearFixedPoints();
+        }
+        
+
+        
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int lineCount       = MIN( inputAnalyser->getPathAnalysers().size(), count );
@@ -87,7 +101,4 @@ public:
 private:
     
     std::map<PathAnalyser*, std::vector<ofPoint> >    fixedPointMap;
-    
-    int count;
-    
 };

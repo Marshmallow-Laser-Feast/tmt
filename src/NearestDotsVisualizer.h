@@ -14,18 +14,19 @@
 
 #include "ofMain.h"
 
+#define PARAM_NAME_NEAREST_DOT_VIS_COUNT        "Nearest Dots Count"
+
+
+
 class NearestDotsVisualizer : public IVisualizer
 {
     
 public:
     
     NearestDotsVisualizer()
-    
-    :count( 0 )
-    
     {
         params.setName("NearestDotsVisualizer");
-
+        params.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
     };
     
     ~NearestDotsVisualizer()
@@ -33,13 +34,10 @@ public:
     
 public:
     
-    void setCount( int value )
-    {
-        count           = value;
-    };
-    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int count = params[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ];
+        
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
@@ -79,8 +77,5 @@ public:
     };
     
 private:
-    
-    int count;
-    
 };
 

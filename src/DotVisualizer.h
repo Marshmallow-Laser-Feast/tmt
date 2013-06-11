@@ -10,17 +10,19 @@
 
 #include "IVisualizer.h"
 
+#define PARAM_NAME_DOT_VIS_RATIO                "Dots Ratio"
+
+
 class DotVisualizer : public IVisualizer
 {
     
 public:
     
     DotVisualizer()
-    
-    :renderRatio( 0.0f )
-    
     {
         params.setName("DotVisualizer");
+        params.addFloat(PARAM_NAME_DOT_VIS_RATIO).setClamp( true );
+
     
     };
     
@@ -29,14 +31,9 @@ public:
     
 public:
     
-    void setRenderRatio( float value )
-    {
-        renderRatio = ofClamp( value, 0.0f, 1.0f );
-    };
-    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
-        int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * renderRatio;
+        int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * (float)params[PARAM_NAME_DOT_VIS_RATIO];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
@@ -53,7 +50,4 @@ public:
     };
     
 private:
-    
-    float   renderRatio;
-    
 };

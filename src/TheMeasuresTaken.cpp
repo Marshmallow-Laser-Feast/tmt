@@ -40,7 +40,7 @@ void TheMeasuresTaken::setup()
     
     inputParams.setName("Input Parameters");
     cameraParams.setName( "Camera Parameters" );
-    visualizationParams.setName( "Visualisation Parameters" );
+//    visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
@@ -65,22 +65,6 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
     cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
-    
-    visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
-    
-    visualizationParams.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
-    visualizationParams.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_FIXED_POINT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    visualizationParams.addBang( PARAM_NAME_FIXED_POINT_FIX );
-    visualizationParams.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
     
     outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
         
@@ -115,7 +99,7 @@ void TheMeasuresTaken::setup()
     
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
-    gui.addPage(visualizationParams);
+//    gui.addPage(visualizationParams);
     gui.addPage(outputParams);
     gui.addPage(ildaParams);
     
@@ -123,7 +107,7 @@ void TheMeasuresTaken::setup()
     
     inputParams.loadXmlValues();
     cameraParams.loadXmlValues();
-    visualizationParams.loadXmlValues();
+//    visualizationParams.loadXmlValues();
     outputParams.loadXmlValues();
     ildaParams.loadXmlValues();
     
@@ -235,30 +219,6 @@ void TheMeasuresTaken::update()
     currentInputAnalyser->update();
     
     // Update visualiser settings
-    
-    dotVisualizer->setRenderRatio( (float)visualizationParams[ PARAM_NAME_DOT_VIS_RATIO ] );
-    
-    dotTrailsVisualizer->setRenderRatio( (float)visualizationParams[ PARAM_NAME_DOT_TRAILS_VIS_RATIO ] );
-    dotTrailsVisualizer->setTrailCount( (int)visualizationParams[ PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ] );
-    
-    connectedDotVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_CONNECTED_DOT_VIS_COUNT ] );
-    connectedDotVisualizer->setNeighborsOffset( (int)visualizationParams[ PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ] );
-    
-    nearestDotsVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ] );
-    
-    lineVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_LINE_VIS_COUNT ] );
-    
-    fixedPointVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_FIXED_POINT_VIS_COUNT ] );
-    
-    if( (bool)visualizationParams[PARAM_NAME_FIXED_POINT_FIX] )
-    {
-        fixedPointVisualizer->setFixedPoints( currentInputAnalyser );
-    }
-    
-    if( (bool)visualizationParams[PARAM_NAME_FIXED_POINT_CLEAR] )
-    {
-        fixedPointVisualizer->clearFixedPoints();
-    }
     
     // Collect data from all visualizers
     
@@ -413,7 +373,7 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         inputParams.saveXmlValues();
         cameraParams.saveXmlValues();
-        visualizationParams.saveXmlValues();
+//        visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
         for(int i=0; i<VISUALIZER_COUNT; i++) {
@@ -440,12 +400,12 @@ void TheMeasuresTaken::keyPressed(int key)
     
     if( key == 'o' )
     {
-        visualizationParams[PARAM_NAME_FIXED_POINT_FIX].set( true );
+        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_FIX].set( true );
     }
     
     if( key == 'O' )
     {
-        visualizationParams[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
+        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
     }
 }
 
