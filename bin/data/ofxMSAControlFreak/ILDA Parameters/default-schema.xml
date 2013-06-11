@@ -1,7 +1,7 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="1">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="ILDA Parameters" path="ILDA Parameters" tooltip="">
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Lines" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Draw Lines" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Points" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Draw Points" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Lines" value="1" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Draw Lines" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Points" value="1" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Draw Points" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Calibration Only" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Calibration Only" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip X" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Flip X" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Flip Y" tooltip=""></Parameter>
@@ -10,7 +10,7 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth Amount" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Smooth Amount" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="0" inc="0.010000000" doSnap="0" path="ILDA Parameters.Optimize Tolerance" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Collapse" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Collapse" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="0" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Point Count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="6" min="0" max="100" doClamp="0" inc="1" doSnap="0" path="ILDA Parameters.Point Count" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Spacing" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="0" inc="0.010000000" doSnap="0" path="ILDA Parameters.Spacing" tooltip=""></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

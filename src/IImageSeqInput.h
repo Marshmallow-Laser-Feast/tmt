@@ -10,8 +10,6 @@
 
 #include "ofMain.h"
 
-#include "Flock2d.h"
-
 #include "Input.h"
 
 typedef ofPtr<ofPixels> ofPixelsSharedPtrT;
