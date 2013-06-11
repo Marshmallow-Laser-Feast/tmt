@@ -57,11 +57,11 @@ void TheMeasuresTaken::setup()
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 4, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull" );
     
-    cameraCentroidInputParams.addInt( CAMERA_CENTROID_THRESHOLD );
-    cameraCentroidInputParams.addInt( CAMERA_CENTROID_BLUR );
-    cameraCentroidInputParams.addInt( CAMERA_CENTROID_DILATE );
-    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR );
-    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR );
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_THRESHOLD ).setRange(0, 255).setClamp(true);
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_BLUR ).setRange(0, 50).setClamp(true);
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_DILATE ).setRange(0, 50).setClamp(true);;
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
+    cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
