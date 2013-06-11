@@ -12,8 +12,6 @@
 
 #include "Input.h"
 
-//typedef ofPtr<ofPixels> ofPixelsSharedPtrT;
-
 class IImageSeqInput : public Input
 {
     
@@ -21,12 +19,25 @@ public:
     
     IImageSeqInput()
     
+    :roiX1( 0.0f )
+    ,roiY1( 0.0f )
+    ,roiX2( 1.0f )
+    ,roiY2( 1.0f )
+    
     {};
     
     ~IImageSeqInput()
     {};
     
 public:
+    
+    void setROI( float x1, float y1, float x2, float y2 )
+    {
+        roiX1   = x1;
+        roiY1   = y1;
+        roiX2   = x2;
+        roiY2   = y2;
+    };
     
     virtual void setPixels( ofPixelsRef pixels_ )
     {
@@ -41,8 +52,12 @@ public:
     
 protected:
     
-//    ofPixelsSharedPtrT pixels;
-    ofPixels* pixels;
+    float       roiX1;
+    float       roiY1;
+    float       roiX2;
+    float       roiY2;
+    
+    ofPixels    *pixels;
     
 };
 
