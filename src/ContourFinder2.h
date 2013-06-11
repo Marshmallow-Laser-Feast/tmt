@@ -72,6 +72,7 @@ namespace ofxCv {
 		void setThreshold(float thresholdValue);
         void setBlur( int blurValue_ );
         void setDilate( int dilateValue_ );
+        void setErode( int erodeValue_ );
 		void setAutoThreshold(bool autoThreshold);
 		void setInvert(bool invert);
 		void setTargetColor(ofColor targetColor, TrackingColorMode trackingColorMode = TRACK_COLOR_RGB);
@@ -96,6 +97,7 @@ namespace ofxCv {
 		float thresholdValue;
         int blurValue;
         int dilateValue;
+        int erodeValue;
 		
 		bool useTargetColor;
 		TrackingColorMode trackingColorMode;

@@ -12,6 +12,7 @@ namespace ofxCv {
 	,thresholdValue(128.)
     ,blurValue( 0 )
     ,dilateValue( 0 )
+    ,erodeValue( 0)
 	,useTargetColor(false)
 	,contourFindingMode(CV_RETR_EXTERNAL){
 		resetMinArea();
@@ -53,9 +54,11 @@ namespace ofxCv {
 		}
         
         cv::Mat dilateKernel( cv::Size( dilateValue, dilateValue), CV_8UC1, cv::Scalar(1) );
+        cv::Mat erodeKernel( cv::Size(erodeValue, erodeValue), CV_8UC1, cv::Scalar(1) );
         
-        blur( thresh, blurValue );
-        dilate( thresh, thresh, dilateKernel );
+        if(blurValue) blur( thresh, blurValue );
+        if(dilateValue) dilate( thresh, thresh, dilateKernel );
+        if(erodeValue) erode( thresh, thresh, erodeKernel );
 		
 		// run the contour finder
 		vector<vector<cv::Point> > allContours;
@@ -253,6 +256,12 @@ namespace ofxCv {
     {
         dilateValue     = dilateValue_;
     };
+    
+    void ContourFinder2::setErode( int erodeValue_ )
+    {
+        erodeValue     = erodeValue_;
+    };
+
     
 	void ContourFinder2::setInvert(bool invert) {
 		this->invert = invert;
