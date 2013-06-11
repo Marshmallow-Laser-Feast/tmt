@@ -89,12 +89,11 @@ private:
     // Gui & Params
     
     msa::controlfreak::ParameterGroup   inputParams;
-    msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
-    msa::controlfreak::ParameterGroup   cameraConvexHullInputParams;
-    msa::controlfreak::ParameterGroup   cameraContourInputParams;
+//    msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
+//    msa::controlfreak::ParameterGroup   cameraConvexHullInputParams;
+//    msa::controlfreak::ParameterGroup   cameraContourInputParams;
     
     msa::controlfreak::ParameterGroup   cameraParams;
-//    msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     
     msa::controlfreak::gui::Gui         gui;
@@ -109,7 +108,6 @@ private:
     ofVec3f                             offset;
     ofVec3f                             scale;
     
-//    IVisualizer                         *visualizers[ VISUALIZER_COUNT ];
     vector<IVisualizer*>                visualizers;
     
     DotVisualizer                       *dotVisualizer;
@@ -121,7 +119,6 @@ private:
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
     
-//    std::vector<ofPolyline>             visualizationData;
     
     bool                                visualizeInput;
     

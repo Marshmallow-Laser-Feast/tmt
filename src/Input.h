@@ -25,8 +25,6 @@ public:
     ~InputSample(){};
     
 public:
-    msa::controlfreak::ParameterGroup params;
-
     
     void setSampleID( const int sampleID_ )
     {
@@ -60,6 +58,8 @@ class Input
 {
     
 public:
+    
+    msa::controlfreak::ParameterGroup params;
     
     Input(){};
     virtual ~Input(){};

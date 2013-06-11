@@ -23,52 +23,20 @@ public:
     
     CameraContourInput()
     {
-        contourFinder.setMinAreaRadius( 20 );
-        contourFinder.setMaxAreaRadius( 200 );
-        contourFinder.setThreshold( 125 );
-        contourFinder.setBlur( 4 );
-        contourFinder.setDilate( 3 );
-        
-        simplification  = 0.3f;
         params.setName("CameraContourInput");
-
+        params.addInt( PARAM_NAME_CONTOUR_THRESHOLD ).setRange(0, 255).setClamp(true);
+        params.addInt( PARAM_NAME_CONTOUR_BLUR ).setRange(0, 50).setClamp(true);
+        params.addInt( PARAM_NAME_CONTOUR_DILATE ).setRange(0, 50).setClamp(true);;
+        params.addInt( PARAM_NAME_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
+        params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
+        params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
     };
     
     ~CameraContourInput()
     {}
     
 public:
-    
-    void setSimplification( float value )
-    {
-        simplification  = value;
-    };
-    
-    void setBlurAmount( int value )
-    {
-        contourFinder.setBlur( value );
-    };
-    
-    void setThreshold( int value )
-    {
-        contourFinder.setThreshold( value );
-    };
-    
-    void setDilateAmount( int value )
-    {
-        contourFinder.setDilate( value );
-    };
-    
-    void setMinContourAreaRadius( int value )
-    {
-        contourFinder.setMinAreaRadius( value );
-    };
-    
-    void setMaxContourAreaRadius( int value )
-    {
-        contourFinder.setMaxAreaRadius( value );
-    };
-    
+ 
     virtual void init()
     {};
     
@@ -76,6 +44,13 @@ public:
     {
         if( isCurrentFrameNew )
         {
+            contourFinder.setBlur(params[PARAM_NAME_CONTOUR_BLUR]);
+            contourFinder.setThreshold(params[PARAM_NAME_CONTOUR_THRESHOLD]);
+            contourFinder.setDilate(params[PARAM_NAME_CONTOUR_DILATE]);
+            contourFinder.setMinAreaRadius(params[PARAM_NAME_CONTOUR_MIN_CONTOUR]);
+            contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
+            float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
+            
             samples.clear();
             
             ofImage image;
@@ -103,7 +78,7 @@ public:
                 }
                 
                 line.close();
-                line.simplify( simplification );
+                line.simplify( simplify );
                 
                 for ( int k = 0; k < line.getVertices().size(); ++k )
                 {
@@ -137,7 +112,7 @@ public:
     virtual void drawDebug()
     {
         ofPolyline              line;
-                
+        float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
         for( int i = 0; i < contourFinder.size(); ++i )
         {
             line.clear();
@@ -148,14 +123,12 @@ public:
             }
             
             line.close();
-            line.simplify( simplification );
+            line.simplify( simplify );
             line.draw();
         }
     };
     
 private:
-    
-    float                           simplification;
     
     ofxCv::ContourFinder2           contourFinder;
     ofxCv::PointTracker             pointTracker;
