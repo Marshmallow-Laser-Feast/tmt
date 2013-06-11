@@ -37,8 +37,7 @@ public:
         for(int i=0; i<count; i++) {
             polyline.addVertex(offset + inputAnalyser->getPathAnalysers()[i]->getSamples().back() * scale );
         }
-        
-        result->push_back(polyline);
+        result->push_back(ofxCv::convexHull(polyline));
         return result;
     };
     
