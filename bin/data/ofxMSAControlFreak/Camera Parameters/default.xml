@@ -17,6 +17,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="17990"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="21291"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

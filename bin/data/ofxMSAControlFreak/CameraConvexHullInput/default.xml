@@ -5,10 +5,10 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="12"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="8.482142448"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="16.517856598"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Stretch" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="8.928571701"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="27"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing" value="0.660714269"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="557.142883301"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

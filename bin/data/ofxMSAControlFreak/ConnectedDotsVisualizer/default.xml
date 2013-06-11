@@ -1,8 +1,8 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="ConnectedDotsVisualizer">
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Dots Count" value="6"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Neighbor Offset" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Dots Count" value="15"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Connected Neighbor Offset" value="1"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
