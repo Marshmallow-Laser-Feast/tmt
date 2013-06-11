@@ -1,5 +1,8 @@
 #include "TheMeasuresTaken.h"
 
+
+float PathAnalyser::smoothing = 0;
+
 //--------------------------------------------------------------
 void TheMeasuresTaken::setup()
 {
@@ -19,6 +22,7 @@ void TheMeasuresTaken::setup()
     ildaParams.setName( "ILDA Parameters" );
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 6, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull", "Camera Contour", "Camera Tips" );
+    inputParams.addFloat("PathAnalyser::smoothing").setClamp(true);
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -184,6 +188,8 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    PathAnalyser::smoothing = inputParams["PathAnalyser::smoothing"];
+    
     // Camera & Grabber
     if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO]) {
         videoPtr = &videoPlayer;
