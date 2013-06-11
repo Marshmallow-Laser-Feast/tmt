@@ -133,15 +133,6 @@ void TheMeasuresTaken::setup()
     visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
     visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
     
-    //    visualizers[0]          = dotVisualizer;
-    //    visualizers[1]          = dotTrailsVisualizer;
-    //    visualizers[2]          = connectedDotVisualizer;
-    //    visualizers[3]          = nearestDotsVisualizer;
-    //    visualizers[4]          = lineVisualizer;
-    //    visualizers[5]          = fixedPointVisualizer;
-    //    visualizers[6]          = qualitiesVisualizer;
-    //    visualizers[7]          = convexHullVisualizer;
-    
     for(int i=0; i<visualizers.size(); i++) {
         gui.addPage(visualizers[i]->params);
         visualizers[i]->params.loadXmlValues();
