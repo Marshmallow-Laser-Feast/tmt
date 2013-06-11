@@ -20,7 +20,7 @@ public:
     
     ConvexHullVisualizer()
     {
-        params.setName("NearestDotsVisualizer");
+        params.setName("ConvexHullVisualizer");
     };
     
     ~ConvexHullVisualizer()
@@ -32,6 +32,13 @@ public:
     {
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
+        int count = inputAnalyser->getPathAnalysers().size();
+        ofPolyline polyline;
+        for(int i=0; i<count; i++) {
+            polyline.addVertex(offset + inputAnalyser->getPathAnalysers()[i]->getSamples().back() * scale );
+        }
+        
+        result->push_back(polyline);
         return result;
     };
     

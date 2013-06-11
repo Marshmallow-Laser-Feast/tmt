@@ -29,6 +29,7 @@
 #include "LineVisualizer.h"
 #include "FixedPointVisualizer.h"
 #include "QualitiesVisualizer.h"
+#include "ConvexHullVisualizer.h"
 
 ////////////////////////////
 //      APP SETTINGS      //
@@ -131,7 +132,7 @@
 #define SCREEN_VIS_AREA_WIDTH                   700
 #define SCREEN_VIS_AREA_HEIGHT                  600
 
-#define VISUALIZER_COUNT                        7
+//#define VISUALIZER_COUNT                        8
 
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
@@ -182,7 +183,6 @@ private:
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
-//    msa::controlfreak::ParameterGroup   visualizationParams;
     msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     
@@ -198,7 +198,8 @@ private:
     ofVec3f                             offset;
     ofVec3f                             scale;
     
-    IVisualizer                         *visualizers[ VISUALIZER_COUNT ];
+//    IVisualizer                         *visualizers[ VISUALIZER_COUNT ];
+    vector<IVisualizer*>                visualizers;
     
     DotVisualizer                       *dotVisualizer;
     DotTrailsVisualizer                 *dotTrailsVisualizer;
@@ -207,6 +208,7 @@ private:
     LineVisualizer                      *lineVisualizer;
     FixedPointVisualizer                *fixedPointVisualizer;
     QualitiesVisualizer                 *qualitiesVisualizer;
+    ConvexHullVisualizer                *convexHullVisualizer;
     
 //    std::vector<ofPolyline>             visualizationData;
     
