@@ -551,8 +551,8 @@
 				41F33AE8175EA57200405014 /* Input.h */,
 				41F33AE9175EA8EF00405014 /* FlockingInput.h */,
 				41F156C717620B0C004DD184 /* MultiTouchInput.h */,
-				41ECF2481765903D00361DDB /* CameraCentroidsInput.h */,
 				4162D96C17670413009318F0 /* IImageSeqInput.h */,
+				41ECF2481765903D00361DDB /* CameraCentroidsInput.h */,
 				41D233E317675B5700F88CA5 /* CameraConvexHullInput.h */,
 				BB8ACFFE1767A0FE00307EE3 /* CameraContourInput.h */,
 			);

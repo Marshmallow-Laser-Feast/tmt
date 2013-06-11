@@ -105,7 +105,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
-    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
+    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setRange(0, 10 * 60 * 60).setClamp(true);
     
 //    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
     
@@ -387,14 +387,13 @@ void TheMeasuresTaken::draw()
         ofTranslate( ofGetWidth() - INPUT_WIDTH * scale , 0.0f );
         ofScale( scale, scale );
         
-        // STUPID HACK BECAUSE OFBASEVIDEO DOESN"T HAVE DRAW() METHOD!!!
         imageInput.draw(0, 0);
-//        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO])
-//        {
-//            videoPlayer.draw(0, 0);
-//        } else {
-//            grabber.draw( 0.0f, 0.0f );
-//        }
+        
+        float x1 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
+        float y1 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
+        
+        float x2 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
+        float y2 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
         
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_ROI] )
         {
@@ -404,12 +403,6 @@ void TheMeasuresTaken::draw()
             ofSetLineWidth( 2.0f );
             ofSetColor( ofColor::red );
             
-            float x1 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
-            float y1 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
-            
-            float x2 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
-            float y2 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
-            
             ofRect( x1, y1, x2 - x1, y2 - y1 );
             
             ofPopStyle();
@@ -418,13 +411,17 @@ void TheMeasuresTaken::draw()
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_CONTOURS] )
         {
             ofPushStyle();
+            ofPushMatrix();
             
+            ofTranslate(x1, y1);
+            ofScale(INPUT_WIDTH/(x2-x1), INPUT_HEIGHT/(y2-y1));
             ofSetColor( ofColor::red );
             
             ofTranslate( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_WIDTH * scale ,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_HEIGHT * scale );
             
             iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
             
+            ofPopMatrix();
             ofPopStyle();
         }
     }

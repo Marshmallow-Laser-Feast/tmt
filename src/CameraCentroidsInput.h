@@ -86,7 +86,9 @@ public:
                 
                 sample.setSampleID( contourFinder.getLabel( i ) );
                 
-                sample.setSample( ofPoint( ofxCv::toOf( contourFinder.getCentroid( i ) ) ) + ofPoint( roiX1 * width, roiY1 * height ) );
+                ofPoint p(ofxCv::toOf( contourFinder.getCentroid( i ) ) );
+//                p-= ofPoint( roiX1 * width, roiY1 * height );
+                sample.setSample(p);
                 
                 samples.push_back( sample );
             }
