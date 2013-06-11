@@ -167,14 +167,15 @@ void TheMeasuresTaken::setup()
     
     // Visualisation
     
-    visualizers.push_back( dotVisualizer           = new DotVisualizer());
-    visualizers.push_back( dotTrailsVisualizer     = new DotTrailsVisualizer());
-    visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
-    visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
-    visualizers.push_back( lineVisualizer          = new LineVisualizer());
-    visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
-    visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
-    visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
+    visualizers.push_back( dotVisualizer                = new DotVisualizer());
+    visualizers.push_back( dotTrailsVisualizer          = new DotTrailsVisualizer());
+    visualizers.push_back( connectedDotVisualizer       = new ConnectedDotsVisualizer());
+    visualizers.push_back( nearestDotsVisualizer        = new NearestDotsVisualizer());
+    visualizers.push_back( lineVisualizer               = new LineVisualizer());
+    visualizers.push_back( fixedPointVisualizer         = new FixedPointVisualizer());
+    visualizers.push_back( qualitiesVisualizer          = new QualitiesVisualizer());
+    visualizers.push_back( convexHullVisualizer         = new ConvexHullVisualizer());
+    visualizers.push_back( linesInDistanceVisualizer    = new LinesInDistanceVisualizer());
     
 //    visualizers[0]          = dotVisualizer;
 //    visualizers[1]          = dotTrailsVisualizer;

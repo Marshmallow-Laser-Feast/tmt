@@ -33,6 +33,7 @@
 #include "LineVisualizer.h"
 #include "FixedPointVisualizer.h"
 #include "QualitiesVisualizer.h"
+#include "LinesInDistanceVisualizer.h"
 
 #include "ConvexHullVisualizer.h"
 
@@ -118,6 +119,7 @@ private:
     FixedPointVisualizer                *fixedPointVisualizer;
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
+    LinesInDistanceVisualizer           *linesInDistanceVisualizer;
     
 //    std::vector<ofPolyline>             visualizationData;
     
