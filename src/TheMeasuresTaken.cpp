@@ -70,18 +70,18 @@ void TheMeasuresTaken::setup()
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_THRESHOLD );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_BLUR );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_THRESHOLD ).setRange(0, 255).setClamp(true);
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_BLUR ).setRange(0, 50).setClamp(true);;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE ).setRange(0, 50).setClamp(true);;;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
     
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_DILATE );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_MIN_CONTOUR );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_MAX_CONTOUR );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD ).setRange(0, 255).setClamp(true);
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR ).setRange(0, 50).setClamp(true);;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_DILATE ).setRange(0, 50).setClamp(true);;;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     cameraContourInputParams.addFloat( CAMERA_CONTOUR_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );

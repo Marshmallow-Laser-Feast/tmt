@@ -1,10 +1,10 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Camera Controur Input Parameters">
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="70"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="80"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="5"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="4449"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="10"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplification" value="0.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
