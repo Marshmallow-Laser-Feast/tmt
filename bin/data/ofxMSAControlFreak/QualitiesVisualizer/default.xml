@@ -10,6 +10,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="73.209999084"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.199999988"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="53.129997253"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="55"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="45"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
