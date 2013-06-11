@@ -13,8 +13,8 @@
 #define INPUT_WIDTH                             640
 #define INPUT_HEIGHT                            480
 #define INPUT_TIMEOUT_FRAMES                    5
-#define INPUT_COUNT                             4
-#define IMAGESEQINPUT_COUNT                     2
+#define INPUT_COUNT                             5
+#define IMAGESEQINPUT_COUNT                     3
 
 #define MAX_PATH_ANALYSER_SAMPLES               60
 #define MAX_PATH_ANALYSER_HISTORY               60 * 5
@@ -62,6 +62,13 @@
 #define CAMERA_CONVEX_HULL_MAX_CONTOUR          "Max Contour"
 #define CAMERA_CONVEX_HULL_SIMPLIFICATION       "Simplification"
 
+#define CAMERA_CONTOUR_THRESHOLD                "Threshold"
+#define CAMERA_CONTOUR_BLUR                     "Blur"
+#define CAMERA_CONTOUR_DILATE                   "Dilate"
+#define CAMERA_CONTOUR_MIN_CONTOUR              "Min Contour"
+#define CAMERA_CONTOUR_MAX_CONTOUR              "Max Contour"
+#define CAMERA_CONTOUR_SIMPLIFICATION           "Simplification"
+    
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_LIBDC_BRIGHTNESS             "Libdc brightness"
 #define PARAM_NAME_LIBDC_GAMMA                  "Libdc gamma"

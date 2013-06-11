@@ -21,6 +21,7 @@
 #include "FlockingInput.h"
 #include "CameraCentroidsInput.h"
 #include "CameraConvexHullInput.h"
+#include "CameraContourInput.h"
 
 #include "InputAnalyser.h"
 
@@ -69,6 +70,7 @@ private:
     FlockingInput                       *flockingInput;
     CameraCentroidsInputs               *cameraCentroidsInput;
     CameraConvexHullInput               *cameraConvexHullInput;
+    CameraContourInput                  *cameraContourInput;
     
     IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     
@@ -76,6 +78,7 @@ private:
     InputAnalyser                       *flockingInputAnalyser;
     InputAnalyser                       *cameraCentroidsInputAnalyser;
     InputAnalyser                       *cameraConvexHullInputAnalyser;
+    InputAnalyser                       *cameraContourAnalyser;
     
     InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
     
@@ -86,6 +89,8 @@ private:
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
     msa::controlfreak::ParameterGroup   cameraConvexHullInputParams;
+    msa::controlfreak::ParameterGroup   cameraContourInputParams;
+    
     msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;

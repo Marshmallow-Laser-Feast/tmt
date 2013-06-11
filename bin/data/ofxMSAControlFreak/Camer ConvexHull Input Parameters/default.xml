@@ -1,10 +1,18 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Camer ConvexHull Input Parameters">
+<<<<<<< HEAD
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="61"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="10"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="3591"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplification" value="9.091784477"></Parameter>
+=======
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="0"></Parameter>
+>>>>>>> 3f8c3ddd212becab6db1255c1c84de5f428c15da
     </Parameter>
 </ofxMSAControlFreak>
