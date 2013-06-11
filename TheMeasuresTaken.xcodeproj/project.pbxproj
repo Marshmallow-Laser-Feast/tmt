@@ -391,6 +391,7 @@
 		41F33AE8175EA57200405014 /* Input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		41F33AE9175EA8EF00405014 /* FlockingInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlockingInput.h; sourceTree = "<group>"; };
 		BB0D3969176759B00083608A /* ConvexHullVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvexHullVisualizer.h; sourceTree = "<group>"; };
+		BB0D396B17675E580083608A /* Params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Params.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -559,6 +560,7 @@
 			children = (
 				E4B69E1E0A3A1BDC003C02F2 /* TheMeasuresTaken.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* TheMeasuresTaken.h */,
+				BB0D396B17675E580083608A /* Params.h */,
 			);
 			name = App;
 			sourceTree = "<group>";

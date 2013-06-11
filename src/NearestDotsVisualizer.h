@@ -36,6 +36,10 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
+            return PolylineVectorRefT(new std::vector<ofPolyline>());
+        }
+
         int count = params[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );

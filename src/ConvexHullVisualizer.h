@@ -11,6 +11,7 @@
 #include "IVisualizer.h"
 
 #include "ofMain.h"
+#include "Params.h"
 
 
 class ConvexHullVisualizer : public IVisualizer
@@ -30,6 +31,10 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
+            return PolylineVectorRefT(new std::vector<ofPolyline>());
+        }
+            
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int count = inputAnalyser->getPathAnalysers().size();
