@@ -140,29 +140,29 @@ void TheMeasuresTaken::setup()
     
     // Visualisation
     
-    dotVisualizer           = new DotVisualizer();
-    dotTrailsVisualizer     = new DotTrailsVisualizer();
-    connectedDotVisualizer  = new ConnectedDotsVisualizer();
-    nearestDotsVisualizer   = new NearestDotsVisualizer();
-    lineVisualizer          = new LineVisualizer();
-    fixedPointVisualizer    = new FixedPointVisualizer();
-    qualitiesVisualizer     = new QualitiesVisualizer();
+    visualizers.push_back( dotVisualizer           = new DotVisualizer());
+    visualizers.push_back( dotTrailsVisualizer     = new DotTrailsVisualizer());
+    visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
+    visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
+    visualizers.push_back( lineVisualizer          = new LineVisualizer());
+    visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
+    visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
+    visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
     
-    visualizers[0]          = dotVisualizer;
-    visualizers[1]          = dotTrailsVisualizer;
-    visualizers[2]          = connectedDotVisualizer;
-    visualizers[3]          = nearestDotsVisualizer;
-    visualizers[4]          = lineVisualizer;
-    visualizers[5]          = fixedPointVisualizer;
-    visualizers[6]          = qualitiesVisualizer;
+//    visualizers[0]          = dotVisualizer;
+//    visualizers[1]          = dotTrailsVisualizer;
+//    visualizers[2]          = connectedDotVisualizer;
+//    visualizers[3]          = nearestDotsVisualizer;
+//    visualizers[4]          = lineVisualizer;
+//    visualizers[5]          = fixedPointVisualizer;
+//    visualizers[6]          = qualitiesVisualizer;
+//    visualizers[7]          = convexHullVisualizer;
     
-    for(int i=0; i<VISUALIZER_COUNT; i++) {
+    for(int i=0; i<visualizers.size(); i++) {
         gui.addPage(visualizers[i]->params);
         visualizers[i]->params.loadXmlValues();
     }
 
-//    visualizationParams.add(&qualitiesVisualizer->params);
-    
     offset.set( 0.0f, 0.0f, 0.0f );
     scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
     
@@ -228,8 +228,6 @@ void TheMeasuresTaken::update()
             iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
         }
 //    }
-    
-//    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
     
     // Update GUI
     
@@ -301,7 +299,7 @@ void TheMeasuresTaken::update()
     {
         ildaFrame.drawCalibration();
     } else {
-        for( int i = 0; i < VISUALIZER_COUNT; ++i )       {
+        for(int i=0; i<visualizers.size(); i++) {
             PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
             ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
         }
@@ -422,10 +420,9 @@ void TheMeasuresTaken::keyPressed(int key)
         inputParams.saveXmlValues();
         cameraCentroidInputParams.saveXmlValues();
         cameraParams.saveXmlValues();
-//        visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
-        for(int i=0; i<VISUALIZER_COUNT; i++) {
+        for(int i=0; i<visualizers.size(); i++) {
             visualizers[i]->params.saveXmlValues();
         }
 

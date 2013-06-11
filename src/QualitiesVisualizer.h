@@ -90,6 +90,10 @@ public:
     {
         updateTimer();
         
+        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
+            return PolylineVectorRefT(new std::vector<ofPolyline>());
+        }
+        
         polylines->clear();
         polylines->push_back(ofPolyline());
         

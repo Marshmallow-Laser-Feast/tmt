@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "ofMain.h"
+#include "TheMeasuresTaken.h"
 
 #include "InputAnalyser.h"
 
@@ -24,7 +25,7 @@ public:
     
     IVisualizer()
     {
-        params.addFloat("brightness").setClamp(true);
+        params.addInt(PARAM_NAME_BRIGHTNESS).setClamp(true);
     };
     
     virtual ~IVisualizer()
@@ -32,7 +33,7 @@ public:
     
     
     float getBrightness() const {
-        return params["brightness"];
+        return (float)params[PARAM_NAME_BRIGHTNESS] / 100.0f;
     }
     
 public:

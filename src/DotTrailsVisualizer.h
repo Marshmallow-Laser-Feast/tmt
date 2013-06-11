@@ -38,6 +38,11 @@ public:
 
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        
+        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
+            return PolylineVectorRefT(new std::vector<ofPolyline>());
+        }
+
         int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * (float)params[PARAM_NAME_DOT_TRAILS_VIS_RATIO];
         int trailCount = params[PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT];
         
