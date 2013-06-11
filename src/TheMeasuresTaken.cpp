@@ -114,11 +114,11 @@ void TheMeasuresTaken::setup()
     
     gui.toggleDraw();
     
-    inputParams.loadXmlSchema();
-    cameraParams.loadXmlSchema();
-    visualizationParams.loadXmlSchema();
-    outputParams.loadXmlSchema();
-    ildaParams.loadXmlSchema();
+    inputParams.loadXmlValues();
+    cameraParams.loadXmlValues();
+    visualizationParams.loadXmlValues();
+    outputParams.loadXmlValues();
+    ildaParams.loadXmlValues();
     
     // Timeline
     
@@ -379,11 +379,11 @@ void TheMeasuresTaken::keyPressed(int key)
     
     if( key == 's' )
     {
-        inputParams.saveXmlSchema();
-        cameraParams.saveXmlSchema();
-        visualizationParams.saveXmlSchema();
-        outputParams.saveXmlSchema();
-        ildaParams.saveXmlSchema();
+        inputParams.saveXmlValues();
+        cameraParams.saveXmlValues();
+        visualizationParams.saveXmlValues();
+        outputParams.saveXmlValues();
+        ildaParams.saveXmlValues();
     }
     
     if( key == 'p' )
