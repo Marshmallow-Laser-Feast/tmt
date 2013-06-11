@@ -240,7 +240,10 @@ void TheMeasuresTaken::update()
     }
     
     videoPtr->update();
-    
+
+    imageInput.setFromPixels(videoPtr->getPixelsRef());
+    imageInput.update();
+
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
         iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
@@ -252,7 +255,7 @@ void TheMeasuresTaken::update()
         {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             
-            iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
+            iimageSeqInputs[i]->setPixels( imageInput.getPixelsRef() );
         }
 //    }
     
@@ -378,12 +381,13 @@ void TheMeasuresTaken::draw()
         ofScale( scale, scale );
         
         // STUPID HACK BECAUSE OFBASEVIDEO DOESN"T HAVE DRAW() METHOD!!!
-        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO])
-        {
-            videoPlayer.draw(0, 0);
-        } else {
-            grabber.draw( 0.0f, 0.0f );
-        }
+        imageInput.draw(0, 0);
+//        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO])
+//        {
+//            videoPlayer.draw(0, 0);
+//        } else {
+//            grabber.draw( 0.0f, 0.0f );
+//        }
         
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_ROI] )
         {

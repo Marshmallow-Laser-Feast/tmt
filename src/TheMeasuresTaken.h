@@ -132,4 +132,5 @@ private:
     ofxLibdc::Grabber                   grabber;
     ofVideoPlayer                       videoPlayer;
     ofBaseVideo                         *videoPtr;
+    ofImage                             imageInput;
 };
