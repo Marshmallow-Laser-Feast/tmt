@@ -27,6 +27,7 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_THRESHOLD ).setRange(0, 255).setClamp(true);
         params.addInt( PARAM_NAME_CONTOUR_BLUR ).setRange(0, 50).setClamp(true);
         params.addInt( PARAM_NAME_CONTOUR_DILATE ).setRange(0, 50).setClamp(true);;
+        params.addInt( PARAM_NAME_CONTOUR_ERODE ).setRange(0, 50).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
@@ -47,6 +48,7 @@ public:
             contourFinder.setBlur(params[PARAM_NAME_CONTOUR_BLUR]);
             contourFinder.setThreshold(params[PARAM_NAME_CONTOUR_THRESHOLD]);
             contourFinder.setDilate(params[PARAM_NAME_CONTOUR_DILATE]);
+            contourFinder.setErode(params[PARAM_NAME_CONTOUR_ERODE]);
             contourFinder.setMinAreaRadius(params[PARAM_NAME_CONTOUR_MIN_CONTOUR]);
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
