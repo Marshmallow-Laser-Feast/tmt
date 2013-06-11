@@ -413,11 +413,11 @@ void TheMeasuresTaken::draw()
             ofPushStyle();
             ofPushMatrix();
             
-            ofTranslate(x1, y1);
-            ofScale(INPUT_WIDTH/(x2-x1), INPUT_HEIGHT/(y2-y1));
+//            ofTranslate(-x1, -y1);
+//            ofScale((x2-x1)/INPUT_WIDTH, (y2-y1)/INPUT_HEIGHT);
             ofSetColor( ofColor::red );
             
-            ofTranslate( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_WIDTH * scale ,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_HEIGHT * scale );
+//            ofTranslate(0,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1] * INPUT_HEIGHT * scale );
             
             iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
             
