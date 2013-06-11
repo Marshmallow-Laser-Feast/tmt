@@ -126,7 +126,10 @@ public:
                 
                 sample.setSampleID( pointTracker.getLabelFromIndex( i ) );
                 
-                sample.setSample( ofPoint( ofxCv::toOf( allConvexHullFloatPoints[i] ) ) + ofPoint( roiX1 * width, roiY1 * height ) );
+                ofPoint p(ofxCv::toOf( allConvexHullFloatPoints[i] ) );
+//                p-= ofPoint( roiX1 * width, roiY1 * height );
+                sample.setSample(p);
+//                sample.setSample( ofPoint( ofxCv::toOf( allConvexHullFloatPoints[i] ) ) + ofPoint( roiX1 * width, roiY1 * height ) );
                 
                 samples.push_back( sample );
             }

@@ -83,5 +83,5 @@ Desktop.ini
 # Miscellaneous
 .mailmap
 
-
+bin/data/inputVideo/
 bin/data/inputVideo/*

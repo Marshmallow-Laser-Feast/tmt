@@ -117,7 +117,10 @@ public:
                 
                 sample.setSampleID( pointTracker.getLabelFromIndex( i ) );
                 
-                sample.setSample( ofPoint( ofxCv::toOf( allFloatPoints[i] ) ) + ofPoint( roiX1 * width, roiY1 * height ) );
+                
+                ofPoint p(ofxCv::toOf( allFloatPoints[i] ) );
+                p-= ofPoint( roiX1 * width, roiY1 * height );
+                sample.setSample(p);
                 
                 samples.push_back( sample );
             }

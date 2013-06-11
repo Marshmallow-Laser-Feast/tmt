@@ -70,24 +70,27 @@ void TheMeasuresTaken::setup()
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_THRESHOLD );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_BLUR );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR );
-    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_THRESHOLD ).setRange(0, 255).setClamp(true);
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_BLUR ).setRange(0, 50).setClamp(true);;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE ).setRange(0, 50).setClamp(true);;;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;;
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
     
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_DILATE );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_MIN_CONTOUR );
-    cameraContourInputParams.addInt( CAMERA_CONTOUR_MAX_CONTOUR );
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_THRESHOLD ).setRange(0, 255).setClamp(true);
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_BLUR ).setRange(0, 50).setClamp(true);;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_DILATE ).setRange(0, 50).setClamp(true);;;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;;
+    cameraContourInputParams.addInt( CAMERA_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
     cameraContourInputParams.addFloat( CAMERA_CONTOUR_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X2 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y2 ).setRange( 0, 1.0f ).setClamp( true );
+    
+    cameraParams.addBool(PARAM_NAME_CAMERA_FLIP_X);
+    cameraParams.addBool(PARAM_NAME_CAMERA_FLIP_Y);
     
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
@@ -102,7 +105,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
-    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
+    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setRange(0, 10 * 60 * 60).setClamp(true);
     
 //    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
     
@@ -241,7 +244,14 @@ void TheMeasuresTaken::update()
     }
     
     videoPtr->update();
+
+    imageInput.setFromPixels(videoPtr->getPixelsRef());
+    imageInput.update();
     
+    bool doFlipX = cameraParams[PARAM_NAME_CAMERA_FLIP_X];
+    bool doFlipY = cameraParams[PARAM_NAME_CAMERA_FLIP_Y];
+    if(doFlipX || doFlipY) imageInput.mirror(doFlipY, doFlipX);
+
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
         iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
@@ -253,7 +263,7 @@ void TheMeasuresTaken::update()
         {
             iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
             
-            iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
+            iimageSeqInputs[i]->setPixels( imageInput.getPixelsRef() );
         }
 //    }
     
@@ -364,17 +374,10 @@ void TheMeasuresTaken::draw()
         drawInputVisualization();
     }
     
-    ofPushMatrix();
     ofPushStyle();
-    
     ofSetColor( 125 );
-    
-    ofTranslate( ( ofGetWindowWidth() - 1240.0f ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f + SCREEN_VIS_AREA_HEIGHT );
-    
-    ofDrawBitmapString( GUIDE_STRING, 0.0f, 20.0f );
-    
+    ofDrawBitmapString( GUIDE_STRING, 0.0f, ofGetHeight() - 20.0f );
     ofPopStyle();
-    ofPopMatrix();
     
     float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
     
@@ -385,13 +388,13 @@ void TheMeasuresTaken::draw()
         ofTranslate( ofGetWidth() - INPUT_WIDTH * scale , 0.0f );
         ofScale( scale, scale );
         
-        // STUPID HACK BECAUSE OFBASEVIDEO DOESN"T HAVE DRAW() METHOD!!!
-        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO])
-        {
-            videoPlayer.draw(0, 0);
-        } else {
-            grabber.draw( 0.0f, 0.0f );
-        }
+        imageInput.draw(0, 0);
+        
+        float x1 = INPUT_WIDTH * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
+        float y1 = INPUT_HEIGHT * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
+        
+        float x2 = INPUT_WIDTH * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
+        float y2 = INPUT_HEIGHT * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
         
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_ROI] )
         {
@@ -401,12 +404,6 @@ void TheMeasuresTaken::draw()
             ofSetLineWidth( 2.0f );
             ofSetColor( ofColor::red );
             
-            float x1 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
-            float y1 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
-            
-            float x2 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
-            float y2 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
-            
             ofRect( x1, y1, x2 - x1, y2 - y1 );
             
             ofPopStyle();
@@ -415,13 +412,17 @@ void TheMeasuresTaken::draw()
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_CONTOURS] )
         {
             ofPushStyle();
+            ofPushMatrix();
             
+//            ofTranslate(-x1, -y1);
+//            ofScale((x2-x1)/INPUT_WIDTH, (y2-y1)/INPUT_HEIGHT);
             ofSetColor( ofColor::red );
             
-            ofTranslate( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_WIDTH * scale ,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_HEIGHT * scale );
+//            ofTranslate(0,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1] * INPUT_HEIGHT * scale );
             
             iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
             
+            ofPopMatrix();
             ofPopStyle();
         }
     }
@@ -532,15 +533,13 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 
 void TheMeasuresTaken::drawVisualization()
 {
-    ofPushMatrix();
     ofPushStyle();
-    
     ofSetColor( 255 );
     
-    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
+//    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     
+    ildaFrame.draw(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     ofPopStyle();
-    ofPopMatrix();
 }
 
 void TheMeasuresTaken::drawInputVisualization()
@@ -548,7 +547,8 @@ void TheMeasuresTaken::drawInputVisualization()
     ofPushMatrix();
     ofPushStyle();
     
-    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
+//    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
+    ofTranslate(0, ( ofGetWindowHeight() - INPUT_HEIGHT ));
     
     ofSetColor( ofColor::black, 125 );
     
@@ -561,8 +561,9 @@ void TheMeasuresTaken::drawInputVisualization()
     
     ofRect( 0, 0, INPUT_WIDTH, INPUT_HEIGHT );
     
-    glEnable( GL_SCISSOR_TEST );
-    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
+//    glEnable( GL_SCISSOR_TEST );
+//    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
+//    glScissor(0, ( ofGetWindowHeight() - INPUT_HEIGHT ), INPUT_WIDTH, INPUT_HEIGHT );
     
     ofSetColor( 100 );
     
@@ -604,7 +605,9 @@ void TheMeasuresTaken::drawVisualizationArea()
     ofSetLineWidth( 4.0f );
     ofSetColor( ofColor::darkGray );
     
-    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
+//    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
+    ofTranslate(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT);
+    
     
     ofRect( 0, 0, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     

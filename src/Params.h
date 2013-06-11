@@ -39,11 +39,14 @@
 #define PARAM_NAME_ENABLED                      "Enabled"
 #define PARAM_NAME_BRIGHTNESS                   "Brightness"
 #define PARAM_NAME_TIME_OFFSET                  "Time Offset"
+#define PARAM_NAME_FASTEST_COUNT                "Fastest Count"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
 #define PARAM_NAME_CAMERA_ROI_X2                "Camera ROI X2"
 #define PARAM_NAME_CAMERA_ROI_Y2                "Camera ROI Y2"
+#define PARAM_NAME_CAMERA_FLIP_X                "Camera Flip X"
+#define PARAM_NAME_CAMERA_FLIP_Y                "Camera Flip Y"
 
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
 #define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
@@ -108,13 +111,13 @@
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
-#define GUIDE_STRING                            "<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <o> Fixed Point Set  <O> Fixed Point Clear  <l>  List Midi Ports"
+#define GUIDE_STRING                            ("<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <o> Fixed Point Set  <O> Fixed Point Clear  <l>  List Midi Ports   " + ofToString(ofGetFrameRate(), 2))
 
 ////////////////////////////
 //     Visualization      //
 ////////////////////////////
 
-#define SCREEN_VIS_AREA_WIDTH                   700
-#define SCREEN_VIS_AREA_HEIGHT                  600
+#define SCREEN_VIS_AREA_WIDTH                   INPUT_WIDTH
+#define SCREEN_VIS_AREA_HEIGHT                  INPUT_HEIGHT
 
 //#define VISUALIZER_COUNT                        8
