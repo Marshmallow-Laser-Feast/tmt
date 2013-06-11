@@ -72,6 +72,8 @@
 #define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_CAMERA_USE_VIDEO             "Use Video"
+#define PARAM_NAME_VIDEO_PLAY                   "Video Play"
+#define PARAM_NAME_VIDEO_FRAME                  "Video Frame"
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
 

@@ -53,6 +53,8 @@ void TheMeasuresTaken::setup()
 
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
+    cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
+    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
     
     visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
@@ -158,7 +160,11 @@ void TheMeasuresTaken::setup()
     {
         ofDirectory dir;
         dir.listDir("inputVideo");
-        if(dir.size() > 0) videoPlayer.loadMovie(dir.getPath(0));
+        if(dir.size() > 0) {
+            videoPlayer.loadMovie(dir.getPath(0));
+            videoPlayer.setLoopState(OF_LOOP_NORMAL);
+            cameraParams[PARAM_NAME_VIDEO_FRAME].setRange(0, videoPlayer.getTotalNumFrames());
+        }
     }
     
     videoPtr = &grabber;
@@ -170,6 +176,13 @@ void TheMeasuresTaken::update()
     // Camera & Grabber
     if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO]) {
         videoPtr = &videoPlayer;
+        if(cameraParams[PARAM_NAME_VIDEO_PLAY].hasChanged()) {
+            if(cameraParams[PARAM_NAME_VIDEO_PLAY]) videoPlayer.play();
+            else videoPlayer.stop();
+        }
+        if(videoPlayer.isPlaying()) cameraParams[PARAM_NAME_VIDEO_FRAME] = videoPlayer.getCurrentFrame();
+        else if(cameraParams[PARAM_NAME_VIDEO_FRAME].hasChanged()) videoPlayer.setFrame(cameraParams[PARAM_NAME_VIDEO_FRAME]);
+        
     } else {
         videoPtr = &grabber;
     }
