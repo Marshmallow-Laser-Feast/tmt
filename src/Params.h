@@ -40,6 +40,9 @@
 #define PARAM_NAME_BRIGHTNESS                   "Brightness"
 #define PARAM_NAME_TIME_OFFSET                  "Time Offset"
 #define PARAM_NAME_FASTEST_COUNT                "Fastest Count"
+#define PARAM_NAME_SMOOTHING                    "Smoothing"
+#define PARAM_NAME_TRACKING_DISTANCE            "Tracking distance"
+#define PARAM_NAME_TRACKING_PERSISTENCE         "Tracking persistence"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
@@ -56,6 +59,7 @@
 #define PARAM_NAME_CONTOUR_THRESHOLD            "Threshold"
 #define PARAM_NAME_CONTOUR_BLUR                 "Blur"
 #define PARAM_NAME_CONTOUR_DILATE               "Dilate"
+#define PARAM_NAME_CONTOUR_ERODE                "Erode"
 #define PARAM_NAME_CONTOUR_MIN_CONTOUR          "Min Contour"
 #define PARAM_NAME_CONTOUR_MAX_CONTOUR          "Max Contour"
 #define PARAM_NAME_CONTOUR_SIMPLIFY             "Simplify"
