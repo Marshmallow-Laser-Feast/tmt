@@ -289,6 +289,8 @@ void TheMeasuresTaken::update()
     ildaParams[ PARAM_NAME_POINT_COUNT_ORIG ].set( ildaFrame.stats.pointCountOrig );
     ildaParams[ PARAM_NAME_POINT_COUNT_PROC ].set( ildaFrame.stats.pointCountProcessed );
     
+    scale.set( 1.0f / ((float)INPUT_WIDTH * ( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2] - (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] )), 1.0f / ((float)INPUT_HEIGHT * ( (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] - (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1] )), 1.0f );
+    
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
         ildaFrame.drawCalibration();
