@@ -45,11 +45,16 @@ void TheMeasuresTaken::setup()
     ildaParams.setName( "ILDA Parameters" );
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
+
     
-    cameraParams.addInt( PARAM_NAME_CAMERA_THRESHOLD ).setRange( 0, 255 ).setClamp( true );
-    cameraParams.addFloat( PARAM_NAME_CAMERA_MIN_BLOB_SIZE ).setRange( 0, 2000.0f ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X2 ).setRange( 0, 1.0f ).setClamp( true );
+    cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y2 ).setRange( 0, 1.0f ).setClamp( true );
+    
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
+    cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
 
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
@@ -191,6 +196,8 @@ void TheMeasuresTaken::update()
     
     if( videoPtr->isFrameNew() )
     {
+        
+        
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
         {
             iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
@@ -208,9 +215,6 @@ void TheMeasuresTaken::update()
     currentInputAnalyser    = inputAnalysers[ inputParams[ PARAM_NAME_CURRENT_INPUT ] ];
     
     // Update camera settings
-    
-    //cameraInput->setThreshold( cameraParams[ PARAM_NAME_CAMERA_THRESHOLD ] );
-    //cameraInput->setMinBlobArea( cameraParams[ PARAM_NAME_CAMERA_MIN_BLOB_SIZE ] );
     
     if( currentInputAnalyser != cameraInputAnalyser && ( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_COLOR ] || (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] ) )
     {
@@ -341,8 +345,31 @@ void TheMeasuresTaken::draw()
         ofScale( scale, scale );
         
         // STUPID HACK BECAUSE OFBASEVIDEO DOESN"T HAVE DRAW() METHOD!!!
-        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO]) videoPlayer.draw(0, 0);
-        else grabber.draw( 0.0f, 0.0f );
+        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO])
+        {
+            videoPlayer.draw(0, 0);
+        } else {
+            grabber.draw( 0.0f, 0.0f );
+        }
+        
+        if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_ROI] )
+        {
+            ofPushStyle();
+            
+            ofNoFill();
+            ofSetLineWidth( 2.0f );
+            ofSetColor( ofColor::red );
+            
+            float x1 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
+            float y1 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
+            
+            float x2 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
+            float y2 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
+            
+            ofRect( x1, y1, x2 - x1, y2 - y1 );
+            
+            ofPopStyle();
+        }
         
         verticalOffset      = INPUT_HEIGHT * scale;
     }

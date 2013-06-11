@@ -2,8 +2,16 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Camera Parameters" path="Camera Parameters" tooltip="">
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Camera Threshold" value="0" min="0" max="255" doClamp="1" inc="1" doSnap="0" path="Camera Parameters.Camera Threshold" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Min Blob Size" value="0.000000000" min="0.000000000" max="2000.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Camera Min Blob Size" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X1" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Camera ROI X1" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y1" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Camera ROI Y1" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X2" value="1.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Camera ROI X2" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y2" value="1.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Camera ROI Y2" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Color Input" value="1" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Camera Parameters.Draw Color Input" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Threshold Input" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Camera Parameters.Draw Threshold Input" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw ROI" value="1" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Camera Parameters.Draw ROI" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="Camera Parameters.Screen Scale" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="1" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Camera Parameters.Use Video" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="0" min="0" max="1" doClamp="0" inc="1" doSnap="0" path="Camera Parameters.Video Play" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="0" min="0" max="35737" doClamp="1" inc="1" doSnap="0" path="Camera Parameters.Video Frame" tooltip=""></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

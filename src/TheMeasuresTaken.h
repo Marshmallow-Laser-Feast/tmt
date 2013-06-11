@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#include "ofxCv.h"
+
 #include "ofxMidi.h"
 
 #include "ofxEtherdream.h"
@@ -66,10 +68,15 @@
 
 #define PARAM_NAME_CURRENT_INPUT                "Input"
 
-#define PARAM_NAME_CAMERA_THRESHOLD             "Camera Threshold"
-#define PARAM_NAME_CAMERA_MIN_BLOB_SIZE         "Camera Min Blob Size"
+#define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
+#define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
+#define PARAM_NAME_CAMERA_ROI_X2                "Camera ROI X2"
+#define PARAM_NAME_CAMERA_ROI_Y2                "Camera ROI Y2"
+
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
 #define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
+#define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
+
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_CAMERA_USE_VIDEO             "Use Video"
 #define PARAM_NAME_VIDEO_PLAY                   "Video Play"
