@@ -7,18 +7,18 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Cap X" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Cap Y" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blank Count" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="End Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blank Count" value="40"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="End Count" value="7"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset X" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset Y" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale X" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale Y" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="45"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="101"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth Amount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Collapse" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="100"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="665"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Spacing" value="0.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

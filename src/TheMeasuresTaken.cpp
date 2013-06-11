@@ -163,7 +163,7 @@ void TheMeasuresTaken::setup()
     // Ilda
     
     etherdream.setup();
-    etherdream.setPPS(30000);
+    etherdream.setPPS(50000);
     
     // Camera &  Grabber
     grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );

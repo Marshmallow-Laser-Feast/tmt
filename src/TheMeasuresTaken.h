@@ -42,7 +42,7 @@
 
 #define INPUT_WIDTH                             640
 #define INPUT_HEIGHT                            480
-#define INPUT_TIMEOUT_FRAMES                    20
+#define INPUT_TIMEOUT_FRAMES                    5
 #define INPUT_COUNT                             3
 #define IMAGESEQINPUT_COUNT                     1
 
