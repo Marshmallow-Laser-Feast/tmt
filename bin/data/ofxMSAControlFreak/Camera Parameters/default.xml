@@ -7,7 +7,7 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Color Input" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw ROI" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Contours" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Contour Source" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Contour Source" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc brightness" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc gamma" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc shutter" value="1.000000000"></Parameter>
@@ -15,6 +15,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="112"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="100"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

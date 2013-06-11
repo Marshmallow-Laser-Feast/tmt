@@ -1,6 +1,6 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="ILDA Parameters">
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Lines" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Points" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Calibration Only" value="0"></Parameter>
@@ -14,7 +14,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset Y" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale X" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale Y" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="29"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="751"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth Amount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000"></Parameter>

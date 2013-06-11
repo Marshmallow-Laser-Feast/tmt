@@ -120,7 +120,7 @@ public:
 
         for(int i=0; i<polylines->size(); i++) {
             if(polylines->at(i).size()) {
-                if(smoothAmount > 0) polylines->at(i) = polylines->at(i).getSmoothed(smoothAmount);
+//                if(smoothAmount > 0) polylines->at(i) = polylines->at(i).getSmoothed(smoothAmount);
                 if(optimizeTolerance > 0) polylines->at(i).simplify(optimizeTolerance);
             }
         }
