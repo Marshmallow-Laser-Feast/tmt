@@ -20,9 +20,12 @@ class IVisualizer
 {
     
 public:
+    msa::controlfreak::ParameterGroup params;
     
     IVisualizer()
-    {};
+    {
+        params.addFloat("color");
+    };
     
     virtual ~IVisualizer()
     {};

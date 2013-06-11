@@ -152,8 +152,10 @@ void TheMeasuresTaken::setup()
     visualizers[5]          = fixedPointVisualizer;
     visualizers[6]          = qualitiesVisualizer;
     
-    gui.addPage(qualitiesVisualizer->params);
-    qualitiesVisualizer->params.loadXmlValues();
+    for(int i=0; i<VISUALIZER_COUNT; i++) {
+        gui.addPage(visualizers[i]->params);
+        visualizers[i]->params.loadXmlValues();
+    }
 
 //    visualizationParams.add(&qualitiesVisualizer->params);
     
@@ -411,7 +413,11 @@ void TheMeasuresTaken::keyPressed(int key)
         visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
-        qualitiesVisualizer->params.saveXmlValues();
+//        qualitiesVisualizer->();
+        for(int i=0; i<VISUALIZER_COUNT; i++) {
+            visualizers[i]->params.saveXmlValues();
+        }
+
         
     }
     

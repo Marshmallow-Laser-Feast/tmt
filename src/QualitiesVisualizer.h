@@ -15,7 +15,6 @@ class QualitiesVisualizer : public IVisualizer
 {
     
 public:
-    msa::controlfreak::ParameterGroup params;
     
 //    int smoothAmount;   // how much to smooth the path (zero to ignore)
 //    float optimizeTolerance;    // howmuch to optimize the path, based on curvature (zero to ignore)
