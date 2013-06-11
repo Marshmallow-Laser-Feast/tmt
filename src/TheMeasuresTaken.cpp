@@ -389,11 +389,11 @@ void TheMeasuresTaken::draw()
         
         imageInput.draw(0, 0);
         
-        float x1 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
-        float y1 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
+        float x1 = INPUT_WIDTH * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1];
+        float y1 = INPUT_HEIGHT * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1];
         
-        float x2 = INPUT_WIDTH * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
-        float y2 = INPUT_HEIGHT * scale * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
+        float x2 = INPUT_WIDTH * (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2];
+        float y2 = INPUT_HEIGHT * (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2];
         
         if( (bool)cameraParams[PARAM_NAME_CAMERA_DRAW_ROI] )
         {
