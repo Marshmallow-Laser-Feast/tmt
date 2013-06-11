@@ -39,6 +39,7 @@
 #define PARAM_NAME_ENABLED                      "Enabled"
 #define PARAM_NAME_BRIGHTNESS                   "Brightness"
 #define PARAM_NAME_TIME_OFFSET                  "Time Offset"
+#define PARAM_NAME_FASTEST_COUNT                "Fastest Count"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
