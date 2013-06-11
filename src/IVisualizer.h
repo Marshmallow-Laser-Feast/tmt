@@ -12,6 +12,7 @@
 
 #include "ofMain.h"
 #include "TheMeasuresTaken.h"
+#include "Params.h"
 
 #include "InputAnalyser.h"
 
@@ -26,6 +27,7 @@ public:
     IVisualizer()
     {
         params.addInt(PARAM_NAME_BRIGHTNESS).setClamp(true);
+        params.addInt(PARAM_NAME_TIME_OFFSET).setRange(0, MAX_PATH_ANALYSER_HISTORY).setClamp(true);
     };
     
     virtual ~IVisualizer()
@@ -40,4 +42,5 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {};
+    
 };
