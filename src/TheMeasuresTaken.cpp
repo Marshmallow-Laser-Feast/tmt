@@ -146,6 +146,7 @@ void TheMeasuresTaken::setup()
     gui.addPage(ildaParams);
     
     gui.toggleDraw();
+    gui.setDefaultKeys(true);
     
     inputParams.loadXmlValues();
     cameraCentroidInputParams.loadXmlValues();
@@ -450,10 +451,10 @@ void TheMeasuresTaken::keyPressed(int key)
         }
     }
     
-    if( key == 'p' )
-    {
-        gui.toggleDraw();
-    }
+//    if( key == 'p' )
+//    {
+//        gui.toggleDraw();
+//    }
     
     if( key == 'i' )
     {
