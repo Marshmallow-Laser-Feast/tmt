@@ -20,12 +20,20 @@ class IVisualizer
 {
     
 public:
+    msa::controlfreak::ParameterGroup params;
     
     IVisualizer()
-    {};
+    {
+        params.addFloat("brightness").setClamp(true);
+    };
     
     virtual ~IVisualizer()
     {};
+    
+    
+    float getBrightness() const {
+        return params["brightness"];
+    }
     
 public:
     

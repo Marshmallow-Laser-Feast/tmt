@@ -42,7 +42,7 @@
 
 #define INPUT_WIDTH                             640
 #define INPUT_HEIGHT                            480
-#define INPUT_TIMEOUT_FRAMES                    20
+#define INPUT_TIMEOUT_FRAMES                    5
 #define INPUT_COUNT                             3
 #define IMAGESEQINPUT_COUNT                     1
 
@@ -65,6 +65,8 @@
 ////////////////////////////
 
 #define PARAM_NAME_CURRENT_INPUT                "Input"
+
+#define PARAM_NAME_ENABLED                      "Enabled"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
 #define PARAM_NAME_CAMERA_ROI_Y1                "Camera ROI Y1"
@@ -92,22 +94,6 @@
 #define PARAM_NAME_VIDEO_FRAME                  "Video Frame"
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
-
-#define PARAM_NAME_DOT_VIS_RATIO                "Dots Ratio"
-
-#define PARAM_NAME_DOT_TRAILS_VIS_RATIO         "Dots Trails Ratio"
-#define PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT  "Dots Trails Count"
-
-#define PARAM_NAME_CONNECTED_DOT_VIS_COUNT      "Connected Dots Count"
-#define PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET   "Connected Neighbor Offset"
-
-#define PARAM_NAME_NEAREST_DOT_VIS_COUNT        "Nearest Dots Count"
-
-#define PARAM_NAME_LINE_VIS_COUNT               "Line Vis Count"
-
-#define PARAM_NAME_FIXED_POINT_VIS_COUNT        "Fixed Point Vis Count"
-#define PARAM_NAME_FIXED_POINT_FIX              "Fixed Point Vis FIX Bang"
-#define PARAM_NAME_FIXED_POINT_CLEAR            "Fixed Point Vis Clear Bang"
 
 #define PARAM_NAME_ILDA_DRAW_LINES              "Draw Lines"
 #define PARAM_NAME_ILDA_DRAW_POINTS             "Draw Points"
@@ -142,7 +128,7 @@
 //     Visualization      //
 ////////////////////////////
 
-#define SCREEN_VIS_AREA_WIDTH                   1080
+#define SCREEN_VIS_AREA_WIDTH                   700
 #define SCREEN_VIS_AREA_HEIGHT                  600
 
 #define VISUALIZER_COUNT                        7
@@ -196,7 +182,7 @@ private:
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
-    msa::controlfreak::ParameterGroup   visualizationParams;
+//    msa::controlfreak::ParameterGroup   visualizationParams;
     msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     
@@ -222,7 +208,7 @@ private:
     FixedPointVisualizer                *fixedPointVisualizer;
     QualitiesVisualizer                 *qualitiesVisualizer;
     
-    std::vector<ofPolyline>             visualizationData;
+//    std::vector<ofPolyline>             visualizationData;
     
     bool                                visualizeInput;
     

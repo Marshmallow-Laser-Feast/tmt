@@ -1,0 +1,6 @@
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="NearestDotsVisualizer">
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="brightness" value="1.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="0"></Parameter>
+    </Parameter>
+</ofxMSAControlFreak>

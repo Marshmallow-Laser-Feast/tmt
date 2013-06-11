@@ -20,29 +20,31 @@ struct comparePointX
     };
 }comparePointX__;
 
+#define PARAM_NAME_LINE_VIS_COUNT               "Line Vis Count"
+
+
+
 class LineVisualizer : public IVisualizer
 {
     
 public:
     
     LineVisualizer()
-    
-    :count( 0 )
-    
-    {};
+    {
+        params.setName("LineVisualizer");
+        params.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
+    };
     
     ~LineVisualizer()
     {};
     
 public:
     
-    void setCount( int value )
-    {
-        count           = value;
-    };
-    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int count = params[ PARAM_NAME_LINE_VIS_COUNT ];
+        
+
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
@@ -70,8 +72,6 @@ public:
     };
     
 private:
-    
-    int count;
     
 };
 

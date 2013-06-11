@@ -47,7 +47,7 @@ void TheMeasuresTaken::setup()
     inputParams.setName("Input Parameters");
     cameraCentroidInputParams.setName( "Camera Centroid Input Parameters" );
     cameraParams.setName( "Camera Parameters" );
-    visualizationParams.setName( "Visualisation Parameters" );
+//    visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
@@ -79,24 +79,9 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
     cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
     
-    visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
-    
-    visualizationParams.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true ).setIncrement( 0.01f );
-    visualizationParams.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    visualizationParams.addInt( PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    
-    visualizationParams.addInt( PARAM_NAME_FIXED_POINT_VIS_COUNT ).setRange( 0, 1000 ).setClamp( true );
-    visualizationParams.addBang( PARAM_NAME_FIXED_POINT_FIX );
-    visualizationParams.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
-    
     outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
         
+    ildaParams.addBool(PARAM_NAME_ENABLED);
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_LINES );
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_POINTS );
     
@@ -120,16 +105,16 @@ void TheMeasuresTaken::setup()
     ildaParams.addInt( PARAM_NAME_POINT_COUNT_ORIG );
     ildaParams.addInt( PARAM_NAME_POINT_COUNT_PROC );
     
-    ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT ).setRange( 0, 1000 ).setClamp( true );
-    ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f );
-    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
-    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT ).setRange( 0, 50 ).setClamp( true );
+    ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f ).setClamp(true);
+//    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
+    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 2000 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
     gui.addPage(inputParams);
     gui.addPage( cameraCentroidInputParams );
     gui.addPage( cameraParams );
-    gui.addPage(visualizationParams);
+//    gui.addPage(visualizationParams);
     gui.addPage(outputParams);
     gui.addPage(ildaParams);
     
@@ -138,7 +123,7 @@ void TheMeasuresTaken::setup()
     inputParams.loadXmlValues();
     cameraCentroidInputParams.loadXmlValues();
     cameraParams.loadXmlValues();
-    visualizationParams.loadXmlValues();
+//    visualizationParams.loadXmlValues();
     outputParams.loadXmlValues();
     ildaParams.loadXmlValues();
     
@@ -167,6 +152,13 @@ void TheMeasuresTaken::setup()
     visualizers[5]          = fixedPointVisualizer;
     visualizers[6]          = qualitiesVisualizer;
     
+    for(int i=0; i<VISUALIZER_COUNT; i++) {
+        gui.addPage(visualizers[i]->params);
+        visualizers[i]->params.loadXmlValues();
+    }
+
+//    visualizationParams.add(&qualitiesVisualizer->params);
+    
     offset.set( 0.0f, 0.0f, 0.0f );
     scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
     
@@ -175,7 +167,7 @@ void TheMeasuresTaken::setup()
     // Ilda
     
     etherdream.setup();
-    etherdream.setPPS(30000);
+    etherdream.setPPS(50000);
     
     // Camera &  Grabber
     grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );
@@ -233,7 +225,7 @@ void TheMeasuresTaken::update()
         }
     }
     
-    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
+//    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
     
     // Update GUI
     
@@ -257,40 +249,16 @@ void TheMeasuresTaken::update()
     
     // Update visualiser settings
     
-    dotVisualizer->setRenderRatio( (float)visualizationParams[ PARAM_NAME_DOT_VIS_RATIO ] );
-    
-    dotTrailsVisualizer->setRenderRatio( (float)visualizationParams[ PARAM_NAME_DOT_TRAILS_VIS_RATIO ] );
-    dotTrailsVisualizer->setTrailCount( (int)visualizationParams[ PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ] );
-    
-    connectedDotVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_CONNECTED_DOT_VIS_COUNT ] );
-    connectedDotVisualizer->setNeighborsOffset( (int)visualizationParams[ PARAM_NAME_CONNECTED_DOT_VIS_N_OFFSET ] );
-    
-    nearestDotsVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ] );
-    
-    lineVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_LINE_VIS_COUNT ] );
-    
-    fixedPointVisualizer->setCount( (int)visualizationParams[ PARAM_NAME_FIXED_POINT_VIS_COUNT ] );
-    
-    if( (bool)visualizationParams[PARAM_NAME_FIXED_POINT_FIX] )
-    {
-        fixedPointVisualizer->setFixedPoints( currentInputAnalyser );
-    }
-    
-    if( (bool)visualizationParams[PARAM_NAME_FIXED_POINT_CLEAR] )
-    {
-        fixedPointVisualizer->clearFixedPoints();
-    }
-    
     // Collect data from all visualizers
     
-    visualizationData.clear();
+//    visualizationData.clear();
     
-    for( int i = 0; i < VISUALIZER_COUNT; ++i )
-    {
-        PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
-        
-        visualizationData.insert( visualizationData.end(), visualizedLines->begin(), visualizedLines->end() );
-    }
+//    for( int i = 0; i < VISUALIZER_COUNT; ++i )
+//    {
+//        PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+    
+//        visualizationData.insert( visualizationData.end(), visualizedLines->begin(), visualizedLines->end() );
+//    }
     
     // Ilda
     
@@ -316,7 +284,7 @@ void TheMeasuresTaken::update()
     
     ildaFrame.polyProcessor.params.smoothAmount         = (int)ildaParams[ PARAM_NAME_ILDA_SMOOTH_AMOUNT ];
     ildaFrame.polyProcessor.params.optimizeTolerance    = (float)ildaParams[ PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ];
-    ildaFrame.polyProcessor.params.collapse             = (bool)ildaParams[ PARAM_NAME_ILDA_COLLAPSE ];
+//    ildaFrame.polyProcessor.params.collapse             = (bool)ildaParams[ PARAM_NAME_ILDA_COLLAPSE ];
     ildaFrame.polyProcessor.params.targetPointCount     = (int)ildaParams[ PARAM_NAME_ILDA_POINT_COUNT ];
     ildaFrame.polyProcessor.params.spacing              = (float)ildaParams[ PARAM_NAME_ILDA_SPACING ];
     
@@ -327,15 +295,18 @@ void TheMeasuresTaken::update()
     {
         ildaFrame.drawCalibration();
     } else {
-        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
-        {
-            ildaFrame.addPoly( *it );
+        for( int i = 0; i < VISUALIZER_COUNT; ++i )       {
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+            ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
         }
+//        for ( std::vector<ofPolyline>::iterator it = visualizationData.begin() ; it != visualizationData.end(); ++it )
+//        {
+//        }
     }
     
     ildaFrame.update();
     
-    etherdream.setPoints(ildaFrame);
+    if(ildaParams[PARAM_NAME_ENABLED]) etherdream.setPoints(ildaFrame);
 
 }
 
@@ -445,9 +416,14 @@ void TheMeasuresTaken::keyPressed(int key)
         inputParams.saveXmlValues();
         cameraCentroidInputParams.saveXmlValues();
         cameraParams.saveXmlValues();
-        visualizationParams.saveXmlValues();
+//        visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
+        for(int i=0; i<VISUALIZER_COUNT; i++) {
+            visualizers[i]->params.saveXmlValues();
+        }
+
+        
     }
     
     if( key == 'p' )
@@ -467,12 +443,12 @@ void TheMeasuresTaken::keyPressed(int key)
     
     if( key == 'o' )
     {
-        visualizationParams[PARAM_NAME_FIXED_POINT_FIX].set( true );
+        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_FIX].set( true );
     }
     
     if( key == 'O' )
     {
-        visualizationParams[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
+        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
     }
 }
 
