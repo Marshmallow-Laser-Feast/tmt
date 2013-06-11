@@ -71,6 +71,7 @@
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
 #define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
+#define PARAM_NAME_CAMERA_USE_VIDEO             "Use Video"
 
 #define PARAM_NAME_CURRENT_OUTPUT               "Output"
 
@@ -202,8 +203,7 @@ private:
     ofxEtherdream                       etherdream;
     
     // Camera
-    
-    ofPixelsSharedPtrT                  pixelsSharedPtr;
-    
     ofxLibdc::Grabber                   grabber;
+    ofVideoPlayer                       videoPlayer;
+    ofBaseVideo                         *videoPtr;
 };

@@ -51,6 +51,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
+    cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     
     visualizationParams.addFloat( PARAM_NAME_DOT_VIS_RATIO ).setRange( 0, 1.0f ).setClamp( true );
     
@@ -137,29 +138,36 @@ void TheMeasuresTaken::setup()
     etherdream.setPPS(30000);
     
     // Camera &  Grabber
-    
-    pixelsSharedPtr         = ofPixelsSharedPtrT( new ofPixels() );
-    
     grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );
     grabber.setImageType( OF_IMAGE_GRAYSCALE );
-    
     grabber.setup();
+    
+    {
+        ofDirectory dir;
+        dir.listDir("inputVideo");
+        if(dir.size() > 0) videoPlayer.loadMovie(dir.getPath(0));
+    }
+    
+    videoPtr = &grabber;
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
     // Camera & Grabber
+    if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO]) {
+        videoPtr = &videoPlayer;
+    } else {
+        videoPtr = &grabber;
+    }
     
-    grabber.update();
+    videoPtr->update();
     
-    if( grabber.isFrameNew() )
+    if( videoPtr->isFrameNew() )
     {
         for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
         {
-            pixelsSharedPtr->setFromPixels( grabber.getPixels() , grabber.getWidth(), grabber.getHeight(), OF_IMAGE_GRAYSCALE );
-            
-            iimageSeqInputs[i]->setPixels( pixelsSharedPtr );
+            iimageSeqInputs[i]->setPixels( videoPtr->getPixelsRef() );
         }
     }
     
@@ -294,7 +302,9 @@ void TheMeasuresTaken::draw()
         ofTranslate( ofGetWidth() - INPUT_WIDTH * scale , 0.0f );
         ofScale( scale, scale );
         
-        grabber.draw( 0.0f, 0.0f );
+        // STUPID HACK BECAUSE OFBASEVIDEO DOESN"T HAVE DRAW() METHOD!!!
+        if(cameraParams[PARAM_NAME_CAMERA_USE_VIDEO]) videoPlayer.draw(0, 0);
+        else grabber.draw( 0.0f, 0.0f );
         
         verticalOffset      = INPUT_HEIGHT * scale;
     }

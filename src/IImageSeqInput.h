@@ -12,7 +12,7 @@
 
 #include "Input.h"
 
-typedef ofPtr<ofPixels> ofPixelsSharedPtrT;
+//typedef ofPtr<ofPixels> ofPixelsSharedPtrT;
 
 class IImageSeqInput : public Input
 {
@@ -28,9 +28,9 @@ public:
     
 public:
     
-    virtual void setPixels( ofPixelsSharedPtrT pixels_ )
+    virtual void setPixels( ofPixelsRef pixels_ )
     {
-        pixels  = pixels_;
+        pixels  = &pixels_;
     };
     
     virtual void update()
@@ -41,7 +41,8 @@ public:
     
 protected:
     
-    ofPixelsSharedPtrT pixels;
+//    ofPixelsSharedPtrT pixels;
+    ofPixels* pixels;
     
 };
 
