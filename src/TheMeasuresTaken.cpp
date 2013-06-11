@@ -110,7 +110,7 @@ void TheMeasuresTaken::setup()
     ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT ).setRange( 0, 50 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f ).setClamp(true);
 //    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
-    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 1000 ).setClamp( true );
+    ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 2000 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
     gui.addPage(inputParams);
@@ -152,8 +152,10 @@ void TheMeasuresTaken::setup()
     visualizers[5]          = fixedPointVisualizer;
     visualizers[6]          = qualitiesVisualizer;
     
-//    gui.addPage(qualitiesVisualizer->params);
-    visualizationParams.add(&qualitiesVisualizer->params);
+    gui.addPage(qualitiesVisualizer->params);
+    qualitiesVisualizer->params.loadXmlValues();
+
+//    visualizationParams.add(&qualitiesVisualizer->params);
     
     offset.set( 0.0f, 0.0f, 0.0f );
     scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
@@ -409,6 +411,8 @@ void TheMeasuresTaken::keyPressed(int key)
         visualizationParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
+        qualitiesVisualizer->params.saveXmlValues();
+        
     }
     
     if( key == 'p' )
