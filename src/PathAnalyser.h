@@ -17,6 +17,8 @@ class PathAnalyser
     
 public:
     
+    static float smoothing;
+    
     PathAnalyser()
     
     :length( 0.0f )
@@ -53,7 +55,10 @@ public:
     
     void addSample( const ofPoint &sample )
     {
-        samples.push_back( sample );
+        // HACK:
+        ofPoint p(sample);
+        if(samples.size()>0 && smoothing > 0) p.interpolate(samples.back(), smoothing);
+        samples.push_back( p );
         times.push_back( ofGetElapsedTimef() );
         
         updateAnalysis();
