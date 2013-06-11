@@ -39,7 +39,7 @@ public:
         params.setName("QualitiesVisualizer");
         params.addInt("smoothAmount").setClamp(true).setSnap(true);
         params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
-        params.addFloat("noiseTimeSpeed").setClamp(true).setSnap(true);
+        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
         params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
         params.addFloat("noisePosScale1").setRange(0, 100).setClamp(true).setSnap(true);
         params.addFloat("noiseAmp2").setClamp(true).setSnap(true);

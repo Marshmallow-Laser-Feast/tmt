@@ -3,13 +3,13 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="brightness" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="optimizeTolerance" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="7.139999866"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="20.090000153"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.379999995"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="12.500000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="11.159999847"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.140000001"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="73.209999084"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.199999988"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="53.129997253"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
