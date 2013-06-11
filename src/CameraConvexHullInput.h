@@ -31,7 +31,9 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
-
+        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
+        params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 100);
+        params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
     };
     
     ~CameraConvexHullInput()
@@ -52,6 +54,7 @@ public:
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
             float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
+            float smoothing = params[PARAM_NAME_SMOOTHING];
             
             samples.clear();
             
@@ -105,15 +108,22 @@ public:
                 allConvexHullFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
             }
             
+            pointTracker.setMaximumDistance(params[PARAM_NAME_TRACKING_DISTANCE]);
+            pointTracker.setPersistence(params[PARAM_NAME_TRACKING_PERSISTENCE]);
             pointTracker.track( allConvexHullFloatPoints );
             
             for( int i  = 0; i < allConvexHullFloatPoints.size(); ++i )
             {
                 PointInputSampleT   sample;
                 
-                sample.setSampleID( pointTracker.getLabelFromIndex( i ) );
+                int label = pointTracker.getLabelFromIndex(i);
+                sample.setSampleID(label);
                 
                 ofPoint p(ofxCv::toOf( allConvexHullFloatPoints[i] ) );
+//                if(smoothing > 0 && pointTracker.existsPrevious(label)) {
+//                    ofPoint prev(ofxCv::toOf(pointTracker.getPrevious(label)));
+//                    p = p/2;//.interpolated(p, smoothing);
+//                }
 //                p-= ofPoint( roiX1 * width, roiY1 * height );
                 sample.setSample(p);
 //                sample.setSample( ofPoint( ofxCv::toOf( allConvexHullFloatPoints[i] ) ) + ofPoint( roiX1 * width, roiY1 * height ) );
