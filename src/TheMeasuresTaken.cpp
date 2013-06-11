@@ -18,7 +18,7 @@ void TheMeasuresTaken::setup()
     cameraParams.setName( "Camera Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
-    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 5, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull", "Camera Contour" );
+    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 6, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull", "Camera Contour", "Camera Tips" );
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -31,7 +31,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
-    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 3, "Centroid", "ConvexHull", "Contour" );
+    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 4, "Centroid", "ConvexHull", "Contour", "Tips" );
 
     cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
@@ -95,6 +95,7 @@ void TheMeasuresTaken::setup()
     iimageSeqInputs.push_back(cameraCentroidsInput            = new CameraCentroidsInputs());
     iimageSeqInputs.push_back(cameraConvexHullInput           = new CameraConvexHullInput());
     iimageSeqInputs.push_back(cameraContourInput              = new CameraContourInput());
+    iimageSeqInputs.push_back(cameraContourTipsInput          = new CameraContourTipsInput());
     
     for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
@@ -110,6 +111,7 @@ void TheMeasuresTaken::setup()
     inputAnalysers.push_back(cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES ));
     inputAnalysers.push_back(cameraConvexHullInputAnalyser   = new InputAnalyser( cameraConvexHullInput, INPUT_TIMEOUT_FRAMES ));
     inputAnalysers.push_back(cameraContourAnalyser           = new InputAnalyser( cameraContourInput, INPUT_TIMEOUT_FRAMES ));
+    inputAnalysers.push_back(cameraContourTipsAnalyser       = new InputAnalyser( cameraContourTipsInput, INPUT_TIMEOUT_FRAMES ));
     
     currentInputAnalyser    = inputAnalysers[0];
     

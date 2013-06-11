@@ -22,6 +22,7 @@
 #include "CameraCentroidsInput.h"
 #include "CameraConvexHullInput.h"
 #include "CameraContourInput.h"
+#include "CameraContourTipsInput.h"
 
 #include "InputAnalyser.h"
 
@@ -71,6 +72,7 @@ private:
     CameraCentroidsInputs               *cameraCentroidsInput;
     CameraConvexHullInput               *cameraConvexHullInput;
     CameraContourInput                  *cameraContourInput;
+    CameraContourTipsInput              *cameraContourTipsInput;
     
 //    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     vector<IImageSeqInput*>             iimageSeqInputs;
@@ -80,6 +82,7 @@ private:
     InputAnalyser                       *cameraCentroidsInputAnalyser;
     InputAnalyser                       *cameraConvexHullInputAnalyser;
     InputAnalyser                       *cameraContourAnalyser;
+    InputAnalyser                       *cameraContourTipsAnalyser;
     
 //    InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
     vector<InputAnalyser*>              inputAnalysers;
@@ -89,10 +92,6 @@ private:
     // Gui & Params
     
     msa::controlfreak::ParameterGroup   inputParams;
-//    msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
-//    msa::controlfreak::ParameterGroup   cameraConvexHullInputParams;
-//    msa::controlfreak::ParameterGroup   cameraContourInputParams;
-    
     msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     
