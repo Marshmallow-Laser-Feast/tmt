@@ -70,6 +70,7 @@ void TheMeasuresTaken::setup()
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE );
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR );
     cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
+    cameraConvexHullInputParams.addFloat( CAMERA_CONVEX_HULL_SIMPLIFICATION ).setRange( 0.0f, 1.0f ).setClamp( true ).setIncrement( 0.01f );
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -263,7 +264,7 @@ void TheMeasuresTaken::update()
     cameraConvexHullInput->setDilateAmount((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_DILATE]);
     cameraConvexHullInput->setMinContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MIN_CONTOUR]);
     cameraConvexHullInput->setMaxContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MAX_CONTOUR]);
-    
+    cameraConvexHullInput->setSimplification( (float)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_SIMPLIFICATION] );
     // Update current input analyser
     
     currentInputAnalyser->update();

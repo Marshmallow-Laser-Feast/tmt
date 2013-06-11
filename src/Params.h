@@ -60,6 +60,7 @@
 #define CAMERA_CONVEX_HULL_DILATE               "Dilate"
 #define CAMERA_CONVEX_HULL_MIN_CONTOUR          "Min Contour"
 #define CAMERA_CONVEX_HULL_MAX_CONTOUR          "Max Contour"
+#define CAMERA_CONVEX_HULL_SIMPLIFICATION       "Simplification"
 
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_LIBDC_BRIGHTNESS             "Libdc brightness"
