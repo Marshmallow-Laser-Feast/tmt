@@ -3,7 +3,7 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="69"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="3"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="9"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="7857"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="10"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

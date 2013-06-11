@@ -1,6 +1,6 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="LineVisualizer">
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="100"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="34"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

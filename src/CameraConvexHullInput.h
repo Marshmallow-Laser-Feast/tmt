@@ -98,7 +98,7 @@ public:
                 
                 line.close();
                 
-                line.simplify( 0.5f );
+                line.simplify( 0.7f );
                 
                 for( int j = 0; j < line.getVertices().size(); ++j )
                 {
