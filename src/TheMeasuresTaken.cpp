@@ -89,6 +89,9 @@ void TheMeasuresTaken::setup()
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X2 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y2 ).setRange( 0, 1.0f ).setClamp( true );
     
+    cameraParams.addBool(PARAM_NAME_CAMERA_FLIP_X);
+    cameraParams.addBool(PARAM_NAME_CAMERA_FLIP_Y);
+    
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
@@ -243,6 +246,10 @@ void TheMeasuresTaken::update()
 
     imageInput.setFromPixels(videoPtr->getPixelsRef());
     imageInput.update();
+    
+    bool doFlipX = cameraParams[PARAM_NAME_CAMERA_FLIP_X];
+    bool doFlipY = cameraParams[PARAM_NAME_CAMERA_FLIP_Y];
+    if(doFlipX || doFlipY) imageInput.mirror(doFlipY, doFlipX);
 
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
