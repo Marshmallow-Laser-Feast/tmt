@@ -16,8 +16,10 @@ void TheMeasuresTaken::setup()
     multitouchInput                 = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
     flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
     cameraCentroidsInput            = new CameraCentroidsInputs();
+    cameraConvexHullInput           = new CameraConvexHullInput();
     
     iimageSeqInputs[0]              = cameraCentroidsInput;
+    iimageSeqInputs[1]              = cameraConvexHullInput;
     
     for( int i = 0; i < IMAGESEQINPUT_COUNT; ++i )
     {
@@ -28,10 +30,12 @@ void TheMeasuresTaken::setup()
     multiTouchInputAnalyser         = new InputAnalyser( multitouchInput, INPUT_TIMEOUT_FRAMES );
     flockingInputAnalyser           = new InputAnalyser( flockingInput, INPUT_TIMEOUT_FRAMES );
     cameraCentroidsInputAnalyser    = new InputAnalyser( cameraCentroidsInput, INPUT_TIMEOUT_FRAMES );
+    cameraConvexHullInputAnalyser   = new InputAnalyser( cameraConvexHullInput, INPUT_TIMEOUT_FRAMES );
     
     inputAnalysers[0]               = multiTouchInputAnalyser;
     inputAnalysers[1]               = flockingInputAnalyser;
     inputAnalysers[2]               = cameraCentroidsInputAnalyser;
+    inputAnalysers[3]               = cameraConvexHullInputAnalyser;
     
     currentInputAnalyser    = inputAnalysers[0];
     
@@ -51,7 +55,7 @@ void TheMeasuresTaken::setup()
     outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
-    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera Centroids" );
+    inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 4, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull" );
     
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_THRESHOLD );
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_BLUR );

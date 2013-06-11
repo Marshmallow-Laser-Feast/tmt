@@ -18,6 +18,7 @@
 #include "MultiTouchInput.h"
 #include "FlockingInput.h"
 #include "CameraCentroidsInput.h"
+#include "CameraConvexHullInput.h"
 
 #include "InputAnalyser.h"
 
@@ -43,8 +44,8 @@
 #define INPUT_WIDTH                             640
 #define INPUT_HEIGHT                            480
 #define INPUT_TIMEOUT_FRAMES                    5
-#define INPUT_COUNT                             3
-#define IMAGESEQINPUT_COUNT                     1
+#define INPUT_COUNT                             4
+#define IMAGESEQINPUT_COUNT                     2
 
 #define MAX_PATH_ANALYSER_SAMPLES               60
 #define MAX_PATH_ANALYSER_HISTORY               60 * 5
@@ -166,12 +167,14 @@ private:
     MultiTouchInput                     *multitouchInput;
     FlockingInput                       *flockingInput;
     CameraCentroidsInputs               *cameraCentroidsInput;
+    CameraConvexHullInput               *cameraConvexHullInput;
     
     IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     
     InputAnalyser                       *multiTouchInputAnalyser;
     InputAnalyser                       *flockingInputAnalyser;
     InputAnalyser                       *cameraCentroidsInputAnalyser;
+    InputAnalyser                       *cameraConvexHullInputAnalyser;
     
     InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
     
