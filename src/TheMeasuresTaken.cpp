@@ -152,6 +152,9 @@ void TheMeasuresTaken::setup()
     visualizers[5]          = fixedPointVisualizer;
     visualizers[6]          = qualitiesVisualizer;
     
+//    gui.addPage(qualitiesVisualizer->params);
+    visualizationParams.add(&qualitiesVisualizer->params);
+    
     offset.set( 0.0f, 0.0f, 0.0f );
     scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
     
@@ -213,7 +216,7 @@ void TheMeasuresTaken::update()
         }
     }
     
-    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
+//    qualitiesVisualizer->setNoiseOffset( ofGetElapsedTimef() * 1.0f );
     
     // Update GUI
     

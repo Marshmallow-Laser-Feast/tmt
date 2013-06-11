@@ -1,9 +1,5 @@
-<ofxMSAControlFreak version="1.000000000" bFullSchema="1">
-    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Input Parameters" path="Input Parameters" tooltip="">
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Input" value="0" min="0" max="3" doClamp="1" inc="1" doSnap="0" path="Input Parameters.Input" tooltip="" selectedLabel="MultiTouch">
-            <label0>MultiTouch</label0>
-            <label1>Flocking</label1>
-            <label2>Camera</label2>
-        </Parameter>
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Input Parameters">
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Input" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
