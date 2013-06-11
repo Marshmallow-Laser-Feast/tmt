@@ -114,7 +114,7 @@
 //     Visualization      //
 ////////////////////////////
 
-#define SCREEN_VIS_AREA_WIDTH                   700
-#define SCREEN_VIS_AREA_HEIGHT                  600
+#define SCREEN_VIS_AREA_WIDTH                   INPUT_WIDTH
+#define SCREEN_VIS_AREA_HEIGHT                  INPUT_HEIGHT
 
 //#define VISUALIZER_COUNT                        8

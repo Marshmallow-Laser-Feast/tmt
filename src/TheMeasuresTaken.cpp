@@ -363,17 +363,10 @@ void TheMeasuresTaken::draw()
         drawInputVisualization();
     }
     
-    ofPushMatrix();
     ofPushStyle();
-    
     ofSetColor( 125 );
-    
-    ofTranslate( ( ofGetWindowWidth() - 1240.0f ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f + SCREEN_VIS_AREA_HEIGHT );
-    
-    ofDrawBitmapString( GUIDE_STRING, 0.0f, 20.0f );
-    
+    ofDrawBitmapString( GUIDE_STRING, 0.0f, ofGetHeight() - 20.0f );
     ofPopStyle();
-    ofPopMatrix();
     
     float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
     
@@ -531,15 +524,13 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 
 void TheMeasuresTaken::drawVisualization()
 {
-    ofPushMatrix();
     ofPushStyle();
-    
     ofSetColor( 255 );
     
-    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
+//    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     
+    ildaFrame.draw(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     ofPopStyle();
-    ofPopMatrix();
 }
 
 void TheMeasuresTaken::drawInputVisualization()
@@ -547,7 +538,8 @@ void TheMeasuresTaken::drawInputVisualization()
     ofPushMatrix();
     ofPushStyle();
     
-    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
+//    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
+    ofTranslate(0, ( ofGetWindowHeight() - INPUT_HEIGHT ));
     
     ofSetColor( ofColor::black, 125 );
     
@@ -560,8 +552,9 @@ void TheMeasuresTaken::drawInputVisualization()
     
     ofRect( 0, 0, INPUT_WIDTH, INPUT_HEIGHT );
     
-    glEnable( GL_SCISSOR_TEST );
-    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
+//    glEnable( GL_SCISSOR_TEST );
+//    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
+//    glScissor(0, ( ofGetWindowHeight() - INPUT_HEIGHT ), INPUT_WIDTH, INPUT_HEIGHT );
     
     ofSetColor( 100 );
     
@@ -603,7 +596,9 @@ void TheMeasuresTaken::drawVisualizationArea()
     ofSetLineWidth( 4.0f );
     ofSetColor( ofColor::darkGray );
     
-    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
+//    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
+    ofTranslate(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT);
+    
     
     ofRect( 0, 0, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     
