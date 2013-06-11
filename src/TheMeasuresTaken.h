@@ -85,6 +85,7 @@ private:
     
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraCentroidInputParams;
+    msa::controlfreak::ParameterGroup   cameraConvexHullInputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;

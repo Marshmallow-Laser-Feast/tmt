@@ -45,15 +45,21 @@
 #define PARAM_NAME_CAMERA_ROI_Y2                "Camera ROI Y2"
 
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
-#define PARAM_NAME_CAMERA_DRAW_THRESHOLD        "Draw Threshold Input"
 #define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
 #define PARAM_NAME_CAMERA_DRAW_CONTOURS         "Draw Contours"
+#define PARAM_NAME_CAMERA_CONTOUR_SOURCE        "Contour Source"
 
 #define CAMERA_CENTROID_THRESHOLD               "Threshold"
 #define CAMERA_CENTROID_BLUR                    "Blur"
 #define CAMERA_CENTROID_DILATE                  "Dilate"
 #define CAMERA_CENTROID_MIN_CONTOUR             "Min Contour"
 #define CAMERA_CENTROID_MAX_CONTOUR             "Max Contour"
+
+#define CAMERA_CONVEX_HULL_THRESHOLD            "Threshold"
+#define CAMERA_CONVEX_HULL_BLUR                 "Blur"
+#define CAMERA_CONVEX_HULL_DILATE               "Dilate"
+#define CAMERA_CONVEX_HULL_MIN_CONTOUR          "Min Contour"
+#define CAMERA_CONVEX_HULL_MAX_CONTOUR          "Max Contour"
 
 #define PARAM_NAME_CAMERA_SCREEN_SCALE          "Screen Scale"
 #define PARAM_NAME_LIBDC_BRIGHTNESS             "Libdc brightness"

@@ -50,6 +50,8 @@ void TheMeasuresTaken::setup()
     
     inputParams.setName("Input Parameters");
     cameraCentroidInputParams.setName( "Camera Centroid Input Parameters" );
+    cameraConvexHullInputParams.setName( "Camer ConvexHull Input Parameters" );
+    
     cameraParams.setName( "Camera Parameters" );
 //    visualizationParams.setName( "Visualisation Parameters" );
     outputParams.setName( "Output Parameters" );
@@ -63,15 +65,21 @@ void TheMeasuresTaken::setup()
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MIN_CONTOUR );
     cameraCentroidInputParams.addInt( CAMERA_CENTROID_MAX_CONTOUR );
     
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_THRESHOLD );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_BLUR );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_DILATE );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MIN_CONTOUR );
+    cameraConvexHullInputParams.addInt( CAMERA_CONVEX_HULL_MAX_CONTOUR );
+    
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X2 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y2 ).setRange( 0, 1.0f ).setClamp( true );
     
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
-    cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_THRESHOLD );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
+    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 2, "Centroid", "ConvexHull" );
 
     cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
@@ -117,6 +125,7 @@ void TheMeasuresTaken::setup()
     
     gui.addPage(inputParams);
     gui.addPage( cameraCentroidInputParams );
+    gui.addPage( cameraConvexHullInputParams );
     gui.addPage( cameraParams );
 //    gui.addPage(visualizationParams);
     gui.addPage(outputParams);
@@ -126,6 +135,7 @@ void TheMeasuresTaken::setup()
     
     inputParams.loadXmlValues();
     cameraCentroidInputParams.loadXmlValues();
+    cameraConvexHullInputParams.loadXmlValues();
     cameraParams.loadXmlValues();
 //    visualizationParams.loadXmlValues();
     outputParams.loadXmlValues();
@@ -245,6 +255,15 @@ void TheMeasuresTaken::update()
     cameraCentroidsInput->setMinContourAreaRadius((int)cameraCentroidInputParams[CAMERA_CENTROID_MIN_CONTOUR]);
     cameraCentroidsInput->setMaxContourAreaRadius((int)cameraCentroidInputParams[CAMERA_CENTROID_MAX_CONTOUR]);
     
+    // Update Camera Convex Hull
+
+    
+    cameraConvexHullInput->setThreshold((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_THRESHOLD]);
+    cameraConvexHullInput->setBlurAmount((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_BLUR]);
+    cameraConvexHullInput->setDilateAmount((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_DILATE]);
+    cameraConvexHullInput->setMinContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MIN_CONTOUR]);
+    cameraConvexHullInput->setMaxContourAreaRadius((int)cameraConvexHullInputParams[CAMERA_CONVEX_HULL_MAX_CONTOUR]);
+    
     // Update current input analyser
     
     currentInputAnalyser->update();
@@ -339,7 +358,6 @@ void TheMeasuresTaken::draw()
     ofPopStyle();
     ofPopMatrix();
     
-    float verticalOffset    = 0.0f;
     float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
     
     ofPushMatrix();
@@ -384,24 +402,10 @@ void TheMeasuresTaken::draw()
             
             ofTranslate( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_WIDTH * scale ,  (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] * INPUT_HEIGHT * scale );
             
-            cameraCentroidsInput->drawDebug();
+            iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
             
             ofPopStyle();
         }
-        
-        verticalOffset      = INPUT_HEIGHT * scale;
-    }
-    
-    ofPopMatrix();
-    
-    ofPushMatrix();
-    
-    if( (bool)cameraParams[ PARAM_NAME_CAMERA_DRAW_THRESHOLD ] )
-    {
-        ofTranslate( ofGetWidth() - INPUT_WIDTH * scale, verticalOffset );
-        ofScale( scale, scale );
-        
-        //cameraInput->drawThreshold();
     }
     
     ofPopMatrix();
@@ -419,6 +423,7 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         inputParams.saveXmlValues();
         cameraCentroidInputParams.saveXmlValues();
+        cameraConvexHullInputParams.saveXmlValues();
         cameraParams.saveXmlValues();
         outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
