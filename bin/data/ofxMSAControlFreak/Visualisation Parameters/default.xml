@@ -10,12 +10,5 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Fixed Point Vis Count" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis FIX Bang" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Fixed Point Vis Clear Bang" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Qualities">
-            <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
-            <Parameter type="N3msa12controlfreak14ParameterFloatE" name="optimizeTolerance" value="0.000000000"></Parameter>
-            <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale" value="0.000000000"></Parameter>
-            <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
-            <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="0"></Parameter>
-        </Parameter>
     </Parameter>
 </ofxMSAControlFreak>
