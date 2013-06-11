@@ -59,7 +59,7 @@ void TheMeasuresTaken::setup()
     
     cameraParams.setName( "Camera Parameters" );
 //    visualizationParams.setName( "Visualisation Parameters" );
-    outputParams.setName( "Output Parameters" );
+//    outputParams.setName( "Output Parameters" );
     ildaParams.setName( "ILDA Parameters" );
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 5, "MultiTouch", "Flocking", "Camera Centroids", "Camera Convex Hull", "Camera Contour" );
@@ -104,8 +104,8 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
     cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setClamp(true);
     
-    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
-        
+//    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
+    
     ildaParams.addBool(PARAM_NAME_ENABLED);
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_LINES );
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_POINTS );
@@ -142,7 +142,7 @@ void TheMeasuresTaken::setup()
     gui.addPage( cameraContourInputParams );
     gui.addPage( cameraParams );
 //    gui.addPage(visualizationParams);
-    gui.addPage(outputParams);
+//    gui.addPage(outputParams);
     gui.addPage(ildaParams);
     
     gui.toggleDraw();
@@ -154,7 +154,7 @@ void TheMeasuresTaken::setup()
     
     cameraParams.loadXmlValues();
 //    visualizationParams.loadXmlValues();
-    outputParams.loadXmlValues();
+//    outputParams.loadXmlValues();
     ildaParams.loadXmlValues();
     
     // Timeline
@@ -443,7 +443,7 @@ void TheMeasuresTaken::keyPressed(int key)
         cameraContourInputParams.saveXmlValues();
         
         cameraParams.saveXmlValues();
-        outputParams.saveXmlValues();
+//        outputParams.saveXmlValues();
         ildaParams.saveXmlValues();
         for(int i=0; i<visualizers.size(); i++) {
             visualizers[i]->params.saveXmlValues();

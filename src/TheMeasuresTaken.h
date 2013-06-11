@@ -92,7 +92,7 @@ private:
     msa::controlfreak::ParameterGroup   cameraContourInputParams;
     
     msa::controlfreak::ParameterGroup   cameraParams;
-    msa::controlfreak::ParameterGroup   outputParams;
+//    msa::controlfreak::ParameterGroup   outputParams;
     msa::controlfreak::ParameterGroup   ildaParams;
     
     msa::controlfreak::gui::Gui         gui;

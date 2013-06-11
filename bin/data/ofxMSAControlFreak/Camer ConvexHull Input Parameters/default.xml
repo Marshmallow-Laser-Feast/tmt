@@ -5,6 +5,6 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="12"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="1841"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplification" value="16.517856598"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplification" value="0.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
