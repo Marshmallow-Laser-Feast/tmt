@@ -31,7 +31,7 @@ public:
         params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
         params.addFloat("noisePosScale1").setRange(0, 50).setClamp(true).setSnap(true);
         params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
-        params.addFloat("noisePosScale2").setRange(0, 50).setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale2").setRange(0, 640).setClamp(true).setSnap(true);
         params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
         params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
 

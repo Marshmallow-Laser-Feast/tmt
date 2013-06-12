@@ -73,10 +73,13 @@ public:
             {
                 for( int i = 0; i < it->getVertices().size(); ++i )
                 {
-                    ofVec3f n( 1, 0, 1 );
-                    
-                    n.normalize();
-                    n.rotate( ofSignedNoise( offset + it->getVertices()[i].x * scale, offset + it->getVertices()[i].y * scale ) * 360.0f , ofVec3f( 0, 0, 1 ) );
+                    ofVec2f n;
+                    n.x = ofSignedNoise(it->getVertices()[i].x * scale, it->getVertices()[i].y * scale, offset + 134.523441);
+                    n.y = ofSignedNoise(it->getVertices()[i].x * scale, it->getVertices()[i].y * scale, offset + 513.5622);
+
+                    //                    ofVec3f n( 1, 0, 1 );
+//                    n.normalize();
+//                    n.rotate( ofSignedNoise( offset + it->getVertices()[i].x * scale, offset + it->getVertices()[i].y * scale ) * 360.0f , ofVec3f( 0, 0, 1 ) );
                     
                     it->getVertices()[i]    =   it->getVertices()[i] +
                                                 n *
