@@ -11,7 +11,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.183035716"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.058035713"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="3.767857075"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="1.357142925"></Parameter>
