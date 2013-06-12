@@ -25,6 +25,17 @@ public:
         params.addFloat("amp").setRange(0, 5).setClamp(true);
         params.addInt("numPoints").setRange(0, 1000).setClamp(true);
         params.addFloat("centerPos").setClamp(true);
+        
+        params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
+        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale1").setRange(0, 20).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale2").setRange(0, 20).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScaleX").setRange(0, 20).setClamp(true).setSnap(true);
+
+        
         params.addInt("smoothAmount").setClamp(true);
         params.addFloat("easeAmount").setClamp(true);
     };
@@ -36,12 +47,22 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        updateTimer();
+        
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         int numPoints = params["numPoints"];
         float amp = params["amp"];
         float centerPos = params["centerPos"];
         int smoothAmount = params["smoothAmount"];
         float easeAmount = params["easeAmount"];
+        
+        float noiseAmp1 = params["noiseAmp1"];
+        float noisePosScale1 = params["noisePosScale1"];
+        float noiseAmp2 = params["noiseAmp2"];
+        float noisePosScale2 = params["noisePosScale2"];
+        float noiseAmpX = params["noiseAmpX"];
+        float noisePosScaleX = params["noisePosScaleX"];
+
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -66,6 +87,11 @@ public:
                 p.interpolate(oldPoly[j], easeAmount);
             }
             
+            // add noise
+            float t = ofMap(j, 0, numPoints-1, -1, 1);
+//            p.y += INPUT_HEIGHT * (noiseAmp1 * ofSignedNoise(t * noisePosScale1 + timer) + noiseAmp2 * ofSignedNoise(t * noisePosScale2 + timer));
+//            p.x += INPUT_WIDTH * noiseAmpX * ofSignedNoise(t * noisePosScaleX + timer);
+            
             newPoly.lineTo(p);
 
         }
@@ -80,5 +106,17 @@ public:
     
 private:
     ofPolyline oldPoly;
+    
+    PolylineVectorRefT polylines;
+    float timer;
+    float lastFrameTime;
+    
+    void updateTimer() {
+        float nowTime = ofGetElapsedTimef();
+        float timeDiff = nowTime - lastFrameTime;
+        timer += timeDiff * (float)params["noiseTimeSpeed"];
+        lastFrameTime = nowTime;
+    }
+
 };
 
