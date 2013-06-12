@@ -55,7 +55,7 @@ public:
         {
             if( idPathAnalyserInfoMap.count( it->getSampleID() ) == 0 )
             {
-                PathAnalyser    *analyser                                   = new PathAnalyser();
+                PathAnalyser    *analyser                                   = new PathAnalyser( it->getSampleID() );
                 
                 idPathAnalyserInfoMap[ it->getSampleID() ]                  = PathAnalyserInfo();
                 idPathAnalyserInfoMap[ it->getSampleID() ].analyser         = analyser;

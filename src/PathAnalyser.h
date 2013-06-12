@@ -19,9 +19,9 @@ public:
     
     static float smoothing;
     
-    PathAnalyser()
-    
-    :length( 0.0f )
+    PathAnalyser( int id_ )    
+    :id( id_ )
+    ,length( 0.0f )
     ,amplitude( 0.0f )
     ,curvature( 0.0f )
     ,acceleration( 0.0f )
@@ -107,6 +107,11 @@ public:
         curvatures.clear();
         accelerations.clear();
         velocities.clear();
+    }
+    
+    const int getID() const
+    {
+        return id;
     }
     
     const deque<ofPoint> & getSamples() const
@@ -304,6 +309,8 @@ private:
 private:
     
     float           maxLength;
+    
+    int             id;
     
     int             maxSamples;
     int             maxHistory;
