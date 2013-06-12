@@ -20,6 +20,7 @@ void TheMeasuresTaken::setup()
     inputParams.setName("Input Parameters");
     cameraParams.setName( "Camera Parameters" );
     ildaParams.setName( "ILDA Parameters" );
+    audioParams.setName( "Audio Parameters" );
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
     inputParams.addFloat("PathAnalyser::smoothing").setClamp(true);
@@ -79,9 +80,13 @@ void TheMeasuresTaken::setup()
     ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 2000 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
+    audioParams.addFloat( PARAM_NAME_AUDIO_AMP );
+    audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
+    
     gui.addPage(inputParams);
     gui.addPage( cameraParams );
     gui.addPage(ildaParams);
+    gui.addPage( audioParams );
     
     gui.toggleDraw();
     gui.setDefaultKeys(true);
@@ -89,6 +94,7 @@ void TheMeasuresTaken::setup()
     inputParams.loadXmlValues();
     cameraParams.loadXmlValues();
     ildaParams.loadXmlValues();
+    audioParams.loadXmlValues();
 
     
     
@@ -334,7 +340,7 @@ void TheMeasuresTaken::update()
     } else {
         for(int i=0; i<visualizers.size(); i++)
         {
-            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ] );
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {
@@ -430,6 +436,7 @@ void TheMeasuresTaken::keyPressed(int key)
         inputParams.saveXmlValues();
         cameraParams.saveXmlValues();
         ildaParams.saveXmlValues();
+        audioParams.saveXmlValues();
         
         for(int i=0; i<visualizers.size(); i++) visualizers[i]->params.saveXmlValues();
         for(int i=0; i<iimageSeqInputs.size(); i++) iimageSeqInputs[i]->params.saveXmlValues();

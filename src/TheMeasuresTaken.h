@@ -94,6 +94,7 @@ private:
     msa::controlfreak::ParameterGroup   inputParams;
     msa::controlfreak::ParameterGroup   cameraParams;
     msa::controlfreak::ParameterGroup   ildaParams;
+    msa::controlfreak::ParameterGroup   audioParams;
     
     msa::controlfreak::gui::Gui         gui;
     

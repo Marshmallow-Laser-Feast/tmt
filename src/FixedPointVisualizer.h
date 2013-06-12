@@ -58,7 +58,7 @@ public:
         fixedPointMap.clear();
     };
     
-    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
+    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         

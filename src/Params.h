@@ -118,7 +118,14 @@
 #define PARAM_NAME_ILDA_POINT_COUNT             "Point Count"
 #define PARAM_NAME_ILDA_SPACING                 "Spacing"
 
+#define PARAM_NAME_AUDIO_AMP                    "Amplitude"
+#define PARAM_NAME_AUDIO_INPUT_ENABLED          "Enabled"
+
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
+
+////////////////////////////
+//          MISC          //
+////////////////////////////
 
 #define GUIDE_STRING                            ("<f> Toggle Fullscreen  <s> Save Settings  <p> Toggle GUI  <i>  Toggle Input Visualization  <o> Fixed Point Set  <O> Fixed Point Clear  <l>  List Midi Ports   " + ofToString(ofGetFrameRate(), 2))
 
