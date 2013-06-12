@@ -125,10 +125,12 @@ public:
 
         for(int i=0; i<numSegments; i++) {
             ofVec3f p;
-            p.x = ofMap(i, 0, numSegments-1, 0, 1);
+            p.x = ofMap(i, 0, numSegments-1, 0, INPUT_WIDTH);
             float t = ofMap(i, 0, numSegments-1, -1, 1);
             p.y = 0.5 + noiseAmp1 * 0.5 * ofSignedNoise(t * noisePosScale1 + timer) + noiseAmp2 * 0.5 * ofSignedNoise(t * noisePosScale2 + timer);
+            p.y *= INPUT_HEIGHT;
             p.x += noiseAmpX * 0.5 * ofSignedNoise(t * noisePosScaleX + timer);
+            p = p * scale + offset;
             poly.addVertex(p);
         }
 

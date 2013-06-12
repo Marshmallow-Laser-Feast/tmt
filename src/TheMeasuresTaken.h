@@ -33,6 +33,7 @@
 #include "QualitiesVisualizer.h"
 #include "ConvexHullVisualizer.h"
 #include "ContourVisualizer.h"
+#include "RoofVisualizer.h"
 
 #include "IFilter.h"
 
@@ -122,6 +123,7 @@ private:
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
     ContourVisualizer                   *contourVisualizer;
+    RoofVisualizer                      *roofVisualizer;
     
     // Filters
     

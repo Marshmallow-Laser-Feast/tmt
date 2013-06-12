@@ -90,6 +90,8 @@ public:
         }
         
         if(doPickShortest) {
+            int lineCount   = MIN( distances.size(), count );
+            
             sort(distances.begin(), distances.end(), mysort);
             for(int i=0; i<lineCount; i++) {
                 ofPolyline line;
