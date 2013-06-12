@@ -95,14 +95,13 @@ void TheMeasuresTaken::setup()
     cameraParams.loadXmlValues();
     ildaParams.loadXmlValues();
     audioParams.loadXmlValues();
-
-    
     
     // Initiate Inputs
     
     multitouchInput                 = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
     flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
-    iimageSeqInputs.push_back(cameraContourInput              = new CameraContourInput());
+    
+    iimageSeqInputs.push_back(cameraContourInput = new CameraContourInput());
     
     for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
@@ -197,6 +196,11 @@ void TheMeasuresTaken::setup()
     }
     
     videoPtr = &grabber;
+    
+    // Audio
+    
+    soundStream.listDevices();
+    soundStream.setup( this, 0, 2, 44100, 256, 4);
 }
 
 //--------------------------------------------------------------
@@ -538,6 +542,29 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 //    cout << midiMessage.value << endl;
     
     midiData[ std::pair<int, int>( midiMessage.channel, midiMessage.control ) ] = midiMessage.value;
+}
+
+void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
+{
+    if( (bool)audioParams[PARAM_NAME_AUDIO_INPUT_ENABLED] )
+    {
+        float curVol = 0.0;
+        
+        int numCounted = 0;
+        
+        for (int i = 0; i < bufferSize; i++)
+        {
+            curVol += (input[i*2]*0.5) * (input[i*2]*0.5);
+            curVol += (input[i*2+1]*0.5) * (input[i*2+1]*0.5);
+            
+            numCounted+=2;
+        }
+        curVol /= (float)numCounted;
+        
+        curVol = sqrt( curVol );
+        
+        audioParams[PARAM_NAME_AUDIO_AMP].set( curVol );
+    }
 }
 
 void TheMeasuresTaken::drawVisualization()

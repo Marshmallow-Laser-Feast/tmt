@@ -59,6 +59,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     void newMidiMessage(ofxMidiMessage& eventArgs);
+    void audioIn(float * input, int bufferSize, int nChannels); 
     
 private:
     
@@ -146,6 +147,10 @@ private:
     ofVideoPlayer                       videoPlayer;
     ofBaseVideo                         *videoPtr;
     ofImage                             imageInput;
+    
+    // Audio
+    
+    ofSoundStream                       soundStream;
     
     
 };
