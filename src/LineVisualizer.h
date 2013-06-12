@@ -33,11 +33,22 @@ public:
     {
         params.setName("LineVisualizer");
         params.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
-        params.addFloat("Amp").setRange(0, 2).setClamp(true);
         
         midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 5, 14 );
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
         midiMappings[ &params.get(PARAM_NAME_LINE_VIS_COUNT) ]                  = std::pair<int, int>( 5, 16 );
+        params.addFloat("Amp").setRange(0, 2).setClamp(true);
+        params.addInt("Resample").setRange(0, 1000).setClamp(true);
+        
+        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale1").setRange(0, 50).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScale2").setRange(0, 640).setClamp(true).setSnap(true);
+        params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
+        params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
+        params.addInt("smoothAmount").setClamp(true);
+
     };
     
     ~LineVisualizer()
@@ -49,6 +60,16 @@ public:
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         float amp = params["Amp"];
+        int resample = params["Resample"];
+        
+        float noiseAmp1 = params["noiseAmp1"];
+        float noisePosScale1 = params["noisePosScale1"];
+        float noiseAmp2 = params["noiseAmp2"];
+        float noisePosScale2 = params["noisePosScale2"];
+        float noiseAmpX = params["noiseAmpX"];
+        float noisePosScaleX = params["noisePosScaleX"];
+        
+        int smoothAmount = params["smoothAmount"];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -83,6 +104,19 @@ public:
                 p = p * scale + offset;
                 line.addVertex(p);
             }
+            
+            // add noise
+            if(resample) line = line.getResampledByCount(resample);
+            int numPoints = line.size();
+            for(int j=0; j<numPoints; j++) {
+                float t = ofMap(j, 0, numPoints-1, -1, 1);
+                ofPoint &p = line[j];
+                p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
+                p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
+            }
+            if(smoothAmount) line = line.getSmoothed(smoothAmount);
+
+            
             result->push_back( line );
         }
         

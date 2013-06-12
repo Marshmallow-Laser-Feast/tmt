@@ -57,8 +57,6 @@ public:
         int numPoints = params["numPoints"];
         float amp = params["amp"];
         float centerPos = params["centerPos"];
-        int smoothAmount = params["smoothAmount"];
-        float easeAmount = params["easeAmount"];
         int curvature = params["curvature"];
         
         float noiseAmp1 = params["noiseAmp1"];
@@ -68,6 +66,8 @@ public:
         float noiseAmpX = params["noiseAmpX"];
         float noisePosScaleX = params["noisePosScaleX"];
 
+        int smoothAmount = params["smoothAmount"];
+        float easeAmount = params["easeAmount"];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
