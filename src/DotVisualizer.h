@@ -33,13 +33,14 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int timeOffset = params[PARAM_NAME_TIME_OFFSET];
+        
+        PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
-            return PolylineVectorRefT(new std::vector<ofPolyline>());
+            return result;
         }
 
         int dotCount    = (float)inputAnalyser->getPathAnalysers().size() * (float)params[PARAM_NAME_DOT_VIS_RATIO];
-        
-        PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         for( int i = 0; i < dotCount; ++i )
         {

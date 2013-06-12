@@ -68,4 +68,5 @@ public:
     
     virtual void update(){};
     virtual const vector<PointInputSampleT> & getSamples() const {};
+    virtual const vector<ofPolyline>& getPolys() const {};
 };

@@ -33,11 +33,10 @@ public:
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         
-        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
-            return PolylineVectorRefT(new std::vector<ofPolyline>());
-        }
-            
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
+        if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
+            return result;
+        }
         
         int count = inputAnalyser->getPathAnalysers().size();
         ofPolyline polyline;

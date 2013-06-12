@@ -31,8 +31,8 @@
 #include "LineVisualizer.h"
 #include "FixedPointVisualizer.h"
 #include "QualitiesVisualizer.h"
-
 #include "ConvexHullVisualizer.h"
+#include "ContourVisualizer.h"
 
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
@@ -73,10 +73,10 @@ private:
     
     InputAnalyser                       *multiTouchInputAnalyser;
     InputAnalyser                       *flockingInputAnalyser;
-    InputAnalyser                       *cameraCentroidsInputAnalyser;
-    InputAnalyser                       *cameraConvexHullInputAnalyser;
+//    InputAnalyser                       *cameraCentroidsInputAnalyser;
+//    InputAnalyser                       *cameraConvexHullInputAnalyser;
     InputAnalyser                       *cameraContourAnalyser;
-    InputAnalyser                       *cameraContourTipsAnalyser;
+//    InputAnalyser                       *cameraContourTipsAnalyser;
     
 //    InputAnalyser                       *inputAnalysers[ INPUT_COUNT ];
     vector<InputAnalyser*>              inputAnalysers;
@@ -111,6 +111,7 @@ private:
     FixedPointVisualizer                *fixedPointVisualizer;
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
+    ContourVisualizer                   *contourVisualizer;
     
     
     bool                                visualizeInput;

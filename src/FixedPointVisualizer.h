@@ -55,8 +55,11 @@ public:
     
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
+        int timeOffset = params[PARAM_NAME_TIME_OFFSET];
+        
+        PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
-            return PolylineVectorRefT(new std::vector<ofPolyline>());
+            return result;
         }
 
         
@@ -73,8 +76,6 @@ public:
         }
         
 
-        
-        PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         
         int lineCount       = MIN( inputAnalyser->getPathAnalysers().size(), count );
         

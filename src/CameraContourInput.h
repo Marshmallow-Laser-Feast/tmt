@@ -39,7 +39,7 @@ public:
         params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
         params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
-        //        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
+        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
         params.addFloat("Debug point size").setRange(0, 10).setClamp(true);
     };
     
@@ -70,7 +70,7 @@ public:
             float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
             float trackingDistance = params[PARAM_NAME_TRACKING_DISTANCE];
             float trackingPersistance = params[PARAM_NAME_TRACKING_PERSISTENCE];
-            //            float smoothing = params[PARAM_NAME_SMOOTHING];
+            float smoothing = params[PARAM_NAME_SMOOTHING];
             
             
             
@@ -83,15 +83,15 @@ public:
             contourFinder.findContours( image );
             
             
-            lines.clear();
+            polys.clear();
             vector<cv::Point2f>     allFloatPoints;
             
             // iterate all contours
             for( int i = 0; i < contourFinder.size(); ++i )
             {
                 // create new line
-                lines.push_back(ofPolyline());
-                ofPolyline& line = lines.back();
+                polys.push_back(ofPolyline());
+                ofPolyline& line = polys.back();
                 cv::Rect r(contourFinder.getBoundingRect(i));
                 
                 switch(analysisType) {
@@ -195,11 +195,16 @@ public:
         return samples;
     };
     
+    virtual const vector<ofPolyline>& getPolys() const {
+        return polys;
+    }
+
+    
     virtual void drawDebug()
     {
         ofPushStyle();
-        for(int i=0; i<lines.size(); i++) {
-            lines[i].draw();
+        for(int i=0; i<polys.size(); i++) {
+            polys[i].draw();
         }
         float pointSize = params["Debug point size"];
         if(pointSize > 0.1) {
@@ -215,7 +220,7 @@ private:
     
     ofxCv::ContourFinder2           contourFinder;
     ofxCv::PointTracker             pointTracker;
-    vector<ofPolyline>              lines;
+    vector<ofPolyline>              polys;
     
     std::vector<PointInputSampleT>  samples;
     ofMesh samplesMesh;
