@@ -120,6 +120,9 @@
 
 #define PARAM_NAME_AUDIO_AMP                    "Amplitude"
 #define PARAM_NAME_AUDIO_INPUT_ENABLED          "Enabled"
+#define PARAM_NAME_AUDIO_AMP_SCALE              "Scale"
+#define PARAM_NAME_AUDIO_SMOOTHING_LOW          "Smoothing Low"
+#define PARAM_NAME_AUDIO_SMOOTHING_HIGH         "Smoothing High"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
