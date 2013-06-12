@@ -9,6 +9,7 @@
 #pragma once
 
 #include <map>
+#include <set>
 
 #include "IVisualizer.h"
 
@@ -39,11 +40,19 @@ public:
     
 public:
     
+    /*
+     
+     x-------x------x
+             I
+             I
+             I
+             x
+     
+     */
+    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
-        
-        std::map< std::pair<int, int>, int >   connectionsMap;
         
         for( int i = 0; i < inputAnalyser->getPathAnalysers().size(); ++i )
         {
@@ -51,18 +60,23 @@ public:
             {
                 if( i != j )
                 {
-                    ofPoint p1      = inputAnalyser->getPathAnalysers()[ i ]->getSamples().back();
-                    ofPoint p2      = inputAnalyser->getPathAnalysers()[ j ]->getSamples().back();
+                    ofPoint p1          = inputAnalyser->getPathAnalysers()[ i ]->getSamples().back();
+                    ofPoint p2          = inputAnalyser->getPathAnalysers()[ j ]->getSamples().back();
                     
-                    std::pair<int,int>  pair1( inputAnalyser->getPathAnalysers()[ i ]->getID(), inputAnalyser->getPathAnalysers()[ j ]->getID() );
-                    std::pair<int,int>  pair2( inputAnalyser->getPathAnalysers()[ i ]->getID(), inputAnalyser->getPathAnalysers()[ j ]->getID() );
+                    pair<int,int> connection1( inputAnalyser->getPathAnalysers()[ i ]->getID(), inputAnalyser->getPathAnalysers()[ j ]->getID() );
+                    pair<int,int> connection2( inputAnalyser->getPathAnalysers()[ j ]->getID(), inputAnalyser->getPathAnalysers()[ i ]->getID() );
                     
-                    float distance  =  p1.distance( p2 );
+                    int lineCountSource = connectionCounts[ inputAnalyser->getPathAnalysers()[i]->getID()];
+                    int lineCountTarget = connectionCounts[ inputAnalyser->getPathAnalysers()[j]->getID()];
+                    
+                    float distance      =  p1.distance( p2 );
                     
                     if(     distance >= (float)params[ PARAM_NAME_MIN_DISTANCE ] &&
                             distance <= (float)params[ PARAM_NAME_MAX_DISTANCE ] &&
-                            connectionsMap.count( pair1 ) == 0 &&
-                            connectionsMap.count( pair2 ) == 0
+                            connections.count( connection1 ) == 0 &&
+                            connections.count( connection2 ) == 0 &&
+                            lineCountSource < (int)params[PARAM_NAME_MAX_CONNECTIONS] &&
+                            lineCountTarget < (int)params[PARAM_NAME_MAX_CONNECTIONS]
                        )
                     {   
                         ofPolyline  line;
@@ -72,8 +86,21 @@ public:
                         
                         result->push_back( line );
                         
-                        connectionsMap[ pair1 ] = 1;
-                        connectionsMap[ pair2 ] = 1;
+                        if( connectionCounts.count( inputAnalyser->getPathAnalysers()[ i ]->getID() ) == 0 )
+                        {
+                            connectionCounts[ inputAnalyser->getPathAnalysers()[ i ]->getID() ] = 0;
+                        }
+                        
+                        if( connectionCounts.count( inputAnalyser->getPathAnalysers()[ j ]->getID() ) == 0 )
+                        {
+                            connectionCounts[ inputAnalyser->getPathAnalysers()[ j ]->getID() ]         = 0;
+                        }
+                        
+                        connectionCounts[ inputAnalyser->getPathAnalysers()[i]->getID()]++;
+                        connectionCounts[ inputAnalyser->getPathAnalysers()[j]->getID()]++;
+                                         
+                        connections.insert( connection1 );
+                        connections.insert( connection2 );
                     }
                 }
             }
@@ -83,6 +110,9 @@ public:
     };
     
 private:
+    
+    map<int, int>           connectionCounts;
+    set< pair<int, int> >   connections;
     
 };
 
