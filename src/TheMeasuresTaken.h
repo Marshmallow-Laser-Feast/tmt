@@ -33,6 +33,7 @@
 #include "QualitiesVisualizer.h"
 #include "ConvexHullVisualizer.h"
 #include "ContourVisualizer.h"
+#include "RoofVisualizer.h"
 
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
@@ -115,6 +116,7 @@ private:
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
     ContourVisualizer                   *contourVisualizer;
+    RoofVisualizer                      *roofVisualizer;
     
     bool                                visualizeInput;
     

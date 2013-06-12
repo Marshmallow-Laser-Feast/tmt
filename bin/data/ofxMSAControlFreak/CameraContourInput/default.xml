@@ -1,22 +1,22 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="CameraContourInput">
         <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="73"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="5"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="107"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="2"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="12"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="370"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="446"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.058035713"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="9.642868042"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.040178571"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="3.767857075"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="1.357142925"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="454.285705566"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="2.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="2.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="282.857147217"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="3.035714388"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="5.892857552"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

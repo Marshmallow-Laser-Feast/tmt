@@ -393,6 +393,7 @@
 		BB0D396B17675E580083608A /* Params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Params.h; sourceTree = "<group>"; };
 		BB8ACFFE1767A0FE00307EE3 /* CameraContourInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraContourInput.h; sourceTree = "<group>"; };
 		BB8AD0071768107600307EE3 /* ContourVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContourVisualizer.h; sourceTree = "<group>"; };
+		BB8AD0081768AF5E00307EE3 /* RoofVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoofVisualizer.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -911,6 +912,7 @@
 				41E52EC217661B0400B8EF2E /* QualitiesVisualizer.h */,
 				BB0D3969176759B00083608A /* ConvexHullVisualizer.h */,
 				BB8AD0071768107600307EE3 /* ContourVisualizer.h */,
+				BB8AD0081768AF5E00307EE3 /* RoofVisualizer.h */,
 			);
 			name = Visualisation;
 			sourceTree = "<group>";

@@ -129,6 +129,7 @@ void TheMeasuresTaken::setup()
     visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
     visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
     visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
+    visualizers.push_back( roofVisualizer          = new RoofVisualizer());
     visualizers.push_back( lineVisualizer          = new LineVisualizer());
     visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
     visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
@@ -361,6 +362,7 @@ void TheMeasuresTaken::draw()
             ofSetColor( ofColor::red );
 
 //            iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
+            ofTranslate(x1, y1);
             iimageSeqInputs[ 0 ]->drawDebug();
             
             ofPopMatrix();
@@ -402,6 +404,12 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         midiIn.listPorts();
     }
+    
+    if( key == 'L' )
+    {
+        ildaParams[PARAM_NAME_ENABLED] = !(bool)ildaParams[PARAM_NAME_ENABLED];
+    }
+
     
     if( key == 'o' )
     {
