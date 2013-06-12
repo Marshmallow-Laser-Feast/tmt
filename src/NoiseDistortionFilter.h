@@ -31,6 +31,7 @@ public:
         params.addFloat(PARAM_NAME_NOISE_OFFSET).setRange(-10, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_X).setRange(-2, 2).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_Y).setRange(-2, 2).setClamp( true );
+        params.addBool(PARAM_NAME_USE_NORMALS);
     };
     
     virtual ~NoiseDistortionFilter()
@@ -53,16 +54,31 @@ public:
         
         ofPoint amp( ampx, ampy );
         
-        for( std::vector<ofPolyline>::iterator it = polylines.begin(); it != polylines.end(); ++it )
+        if( (bool)params[ PARAM_NAME_USE_NORMALS ] )
         {
-            for( int i = 0; i < it->getVertices().size(); ++i )
+            for( std::vector<ofPolyline>::iterator it = polylines.begin(); it != polylines.end(); ++it )
             {
-                it->getVertices()[i]    =   it->getVertices()[i] +
-                                            ofSignedNoise(      offset + it->getVertices()[i].x * scale,
-                                                                offset + it->getVertices()[i].y * scale )*
-                                            it->getNormalAtIndex( i ) *
-                                            amp *
-                                            actv;
+                for( int i = 0; i < it->getVertices().size(); ++i )
+                {
+                    it->getVertices()[i]    =   it->getVertices()[i] +
+                    ofSignedNoise(      offset + it->getVertices()[i].x * scale,
+                                  offset + it->getVertices()[i].y * scale )*
+                    it->getNormalAtIndex( i ) *
+                    amp *
+                    actv;
+                }
+            }
+        } else {
+            for( std::vector<ofPolyline>::iterator it = polylines.begin(); it != polylines.end(); ++it )
+            {
+                for( int i = 0; i < it->getVertices().size(); ++i )
+                {
+                    it->getVertices()[i]    =   it->getVertices()[i] +
+                                                ofSignedNoise(      offset + it->getVertices()[i].x * scale,
+                                                                    offset + it->getVertices()[i].y * scale ) *
+                                                amp *
+                                                actv;
+                }
             }
         }
     };
