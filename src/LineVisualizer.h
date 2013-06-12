@@ -56,17 +56,17 @@ public:
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
-        float amp = params["Amp"];
-        int resample = params["Resample"];
+//        float amp = params["Amp"];
+//        int resample = params["Resample"];
         
-        float noiseAmp1 = params["noiseAmp1"];
-        float noisePosScale1 = params["noisePosScale1"];
-        float noiseAmp2 = params["noiseAmp2"];
-        float noisePosScale2 = params["noisePosScale2"];
-        float noiseAmpX = params["noiseAmpX"];
-        float noisePosScaleX = params["noisePosScaleX"];
-        
-        int smoothAmount = params["smoothAmount"];
+//        float noiseAmp1 = params["noiseAmp1"];
+//        float noisePosScale1 = params["noisePosScale1"];
+//        float noiseAmp2 = params["noiseAmp2"];
+//        float noisePosScale2 = params["noisePosScale2"];
+//        float noiseAmpX = params["noiseAmpX"];
+//        float noisePosScaleX = params["noisePosScaleX"];
+//        
+//        int smoothAmount = params["smoothAmount"];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -102,20 +102,20 @@ public:
             ofPoint p(orderedVector[i]);
             float t = ofMap(p.x, p1.x, p2.x, 0.0, 1.0, true);
             float destY = ofLerp(p1.y, p2.y, t);
-            p.y = ofLerp(destY, p.y, amp);
+//            p.y = ofLerp(destY, p.y, amp);
             p = p * scale + offset;
             line.addVertex(p);
         }
         
         // add noise
-        if(resample) line = line.getResampledByCount(resample);
+//        if(resample) line = line.getResampledByCount(resample);
         for(int j=0; j<numPoints; j++) {
             float t = ofMap(j, 0, numPoints-1, -1, 1);
             ofPoint &p = line[j];
-            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
-            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
+//            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
+//            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
         }
-        if(smoothAmount) line = line.getSmoothed(smoothAmount);
+//        if(smoothAmount) line = line.getSmoothed(smoothAmount);
         
         
         rope->update(line.getVertices().front(), line.getVertices().back());
