@@ -127,14 +127,10 @@ private:
     
     // Filters
     
-    AudioDistorterFilter                *audioDistorterFilterPre;
-    NoiseDistortionFilter               *noiseDistortionFilterPre;
-    
-    AudioDistorterFilter                *audioDistorterFilterPost;
-    NoiseDistortionFilter               *noiseDistortionFilterPost;
+    AudioDistorterFilter                *audioDistorterFilter;
+    NoiseDistortionFilter               *noiseDistortionFilter;
     
     vector<IFilter*>                    preFilters;
-    vector<IFilter*>                    postFilters;
     
     bool                                visualizeInput;
     

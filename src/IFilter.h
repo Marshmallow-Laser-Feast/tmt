@@ -12,8 +12,6 @@
 
 #include "ofxMSAControlFreak.h"
 
-#include "ofxIldaFrame.h"
-
 #define PARAM_NAME_ACTIVITY_VALUE   "Activity Value"
 
 class IFilter
@@ -34,7 +32,6 @@ public:
     
 public:
     
-    virtual void apply( std::vector<ofxIlda::Poly> &polylines ){};
     virtual void apply( std::vector<ofPolyline> &polylines ){};
         
 };

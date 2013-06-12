@@ -143,28 +143,16 @@ void TheMeasuresTaken::setup()
     
     // Filters
     
-    audioDistorterFilterPre                         = new AudioDistorterFilter();
-    noiseDistortionFilterPre                        = new NoiseDistortionFilter( true );
+    audioDistorterFilter                         = new AudioDistorterFilter();
+    noiseDistortionFilter                        = new NoiseDistortionFilter();
     
-    audioDistorterFilterPost                        = new AudioDistorterFilter();
-    noiseDistortionFilterPost                       = new NoiseDistortionFilter( false );
-    
-    preFilters.push_back( audioDistorterFilterPre );
-    preFilters.push_back( noiseDistortionFilterPre );
-    
-    postFilters.push_back( audioDistorterFilterPost );
-    postFilters.push_back( noiseDistortionFilterPost );
+    preFilters.push_back( audioDistorterFilter );
+    preFilters.push_back( noiseDistortionFilter );
     
     for(int i=0; i<preFilters.size(); i++)
     {
         gui.addPage(preFilters[i]->params);
         preFilters[i]->params.loadXmlValues();
-    }
-    
-    for(int i=0; i<postFilters.size(); i++)
-    {
-        gui.addPage(postFilters[i]->params);
-        postFilters[i]->params.loadXmlValues();
     }
     
     // Midi
@@ -233,17 +221,6 @@ void TheMeasuresTaken::update()
     }
     
     for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
-        {
-            if( midiData.count( pIt->second ) > 0 )
-            {
-                pIt->first->set( midiData[ pIt->second ] );
-            }
-        }
-    }
-    
-    for( vector<IFilter*>::iterator it = postFilters.begin(); it != postFilters.end(); ++it )
     {
         for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
         {
@@ -369,11 +346,6 @@ void TheMeasuresTaken::update()
     }
     
     ildaFrame.update();
-    
-    for( vector<IFilter*>::iterator fit = postFilters.begin(); fit != postFilters.end(); ++fit )
-    {
-        (*fit)->apply( ildaFrame.getProcessedPolys() );
-    }
 
     if(ildaParams[PARAM_NAME_ENABLED]) etherdream.setPoints(ildaFrame);
 
@@ -461,9 +433,7 @@ void TheMeasuresTaken::keyPressed(int key)
         
         for(int i=0; i<visualizers.size(); i++) visualizers[i]->params.saveXmlValues();
         for(int i=0; i<iimageSeqInputs.size(); i++) iimageSeqInputs[i]->params.saveXmlValues();
-        for(int i=0; i<preFilters.size(); i++) preFilters[i]->params.saveXmlValues();
-        for(int i=0; i<postFilters.size(); i++) postFilters[i]->params.saveXmlValues();
-        
+        for(int i=0; i<preFilters.size(); i++) preFilters[i]->params.saveXmlValues();        
         
     }
     

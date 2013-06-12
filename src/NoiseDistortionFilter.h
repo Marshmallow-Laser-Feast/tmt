@@ -23,14 +23,9 @@ class NoiseDistortionFilter: public IFilter
     
 public:
     
-    NoiseDistortionFilter( bool isPreOp )
+    NoiseDistortionFilter()
     {
-        if( isPreOp )
-        {
-            params.setName("NoiseDistortionFilter pre");
-        } else {
-            params.setName("NoiseDistortionFilter post");
-        }
+        params.setName("NoiseDistortionFilter");
         
         params.addFloat(PARAM_NAME_NOISE_SCALE).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_OFFSET).setRange(-10, 10).setClamp( true );
@@ -42,35 +37,6 @@ public:
     {};
     
 public:
-    
-    virtual void apply( std::vector<ofxIlda::Poly> &polylines )
-    {
-        float actv      = (float)params[PARAM_NAME_ACTIVITY_VALUE];
-        float scale     = (float)params[PARAM_NAME_NOISE_SCALE];
-        float offset    = (float)params[PARAM_NAME_NOISE_OFFSET];
-        float ampx      = (float)params[PARAM_NAME_NOISE_AMP_X];
-        float ampy      = (float)params[PARAM_NAME_NOISE_AMP_Y];
-        
-        if( actv == 0.0f )
-        {
-            return;
-        }
-        
-        ofPoint amp( ampx, ampy );
-        
-        for( std::vector<ofxIlda::Poly>::iterator it = polylines.begin(); it != polylines.end(); ++it )
-        {
-            for( int i = 0; i < it->getVertices().size(); ++i )
-            {
-                it->getVertices()[i]    =   it->getVertices()[i] +
-                                            ofSignedNoise(      offset + it->getVertices()[i].x * scale,
-                                                                offset + it->getVertices()[i].y * scale )*
-                                            it->getNormalAtIndex( i ) *
-                                            amp *
-                                            actv;
-            }
-        }
-    };
     
     virtual void apply( std::vector<ofPolyline> &polylines )
     {

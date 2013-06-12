@@ -27,9 +27,6 @@ public:
     
 public:
     
-    virtual void apply( std::vector<ofxIlda::Poly> &polylines )
-    {};
-    
     virtual void apply( std::vector<ofPolyline> &polylines )
     {};
     
