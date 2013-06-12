@@ -11,6 +11,7 @@
 #include "IVisualizer.h"
 
 #include "ofMain.h"
+#include "Rope.h"
 
 struct comparePointX
 {
@@ -48,7 +49,6 @@ public:
         params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
         params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
         params.addInt("smoothAmount").setClamp(true);
-
     };
     
     ~LineVisualizer()
@@ -76,11 +76,6 @@ public:
             return result;
         }
         
-        int count = params[ PARAM_NAME_LINE_VIS_COUNT ];
-        
-        
-        int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
-        
         std::vector<ofPoint>    orderedVector;
         
         for( int i = 0; i < inputAnalyser->getPathAnalysers().size(); ++i )
@@ -89,41 +84,53 @@ public:
         }
         
         std::sort ( orderedVector.begin(), orderedVector.end(), comparePointX__ );
-        
-        if(orderedVector.size() > 2) {
-            ofPoint p1(orderedVector.front());
-            ofPoint p2(orderedVector.back());
-            
-            ofPolyline  line;
-            for( int i = 0; i < lineCount; ++i )
-            {
-                ofPoint p(orderedVector[i]);
-                float t = ofMap(p.x, p1.x, p2.x, 0.0, 1.0, true);
-                float destY = ofLerp(p1.y, p2.y, t);
-                p.y = ofLerp(destY, p.y, amp);
-                p = p * scale + offset;
-                line.addVertex(p);
-            }
-            
-            // add noise
-            if(resample) line = line.getResampledByCount(resample);
-            int numPoints = line.size();
-            for(int j=0; j<numPoints; j++) {
-                float t = ofMap(j, 0, numPoints-1, -1, 1);
-                ofPoint &p = line[j];
-                p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
-                p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
-            }
-            if(smoothAmount) line = line.getSmoothed(smoothAmount);
 
-            
-            result->push_back( line );
+        if(orderedVector.size() == 0) {
+            orderedVector.push_back(ofPoint(INPUT_WIDTH * 0.4, INPUT_HEIGHT/2));
         }
+        
+        if(orderedVector.size() == 1) {
+            orderedVector.push_back(orderedVector.front() + ofPoint(INPUT_WIDTH * 0.1, 0));
+        }
+        
+        int numPoints   = MIN(orderedVector.size(), (int)params[ PARAM_NAME_LINE_VIS_COUNT ] );
+        
+
+        ofPoint p1(orderedVector.front());
+        ofPoint p2(orderedVector.back());
+        
+        ofPolyline  line;
+        for( int i = 0; i < numPoints; ++i )
+        {
+            ofPoint p(orderedVector[i]);
+            float t = ofMap(p.x, p1.x, p2.x, 0.0, 1.0, true);
+            float destY = ofLerp(p1.y, p2.y, t);
+            p.y = ofLerp(destY, p.y, amp);
+            p = p * scale + offset;
+            line.addVertex(p);
+        }
+        
+        // add noise
+        if(resample) line = line.getResampledByCount(resample);
+        for(int j=0; j<numPoints; j++) {
+            float t = ofMap(j, 0, numPoints-1, -1, 1);
+            ofPoint &p = line[j];
+            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
+            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
+        }
+        if(smoothAmount) line = line.getSmoothed(smoothAmount);
+        
+        
+        rope.set(line.getVertices().front(), line.getVertices().back());
+        rope.update();
+        
+
+        result->push_back( rope.drawVector() );
         
         return result;
     };
     
 private:
-    
+    Rope rope;
 };
 

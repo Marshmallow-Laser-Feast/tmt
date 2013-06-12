@@ -1,8 +1,17 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="LineVisualizer">
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="100"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amp" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amp" value="0.866071403"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

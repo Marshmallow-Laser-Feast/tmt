@@ -16,4 +16,4 @@ float Rope::restLengthSpeed = 1;
 float Rope::radiusBase = 0.1;
 float Rope::radiusMult = 0.1;
 
-msa::physics::World2D *Rope::physics = NULL;
+//msa::physics::World2D *Rope::physics = NULL;

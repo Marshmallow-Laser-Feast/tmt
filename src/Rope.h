@@ -7,7 +7,8 @@ public:
     vector<msa::physics::Particle2D*> particles;
     vector<msa::physics::Spring2D*> springs;
     
-    static msa::physics::World2D *physics;
+    msa::physics::World2D physics;
+//    static msa::physics::World2D *physics;
     static int numParticles;
     static float stiffness;
     static float restLengthMult;
@@ -42,7 +43,7 @@ public:
         if(particles.size() != numParticles) {
             clear();
             for(int i=0; i<numParticles; i++) {
-                msa::physics::Particle2D *p = physics->makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
+                msa::physics::Particle2D *p = physics.makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
                 p->enablePassiveCollision();
                 p->enableCollision();
                 particles.push_back(p);
@@ -51,7 +52,7 @@ public:
             particles.back()->makeFixed();
             
             for(int i=0; i<numParticles-1; i++) {
-                springs.push_back(physics->makeSpring(particles[i], particles[i+1], stiffness, 0));
+                springs.push_back(physics.makeSpring(particles[i], particles[i+1], stiffness, 0));
             }
         }
         particles.front()->moveTo(a);
@@ -89,6 +90,7 @@ public:
             for(int i=0; i<particles.size(); i++) {
                 particles[i]->setRadius(radius);
             }
+            physics.update();
         }
     }
     
@@ -99,7 +101,7 @@ public:
 
         ofPolyline poly;
         poly.curveTo(particles.front()->getPosition(), 8);
-        for(int i=0; i<particles.size(); i++) {
+        for(int i=1; i<particles.size()-1; i++) {
             poly.curveTo(particles[i]->getPosition(), 8);
         }
         poly.curveTo(particles.back()->getPosition(), 8);
