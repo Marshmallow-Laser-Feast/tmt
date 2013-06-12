@@ -57,7 +57,8 @@ public:
     {
         // HACK:
         ofPoint p(sample);
-        if(samples.size()>0 && smoothing > 0) p.interpolate(samples.back(), smoothing);
+        if(samples.size()>0 && smoothing > 0)
+            p.interpolate(samples.back(), smoothing);
         samples.push_back( p );
         times.push_back( ofGetElapsedTimef() );
         

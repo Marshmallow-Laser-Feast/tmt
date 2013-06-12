@@ -31,10 +31,12 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_ERODE ).setRange(0, 50).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
+        params.addInt(PARAM_NAME_CONTOUR_RESAMPLE).setClamp(true).setRange(0, 1000);
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
-        params.addInt(PARAM_NAME_RESAMPLE_COUNT).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_CONTOUR_SMOOTH ).setRange(0, 40).setClamp( true );
+        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange(-180, 180).setClamp(true);
+        params.addFloat("Average radius").setClamp(true);   // proprotion to size of rectangle
         params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
-        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange(-1, 1).setClamp(true);
         params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
         //        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
@@ -45,7 +47,7 @@ public:
     {}
     
 public:
- 
+    
     virtual void init()
     {};
     
@@ -60,16 +62,18 @@ public:
             contourFinder.setErode(params[PARAM_NAME_CONTOUR_ERODE]);
             contourFinder.setMinAreaRadius(params[PARAM_NAME_CONTOUR_MIN_CONTOUR]);
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
+            int resampleCount = params[PARAM_NAME_CONTOUR_RESAMPLE];
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
-            int resampleCount = params[PARAM_NAME_RESAMPLE_COUNT];
-            float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
+            int smoothAmount = params[PARAM_NAME_CONTOUR_SMOOTH];
             float tipThreshold = params[PARAM_NAME_TIP_THRESHOLD];
+            float averageRadius = params["Average radius"];
+            float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
             float trackingDistance = params[PARAM_NAME_TRACKING_DISTANCE];
             float trackingPersistance = params[PARAM_NAME_TRACKING_PERSISTENCE];
             //            float smoothing = params[PARAM_NAME_SMOOTHING];
             
             
-
+            
             // find contours
             ofImage image;
             float w = roiX2 - roiX1;
@@ -90,24 +94,64 @@ public:
                 ofPolyline& line = lines.back();
                 cv::Rect r(contourFinder.getBoundingRect(i));
                 
-//                ofPolyline contour;
-                bool doFindTip = false;
                 switch(analysisType) {
-                    case 0: line = ofxCv::toOf(contourFinder.getContour(i)); break;
-                    case 1: line = ofxCv::toOf(contourFinder.getConvexHull(i)); break;
-                    case 2: line.addVertex(ofxCv::toOf(contourFinder.getCentroid(i))); break;
-                    case 3: doFindTip = true; line = ofxCv::toOf(contourFinder.getContour(i));  break;
+                    case 0: { // contour
+                        line = ofxCv::toOf(contourFinder.getContour(i));
+                        if(resampleCount) line = line.getResampledByCount(resampleCount);
+                        if(smoothAmount) line = line.getSmoothed(smoothAmount);
+                        if(simplify > 0) line.simplify( simplify );
+                    } break;
+                        
+                    case 1: { // convex hull
+                        line = ofxCv::toOf(contourFinder.getConvexHull(i)); ;
+                        if(resampleCount) line = line.getResampledByCount(resampleCount);
+                        if(simplify > 0) line.simplify( simplify );
+                        if(smoothAmount) line = line.getSmoothed(smoothAmount);
+                    } break;
+                        
+                    case 2: line.addVertex(ofxCv::toOf(contourFinder.getCentroid(i))); break; // centroid
+
+                    case 3: {// tips
+                        ofPolyline poly = ofxCv::toOf(contourFinder.getContour(i));
+                        poly.close();
+                        if(resampleCount) poly = poly.getResampledByCount(resampleCount);
+                        if(smoothAmount) poly = poly.getSmoothed(smoothAmount);
+                        
+                        for(int j=0; j<poly.size(); ++j ) {
+                            if(poly.getAngleAtIndex(j) > tipThreshold) {
+                                line.addVertex(poly[j]);
+                            }
+                        }
+                        line.close();
+                        if(simplify > 0) line.simplify( simplify );
+                    } break;
                 }
-                line.close();
-                
-                // iterate all points on contour
-                for(int j=0; j<line.size(); ++j ) {
-                    if(doFindTip) {
-//                        ofVec2f
+                // if we should average points
+                if(averageRadius > 0.01) {
+                    ofPolyline temp;
+                    int count = 1;
+                    float distThresh = averageRadius * (r.width + r.height)/2;
+                    float distThresh2 = distThresh * distThresh;
+                    for(int j=0; j<line.size(); j++) {
+                        ofPoint p = line[j];
+                        if(temp.size() > 0 && p.distanceSquared(temp.getVertices().back()) < distThresh2) {
+                            ofPoint &back = temp.getVertices().back();
+                            ofPoint curAvg = back * count;
+                            count++;
+                            back = (curAvg + p) / count;
+                        } else {
+                            count = 0;
+                            temp.addVertex(p);
+                        }
                     }
-                    
-                    ofPoint p = line[j];
-//                    p += ofPoint( roiX1 * width, roiY1 * height );
+                    line = temp;
+                    line.close();
+                }
+
+                // iterate all points on contour and stretch to bounding box
+                for(int j=0; j<line.size(); ++j ) {
+                    ofVec2f p = line[j];
+                    //                    p += ofPoint( roiX1 * width, roiY1 * height );
                     if(stretch > 0) {
                         ofVec2f pNorm;
                         pNorm.x = ofMap(p.x, r.x, r.x + r.width, 0, image.width);
@@ -115,20 +159,11 @@ public:
                         p.interpolate(pNorm, stretch);
                     }
                     line[j] = p;
-                }
-                
-//                line.close();
-                
-                if(resampleCount) line = line.getResampledByCount(resampleCount);   // TEST
-                if(simplify > 0) line.simplify( simplify );
-                
-                for ( int k = 0; k < line.getVertices().size(); ++k )
-                {
-                    allFloatPoints.push_back( cv::Point2f( line.getVertices()[k].x, line.getVertices()[k].y ) );
+                    allFloatPoints.push_back(ofxCv::toCv(p));
                 }
             }
-
-
+            
+            
             // track points
             if(trackingDistance > 0.1) {
                 pointTracker.setMaximumDistance(trackingDistance);
@@ -142,11 +177,12 @@ public:
             for( int i  = 0; i < allFloatPoints.size(); ++i )
             {
                 PointInputSampleT   sample;
+                
                 int label = (trackingDistance > 0.1) ? pointTracker.getLabelFromIndex(i) : i;
                 sample.setSampleID(label);
                 
                 ofPoint p(ofxCv::toOf( allFloatPoints[i] ) );
-//                p-= ofPoint( roiX1 * width, roiY1 * height );
+                //                p-= ofPoint( roiX1 * width, roiY1 * height );
                 sample.setSample(p);
                 samples.push_back( sample );
                 samplesMesh.addVertex(p);
@@ -172,7 +208,7 @@ public:
             samplesMesh.drawVertices();
         }
         ofPopStyle();
-
+        
     };
     
 private:
@@ -180,7 +216,7 @@ private:
     ofxCv::ContourFinder2           contourFinder;
     ofxCv::PointTracker             pointTracker;
     vector<ofPolyline>              lines;
-
+    
     std::vector<PointInputSampleT>  samples;
     ofMesh samplesMesh;
 };

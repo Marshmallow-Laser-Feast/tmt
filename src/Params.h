@@ -43,7 +43,7 @@
 #define PARAM_NAME_SMOOTHING                    "Smoothing"
 #define PARAM_NAME_TRACKING_DISTANCE            "Tracking distance"
 #define PARAM_NAME_TRACKING_PERSISTENCE         "Tracking persistence"
-#define PARAM_NAME_RESAMPLE_COUNT               "Resample count"
+#define PARAM_NAME_CONTOUR_RESAMPLE               "Resample count"
 #define PARAM_NAME_TIP_THRESHOLD                "Tip treshold"
 
 #define PARAM_NAME_CAMERA_ROI_X1                "Camera ROI X1"
@@ -65,6 +65,7 @@
 #define PARAM_NAME_CONTOUR_MIN_CONTOUR          "Min Contour"
 #define PARAM_NAME_CONTOUR_MAX_CONTOUR          "Max Contour"
 #define PARAM_NAME_CONTOUR_SIMPLIFY             "Simplify"
+#define PARAM_NAME_CONTOUR_SMOOTH               "Smooth"
 #define PARAM_NAME_CONTOUR_STRETCH              "Contour Stretch"
 
 
