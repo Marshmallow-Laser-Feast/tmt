@@ -11,11 +11,11 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="12"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.062500000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.227678567"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="2.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="2.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="425.714294434"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="3.035714388"></Parameter>
     </Parameter>
