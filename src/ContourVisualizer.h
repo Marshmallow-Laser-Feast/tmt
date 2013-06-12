@@ -48,15 +48,6 @@ public:
             newPoly.close();
             result->push_back(newPoly);
         }
-//        *result = inputAnalyser->getInput()->getPolys();
-        
-//        int count = inputAnalyser->getPathAnalysers().size();
-//        ofPolyline polyline;
-//        for(int i=0; i<count; i++) {
-//            int index = ofClamp(inputAnalyser->getPathAnalysers()[i]->getSamples().size()-1-timeOffset, 0, inputAnalyser->getPathAnalysers()[i]->getSamples().size()-1);
-//            polyline.addVertex(offset + inputAnalyser->getPathAnalysers()[i]->getSamples()[index] * scale);
-//        }
-//        result->push_back(ofxCv::convexHull(polyline));
         return result;
     };
     
