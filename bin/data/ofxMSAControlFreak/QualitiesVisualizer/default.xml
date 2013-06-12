@@ -5,12 +5,12 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="optimizeTolerance" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.179999992"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="1.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="1.799999952"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.500000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="96.430000305"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="97.769996643"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="80"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="100.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="numSegments" value="67"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

@@ -41,7 +41,7 @@ public:
         params.addFloat("Scale points Y").setRange(1, 5).setClamp(true); // scale points from center of rect
         params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
-        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
+//        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
         params.addFloat("Debug point size").setRange(0, 10).setClamp(true);
     };
     
@@ -73,7 +73,7 @@ public:
             ofVec2f scalePoints = ofVec2f(params["Scale points X"], params["Scale points Y"]);
             float trackingDistance = params[PARAM_NAME_TRACKING_DISTANCE];
             float trackingPersistance = params[PARAM_NAME_TRACKING_PERSISTENCE];
-            float smoothing = params[PARAM_NAME_SMOOTHING];
+//            float smoothing = params[PARAM_NAME_SMOOTHING];
             
             
             

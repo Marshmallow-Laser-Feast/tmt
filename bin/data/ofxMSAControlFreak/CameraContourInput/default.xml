@@ -17,7 +17,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="1.357142925"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="454.285705566"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="3.035714388"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

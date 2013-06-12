@@ -3,6 +3,6 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Dots Trails Ratio" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dots Trails Count" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dots Trails Count" value="4"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
