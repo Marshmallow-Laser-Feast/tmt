@@ -58,7 +58,7 @@ public:
         physics.setDrag(1);
     }
     
-    void update(ofPoint a, ofPoint b){ //, const ofPolyline &deformer) {
+    void update(ofPoint a, ofPoint b, const ofPolyline &deformer) {
         rope.numParticles = params["Rope.Physics.numParticles"];
         rope.stiffness = params["Rope.Physics.stiffness"];
         rope.restLengthMult = params["Rope.Physics.restLengthMult"];
