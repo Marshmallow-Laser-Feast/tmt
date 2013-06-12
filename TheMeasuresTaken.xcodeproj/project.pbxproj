@@ -133,6 +133,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		412C5E521768C0E60093CDD8 /* AudioDistorterFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioDistorterFilter.h; sourceTree = "<group>"; };
+		412C5E531768C0E60093CDD8 /* IFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFilter.h; sourceTree = "<group>"; };
+		412C5E541768C0E60093CDD8 /* NoiseDistortionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoiseDistortionFilter.h; sourceTree = "<group>"; };
 		4162D96C17670413009318F0 /* IImageSeqInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IImageSeqInput.h; sourceTree = "<group>"; };
 		4162D96E17670CE6009318F0 /* AttractionPoint2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttractionPoint2d.h; sourceTree = "<group>"; };
 		4162D96F17670CE6009318F0 /* AttractionPoint3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttractionPoint3d.h; sourceTree = "<group>"; };
@@ -452,6 +455,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		412C5E561768C0E90093CDD8 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				412C5E521768C0E60093CDD8 /* AudioDistorterFilter.h */,
+				412C5E531768C0E60093CDD8 /* IFilter.h */,
+				412C5E541768C0E60093CDD8 /* NoiseDistortionFilter.h */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
 		4162D97817670CE9009318F0 /* Boids */ = {
 			isa = PBXGroup;
 			children = (
@@ -1337,6 +1350,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				412C5E561768C0E90093CDD8 /* Filters */,
 				41DB8FF81765C1E0003A0485 /* Libs */,
 				41DB8FF61765C1D6003A0485 /* Utils */,
 				41ECF23017658BBE00361DDB /* Visualisation */,
