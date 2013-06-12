@@ -1,11 +1,11 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="RoofVisualizer">
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.714285731"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="numPoints" value="160"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="centerPos" value="0.477678567"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="5"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.674107134"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.558035731"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
