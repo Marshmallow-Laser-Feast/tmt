@@ -25,6 +25,7 @@ public:
         params.addFloat("amp").setRange(0, 5).setClamp(true);
         params.addInt("numPoints").setRange(0, 1000).setClamp(true);
         params.addFloat("centerPos").setClamp(true);
+        params.addInt("curvature").setRange(-100, 100).setClamp(true);
         
         params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
         params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
@@ -60,8 +61,7 @@ public:
         int numPoints = params["numPoints"];
         float amp = params["amp"];
         float centerPos = params["centerPos"];
-        int smoothAmount = params["smoothAmount"];
-        float easeAmount = params["easeAmount"];
+        int curvature = params["curvature"];
         
         float noiseAmp1 = params["noiseAmp1"];
         float noisePosScale1 = params["noisePosScale1"];
@@ -70,6 +70,8 @@ public:
         float noiseAmpX = params["noiseAmpX"];
         float noisePosScaleX = params["noisePosScaleX"];
 
+        int smoothAmount = params["smoothAmount"];
+        float easeAmount = params["easeAmount"];
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -87,6 +89,9 @@ public:
                 if(ofInRange(x, poly.getBoundingBox().getLeft(), poly.getBoundingBox().getRight())) {
                     p.interpolate(poly.getClosestPoint(ofPoint(x, 0)), amp);
                 }
+            }
+            if(curvature != 0) {
+                p.y += curvature * sin(ofMap(j, 0, numPoints-1, 0, PI));
             }
 
             p = p * scale + offset;

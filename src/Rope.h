@@ -7,13 +7,12 @@ public:
     vector<msa::physics::Particle2D*> particles;
     vector<msa::physics::Spring2D*> springs;
     
-    static msa::physics::World2D *physics;
-    static int numParticles;
-    static float stiffness;
-    static float restLengthMult;
-    static float restLengthSpeed;
-    static float radiusBase;
-    static float radiusMult;
+    int numParticles;
+    float stiffness;
+    float restLengthMult;
+    float restLengthSpeed;
+    float radiusBase;
+    float radiusMult;
     
     //--------------------------------------------------------------
     Rope() {
@@ -35,23 +34,27 @@ public:
     }
     
     //--------------------------------------------------------------
-    void set(ofPoint a, ofPoint b) {
+    void set(ofPoint a, ofPoint b, msa::physics::World2D &physics) {
         if(a == b) b.y += 1;
         this->a = a;
         this->b = b;
+
+        if(numParticles<2) return;
+        
         if(particles.size() != numParticles) {
             clear();
             for(int i=0; i<numParticles; i++) {
-                msa::physics::Particle2D *p = physics->makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
+                msa::physics::Particle2D *p = physics.makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
                 p->enablePassiveCollision();
                 p->enableCollision();
+                p->makeFree();
                 particles.push_back(p);
             }
             particles.front()->makeFixed();
             particles.back()->makeFixed();
             
             for(int i=0; i<numParticles-1; i++) {
-                springs.push_back(physics->makeSpring(particles[i], particles[i+1], stiffness, 0));
+                springs.push_back(physics.makeSpring(particles[i], particles[i+1], stiffness, 0));
             }
         }
         particles.front()->moveTo(a);
