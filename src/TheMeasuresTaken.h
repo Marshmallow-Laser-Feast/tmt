@@ -116,7 +116,9 @@ private:
     
     ofxOscReceiver                      receiver;
     
-    std::map<std::string, float>        oscData;
+    std::map< string, vector<float> >   oscData;
+    
+    float                               fftAmp;
     
     // Visualisation
     

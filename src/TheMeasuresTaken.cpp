@@ -219,6 +219,11 @@ void TheMeasuresTaken::update()
 {
     // Update with OSC
     
+    if( oscData.count( OCS_AUDIO_PATH ) )
+    {
+        oscData[ OCS_AUDIO_PATH ].clear();
+    }
+    
     while ( receiver.hasWaitingMessages() )
     {
         ofxOscMessage   m;
@@ -227,16 +232,26 @@ void TheMeasuresTaken::update()
         
         if( m.getNumArgs() > 0 )
         {
-            switch ( m.getArgType( 0 ) )
+            if( oscData.count( m.getAddress() ) == 0 )
             {
-                case OFXOSC_TYPE_INT32  :
-                case OFXOSC_TYPE_INT64  :
-                case OFXOSC_TYPE_FLOAT  :
-                    
-                oscData[ m.getAddress() ]   = m.getArgAsFloat(0);
-                    
-                break;
-
+                oscData[ m.getAddress() ]   = vector<float>();
+            }
+            
+            oscData[ m.getAddress() ].clear();
+            
+            for( int i = 0 ; i < m.getNumArgs(); ++i )
+            {
+                switch ( m.getArgType( i ) )
+                {
+                    case OFXOSC_TYPE_INT32  :
+                    case OFXOSC_TYPE_INT64  :
+                    case OFXOSC_TYPE_FLOAT  :
+                        
+                        oscData[ m.getAddress() ].push_back( m.getArgAsFloat(0) );
+                        
+                        break;
+                        
+                }
             }
         }
     }
@@ -247,7 +262,7 @@ void TheMeasuresTaken::update()
         {
             if( oscData.count( pIt->second ) > 0 )
             {
-                pIt->first->set( oscData[ pIt->second ] );
+                pIt->first->set( oscData[ pIt->second ][0] );
             }
         }
     }
@@ -258,7 +273,7 @@ void TheMeasuresTaken::update()
         {
             if( oscData.count( pIt->second ) > 0 )
             {
-                pIt->first->set( oscData[ pIt->second ] );
+                pIt->first->set( oscData[ pIt->second ][0] );
             }
         }
     }
@@ -269,7 +284,7 @@ void TheMeasuresTaken::update()
         {
             if( oscData.count( pIt->second ) > 0 )
             {
-                pIt->first->set( oscData[ pIt->second ] );
+                pIt->first->set( oscData[ pIt->second ][0] );
             }
         }
     }
@@ -406,13 +421,25 @@ void TheMeasuresTaken::update()
     
     scale.set( 1.0f / ((float)INPUT_WIDTH * ( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2] - (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1] )), 1.0f / ((float)INPUT_HEIGHT * ( (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] - (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1] )), 1.0f );
     
+    float avgFFT    = 0.0f;
+    
+    if( oscData.count( OCS_AUDIO_PATH ) )
+    {
+        for( int i = 0; i < oscData[ OCS_AUDIO_PATH ].size(); ++i )
+        {
+            avgFFT  += oscData[ OCS_AUDIO_PATH ][ i ];
+        }
+        
+        avgFFT      /= (float)oscData[ OCS_AUDIO_PATH ].size();
+    }
+    
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
         ildaFrame.drawCalibration();
     } else {
         for(int i=0; i<visualizers.size(); i++)
         {
-            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData.count( OCS_AUDIO_PATH ) > 0 ? oscData[OCS_AUDIO_PATH] : 0.0f );
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData[OCS_AUDIO_PATH], avgFFT );
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {
