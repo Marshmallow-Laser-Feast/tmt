@@ -19,10 +19,7 @@
 
 #include "MultiTouchInput.h"
 #include "FlockingInput.h"
-#include "CameraCentroidsInput.h"
-#include "CameraConvexHullInput.h"
 #include "CameraContourInput.h"
-#include "CameraContourTipsInput.h"
 
 #include "InputAnalyser.h"
 
@@ -69,10 +66,7 @@ private:
     
     MultiTouchInput                     *multitouchInput;
     FlockingInput                       *flockingInput;
-    CameraCentroidsInputs               *cameraCentroidsInput;
-    CameraConvexHullInput               *cameraConvexHullInput;
     CameraContourInput                  *cameraContourInput;
-    CameraContourTipsInput              *cameraContourTipsInput;
     
 //    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     vector<IImageSeqInput*>             iimageSeqInputs;

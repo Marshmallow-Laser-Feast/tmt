@@ -56,7 +56,7 @@
 #define PARAM_NAME_CAMERA_DRAW_COLOR            "Draw Color Input"
 #define PARAM_NAME_CAMERA_DRAW_ROI              "Draw ROI"
 #define PARAM_NAME_CAMERA_DRAW_CONTOURS         "Draw Contours"
-#define PARAM_NAME_CAMERA_CONTOUR_SOURCE        "Contour Source"
+//#define PARAM_NAME_CAMERA_CONTOUR_SOURCE        "Contour Source"
 
 #define PARAM_NAME_CONTOUR_THRESHOLD            "Threshold"
 #define PARAM_NAME_CONTOUR_BLUR                 "Blur"

@@ -192,7 +192,6 @@
 		41D233331767247900F88CA5 /* update-projects.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "update-projects.py"; sourceTree = "<group>"; };
 		41D233E01767443F00F88CA5 /* ContourFinder2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContourFinder2.cpp; sourceTree = "<group>"; };
 		41D233E11767443F00F88CA5 /* ContourFinder2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContourFinder2.h; sourceTree = "<group>"; };
-		41D233E317675B5700F88CA5 /* CameraConvexHullInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraConvexHullInput.h; sourceTree = "<group>"; };
 		41DB8FF91765C253003A0485 /* DotVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotVisualizer.h; sourceTree = "<group>"; };
 		41E52E6F1765DCB300B8EF2E /* DotTrailsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotTrailsVisualizer.h; sourceTree = "<group>"; };
 		41E52E711765E67E00B8EF2E /* ConnectedDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectedDotsVisualizer.h; sourceTree = "<group>"; };
@@ -262,7 +261,6 @@
 		41ECF23217658BD200361DDB /* Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rope.h; sourceTree = "<group>"; };
 		41ECF24317658CA100361DDB /* MSAObjCPointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSAObjCPointer.cpp; sourceTree = "<group>"; };
 		41ECF24417658CA100361DDB /* MSAObjCPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAObjCPointer.h; sourceTree = "<group>"; };
-		41ECF2481765903D00361DDB /* CameraCentroidsInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraCentroidsInput.h; sourceTree = "<group>"; };
 		41ECF24A1765917200361DDB /* IVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVisualizer.h; sourceTree = "<group>"; };
 		41ECF262176592F000361DDB /* dc1394.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc1394.h; sourceTree = "<group>"; };
 		41ECF263176592F000361DDB /* dc1394_camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc1394_camera.h; sourceTree = "<group>"; };
@@ -394,7 +392,6 @@
 		BB0D3969176759B00083608A /* ConvexHullVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvexHullVisualizer.h; sourceTree = "<group>"; };
 		BB0D396B17675E580083608A /* Params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Params.h; sourceTree = "<group>"; };
 		BB8ACFFE1767A0FE00307EE3 /* CameraContourInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraContourInput.h; sourceTree = "<group>"; };
-		BB8AD0031767CF2D00307EE3 /* CameraContourTipsInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraContourTipsInput.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -553,10 +550,7 @@
 				41F33AE9175EA8EF00405014 /* FlockingInput.h */,
 				41F156C717620B0C004DD184 /* MultiTouchInput.h */,
 				4162D96C17670413009318F0 /* IImageSeqInput.h */,
-				41ECF2481765903D00361DDB /* CameraCentroidsInput.h */,
-				41D233E317675B5700F88CA5 /* CameraConvexHullInput.h */,
 				BB8ACFFE1767A0FE00307EE3 /* CameraContourInput.h */,
-				BB8AD0031767CF2D00307EE3 /* CameraContourTipsInput.h */,
 			);
 			name = Input;
 			sourceTree = "<group>";
