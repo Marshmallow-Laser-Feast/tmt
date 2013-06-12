@@ -43,6 +43,15 @@ public:
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
 //        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
         params.addFloat("Debug point size").setRange(0, 10).setClamp(true);
+        
+        midiMappings[ &params.get(PARAM_NAME_CONTOUR_RESAMPLE) ]    = std::pair<int, int>( 10, 14 );
+        midiMappings[ &params.get(PARAM_NAME_CONTOUR_SIMPLIFY) ]    = std::pair<int, int>( 10, 15 );
+        midiMappings[ &params.get(PARAM_NAME_CONTOUR_SMOOTH) ]      = std::pair<int, int>( 10, 16 );
+        midiMappings[ &params.get("Average radius") ]               = std::pair<int, int>( 10, 17 );
+        midiMappings[ &params.get("Stretch points") ]               = std::pair<int, int>( 10, 18 );
+        midiMappings[ &params.get("Scale points X") ]               = std::pair<int, int>( 10, 19 );
+        midiMappings[ &params.get("Scale points Y") ]               = std::pair<int, int>( 10, 20 );
+        midiMappings[ &params.get(PARAM_NAME_TRACKING_DISTANCE) ]   = std::pair<int, int>( 10, 21 );
     };
     
     ~CameraContourInput()

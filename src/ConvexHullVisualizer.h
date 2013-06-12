@@ -22,6 +22,9 @@ public:
     ConvexHullVisualizer()
     {
         params.setName("ConvexHullVisualizer");
+        
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]  = std::pair<int, int>( 8, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ] = std::pair<int, int>( 8, 15 );
     };
     
     ~ConvexHullVisualizer()

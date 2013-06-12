@@ -37,6 +37,7 @@ public:
     
     {
         params.setName("QualitiesVisualizer");
+        
         params.addInt("smoothAmount").setClamp(true).setSnap(true);
         params.addFloat("optimizeTolerance").setClamp(true).setSnap(true);
         params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
@@ -47,6 +48,19 @@ public:
         params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
         params.addFloat("noisePosScaleX").setRange(0, 100).setClamp(true).setSnap(true);
         params.addInt("numSegments").setClamp(true).setSnap(true);
+        
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]  = std::pair<int, int>( 7, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ] = std::pair<int, int>( 7, 15 );
+        midiMappings[ &params.get("smoothAmount") ]         = std::pair<int, int>( 7, 14 );
+        midiMappings[ &params.get("optimizeTolerance") ]    = std::pair<int, int>( 7, 15 );
+        midiMappings[ &params.get("noiseTimeSpeed") ]       = std::pair<int, int>( 7, 16 );
+        midiMappings[ &params.get("noiseAmp1") ]            = std::pair<int, int>( 7, 17 );
+        midiMappings[ &params.get("noisePosScale1") ]       = std::pair<int, int>( 7, 18 );
+        midiMappings[ &params.get("noiseAmp2") ]            = std::pair<int, int>( 7, 19 );
+        midiMappings[ &params.get("noisePosScale2") ]       = std::pair<int, int>( 7, 20 );
+        midiMappings[ &params.get("noiseAmpX") ]            = std::pair<int, int>( 7, 21 );
+        midiMappings[ &params.get("noisePosScaleX") ]       = std::pair<int, int>( 7, 22 );
+        midiMappings[ &params.get("numSegments") ]          = std::pair<int, int>( 7, 23 );
     };
     
     ~QualitiesVisualizer()

@@ -28,6 +28,11 @@ public:
         params.addBang( PARAM_NAME_FIXED_POINT_FIX );
         params.addBang( PARAM_NAME_FIXED_POINT_CLEAR );
         
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 6, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 6, 15 );
+        midiMappings[ &params.get(PARAM_NAME_FIXED_POINT_VIS_COUNT) ]           = std::pair<int, int>( 6, 16 );
+        midiMappings[ &params.get(PARAM_NAME_FIXED_POINT_FIX) ]                 = std::pair<int, int>( 6, 17 );
+        midiMappings[ &params.get(PARAM_NAME_FIXED_POINT_CLEAR) ]               = std::pair<int, int>( 6, 18 );
     };
     
     ~FixedPointVisualizer()

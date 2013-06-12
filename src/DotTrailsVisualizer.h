@@ -28,7 +28,10 @@ public:
         params.addFloat( PARAM_NAME_DOT_TRAILS_VIS_RATIO ).setClamp( true );
         params.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 100 ).setClamp( true );
         
-        //midiMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]   = std::pair<int, int>( 1, 14 );
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 2, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 2, 15 );
+        midiMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_RATIO) ]            = std::pair<int, int>( 2, 16 );
+        midiMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]     = std::pair<int, int>( 2, 17 );
         
     };
     

@@ -22,6 +22,10 @@ public:
     {
         params.setName("DotVisualizer");
         params.addFloat(PARAM_NAME_DOT_VIS_RATIO).setClamp( true );
+        
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 1, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 1, 15 );
+        midiMappings[ &params.get(PARAM_NAME_DOT_VIS_RATIO) ]                   = std::pair<int, int>( 1, 16 );
     };
     
     ~DotVisualizer()

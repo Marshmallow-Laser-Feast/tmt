@@ -22,6 +22,9 @@ public:
     ContourVisualizer()
     {
         params.setName("ContourVisualizer");
+        
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]  = std::pair<int, int>( 9, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ] = std::pair<int, int>( 9, 15 );
     };
     
     ~ContourVisualizer()

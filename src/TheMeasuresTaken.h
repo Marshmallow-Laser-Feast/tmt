@@ -34,6 +34,11 @@
 #include "ConvexHullVisualizer.h"
 #include "ContourVisualizer.h"
 
+#include "IFilter.h"
+
+#include "AudioDistorterFilter.h"
+#include "NoiseDistortionFilter.h"
+
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
 
@@ -96,6 +101,8 @@ private:
     ofxMidiIn                           midiIn;
 	ofxMidiMessage                      midiMessage;
     
+    std::pair<int, int>                 pathAnalyserSmoothingMidiKey;
+    std::pair<int, int>                 cameraGainMidiKey;
     
     std::map<std::pair<int,int>, int>   midiData;
     
@@ -115,6 +122,17 @@ private:
     QualitiesVisualizer                 *qualitiesVisualizer;
     ConvexHullVisualizer                *convexHullVisualizer;
     ContourVisualizer                   *contourVisualizer;
+    
+    // Filters
+    
+    AudioDistorterFilter                *audioDistorterFilterPre;
+    NoiseDistortionFilter               *noiseDistortionFilterPre;
+    
+    AudioDistorterFilter                *audioDistorterFilterPost;
+    NoiseDistortionFilter               *noiseDistortionFilterPost;
+    
+    vector<IFilter*>                    preFilters;
+    vector<IFilter*>                    postFilters;
     
     bool                                visualizeInput;
     

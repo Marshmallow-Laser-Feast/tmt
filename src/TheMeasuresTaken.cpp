@@ -140,6 +140,32 @@ void TheMeasuresTaken::setup()
     }
 
     
+    // Filters
+    
+    audioDistorterFilterPre                         = new AudioDistorterFilter();
+    noiseDistortionFilterPre                        = new NoiseDistortionFilter( true );
+    
+    audioDistorterFilterPost                        = new AudioDistorterFilter();
+    noiseDistortionFilterPost                       = new NoiseDistortionFilter( false );
+    
+    preFilters.push_back( audioDistorterFilterPre );
+    preFilters.push_back( noiseDistortionFilterPre );
+    
+    postFilters.push_back( audioDistorterFilterPost );
+    postFilters.push_back( noiseDistortionFilterPost );
+    
+    for(int i=0; i<preFilters.size(); i++)
+    {
+        gui.addPage(preFilters[i]->params);
+        preFilters[i]->params.loadXmlValues();
+    }
+    
+    for(int i=0; i<postFilters.size(); i++)
+    {
+        gui.addPage(postFilters[i]->params);
+        postFilters[i]->params.loadXmlValues();
+    }
+    
     // Midi
     
     midiIn.listPorts();
@@ -147,7 +173,9 @@ void TheMeasuresTaken::setup()
     midiIn.addListener(this);
     midiIn.setVerbose(false);
     
-  
+    pathAnalyserSmoothingMidiKey    = std::pair<int, int>( 11, 14 );
+    cameraGainMidiKey               = std::pair<int, int>( 11, 15 );
+    
     offset.set( 0.0f, 0.0f, 0.0f );
     scale.set( 1.0f / (float)INPUT_WIDTH, 1.0f / (float)INPUT_HEIGHT, 1.0f );
     
@@ -201,6 +229,38 @@ void TheMeasuresTaken::update()
                 pIt->first->set( midiData[ pIt->second ] );
             }
         }
+    }
+    
+    for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        {
+            if( midiData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( midiData[ pIt->second ] );
+            }
+        }
+    }
+    
+    for( vector<IFilter*>::iterator it = postFilters.begin(); it != postFilters.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        {
+            if( midiData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( midiData[ pIt->second ] );
+            }
+        }
+    }
+    
+    if( midiData.count( pathAnalyserSmoothingMidiKey ) )
+    {
+        inputParams["PathAnalyser::smoothing"].set( midiData[ pathAnalyserSmoothingMidiKey ] );
+    }
+    
+    if( midiData.count( cameraGainMidiKey ) )
+    {
+        cameraParams["PARAM_NAME_LIBDC_GAIN"].set( midiData[ cameraGainMidiKey ] );
     }
     
     PathAnalyser::smoothing = inputParams["PathAnalyser::smoothing"];
@@ -294,14 +354,26 @@ void TheMeasuresTaken::update()
     {
         ildaFrame.drawCalibration();
     } else {
-        for(int i=0; i<visualizers.size(); i++) {
+        for(int i=0; i<visualizers.size(); i++)
+        {
             PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale );
+            
+            for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
+            {
+                (*it)->apply( *visualizedLines );
+            }
+            
             ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
         }
     }
     
     ildaFrame.update();
     
+    for( vector<IFilter*>::iterator fit = postFilters.begin(); fit != postFilters.end(); ++fit )
+    {
+        (*fit)->apply( ildaFrame.getProcessedPolys() );
+    }
+
     if(ildaParams[PARAM_NAME_ENABLED]) etherdream.setPoints(ildaFrame);
 
 }
@@ -384,8 +456,13 @@ void TheMeasuresTaken::keyPressed(int key)
         inputParams.saveXmlValues();
         cameraParams.saveXmlValues();
         ildaParams.saveXmlValues();
+        
         for(int i=0; i<visualizers.size(); i++) visualizers[i]->params.saveXmlValues();
         for(int i=0; i<iimageSeqInputs.size(); i++) iimageSeqInputs[i]->params.saveXmlValues();
+        for(int i=0; i<preFilters.size(); i++) preFilters[i]->params.saveXmlValues();
+        for(int i=0; i<postFilters.size(); i++) postFilters[i]->params.saveXmlValues();
+        
+        
     }
     
     if( key == 'p' )
