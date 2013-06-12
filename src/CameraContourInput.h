@@ -36,7 +36,9 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_SMOOTH ).setRange(0, 40).setClamp( true );
         params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange(-180, 180).setClamp(true);
         params.addFloat("Average radius").setClamp(true);   // proprotion to size of rectangle
-        params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
+        params.addFloat("Stretch points").setClamp(true); // stretch points relative to contour
+        params.addFloat("Scale points X").setRange(1, 5).setClamp(true); // scale points from center of rect
+        params.addFloat("Scale points Y").setRange(1, 5).setClamp(true); // scale points from center of rect
         params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
         params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
@@ -67,7 +69,8 @@ public:
             int smoothAmount = params[PARAM_NAME_CONTOUR_SMOOTH];
             float tipThreshold = params[PARAM_NAME_TIP_THRESHOLD];
             float averageRadius = params["Average radius"];
-            float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
+            float stretchPoints = params["Stretch points"];
+            ofVec2f scalePoints = ofVec2f(params["Scale points X"], params["Scale points Y"]);
             float trackingDistance = params[PARAM_NAME_TRACKING_DISTANCE];
             float trackingPersistance = params[PARAM_NAME_TRACKING_PERSISTENCE];
             float smoothing = params[PARAM_NAME_SMOOTHING];
@@ -152,12 +155,19 @@ public:
                 for(int j=0; j<line.size(); ++j ) {
                     ofVec2f p = line[j];
                     //                    p += ofPoint( roiX1 * width, roiY1 * height );
-                    if(stretch > 0) {
+                    if(stretchPoints > 0) {
                         ofVec2f pNorm;
                         pNorm.x = ofMap(p.x, r.x, r.x + r.width, 0, image.width);
                         pNorm.y = ofMap(p.y, r.y, r.y + r.height, 0, image.height);
-                        p.interpolate(pNorm, stretch);
+                        p.interpolate(pNorm, stretchPoints);
                     }
+                    
+                    if(scalePoints.lengthSquared() > 1) {
+                        ofVec2f rcenter(r.x + r.width/2, r.y + r.height/2);
+                        ofVec2f diff(p-rcenter);
+                        p = rcenter + diff * scalePoints;
+                    }
+                    
                     line[j] = p;
                     allFloatPoints.push_back(ofxCv::toCv(p));
                 }

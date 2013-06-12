@@ -66,7 +66,6 @@
 #define PARAM_NAME_CONTOUR_MAX_CONTOUR          "Max Contour"
 #define PARAM_NAME_CONTOUR_SIMPLIFY             "Simplify"
 #define PARAM_NAME_CONTOUR_SMOOTH               "Smooth"
-#define PARAM_NAME_CONTOUR_STRETCH              "Contour Stretch"
 
 
 //#define CAMERA_CONVEX_HULL_THRESHOLD            "Threshold"

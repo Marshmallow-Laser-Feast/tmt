@@ -12,7 +12,9 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.183035716"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Stretch" value="0.535714269"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="3.767857075"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="1.357142925"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="454.285705566"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing" value="0.000000000"></Parameter>
