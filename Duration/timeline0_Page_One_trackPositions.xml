@@ -1,0 +1,134 @@
+<positions>
+    <element name="audio">
+        <x>0.000000000</x>
+        <y>142.000000000</y>
+        <width>1440.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="colors">
+        <x>0.000000000</x>
+        <y>166.000000000</y>
+        <width>1300.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="curves">
+        <x>0.000000000</x>
+        <y>206.000000000</y>
+        <width>1440.000000000</width>
+        <height>42.000000000</height>
+    </element>
+    <element name="curves_0">
+        <x>0.000000000</x>
+        <y>272.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_1">
+        <x>0.000000000</x>
+        <y>296.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_10">
+        <x>0.000000000</x>
+        <y>512.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_11">
+        <x>0.000000000</x>
+        <y>536.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_12">
+        <x>0.000000000</x>
+        <y>560.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_13">
+        <x>0.000000000</x>
+        <y>584.000000000</y>
+        <width>1440.000000000</width>
+        <height>60.000000000</height>
+    </element>
+    <element name="curves_14">
+        <x>0.000000000</x>
+        <y>668.000000000</y>
+        <width>1440.000000000</width>
+        <height>58.000000000</height>
+    </element>
+    <element name="curves_2">
+        <x>0.000000000</x>
+        <y>320.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_3">
+        <x>0.000000000</x>
+        <y>344.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_4">
+        <x>0.000000000</x>
+        <y>368.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_5">
+        <x>0.000000000</x>
+        <y>392.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_6">
+        <x>0.000000000</x>
+        <y>416.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_7">
+        <x>0.000000000</x>
+        <y>440.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_8">
+        <x>0.000000000</x>
+        <y>464.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="curves_9">
+        <x>0.000000000</x>
+        <y>488.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="lfo">
+        <x>0.000000000</x>
+        <y>750.000000000</y>
+        <width>1440.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="switches">
+        <x>0.000000000</x>
+        <y>750.000000000</y>
+        <width>1440.000000000</width>
+        <height>39.000000000</height>
+    </element>
+    <element name="switches_0">
+        <x>0.000000000</x>
+        <y>801.000000000</y>
+        <width>1300.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="switches_1">
+        <x>0.000000000</x>
+        <y>825.000000000</y>
+        <width>1300.000000000</width>
+        <height>0.000000000</height>
+    </element>
+</positions>
