@@ -16,24 +16,8 @@ class QualitiesVisualizer : public IVisualizer
     
 public:
     
-//    int smoothAmount;   // how much to smooth the path (zero to ignore)
-//    float optimizeTolerance;    // howmuch to optimize the path, based on curvature (zero to ignore)
-//    
-//    float noisePosScale;
-//    float noiseTimeSpeed;
-//    
-//    int numSegments;
-//
     QualitiesVisualizer() :
     polylines(new std::vector<ofPolyline>())
-    
-//    :uSamples( 0 )
-//    ,ucount( 0 )
-//    ,vcount( 0 )
-//    ,width( 0.0f)
-//    ,height( 0.0f )
-//    ,noiseHeight( 0.0f )
-//    ,noiseOffset( 0.0f )
     
     {
         params.setName("QualitiesVisualizer");
@@ -67,39 +51,7 @@ public:
     {};
     
 public:
-    
-//    void setUSamples( int uSamples_ )
-//    {
-//        uSamples              = uSamples_;
-//    };
-//    
-//    void setUCount( int ucount_ )
-//    {
-//        ucount              = ucount_;
-//    };
-//    
-//    void setVCount( int vcount_ )
-//    {
-//        vcount              = vcount_;
-//    };
-//    
-//    void setSize( float width_, float height_ )
-//    {
-//        width               = width_;
-//        height              = height_;
-//    };
-//    
-//    void setNoiseHeight( float noiseHeight_ )
-//    {
-//        noiseHeight          = noiseHeight_;
-//    };
-//    
-//    void setNoiseOffset( float noiseOffset_ )
-//    {
-//        noiseOffset         = noiseOffset_;
-//    }
-
-    
+   
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale )
     {
         updateTimer();
@@ -148,15 +100,6 @@ private:
     PolylineVectorRefT polylines;
     float timer;
     float lastFrameTime;
-//    int     uSamples;
-//    int     ucount;
-//    int     vcount;
-//    
-//    float   width;
-//    float   height;
-//    float   noiseHeight;
-//    float   noiseOffset;
-    
     
     void updateTimer() {
         float nowTime = ofGetElapsedTimef();
