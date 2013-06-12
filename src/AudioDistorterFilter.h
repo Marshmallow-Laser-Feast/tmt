@@ -23,11 +23,15 @@ public:
     };
     
     virtual ~AudioDistorterFilter()
-    {};
+    {
+        
+    };
     
 public:
     
     virtual void apply( std::vector<ofPolyline> &polylines )
-    {};
+    {
+        
+    };
     
 };

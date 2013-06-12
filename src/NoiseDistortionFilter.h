@@ -27,7 +27,7 @@ public:
     {
         params.setName("NoiseDistortionFilter");
         
-        params.addFloat(PARAM_NAME_NOISE_SCALE).setClamp( true );
+        params.addFloat(PARAM_NAME_NOISE_SCALE).setRange( 0.0f, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_OFFSET).setRange(-10, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_X).setRange(-2, 2).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_Y).setRange(-2, 2).setClamp( true );
@@ -61,11 +61,11 @@ public:
                 for( int i = 0; i < it->getVertices().size(); ++i )
                 {
                     it->getVertices()[i]    =   it->getVertices()[i] +
-                    ofSignedNoise(      offset + it->getVertices()[i].x * scale,
-                                  offset + it->getVertices()[i].y * scale )*
-                    it->getNormalAtIndex( i ) *
-                    amp *
-                    actv;
+                                                ofSignedNoise(      offset + it->getVertices()[i].x * scale,
+                                                                    offset + it->getVertices()[i].y * scale )*
+                                                it->getNormalAtIndex( i ) *
+                                                amp *
+                                                actv;
                 }
             }
         } else {
@@ -73,9 +73,13 @@ public:
             {
                 for( int i = 0; i < it->getVertices().size(); ++i )
                 {
+                    ofVec3f n( 1, 0, 1 );
+                    
+                    n.normalize();
+                    n.rotate( ofSignedNoise( offset + it->getVertices()[i].x * scale, offset + it->getVertices()[i].y * scale ) * 360.0f , ofVec3f( 0, 0, 1 ) );
+                    
                     it->getVertices()[i]    =   it->getVertices()[i] +
-                                                ofSignedNoise(      offset + it->getVertices()[i].x * scale,
-                                                                    offset + it->getVertices()[i].y * scale ) *
+                                                n *
                                                 amp *
                                                 actv;
                 }
