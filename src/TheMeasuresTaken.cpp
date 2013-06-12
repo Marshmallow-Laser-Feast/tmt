@@ -134,14 +134,14 @@ void TheMeasuresTaken::setup()
     // Visualisation
     
     visualizers.push_back( dotTrailsVisualizer     = new DotTrailsVisualizer());
-    visualizers.push_back( contourVisualizer       = new ContourVisualizer());
-    visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
     visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
-    visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
     visualizers.push_back( roofVisualizer          = new RoofVisualizer());
     visualizers.push_back( lineVisualizer          = new LineVisualizer());
     visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
+    visualizers.push_back( contourVisualizer       = new ContourVisualizer());
+    visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
     visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
+    visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
     visualizers.push_back( dotVisualizer           = new DotVisualizer());
     
     for(int i=0; i<visualizers.size(); i++) {

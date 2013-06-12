@@ -6,22 +6,22 @@
             <label2>Centroid</label2>
             <label3>Tips</label3>
         </Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="110" min="0" max="255" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Threshold" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="80" min="0" max="255" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Threshold" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="2" min="0" max="50" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Blur" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0" min="0" max="50" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Dilate" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="0" min="0" max="50" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Erode" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="12" min="0" max="100" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Min Contour" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="10" min="0" max="100" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Min Contour" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000" min="0" max="10000" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Max Contour" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="370" min="0" max="1000" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Resample count" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="388" min="0" max="1000" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Resample count" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000" min="0.000000000" max="50.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Simplify" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="12" min="0" max="40" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Smooth" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392" min="-180.000000000" max="180.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Tip treshold" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.107142858" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Average radius" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="10" min="0" max="40" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Smooth" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="8.035705566" min="-180.000000000" max="180.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Tip treshold" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.250000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Average radius" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000" min="0.000000000" max="1.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Stretch points" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="1.000000000" min="1.000000000" max="5.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Scale points X" tooltip=""></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="1.000000000" min="1.000000000" max="5.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Scale points Y" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="0.000000000" min="0.000000000" max="640.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Tracking distance" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="15" min="0" max="100" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Tracking persistence" tooltip=""></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="3.035714388" min="0.000000000" max="10.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Debug point size" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="362.857116699" min="0.000000000" max="640.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Tracking distance" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="30" min="0" max="100" doClamp="1" inc="1" doSnap="0" path="CameraContourInput.Tracking persistence" tooltip=""></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="6.651785851" min="0.000000000" max="10.000000000" doClamp="1" inc="0.010000000" doSnap="0" path="CameraContourInput.Debug point size" tooltip=""></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
