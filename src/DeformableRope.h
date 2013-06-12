@@ -14,6 +14,7 @@
 class DeformableRope {
 public:
     Rope rope;
+    ofPolyline poly;
     msa::physics::World2D physics;
     msa::controlfreak::ParameterGroup &params;
     
@@ -35,7 +36,8 @@ public:
         params.endGroup();
         
         params.startGroup("Noise");
-        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
+        params.addInt("resample").setRange(0, 1000).setClamp(true);
+//        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
         params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
         params.addFloat("noisePosScale1").setRange(0, 50).setClamp(true).setSnap(true);
         params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
@@ -44,7 +46,7 @@ public:
         params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
         params.endGroup();
         
-        params.startGroup("Post FX");
+        params.startGroup("Post");
         params.addInt("smoothAmount").setClamp(true);
         params.addFloat("easeAmount").setClamp(true);
         params.endGroup();
@@ -67,19 +69,47 @@ public:
         float amp = params["Rope.Deform.amp"];
         float centerOffset = params["Rope.Deform.centerOffset"];
         float curvature = params["Rope.Deform.curvature"];
+        
+        int resample = params["Rope.Noise.resample"];
+        float noiseAmp1 = params["Rope.Noise.noiseAmp1"];
+        float noisePosScale1 = params["Rope.Noise.noisePosScale1"];
+        float noiseAmp2 = params["Rope.Noise.noiseAmp2"];
+        float noisePosScale2 = params["Rope.Noise.noisePosScale2"];
+        float noiseAmpX = params["Rope.Noise.noiseAmpX"];
+        float noisePosScaleX = params["Rope.Noise.noisePosScaleX"];
+
+        int smoothAmount = params["Rope.Post.smoothAmount"];
+
 
         
         rope.set(a, b, physics);
         rope.update();
         
         physics.update();
+        
         for(int i=0; i<rope.particles.size(); i++) {
             msa::physics::Particle2D &p = *rope.particles[i];
             float t = ofMap(i, 0, rope.particles.size()-1, 0, 1);
-            
-            if(curvature != 0) p.moveBy(ofVec2f(0, curvature * sin(t * PI)));
-            if(centerOffset != 0) p.moveBy(ofVec2f(0, centerOffset));
+            float ts = ofMap(i, 0, rope.particles.size()-1, -1, 1);
+
+            ofVec2f o;
+            if(curvature != 0) o.y += curvature * sin(t * PI);
+            if(centerOffset != 0) o.y += centerOffset;
+            if(noiseAmp1) o.y += noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
+            if(noiseAmp2) o.y += noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
+            if(noiseAmpX) o.x += noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
+            p.moveBy(o);
         }
         
+        poly = resample ? rope.drawVector().getResampledByCount(resample) : rope.drawVector();
+//
+//        for(int j=0; j<poly.size(); j++) {
+//            float t = ofMap(j, 0, poly.size()-1, -1, 1);
+//            ofPoint &p = poly[j];
+//            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
+//            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
+//        }
+        
+        if(smoothAmount) poly = poly.getSmoothed(smoothAmount);
     }
 };

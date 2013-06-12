@@ -17,10 +17,10 @@
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Deform">
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="centerOffset" value="0.069999993"></Parameter>
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="79"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="curvature" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Noise">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="0"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.000000000"></Parameter>
@@ -28,7 +28,7 @@
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
             </Parameter>
-            <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Post FX">
+            <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Post">
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="0"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.000000000"></Parameter>
             </Parameter>
