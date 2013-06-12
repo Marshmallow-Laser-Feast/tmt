@@ -246,6 +246,11 @@ public:
         return pathAnalysers;
     };
     
+    ofPoint getSampleWithTimeOffset(int pathId, int timeOffset) {
+        int index = ofClamp(getPathAnalysers()[pathId]->getSamples().size()-1-timeOffset, 0, getPathAnalysers()[pathId]->getSamples().size()-1);
+        return getPathAnalysers()[pathId]->getSamples()[index];
+    }
+    
 private:
     
     Input                               *input;

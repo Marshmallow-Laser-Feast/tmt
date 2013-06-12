@@ -53,14 +53,14 @@ public:
         {
             ofPolyline  line;
             
-            ofPoint     currentPoint    = inputAnalyser->getPathAnalysers()[i]->getSamples().back();
+            ofPoint     currentPoint    = inputAnalyser->getSampleWithTimeOffset(i, timeOffset);
             
             float       closestDistance = 1000000.0;
             int         closestIndex    = 0;
             
-            for( int j = 0; j < inputAnalyser->getPathAnalysers().size(); ++j )
+            for( int j = i+1; j < inputAnalyser->getPathAnalysers().size(); ++j )
             {
-                float currentDistance   = currentPoint.distance( inputAnalyser->getPathAnalysers()[j]->getSamples().back() ) ;
+                float currentDistance   = currentPoint.distance( inputAnalyser->getSampleWithTimeOffset(j, timeOffset) ) ;
                 
                 if( j != i && connectionMap[i] != j && connectionMap[j] != i && currentDistance < closestDistance )
                 {
@@ -73,7 +73,7 @@ public:
             connectionMap[closestIndex] = i;
             
             line.addVertex( offset + currentPoint * scale );
-            line.addVertex( offset + inputAnalyser->getPathAnalysers()[closestIndex]->getSamples().back() * scale );
+            line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(closestIndex, timeOffset) * scale );
             
             result->push_back( line );
         }
