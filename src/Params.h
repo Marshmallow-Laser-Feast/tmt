@@ -31,6 +31,14 @@
 #define FLOCKING_ATTRAC_RAD_RATIO               0.8f
 
 ////////////////////////////
+//           I/O          //
+////////////////////////////
+
+#define OSC_PORT                                12345
+
+#define OCS_AUDIO_PATH                          "AudioFFT"
+
+////////////////////////////
 //      Gui & Params      //
 ////////////////////////////
 

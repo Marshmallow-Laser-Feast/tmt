@@ -61,7 +61,8 @@ public:
     
     msa::controlfreak::ParameterGroup params;
     
-    std::map< msa::controlfreak::Parameter*, std::pair<int, int> > midiMappings;
+    std::map< msa::controlfreak::Parameter*, std::pair<int, int> >  midiMappings;
+    std::map< msa::controlfreak::Parameter*, std::string >          oscMappings;
     
     Input(){};
     virtual ~Input(){};

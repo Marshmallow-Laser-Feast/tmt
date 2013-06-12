@@ -3,6 +3,7 @@
 #include "ofMain.h"
 
 #include "ofxMidi.h"
+#include "ofxOsc.h"
 
 #include "ofxEtherdream.h"
 #include "ofxIldaFrame.h"
@@ -75,6 +76,8 @@ private:
     FlockingInput                       *flockingInput;
     CameraContourInput                  *cameraContourInput;
     
+    vector<Input*>                      inputs;
+    
 //    IImageSeqInput                      *iimageSeqInputs[IMAGESEQINPUT_COUNT];
     vector<IImageSeqInput*>             iimageSeqInputs;
     
@@ -108,6 +111,12 @@ private:
     std::pair<int, int>                 cameraGainMidiKey;
     
     std::map<std::pair<int,int>, int>   midiData;
+    
+    // OSC
+    
+    ofxOscReceiver                      receiver;
+    
+    std::map<std::string, float>        oscData;
     
     // Visualisation
     

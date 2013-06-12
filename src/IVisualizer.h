@@ -25,7 +25,9 @@ class IVisualizer
 public:
     
     msa::controlfreak::ParameterGroup params;
-    std::map< msa::controlfreak::Parameter*, std::pair<int, int> > midiMappings;
+    
+    std::map< msa::controlfreak::Parameter*, std::pair<int, int> >  midiMappings;
+    std::map< msa::controlfreak::Parameter*, std::string >          oscMappings;
     
     IVisualizer()
     {
@@ -43,7 +45,7 @@ public:
     
 public:
     
-    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp )
+    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, float audioFFT )
     {};
     
 };

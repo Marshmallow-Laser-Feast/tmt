@@ -37,6 +37,10 @@ public:
         midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 5, 14 );
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
         midiMappings[ &params.get(PARAM_NAME_LINE_VIS_COUNT) ]                  = std::pair<int, int>( 5, 16 );
+        
+        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/LineVisualizer Brightness";
+        //oscMappings[ &params.get("Amps") ]                  = "/LineVisualizer Amp";
+        
     };
     
     ~LineVisualizer()
@@ -44,7 +48,7 @@ public:
     
 public:
     
-    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp )
+    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, float audioFFT )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         

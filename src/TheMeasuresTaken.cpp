@@ -87,9 +87,9 @@ void TheMeasuresTaken::setup()
     
     audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
     
-    gui.addPage(inputParams);
+    gui.addPage( inputParams );
     gui.addPage( cameraParams );
-    gui.addPage(ildaParams);
+    gui.addPage( ildaParams );
     gui.addPage( audioParams );
     
     gui.toggleDraw();
@@ -104,8 +104,13 @@ void TheMeasuresTaken::setup()
     
     multitouchInput                 = new MultiTouchInput( INPUT_WIDTH, INPUT_HEIGHT );
     flockingInput                   = new FlockingInput( FLOCKING_SAMPLE_COUT, INPUT_WIDTH, INPUT_HEIGHT, FLOCKING_COLUMNS, FLOCKING_ROWS, FLOCKING_MAX_SPEED, FLOCKING_MIN_FORCE, FLOCKING_MAX_FORCE, FLOCKING_ATTRAC_RAD_RATIO );
+    cameraContourInput              = new CameraContourInput();
     
-    iimageSeqInputs.push_back(cameraContourInput = new CameraContourInput());
+    inputs.push_back( multitouchInput );
+    inputs.push_back( flockingInput );
+    inputs.push_back( cameraContourInput );
+    
+    iimageSeqInputs.push_back( cameraContourInput );
     
     for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
@@ -128,8 +133,6 @@ void TheMeasuresTaken::setup()
         inputAnalysers[i]->setMaxPathAnalyserHistory( MAX_PATH_ANALYSER_HISTORY );
         inputAnalysers[i]->setMaxPathAnalyserLength( MAX_PATH_ANALYSER_LENGTH );
     }
-    
-    
     
     // Visualisation
     
@@ -171,6 +174,10 @@ void TheMeasuresTaken::setup()
     midiIn.addListener(this);
     midiIn.setVerbose(false);
     
+    // OSC
+    
+    receiver.setup( OSC_PORT );
+    
     pathAnalyserSmoothingMidiKey    = std::pair<int, int>( 11, 14 );
     cameraGainMidiKey               = std::pair<int, int>( 11, 15 );
     
@@ -210,9 +217,66 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    // Update with OSC
+    
+    while ( receiver.hasWaitingMessages() )
+    {
+        ofxOscMessage   m;
+        
+        receiver.getNextMessage( &m );
+        
+        if( m.getNumArgs() > 0 )
+        {
+            switch ( m.getArgType( 0 ) )
+            {
+                case OFXOSC_TYPE_INT32  :
+                case OFXOSC_TYPE_INT64  :
+                case OFXOSC_TYPE_FLOAT  :
+                    
+                oscData[ m.getAddress() ]   = m.getArgAsFloat(0);
+                    
+                break;
+
+            }
+        }
+    }
+    
+    for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+        {
+            if( oscData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( oscData[ pIt->second ] );
+            }
+        }
+    }
+    
+    for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+        {
+            if( oscData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( oscData[ pIt->second ] );
+            }
+        }
+    }
+    
+    for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+        {
+            if( oscData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( oscData[ pIt->second ] );
+            }
+        }
+    }
+    
     // Update with Midi
     
-    for( vector<IImageSeqInput*>::iterator it = iimageSeqInputs.begin(); it != iimageSeqInputs.end(); ++it )
+    for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
     {
         for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
         {
@@ -348,7 +412,7 @@ void TheMeasuresTaken::update()
     } else {
         for(int i=0; i<visualizers.size(); i++)
         {
-            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ] );
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData.count( OCS_AUDIO_PATH ) > 0 ? oscData[OCS_AUDIO_PATH] : 0.0f );
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {

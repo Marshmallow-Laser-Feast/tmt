@@ -33,6 +33,9 @@ public:
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 4, 15 );
         midiMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]           = std::pair<int, int>( 4, 16 );
         midiMappings[ &params.get("doPickShortest") ]                           = std::pair<int, int>( 4, 17 );
+        
+        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/NearestDots Brightness";
+        oscMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]            = "/NearestDots Count";
     };
     
     ~NearestDotsVisualizer()
@@ -40,7 +43,7 @@ public:
     
 public:
     
-    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp )
+    virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, float audioFFT )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         
