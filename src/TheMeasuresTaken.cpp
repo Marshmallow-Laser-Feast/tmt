@@ -80,7 +80,11 @@ void TheMeasuresTaken::setup()
     ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 2000 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
-    audioParams.addFloat( PARAM_NAME_AUDIO_AMP );
+    audioParams.addFloat( PARAM_NAME_AUDIO_AMP ).setClamp( true );
+    audioParams.addFloat( PARAM_NAME_AUDIO_AMP_SCALE );
+    audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true );
+    audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_HIGH ).setClamp( true );
+    
     audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
     
     gui.addPage(inputParams);
@@ -563,7 +567,14 @@ void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
         
         curVol = sqrt( curVol );
         
-        audioParams[PARAM_NAME_AUDIO_AMP].set( curVol );
+        float prevVol = (float)audioParams[PARAM_NAME_AUDIO_AMP];
+        
+        if( prevVol < curVol )
+        {
+            audioParams[PARAM_NAME_AUDIO_AMP].set( ofLerp(prevVol, curVol * (float)audioParams[PARAM_NAME_AUDIO_AMP_SCALE], (float)audioParams[PARAM_NAME_AUDIO_SMOOTHING_HIGH]) );
+        } else {
+            audioParams[PARAM_NAME_AUDIO_AMP].set( ofLerp(prevVol, curVol * (float)audioParams[PARAM_NAME_AUDIO_AMP_SCALE], (float)audioParams[PARAM_NAME_AUDIO_SMOOTHING_LOW]) );
+        }
     }
 }
 
