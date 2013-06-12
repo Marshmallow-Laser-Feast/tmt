@@ -91,10 +91,13 @@ private:
     
     msa::controlfreak::gui::Gui         gui;
     
-    // Timeline
+    // Midi
     
     ofxMidiIn                           midiIn;
 	ofxMidiMessage                      midiMessage;
+    
+    
+    std::map<std::pair<int,int>, int>   midiData;
     
     // Visualisation
     
@@ -113,7 +116,6 @@ private:
     ConvexHullVisualizer                *convexHullVisualizer;
     ContourVisualizer                   *contourVisualizer;
     
-    
     bool                                visualizeInput;
     
     // Ilda
@@ -122,8 +124,11 @@ private:
     ofxEtherdream                       etherdream;
     
     // Camera
+    
     ofxLibdc::Grabber                   grabber;
     ofVideoPlayer                       videoPlayer;
     ofBaseVideo                         *videoPtr;
     ofImage                             imageInput;
+    
+    
 };

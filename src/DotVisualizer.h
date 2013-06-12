@@ -22,8 +22,6 @@ public:
     {
         params.setName("DotVisualizer");
         params.addFloat(PARAM_NAME_DOT_VIS_RATIO).setClamp( true );
-
-    
     };
     
     ~DotVisualizer()

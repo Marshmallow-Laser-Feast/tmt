@@ -23,7 +23,9 @@ class IVisualizer
 {
     
 public:
+    
     msa::controlfreak::ParameterGroup params;
+    std::map< msa::controlfreak::Parameter*, std::pair<int, int> > midiMappings;
     
     IVisualizer()
     {

@@ -11,7 +11,7 @@ void TheMeasuresTaken::setup()
     ofSetWindowTitle( "The Measures Taken" );
     ofSetFrameRate( FRAMERATE );
     ofSetBackgroundColor( 0 );
-    ofSetFullscreen( true );
+    //ofSetFullscreen( true );
     ofSetLogLevel( OF_LOG_ERROR );
 
     
@@ -140,16 +140,12 @@ void TheMeasuresTaken::setup()
     }
 
     
-    
-    // Timeline
+    // Midi
     
     midiIn.listPorts();
-    midiIn.openPort(1);
+    midiIn.openPort(0);
     midiIn.addListener(this);
-    midiIn.setVerbose(true);
-    
-    
-    
+    midiIn.setVerbose(false);
     
   
     offset.set( 0.0f, 0.0f, 0.0f );
@@ -183,6 +179,30 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    // Update with Midi
+    
+    for( vector<IImageSeqInput*>::iterator it = iimageSeqInputs.begin(); it != iimageSeqInputs.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        {
+            if( midiData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( midiData[ pIt->second ] );
+            }
+        }
+    }
+    
+    for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
+    {
+        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        {
+            if( midiData.count( pIt->second ) > 0 )
+            {
+                pIt->first->set( midiData[ pIt->second ] );
+            }
+        }
+    }
+    
     PathAnalyser::smoothing = inputParams["PathAnalyser::smoothing"];
     
     // Camera & Grabber
@@ -444,6 +464,18 @@ void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo)
 void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 {
     midiMessage = eventArgs;
+    
+    //cout << midiMessage.channel << endl;
+    //cout << midiMessage.control << endl;
+    
+//    cout << "-----------" << endl;
+//    cout << midiMessage.channel << endl;
+//    cout << midiMessage.control << endl;
+//    cout << midiMessage.velocity << endl;
+//    cout << midiMessage.pitch << endl;
+//    cout << midiMessage.value << endl;
+    
+    midiData[ std::pair<int, int>( midiMessage.channel, midiMessage.control ) ] = midiMessage.value;
 }
 
 void TheMeasuresTaken::drawVisualization()
