@@ -13,7 +13,7 @@ void TheMeasuresTaken::setup()
     ofSetBackgroundColor( 0 );
     //ofSetFullscreen( true );
     ofSetLogLevel( OF_LOG_ERROR );
-
+    
     
     // Setup Gui & Params
     
@@ -24,6 +24,8 @@ void TheMeasuresTaken::setup()
     
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
     inputParams.addFloat("PathAnalyser::smoothing").setClamp(true);
+    inputParams.addBool("Receive OSC");
+    inputParams.addBool("Receive MIDI");
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -36,19 +38,19 @@ void TheMeasuresTaken::setup()
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_COLOR );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_ROI );
     cameraParams.addBool( PARAM_NAME_CAMERA_DRAW_CONTOURS );
-//    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 4, "Centroid", "ConvexHull", "Contour", "Tips" );
-
+    //    cameraParams.addNamedIndex( PARAM_NAME_CAMERA_CONTOUR_SOURCE ).setLabels( 4, "Centroid", "ConvexHull", "Contour", "Tips" );
+    
     cameraParams.addFloat(PARAM_NAME_LIBDC_BRIGHTNESS).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAMMA).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_SHUTTER).setClamp(true).setSnap(true);
     cameraParams.addFloat(PARAM_NAME_LIBDC_GAIN).setClamp(true).setSnap(true);
-
+    
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
     cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setRange(0, 10 * 60 * 60).setClamp(true);
     
-//    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
+    //    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
     
     ildaParams.addBool(PARAM_NAME_ENABLED);
     ildaParams.addBool( PARAM_NAME_ILDA_DRAW_LINES );
@@ -76,7 +78,7 @@ void TheMeasuresTaken::setup()
     
     ildaParams.addInt( PARAM_NAME_ILDA_SMOOTH_AMOUNT ).setRange( 0, 50 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_OPTIMIZE_TOLERANCE ).setIncrement( 0.01f ).setClamp(true);
-//    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
+    //    ildaParams.addBool( PARAM_NAME_ILDA_COLLAPSE );
     ildaParams.addInt( PARAM_NAME_ILDA_POINT_COUNT ).setRange( 0, 2000 ).setClamp( true );
     ildaParams.addFloat( PARAM_NAME_ILDA_SPACING ).setIncrement( 0.01f ).setClamp(true);
     
@@ -151,7 +153,7 @@ void TheMeasuresTaken::setup()
         gui.addPage(visualizers[i]->params);
         visualizers[i]->params.loadXmlValues();
     }
-
+    
     
     // Filters
     
@@ -256,82 +258,86 @@ void TheMeasuresTaken::update()
         }
     }
     
-    for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+    if(inputParams["Receive OSC"]) {
+        for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
         {
-            if( oscData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
             {
-                pIt->first->set( oscData[ pIt->second ][0] );
+                if( oscData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( oscData[ pIt->second ][0] );
+                }
             }
         }
-    }
-    
-    for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+        
+        for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
         {
-            if( oscData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
             {
-                pIt->first->set( oscData[ pIt->second ][0] );
+                if( oscData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( oscData[ pIt->second ][0] );
+                }
             }
         }
-    }
-    
-    for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
+        
+        for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
         {
-            if( oscData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::string >::iterator pIt = (*it)->oscMappings.begin() ; pIt != (*it)->oscMappings.end(); ++pIt )
             {
-                pIt->first->set( oscData[ pIt->second ][0] );
+                if( oscData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( oscData[ pIt->second ][0] );
+                }
             }
         }
     }
     
     // Update with Midi
-    
-    for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+    if(inputParams["Receive MIDI"]) {
+        
+        for( vector<Input*>::iterator it = inputs.begin(); it != inputs.end(); ++it )
         {
-            if( midiData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
             {
-                pIt->first->set( midiData[ pIt->second ] );
+                if( midiData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( midiData[ pIt->second ] );
+                }
             }
         }
-    }
-    
-    for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        
+        for( vector<IVisualizer*>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
         {
-            if( midiData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
             {
-                pIt->first->set( midiData[ pIt->second ] );
+                if( midiData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( midiData[ pIt->second ] );
+                }
             }
         }
-    }
-    
-    for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
-    {
-        for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
+        
+        for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
         {
-            if( midiData.count( pIt->second ) > 0 )
+            for ( std::map< msa::controlfreak::Parameter*, std::pair<int, int> >::iterator pIt = (*it)->midiMappings.begin() ; pIt != (*it)->midiMappings.end(); ++pIt )
             {
-                pIt->first->set( midiData[ pIt->second ] );
+                if( midiData.count( pIt->second ) > 0 )
+                {
+                    pIt->first->set( midiData[ pIt->second ] );
+                }
             }
         }
-    }
-    
-    if( midiData.count( pathAnalyserSmoothingMidiKey ) )
-    {
-        inputParams["PathAnalyser::smoothing"].set( midiData[ pathAnalyserSmoothingMidiKey ] );
-    }
-    
-    if( midiData.count( cameraGainMidiKey ) )
-    {
-        cameraParams["PARAM_NAME_LIBDC_GAIN"].set( midiData[ cameraGainMidiKey ] );
+        
+        if( midiData.count( pathAnalyserSmoothingMidiKey ) )
+        {
+            inputParams["PathAnalyser::smoothing"].set( midiData[ pathAnalyserSmoothingMidiKey ] );
+        }
+        
+        if( midiData.count( cameraGainMidiKey ) )
+        {
+            cameraParams["PARAM_NAME_LIBDC_GAIN"].set( midiData[ cameraGainMidiKey ] );
+        }
     }
     
     PathAnalyser::smoothing = inputParams["PathAnalyser::smoothing"];
@@ -355,28 +361,28 @@ void TheMeasuresTaken::update()
     }
     
     videoPtr->update();
-
+    
     imageInput.setFromPixels(videoPtr->getPixelsRef());
     imageInput.update();
     
     bool doFlipX = cameraParams[PARAM_NAME_CAMERA_FLIP_X];
     bool doFlipY = cameraParams[PARAM_NAME_CAMERA_FLIP_Y];
     if(doFlipX || doFlipY) imageInput.mirror(doFlipY, doFlipX);
-
+    
     for( int i = 0; i < iimageSeqInputs.size(); ++i )
     {
         iimageSeqInputs[i]->setCurrentFrameNew( true );//videoPtr->isFrameNew() );
     }
     
-//    if( videoPtr->isFrameNew() )
-//    {
-        for( int i = 0; i < iimageSeqInputs.size(); ++i )
-        {
-            iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
-            
-            iimageSeqInputs[i]->setPixels( imageInput.getPixelsRef() );
-        }
-//    }
+    //    if( videoPtr->isFrameNew() )
+    //    {
+    for( int i = 0; i < iimageSeqInputs.size(); ++i )
+    {
+        iimageSeqInputs[i]->setROI( (float)cameraParams[PARAM_NAME_CAMERA_ROI_X1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y1], (float)cameraParams[PARAM_NAME_CAMERA_ROI_X2], (float)cameraParams[PARAM_NAME_CAMERA_ROI_Y2] );
+        
+        iimageSeqInputs[i]->setPixels( imageInput.getPixelsRef() );
+    }
+    //    }
     
     // Update GUI
     
@@ -392,7 +398,7 @@ void TheMeasuresTaken::update()
     // Ilda
     
     ildaFrame.clear();
-        
+    
     ildaFrame.params.output.transform.doFlipX           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPX ];
     ildaFrame.params.output.transform.doFlipY           = (bool)ildaParams[ PARAM_NAME_ILDA_FLIPY ];
     
@@ -451,9 +457,9 @@ void TheMeasuresTaken::update()
     }
     
     ildaFrame.update();
-
+    
     if(ildaParams[PARAM_NAME_ENABLED]) etherdream.setPoints(ildaFrame);
-
+    
 }
 
 //--------------------------------------------------------------
@@ -509,8 +515,8 @@ void TheMeasuresTaken::draw()
             ofPushStyle();
             ofPushMatrix();
             ofSetColor( ofColor::red );
-
-//            iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
+            
+            //            iimageSeqInputs[ cameraParams[ PARAM_NAME_CAMERA_CONTOUR_SOURCE ] ]->drawDebug();
             ofTranslate(x1, y1);
             iimageSeqInputs[ 0 ]->drawDebug();
             
@@ -539,7 +545,7 @@ void TheMeasuresTaken::keyPressed(int key)
         
         for(int i=0; i<visualizers.size(); i++) visualizers[i]->params.saveXmlValues();
         for(int i=0; i<iimageSeqInputs.size(); i++) iimageSeqInputs[i]->params.saveXmlValues();
-        for(int i=0; i<preFilters.size(); i++) preFilters[i]->params.saveXmlValues();        
+        for(int i=0; i<preFilters.size(); i++) preFilters[i]->params.saveXmlValues();
         
     }
     
@@ -562,7 +568,7 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         ildaParams[PARAM_NAME_ENABLED] = !(bool)ildaParams[PARAM_NAME_ENABLED];
     }
-
+    
     
     if( key == 'o' )
     {
@@ -578,7 +584,7 @@ void TheMeasuresTaken::keyPressed(int key)
 //--------------------------------------------------------------
 void TheMeasuresTaken::keyReleased(int key)
 {
-
+    
 }
 
 //--------------------------------------------------------------
@@ -590,7 +596,7 @@ void TheMeasuresTaken::mouseMoved(int x, int y )
 //--------------------------------------------------------------
 void TheMeasuresTaken::mouseDragged(int x, int y, int button)
 {
-
+    
 }
 
 //--------------------------------------------------------------
@@ -612,13 +618,13 @@ void TheMeasuresTaken::windowResized(int w, int h)
 //--------------------------------------------------------------
 void TheMeasuresTaken::gotMessage(ofMessage msg)
 {
-
+    
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo)
 {
-
+    
 }
 
 //--------------------------------------------------------------
@@ -629,12 +635,12 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
     //cout << midiMessage.channel << endl;
     //cout << midiMessage.control << endl;
     
-//    cout << "-----------" << endl;
-//    cout << midiMessage.channel << endl;
-//    cout << midiMessage.control << endl;
-//    cout << midiMessage.velocity << endl;
-//    cout << midiMessage.pitch << endl;
-//    cout << midiMessage.value << endl;
+    //    cout << "-----------" << endl;
+    //    cout << midiMessage.channel << endl;
+    //    cout << midiMessage.control << endl;
+    //    cout << midiMessage.velocity << endl;
+    //    cout << midiMessage.pitch << endl;
+    //    cout << midiMessage.value << endl;
     
     midiData[ std::pair<int, int>( midiMessage.channel, midiMessage.control ) ] = midiMessage.value;
 }
@@ -674,7 +680,7 @@ void TheMeasuresTaken::drawVisualization()
     ofPushStyle();
     ofSetColor( 255 );
     
-//    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
+    //    ildaFrame.draw( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f, ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     
     ildaFrame.draw(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT, SCREEN_VIS_AREA_WIDTH, SCREEN_VIS_AREA_HEIGHT );
     ofPopStyle();
@@ -685,7 +691,7 @@ void TheMeasuresTaken::drawInputVisualization()
     ofPushMatrix();
     ofPushStyle();
     
-//    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
+    //    ofTranslate( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f , ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f );
     ofTranslate(0, ( ofGetWindowHeight() - INPUT_HEIGHT ));
     
     ofSetColor( ofColor::black, 125 );
@@ -699,9 +705,9 @@ void TheMeasuresTaken::drawInputVisualization()
     
     ofRect( 0, 0, INPUT_WIDTH, INPUT_HEIGHT );
     
-//    glEnable( GL_SCISSOR_TEST );
-//    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
-//    glScissor(0, ( ofGetWindowHeight() - INPUT_HEIGHT ), INPUT_WIDTH, INPUT_HEIGHT );
+    //    glEnable( GL_SCISSOR_TEST );
+    //    glScissor( ( ofGetWindowWidth() - INPUT_WIDTH ) * 0.5f, ( ofGetWindowHeight() - INPUT_HEIGHT ) * 0.5f, INPUT_WIDTH, INPUT_HEIGHT );
+    //    glScissor(0, ( ofGetWindowHeight() - INPUT_HEIGHT ), INPUT_WIDTH, INPUT_HEIGHT );
     
     ofSetColor( 100 );
     
@@ -743,7 +749,7 @@ void TheMeasuresTaken::drawVisualizationArea()
     ofSetLineWidth( 4.0f );
     ofSetColor( ofColor::darkGray );
     
-//    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
+    //    ofTranslate( ( ofGetWindowWidth() - SCREEN_VIS_AREA_WIDTH ) * 0.5f , ( ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT ) * 0.5f );
     ofTranslate(0, ofGetWindowHeight() - SCREEN_VIS_AREA_HEIGHT);
     
     
