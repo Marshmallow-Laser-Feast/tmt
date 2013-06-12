@@ -27,7 +27,7 @@ public:
     {
         params.setName("NearestDotsVisualizer");
         params.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
-        params.addBool("maintainConnections");
+        params.addBool("doPickShortest");
     };
     
     ~NearestDotsVisualizer()
@@ -45,16 +45,15 @@ public:
         }
 
         int count = params[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ];
-        bool doMaintainConnections = params["maintainConnections"];
-        
-        int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
+        bool doPickShortest = params["doPickShortest"];
         
         std::map<int, int>  connectionMap;
-        
-        for( int i = 0; i < lineCount; ++i )
+        vector<ofVec3f> distances;  //x, y: indices, z: distanceSquared. HACK
+
+        int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
+
+        for( int i = 0; i < inputAnalyser->getPathAnalysers().size(); ++i )
         {
-            ofPolyline  line;
-            
             ofPoint     currentPoint    = inputAnalyser->getSampleWithTimeOffset(i, timeOffset);
             
             float       closestDistance = 100000000.0;
@@ -63,28 +62,45 @@ public:
             for( int j = i+1; j < inputAnalyser->getPathAnalysers().size(); ++j )
             {
                 float currentDistance   = currentPoint.distanceSquared( inputAnalyser->getSampleWithTimeOffset(j, timeOffset) ) ;
-                
-                if(currentDistance < closestDistance) {
-                    if(!doMaintainConnections || !(j != i && connectionMap[i] != j && connectionMap[j] != i)) {
-                        
+                if(doPickShortest) {
+                    distances.push_back(ofVec3f(i, j, currentDistance));
+                } else {
+                    if(currentDistance < closestDistance && j != i && connectionMap[i] != j && connectionMap[j] != i) {
                         closestIndex        = j;
                         closestDistance     = currentDistance;
                     }
                 }
             }
             
-            connectionMap[i]            = closestIndex;
-            connectionMap[closestIndex] = i;
+            if(!doPickShortest) {
+                connectionMap[i]            = closestIndex;
+                connectionMap[closestIndex] = i;
+
+                ofPolyline  line;
+                line.addVertex( offset + currentPoint * scale );
+                line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(closestIndex, timeOffset) * scale );
+                result->push_back( line );
+                if(result->size() >= lineCount) break;
+            }
+        }
+        
+        if(doPickShortest) {
+            sort(distances.begin(), distances.end(), mysort);
+            for(int i=0; i<lineCount; i++) {
+                ofPolyline line;
+                ofPoint indices = distances[i];
+                line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(indices.x, timeOffset) * scale );
+                line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(indices.y, timeOffset) * scale );
+                result->push_back( line );
+            }
             
-            line.addVertex( offset + currentPoint * scale );
-            line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(closestIndex, timeOffset) * scale );
-            
-            result->push_back( line );
         }
         
         return result;
     };
     
 private:
+    
+    static bool mysort(const ofVec3f &a, const ofVec3f &b) { return (a.z < b.z); }
 };
 
