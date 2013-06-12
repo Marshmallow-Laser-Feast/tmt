@@ -1,6 +1,6 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="CameraContourInput">
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="3"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="110"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="2"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
@@ -9,9 +9,9 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="415"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="2"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="9"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="4.821426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.031250000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.415178567"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="2.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="2.089285851"></Parameter>

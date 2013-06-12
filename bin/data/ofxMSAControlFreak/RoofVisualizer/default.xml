@@ -2,17 +2,17 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="RoofVisualizer">
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.714285731"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.937500000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="numPoints" value="160"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="centerPos" value="0.477678567"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="centerPos" value="0.276785702"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="optimizeTolerance" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.579999983"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.359999985"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="6.429999828"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothAmount" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.558035731"></Parameter>
     </Parameter>

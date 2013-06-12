@@ -38,6 +38,9 @@ public:
         
         params.addInt("smoothAmount").setClamp(true);
         params.addFloat("easeAmount").setClamp(true);
+        
+        timer = 0;
+        lastFrameTime = 0;
     };
     
     ~RoofVisualizer()
@@ -89,8 +92,8 @@ public:
             
             // add noise
             float t = ofMap(j, 0, numPoints-1, -1, 1);
-//            p.y += INPUT_HEIGHT * (noiseAmp1 * ofSignedNoise(t * noisePosScale1 + timer) + noiseAmp2 * ofSignedNoise(t * noisePosScale2 + timer));
-//            p.x += INPUT_WIDTH * noiseAmpX * ofSignedNoise(t * noisePosScaleX + timer);
+            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1 + timer) + noiseAmp2 * ofSignedNoise(t * noisePosScale2 + timer));
+            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX + timer);
             
             newPoly.lineTo(p);
 
@@ -107,7 +110,6 @@ public:
 private:
     ofPolyline oldPoly;
     
-    PolylineVectorRefT polylines;
     float timer;
     float lastFrameTime;
     
