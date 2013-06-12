@@ -31,7 +31,7 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
-        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
+//        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
         params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
         params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
         params.addInt(PARAM_NAME_RESAMPLE_COUNT).setClamp(true).setRange(0, 1000);
@@ -55,7 +55,7 @@ public:
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
             float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
-            float smoothing = params[PARAM_NAME_SMOOTHING];
+//            float smoothing = params[PARAM_NAME_SMOOTHING];
             int resampleCount = params[PARAM_NAME_RESAMPLE_COUNT];
             
             samples.clear();
@@ -123,10 +123,6 @@ public:
                 sample.setSampleID(label);
                 
                 ofPoint p(ofxCv::toOf( allConvexHullFloatPoints[i] ) );
-//                if(smoothing > 0 && pointTracker.existsPrevious(label)) {
-//                    ofPoint prev(ofxCv::toOf(pointTracker.getPrevious(label)));
-//                    p = p/2;//.interpolated(p, smoothing);
-//                }
 //                p-= ofPoint( roiX1 * width, roiY1 * height );
                 sample.setSample(p);
 //                sample.setSample( ofPoint( ofxCv::toOf( allConvexHullFloatPoints[i] ) ) + ofPoint( roiX1 * width, roiY1 * height ) );

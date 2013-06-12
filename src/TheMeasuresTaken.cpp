@@ -372,10 +372,10 @@ void TheMeasuresTaken::keyPressed(int key)
         for(int i=0; i<iimageSeqInputs.size(); i++) iimageSeqInputs[i]->params.saveXmlValues();
     }
     
-//    if( key == 'p' )
-//    {
-//        gui.toggleDraw();
-//    }
+    if( key == 'p' )
+    {
+        cameraParams[PARAM_NAME_VIDEO_PLAY] = !(bool)cameraParams[PARAM_NAME_VIDEO_PLAY];
+    }
     
     if( key == 'i' )
     {

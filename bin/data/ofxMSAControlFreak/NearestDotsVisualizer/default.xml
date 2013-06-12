@@ -2,6 +2,6 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="NearestDotsVisualizer">
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Brightness" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="7"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

@@ -30,6 +30,12 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_MIN_CONTOUR ).setRange(0, 100).setClamp(true);;
         params.addInt( PARAM_NAME_CONTOUR_MAX_CONTOUR ).setRange(0, 10000).setClamp(true);;
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFY ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat(PARAM_NAME_CONTOUR_STRETCH).setClamp(true);
+//        params.addFloat(PARAM_NAME_SMOOTHING).setClamp(true);
+        params.addFloat(PARAM_NAME_TRACKING_DISTANCE).setClamp(true).setRange(0, 640);
+        params.addInt(PARAM_NAME_TRACKING_PERSISTENCE).setClamp(true).setRange(0, 100);
+        params.addInt(PARAM_NAME_RESAMPLE_COUNT).setClamp(true).setRange(0, 1000);
+        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange(-1, 1).setClamp(true);
     };
     
     ~CameraContourTipsInput()
@@ -50,6 +56,10 @@ public:
             contourFinder.setMinAreaRadius(params[PARAM_NAME_CONTOUR_MIN_CONTOUR]);
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_CONTOUR_MAX_CONTOUR]);
             float simplify = params[PARAM_NAME_CONTOUR_SIMPLIFY];
+            float stretch = params[PARAM_NAME_CONTOUR_STRETCH];
+//            float smoothing = params[PARAM_NAME_SMOOTHING];
+            int resampleCount = params[PARAM_NAME_RESAMPLE_COUNT];
+            float tipThreshold = params[PARAM_NAME_TIP_THRESHOLD];
             
             samples.clear();
             
@@ -71,14 +81,28 @@ public:
             for( int i = 0; i < contourFinder.size(); ++i )
             {
                 line.clear();
+                cv::Rect r(contourFinder.getBoundingRect(i));
                 
                 for ( int j = 0; j < contourFinder.getContour( i ).size(); ++j )
                 {
-                    line.lineTo( ofPoint( contourFinder.getContour( i )[j].x, contourFinder.getContour( i )[j].y ) + ofPoint( roiX1 * width, roiY1 * height ) );
+//                    line.lineTo( ofPoint( contourFinder.getContour( i )[j].x, contourFinder.getContour( i )[j].y ) + ofPoint( roiX1 * width, roiY1 * height ) );
+                    
+                    ofPoint p(contourFinder.getContour( i )[j].x, contourFinder.getContour( i )[j].y );
+//                    p += ofPoint( roiX1 * width, roiY1 * height );
+                    if(stretch > 0) {
+                        ofVec2f pNorm;
+                        pNorm.x = ofMap(p.x, r.x, r.x + r.width, 0, image.width);
+                        pNorm.y = ofMap(p.y, r.y, r.y + r.height, 0, image.height);
+                        p.interpolate(pNorm, stretch);
+                    }
+                    line.lineTo(p);
+
                 }
                 
                 line.close();
-                line.simplify( simplify );
+
+                if(resampleCount) line = line.getResampledByCount(resampleCount);
+                if(simplify > 0) line.simplify( simplify );
                 
                 for ( int k = 0; k < line.getVertices().size(); ++k )
                 {
@@ -86,6 +110,8 @@ public:
                 }
             }
             
+            pointTracker.setMaximumDistance(params[PARAM_NAME_TRACKING_DISTANCE]);
+            pointTracker.setPersistence(params[PARAM_NAME_TRACKING_PERSISTENCE]);
             pointTracker.track( allFloatPoints );
             
             for( int i  = 0; i < allFloatPoints.size(); ++i )
@@ -93,10 +119,8 @@ public:
                 PointInputSampleT   sample;
                 
                 sample.setSampleID( pointTracker.getLabelFromIndex( i ) );
-                
-                
                 ofPoint p(ofxCv::toOf( allFloatPoints[i] ) );
-                p-= ofPoint( roiX1 * width, roiY1 * height );
+//                p-= ofPoint( roiX1 * width, roiY1 * height );
                 sample.setSample(p);
                 
                 samples.push_back( sample );
