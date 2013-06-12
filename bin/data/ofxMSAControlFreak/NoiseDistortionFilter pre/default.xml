@@ -1,0 +1,9 @@
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="NoiseDistortionFilter pre">
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Activity Value" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="0.544642866"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude X" value="0.982142925"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude Y" value="1.321428537"></Parameter>
+    </Parameter>
+</ofxMSAControlFreak>
