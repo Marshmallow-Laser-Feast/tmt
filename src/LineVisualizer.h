@@ -53,25 +53,13 @@ public:
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, float audioFFT )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
-//        float amp = params["Amp"];
-//        int resample = params["Resample"];
-        
-//        float noiseAmp1 = params["noiseAmp1"];
-//        float noisePosScale1 = params["noisePosScale1"];
-//        float noiseAmp2 = params["noiseAmp2"];
-//        float noisePosScale2 = params["noisePosScale2"];
-//        float noiseAmpX = params["noiseAmpX"];
-//        float noisePosScaleX = params["noisePosScaleX"];
-//        
-//        int smoothAmount = params["smoothAmount"];
-        
+
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
             return result;
         }
         
         std::vector<ofPoint>    orderedVector;
-        
         for( int i = 0; i < inputAnalyser->getPathAnalysers().size(); ++i )
         {
             orderedVector.push_back( inputAnalyser->getPathAnalysers()[i]->getSamples().back() );
@@ -87,8 +75,7 @@ public:
             orderedVector.push_back(orderedVector.front() + ofPoint(INPUT_WIDTH * 0.1, 0));
         }
         
-        int numPoints   = MIN(orderedVector.size(), (int)params[ PARAM_NAME_LINE_VIS_COUNT ] );
-        
+        int numPoints   = orderedVector.size();
 
         ofPoint p1(orderedVector.front() * scale + offset);
         ofPoint p2(orderedVector.back() * scale + offset);
@@ -104,7 +91,7 @@ public:
 //            line.addVertex(p);
 //        }
         
-        rope->update(p1, p2);
+        rope->update(p1, p2, ofPolyline(orderedVector));
         
 
         result->push_back( rope->poly);

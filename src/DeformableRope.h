@@ -98,6 +98,11 @@ public:
             if(noiseAmp1) o.y += noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
             if(noiseAmp2) o.y += noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
             if(noiseAmpX) o.x += noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
+            if(amp && deformer.size() > 2) {
+                float homeY = ofLerp(a.y, b.y, t);
+                float deformedY = deformer.getPointAtPercent(t).y;
+                float y = ofLerp(homeY, deformedY, amp);
+            }
             p.moveBy(o);
         }
         
