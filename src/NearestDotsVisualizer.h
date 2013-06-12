@@ -27,6 +27,7 @@ public:
     {
         params.setName("NearestDotsVisualizer");
         params.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
+        params.addBool("maintainConnections");
     };
     
     ~NearestDotsVisualizer()
@@ -44,6 +45,7 @@ public:
         }
 
         int count = params[ PARAM_NAME_NEAREST_DOT_VIS_COUNT ];
+        bool doMaintainConnections = params["maintainConnections"];
         
         int lineCount   = MIN( inputAnalyser->getPathAnalysers().size(), count );
         
@@ -55,17 +57,19 @@ public:
             
             ofPoint     currentPoint    = inputAnalyser->getSampleWithTimeOffset(i, timeOffset);
             
-            float       closestDistance = 1000000.0;
+            float       closestDistance = 100000000.0;
             int         closestIndex    = 0;
             
             for( int j = i+1; j < inputAnalyser->getPathAnalysers().size(); ++j )
             {
-                float currentDistance   = currentPoint.distance( inputAnalyser->getSampleWithTimeOffset(j, timeOffset) ) ;
+                float currentDistance   = currentPoint.distanceSquared( inputAnalyser->getSampleWithTimeOffset(j, timeOffset) ) ;
                 
-                if( j != i && connectionMap[i] != j && connectionMap[j] != i && currentDistance < closestDistance )
-                {
-                    closestIndex        = j;
-                    closestDistance     = currentDistance;
+                if(currentDistance < closestDistance) {
+                    if(!doMaintainConnections || !(j != i && connectionMap[i] != j && connectionMap[j] != i)) {
+                        
+                        closestIndex        = j;
+                        closestDistance     = currentDistance;
+                    }
                 }
             }
             
