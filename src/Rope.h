@@ -34,14 +34,16 @@ public:
     }
     
     //--------------------------------------------------------------
-    void set(ofPoint a, ofPoint b, msa::physics::World2D &physics) {
-        if(a == b) b.y += 1;
-        this->a = a;
-        this->b = b;
+    void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics, float smoothing) {
+        if(_a == _b) b.y += 1;
+        a = (_a - a) * (1-smoothing);
+        b = (_b - b) * (1-smoothing);
 
         if(numParticles<2) return;
         
         if(particles.size() != numParticles) {
+            a = _a;
+            b = _b;
             clear();
             for(int i=0; i<numParticles; i++) {
                 msa::physics::Particle2D *p = physics.makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
@@ -101,11 +103,12 @@ public:
         if(particles.empty()) return ofPolyline();
 
         ofPolyline poly;
-        poly.curveTo(particles.front()->getPosition(), 8);
+//        poly.curveTo(particles.front()->getPosition(), 8);
         for(int i=0; i<particles.size(); i++) {
-            poly.curveTo(particles[i]->getPosition(), 8);
+//            poly.curveTo(particles[i]->getPosition(), 8);
+            poly.lineTo(particles[i]->getPosition());
         }
-        poly.curveTo(particles.back()->getPosition(), 8);
+//        poly.curveTo(particles.back()->getPosition(), 8);
         return poly;
     }
     

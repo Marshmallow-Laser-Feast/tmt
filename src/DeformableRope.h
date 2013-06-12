@@ -31,8 +31,8 @@ public:
         
         params.startGroup("Deform");
         params.addFloat("amp").setRange(0, 5).setClamp(true);
-        params.addFloat("centerOffset").setRange(-200, 200).setClamp(true);
-        params.addFloat("curvature").setRange(-1, 1).setClamp(true);
+        params.addInt("centerOffset").setRange(-200, 200).setClamp(true);
+        params.addInt("curvature").setRange(-200, 200).setClamp(true);
         params.endGroup();
         
         params.startGroup("Noise");
@@ -47,7 +47,7 @@ public:
         params.endGroup();
         
         params.startGroup("Post");
-        params.addInt("smoothAmount").setClamp(true);
+        params.addInt("smoothPoly").setClamp(true);
         params.addFloat("easeAmount").setClamp(true);
         params.endGroup();
 
@@ -78,11 +78,12 @@ public:
         float noiseAmpX = params["Rope.Noise.noiseAmpX"];
         float noisePosScaleX = params["Rope.Noise.noisePosScaleX"];
 
-        int smoothAmount = params["Rope.Post.smoothAmount"];
+        int smoothPoly = params["Rope.Post.smoothPoly"];
+        int easeAmount = params["Rope.Post.easeAmount"];
 
 
         
-        rope.set(a, b, physics);
+        rope.set(a, b, physics, easeAmount);
         rope.update();
         
         physics.update();
@@ -101,7 +102,7 @@ public:
             if(amp && deformer.size() > 2) {
                 float homeY = ofLerp(a.y, b.y, t);
                 float deformedY = deformer.getPointAtPercent(t).y;
-                float y = ofLerp(homeY, deformedY, amp);
+                o.y += (deformedY - homeY) * amp;
             }
             p.moveBy(o);
         }
@@ -115,6 +116,6 @@ public:
 //            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
 //        }
         
-        if(smoothAmount) poly = poly.getSmoothed(smoothAmount);
+        if(smoothPoly) poly = poly.getSmoothed(smoothPoly);
     }
 };

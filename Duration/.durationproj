@@ -19,7 +19,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>60.000000000</max>
+            <max>100.000045776</max>
         </track>
         <track>
             <type>Curves</type>
@@ -168,15 +168,15 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip>/Users/alinakipoglu/Desktop/measures-total-test13.aif</clip>
+            <clip>/Users/memo/Desktop/TMT/measures-total-test13.aif</clip>
         </track>
     </page>
 </tracks>
 <timelineSettings>
     <duration>00:20:01:683</duration>
-    <playhead>00:00:00:000</playhead>
+    <playhead>00:09:07:967</playhead>
     <inpoint>00:00:00:000</inpoint>
-    <outpoint>00:11:01:426</outpoint>
+    <outpoint>00:20:01:683</outpoint>
     <loop>1</loop>
 </timelineSettings>
 <projectSettings>
