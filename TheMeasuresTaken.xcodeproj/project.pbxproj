@@ -38,7 +38,6 @@
 		41E52FD61766586800B8EF2E /* ofxMidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E52FBB1766586800B8EF2E /* ofxMidiMessage.cpp */; };
 		41E52FD71766586800B8EF2E /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41E52FBD1766586800B8EF2E /* ofxMidiOut.cpp */; };
 		41E52FE2176667CC00B8EF2E /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E52FE1176667CC00B8EF2E /* CoreMIDI.framework */; };
-		41ECF23317658BD200361DDB /* Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41ECF23117658BD200361DDB /* Rope.cpp */; };
 		41ECF24717658CA100361DDB /* MSAObjCPointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41ECF24317658CA100361DDB /* MSAObjCPointer.cpp */; };
 		41ECF284176592F000361DDB /* libdc1394.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41ECF276176592F000361DDB /* libdc1394.a */; };
 		41ECF285176592F000361DDB /* libusb-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41ECF277176592F000361DDB /* libusb-1.0.a */; };
@@ -260,7 +259,6 @@
 		41ECF22A17658B7600361DDB /* MSAPhysicsSector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysicsSector.h; sourceTree = "<group>"; };
 		41ECF22B17658B7600361DDB /* MSAPhysicsSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysicsSpring.h; sourceTree = "<group>"; };
 		41ECF22C17658B7600361DDB /* MSAPhysicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPhysicsWorld.h; sourceTree = "<group>"; };
-		41ECF23117658BD200361DDB /* Rope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rope.cpp; sourceTree = "<group>"; };
 		41ECF23217658BD200361DDB /* Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rope.h; sourceTree = "<group>"; };
 		41ECF24317658CA100361DDB /* MSAObjCPointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSAObjCPointer.cpp; sourceTree = "<group>"; };
 		41ECF24417658CA100361DDB /* MSAObjCPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAObjCPointer.h; sourceTree = "<group>"; };
@@ -397,6 +395,7 @@
 		BB8ACFFE1767A0FE00307EE3 /* CameraContourInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraContourInput.h; sourceTree = "<group>"; };
 		BB8AD0071768107600307EE3 /* ContourVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContourVisualizer.h; sourceTree = "<group>"; };
 		BB8AD0081768AF5E00307EE3 /* RoofVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoofVisualizer.h; sourceTree = "<group>"; };
+		BB9C5555176923E6000B0728 /* DeformableRope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeformableRope.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -951,8 +950,8 @@
 		41ECF2491765916400361DDB /* Rope */ = {
 			isa = PBXGroup;
 			children = (
-				41ECF23117658BD200361DDB /* Rope.cpp */,
 				41ECF23217658BD200361DDB /* Rope.h */,
+				BB9C5555176923E6000B0728 /* DeformableRope.h */,
 			);
 			name = Rope;
 			sourceTree = "<group>";
@@ -1497,7 +1496,6 @@
 				41F1576C17621D92004DD184 /* Panel.cpp in Sources */,
 				41F1576D17621D92004DD184 /* Renderer.cpp in Sources */,
 				41F1577D17621DBE004DD184 /* ofxMSAInteractiveObject.cpp in Sources */,
-				41ECF23317658BD200361DDB /* Rope.cpp in Sources */,
 				41ECF24717658CA100361DDB /* MSAObjCPointer.cpp in Sources */,
 				41ECF286176592F000361DDB /* Camera.cpp in Sources */,
 				41ECF287176592F000361DDB /* Grabber.cpp in Sources */,

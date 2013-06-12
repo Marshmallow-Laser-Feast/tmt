@@ -11,7 +11,7 @@
 #include "IVisualizer.h"
 
 #include "ofMain.h"
-#include "Rope.h"
+#include "DeformableRope.h"
 
 struct comparePointX
 {
@@ -35,20 +35,17 @@ public:
         params.setName("LineVisualizer");
         params.addInt( PARAM_NAME_LINE_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
         
-        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 5, 14 );
-        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
-        midiMappings[ &params.get(PARAM_NAME_LINE_VIS_COUNT) ]                  = std::pair<int, int>( 5, 16 );
         params.addFloat("Amp").setRange(0, 2).setClamp(true);
         params.addInt("Resample").setRange(0, 1000).setClamp(true);
         
-        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
-        params.addFloat("noisePosScale1").setRange(0, 50).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
-        params.addFloat("noisePosScale2").setRange(0, 640).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
-        params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
-        params.addInt("smoothAmount").setClamp(true);
+        rope = new DeformableRope(params);
+        
+        
+        
+        midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 5, 14 );
+        midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
+        midiMappings[ &params.get(PARAM_NAME_LINE_VIS_COUNT) ]                  = std::pair<int, int>( 5, 16 );
+
     };
     
     ~LineVisualizer()
@@ -121,16 +118,15 @@ public:
         if(smoothAmount) line = line.getSmoothed(smoothAmount);
         
         
-        rope.set(line.getVertices().front(), line.getVertices().back());
-        rope.update();
+        rope->update(line.getVertices().front(), line.getVertices().back());
         
 
-        result->push_back( rope.drawVector() );
+        result->push_back( rope->rope.drawVector() );
         
         return result;
     };
     
 private:
-    Rope rope;
+    DeformableRope *rope;
 };
 

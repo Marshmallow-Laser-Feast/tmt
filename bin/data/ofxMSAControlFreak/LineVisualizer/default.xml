@@ -5,6 +5,12 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Line Vis Count" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amp" value="0.866071403"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="26"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.789999962"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthMult" value="0.500000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthSpeed" value="0.500000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusBase" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseTimeSpeed" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
