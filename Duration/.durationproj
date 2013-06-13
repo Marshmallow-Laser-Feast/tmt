@@ -6,7 +6,7 @@
             <xmlFileName>curves_18_.xml</xmlFileName>
             <trackName>curves_18</trackName>
             <displayName>input/Smoothing</displayName>
-            <sendOSC>1</sendOSC>
+            <sendOSC>0</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
@@ -188,7 +188,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip></clip>
+            <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test16.aif</clip>
         </track>
         <track>
             <type>Curves</type>
@@ -218,7 +218,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1000.000000000</max>
+            <max>1.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -244,7 +244,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:632</duration>
-    <playhead>00:09:27:702</playhead>
+    <playhead>00:17:39:794</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:632</outpoint>
     <loop>1</loop>
