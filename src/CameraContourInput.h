@@ -57,8 +57,8 @@ public:
         oscMappings[ &params.get(PARAM_NAME_CONTOUR_BLUR) ]         = "/CameraContourInput Blur";
         oscMappings[ &params.get(PARAM_NAME_CONTOUR_RESAMPLE) ]     = "/CameraContourInput Resample";
         oscMappings[ &params.get(PARAM_NAME_CONTOUR_SMOOTH) ]       = "/CameraContourInput Smooth";
-        oscMappings[ &params.get("Average radius") ]                = "/CameraContourInput Stretch Points";
-        oscMappings[ &params.get("Stretch points") ]                = "/CameraContourInput Type";
+        oscMappings[ &params.get("Average radius") ]                = "/CameraContourInput Avarage Radius";
+        oscMappings[ &params.get("Stretch points") ]                = "/CameraContourInput Stretch Points";
         oscMappings[ &params.get(PARAM_NAME_TRACKING_DISTANCE) ]    = "/CameraContourInput Tracking Distance";
     };
     

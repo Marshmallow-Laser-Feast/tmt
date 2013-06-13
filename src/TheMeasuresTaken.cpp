@@ -477,7 +477,19 @@ void TheMeasuresTaken::draw()
     
     ofPushStyle();
     ofSetColor( 125 );
-    ofDrawBitmapString( GUIDE_STRING, 0.0f, ofGetHeight() - 20.0f );
+    
+    string s;
+    s+= "  <L>Laser:" + ofToString((int)ildaParams[PARAM_NAME_ENABLED]);
+    s+= "  <O>Receive OSC:" + ofToString((int)inputParams["Receive OSC"]);
+    s+= "  <M>Receive MIDI:" + ofToString((int)inputParams["Receive MIDI"]);
+    s+= "  <f>Toggle Fullscreen";
+    s+= "  <s>Save Settings";
+    s+= "  <p>Toggle Video Play";
+    s+= "  <i>Toggle Input Visualization";
+    s += "  " + ofToString(ofGetFrameRate(), 2);
+
+    
+    ofDrawBitmapString(s, 0.0f, ofGetHeight() - 20.0f );
     ofPopStyle();
     
     float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
@@ -568,17 +580,27 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         ildaParams[PARAM_NAME_ENABLED] = !(bool)ildaParams[PARAM_NAME_ENABLED];
     }
-    
-    
-    if( key == 'o' )
-    {
-        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_FIX].set( true );
-    }
-    
     if( key == 'O' )
     {
-        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
+        inputParams["Receive OSC"] = !inputParams["Receive OSC"];
     }
+    
+    if( key == 'M' )
+    {
+        inputParams["Receive MIDI"] = !inputParams["Receive MIDI"];
+    }
+
+    
+    
+//    if( key == 'o' )
+//    {
+//        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_FIX].set( true );
+//    }
+//    
+//    if( key == 'O' )
+//    {
+//        fixedPointVisualizer->params[PARAM_NAME_FIXED_POINT_CLEAR].set( true );
+//    }
 }
 
 //--------------------------------------------------------------

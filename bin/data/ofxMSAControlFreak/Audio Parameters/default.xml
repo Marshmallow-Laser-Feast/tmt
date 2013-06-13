@@ -4,6 +4,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

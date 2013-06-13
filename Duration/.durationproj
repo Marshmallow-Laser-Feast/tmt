@@ -19,7 +19,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>100.000045776</max>
+            <max>10.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -29,7 +29,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>60.000000000</max>
+            <max>500.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -39,7 +39,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1.000000000</max>
+            <max>20.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -69,7 +69,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1.000000000</max>
+            <max>500.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -78,8 +78,8 @@
             <displayName>DotTrailsVis Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <min>1.000000000</min>
-            <max>188.000000000</max>
+            <min>0.000000000</min>
+            <max>100.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -89,7 +89,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>20.300001144</max>
+            <max>100.000007629</max>
         </track>
         <track>
             <type>Curves</type>
@@ -109,7 +109,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>40.000000000</max>
+            <max>100.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -139,7 +139,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>22.000000000</max>
+            <max>152.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -174,14 +174,14 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:683</duration>
-    <playhead>00:09:07:967</playhead>
+    <playhead>00:10:04:959</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:683</outpoint>
     <loop>1</loop>
 </timelineSettings>
 <projectSettings>
     <useBPM>0</useBPM>
-    <bpm>220.000000000</bpm>
+    <bpm>240.000000000</bpm>
     <snapToBPM>1</snapToBPM>
     <snapToKeys>0</snapToKeys>
     <oscInEnabled>0</oscInEnabled>

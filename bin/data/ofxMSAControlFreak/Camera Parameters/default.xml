@@ -1,7 +1,7 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Camera Parameters">
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X1" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y1" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y1" value="0.383928567"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI X2" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera ROI Y2" value="0.928571403"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Camera Flip X" value="1"></Parameter>
@@ -16,6 +16,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="14073"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="8659"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
