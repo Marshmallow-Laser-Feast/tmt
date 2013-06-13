@@ -145,9 +145,9 @@ void TheMeasuresTaken::setup()
     visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
     visualizers.push_back( contourVisualizer       = new ContourVisualizer());
     visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
-    visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
+//    visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
     visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
-    visualizers.push_back( dotVisualizer           = new DotVisualizer());
+//    visualizers.push_back( dotVisualizer           = new DotVisualizer());
     
     for(int i=0; i<visualizers.size(); i++) {
         gui.addPage(visualizers[i]->params);

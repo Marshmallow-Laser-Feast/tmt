@@ -93,6 +93,16 @@
         </track>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_12_.xml</xmlFileName>
+            <trackName>curves_12</trackName>
+            <displayName>DotTrailsViz/timeOffset</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>300.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
             <xmlFileName>curves_7_.xml</xmlFileName>
             <trackName>curves_7</trackName>
             <displayName>DotTrailsViz/TrailCount</displayName>
@@ -143,13 +153,13 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_9_.xml</xmlFileName>
-            <trackName>curves_9</trackName>
-            <displayName>NearestDotsViz/Count</displayName>
+            <xmlFileName>curves_19_.xml</xmlFileName>
+            <trackName>curves_19</trackName>
+            <displayName>NearestDotsViz/timeOffset</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>100.000000000</max>
+            <max>300.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -189,6 +199,16 @@
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_11_.xml</xmlFileName>
+            <trackName>curves_11</trackName>
+            <displayName>LineViz/timeOffset</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>300.000000000</max>
         </track>
     </page>
 </tracks>

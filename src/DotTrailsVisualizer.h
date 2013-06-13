@@ -39,6 +39,7 @@ public:
         
         oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/DotTrailsViz/Brightness";
         oscMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]      = "/DotTrailsViz/TrailCount";
+        oscMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                      = "/DotTrailsViz/timeOffset";
         oscMappings[ &params.get("circleRadius") ]                              = "/DotTrailsViz/circleRadius";
         oscMappings[ &params.get("brightnessAudio") ]                           = "/DotTrailsViz/brightnessAudio";
         oscMappings[ &params.get("circleRadiusAudio") ]                         = "/DotTrailsViz/circleRadiusAudio";
