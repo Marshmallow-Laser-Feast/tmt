@@ -58,7 +58,7 @@ public:
         
         float brightnessAudio = params["brightnessAudio"];
         brightness = (float)params[PARAM_NAME_BRIGHTNESS] / 100.0f;
-        if(brightnessAudio > 0) brightness = ofLerp(brightness * (1 - brightnessAudio), brightness, avgFFT);
+        if(brightnessAudio > 0) brightness = ofLerp(brightness * (1 - brightnessAudio), brightness, audioAmp);
 
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
