@@ -27,6 +27,7 @@ void TheMeasuresTaken::setup()
     inputParams.addBool("Receive OSC");
     inputParams.addBool("Receiving OSC");
     inputParams.addBool("Receive MIDI");
+    inputParams.addInt("PPS").setRange(10000, 90000).setClamp(true).set(30000);
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_Y1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -143,9 +144,9 @@ void TheMeasuresTaken::setup()
     visualizers.push_back( dotTrailsVisualizer     = new DotTrailsVisualizer());
     visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
     visualizers.push_back( lineVisualizer          = new LineVisualizer());
+    visualizers.push_back( contourVisualizer       = new ContourVisualizer());
     visualizers.push_back( roofVisualizer          = new RoofVisualizer());
     visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
-    visualizers.push_back( contourVisualizer       = new ContourVisualizer());
     visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());
 //    visualizers.push_back( qualitiesVisualizer     = new QualitiesVisualizer());
     visualizers.push_back( connectedDotVisualizer  = new ConnectedDotsVisualizer());
@@ -193,7 +194,6 @@ void TheMeasuresTaken::setup()
     // Ilda
     
     etherdream.setup();
-    etherdream.setPPS(40000);
     
     // Camera &  Grabber
     grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );
@@ -221,6 +221,10 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    if(inputParams["PPS"].hasChanged()) {
+        etherdream.setPPS(inputParams["PPS"]);
+    }
+    
     inputParams["Receiving OSC"] = false;
     
     // Update with OSC
@@ -624,6 +628,11 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 'M' )
     {
         inputParams["Receive MIDI"] = !inputParams["Receive MIDI"];
+    }
+    
+    if(key == 'x') {
+        etherdream.kill();
+        etherdream.setup();
     }
 
     
