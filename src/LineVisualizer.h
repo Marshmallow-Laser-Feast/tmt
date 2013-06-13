@@ -40,8 +40,6 @@ public:
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
         
         oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/LineVisualizer Brightness";
-        //oscMappings[ &params.get("Amps") ]                  = "/LineVisualizer Amp";
-
     };
     
     ~LineVisualizer()
@@ -78,17 +76,6 @@ public:
 
         ofPoint p1(orderedVector.front());
         ofPoint p2(orderedVector.back());
-        
-//        ofPolyline  line;
-//        for( int i = 0; i < numPoints; ++i )
-//        {
-//            ofPoint p(orderedVector[i]);
-//            float t = ofMap(p.x, p1.x, p2.x, 0.0, 1.0, true);
-//            float destY = ofLerp(p1.y, p2.y, t);
-//            p.y = ofLerp(destY, p.y, amp);
-//            p = p * scale + offset;
-//            line.addVertex(p);
-//        }
         
         rope->update(p1, p2, ofPolyline(orderedVector));
         

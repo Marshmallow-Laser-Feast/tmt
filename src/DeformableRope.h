@@ -31,18 +31,18 @@ public:
         
         params.startGroup("Deform");
         params.addFloat("amp").setRange(0, 5).setClamp(true);
-        params.addInt("centerOffset").setRange(-200, 200).setClamp(true);
-        params.addInt("curvature").setRange(-200, 200).setClamp(true);
+        params.addInt("centerOffset").setRange(-INPUT_HEIGHT, INPUT_HEIGHT).setClamp(true);
+        params.addInt("curvature").setRange(-INPUT_HEIGHT, INPUT_HEIGHT).setClamp(true);
         params.endGroup();
         
         params.startGroup("Noise");
         params.addInt("resample").setRange(0, 1000).setClamp(true);
 //        params.addFloat("noiseTimeSpeed").setRange(0, 20).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmp1").setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp1").setRange(0, INPUT_HEIGHT).setClamp(true).setSnap(true);
         params.addFloat("noisePosScale1").setRange(0, 50).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmp2").setClamp(true).setSnap(true);
+        params.addFloat("noiseAmp2").setRange(0, INPUT_HEIGHT).setClamp(true).setSnap(true);
         params.addFloat("noisePosScale2").setRange(0, 640).setClamp(true).setSnap(true);
-        params.addFloat("noiseAmpX").setClamp(true).setSnap(true);
+        params.addFloat("noiseAmpX").setRange(0, INPUT_WIDTH).setClamp(true).setSnap(true);
         params.addFloat("noisePosScaleX").setRange(0, 50).setClamp(true).setSnap(true);
         params.endGroup();
         
@@ -79,7 +79,7 @@ public:
         float noisePosScaleX = params["Rope.Noise.noisePosScaleX"];
 
         int smoothPoly = params["Rope.Post.smoothPoly"];
-        int easeAmount = params["Rope.Post.easeAmount"];
+        float easeAmount = params["Rope.Post.easeAmount"];
 
 
         
@@ -90,15 +90,22 @@ public:
         
         for(int i=0; i<rope.particles.size(); i++) {
             msa::physics::Particle2D &p = *rope.particles[i];
+//            ofVec2f pos(p.getPosition());
+//            pos.x /= INPUT_WIDTH;
+//            pos.y /= INPUT_HEIGHT;
             float t = ofMap(i, 0, rope.particles.size()-1, 0, 1);
             float ts = ofMap(i, 0, rope.particles.size()-1, -1, 1);
+
+            // bell curve (kind of)
+            float ta = t < 0.5 ? t * 2 : (1 - t) * 2;
+            ta = 3 * ta * ta - 2 * ta * ta * ta;
 
             ofVec2f o;
             if(curvature != 0) o.y += curvature * sin(t * PI);
             if(centerOffset != 0) o.y += centerOffset;
-            if(noiseAmp1) o.y += noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
-            if(noiseAmp2) o.y += noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
-            if(noiseAmpX) o.x += noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
+            if(noiseAmp1) o.y += ta * noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
+            if(noiseAmp2) o.y += ta * noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
+            if(noiseAmpX) o.x += ta * noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
             if(amp && deformer.size() > 2) {
                 float homeY = ofLerp(a.y, b.y, t);
                 float deformedY = deformer.getPointAtPercent(t).y;

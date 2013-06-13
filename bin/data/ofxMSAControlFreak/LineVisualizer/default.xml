@@ -4,9 +4,9 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Rope">
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Physics">
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="23"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.529999971"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthMult" value="0.010000000"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="20"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.500000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthMult" value="0.799999952"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthSpeed" value="1.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusBase" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
@@ -27,7 +27,7 @@
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Post">
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothPoly" value="0"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.812500000"></Parameter>
             </Parameter>
         </Parameter>
     </Parameter>

@@ -35,9 +35,10 @@ public:
     
     //--------------------------------------------------------------
     void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics, float smoothing) {
-        if(_a == _b) b.y += 1;
-        a = (_a - a) * (1-smoothing);
-        b = (_b - b) * (1-smoothing);
+        if(_a == _b) _b.y += 1;
+        
+        a += (_a - a) * (1-smoothing);
+        b += (_b - b) * (1-smoothing);
 
         if(numParticles<2) return;
         
