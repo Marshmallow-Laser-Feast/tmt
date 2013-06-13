@@ -28,6 +28,7 @@ public:
         params.setName("NearestDotsVisualizer");
         params.addInt( PARAM_NAME_NEAREST_DOT_VIS_COUNT ).setRange( 0, 100 ).setClamp( true );
         params.addBool("doPickShortest");
+        params.addFloat("brightnessAudio").setClamp(true);
         
         midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 4, 14 );
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 4, 15 );
@@ -37,6 +38,8 @@ public:
         oscMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                      = "/NearestDotsViz/timeOffset";
         oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/NearestDotsViz/Brightness";
         oscMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]            = "/NearestDotsViz/Count";
+        oscMappings[ &params.get("brightnessAudio") ]                           = "/NearestDotsViz/brightnessAudio";
+        
     };
     
     ~NearestDotsVisualizer()
@@ -44,9 +47,19 @@ public:
     
 public:
     
+    virtual float getBrightness() const {
+        return brightness;
+    }
+
+    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, vector<float> & audioFFT, float avgFFT )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
+        
+        float brightnessAudio = params["brightnessAudio"];
+        brightness = (float)params[PARAM_NAME_BRIGHTNESS] / 100.0f;
+        if(brightnessAudio > 0) brightness = ofLerp(brightness * (1 - brightnessAudio), brightness, avgFFT);
+
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -111,7 +124,8 @@ public:
     };
     
 private:
-    
+    float brightness;
+
     static bool mysort(const ofVec3f &a, const ofVec3f &b) { return (a.z < b.z); }
 };
 

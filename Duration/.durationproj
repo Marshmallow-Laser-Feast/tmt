@@ -163,6 +163,16 @@
         </track>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_9_.xml</xmlFileName>
+            <trackName>curves_9</trackName>
+            <displayName>NearestDotsViz/brightnessAudio</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+       <track>
+            <type>Curves</type>
             <xmlFileName>curves_13_.xml</xmlFileName>
             <trackName>curves_13</trackName>
             <displayName>LineViz/Brightness</displayName>
@@ -188,7 +198,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test16.aif</clip>
+            <clip></clip>
         </track>
         <track>
             <type>Curves</type>
@@ -214,7 +224,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:632</duration>
-    <playhead>00:09:34:627</playhead>
+    <playhead>00:09:16:910</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:632</outpoint>
     <loop>1</loop>
