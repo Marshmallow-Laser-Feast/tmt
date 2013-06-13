@@ -86,6 +86,8 @@ void TheMeasuresTaken::setup()
     audioParams.addFloat( PARAM_NAME_AUDIO_AMP_SCALE );
     audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true );
     audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_HIGH ).setClamp( true );
+    audioParams.addFloat( PARAM_NAME_AUDIO_AVG_FFT ).setClamp( true );
+    audioParams.addFloat( PARAM_NAME_AUDIO_AVG_FFT_SCALE );
     
     audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
     
@@ -457,14 +459,16 @@ void TheMeasuresTaken::update()
         
         avgFFT      /= (float)oscData[ OCS_AUDIO_PATH ].size();
     }
-        
+    
+    audioParams[PARAM_NAME_AUDIO_AVG_FFT].set( avgFFT * (float)audioParams[ PARAM_NAME_AUDIO_AVG_FFT_SCALE ] );
+    
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
         ildaFrame.drawCalibration();
     } else {
         for(int i=0; i<visualizers.size(); i++)
         {
-            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData[OCS_AUDIO_PATH], avgFFT );
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {

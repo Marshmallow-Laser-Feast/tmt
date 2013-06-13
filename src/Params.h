@@ -131,6 +131,8 @@
 #define PARAM_NAME_AUDIO_AMP_SCALE              "Scale"
 #define PARAM_NAME_AUDIO_SMOOTHING_LOW          "Smoothing Low"
 #define PARAM_NAME_AUDIO_SMOOTHING_HIGH         "Smoothing High"
+#define PARAM_NAME_AUDIO_AVG_FFT                "Avg FFT"
+#define PARAM_NAME_AUDIO_AVG_FFT_SCALE          "Avg FFT Scale"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
 
