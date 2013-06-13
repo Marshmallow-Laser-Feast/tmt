@@ -311,7 +311,7 @@ void TheMeasuresTaken::update()
     
     if( oscData.count("/input/Smoothing") > 0 )
     {
-        inputParams["PathAnalyser::smoothing"].set( oscData["/input/Smoothing"] );
+        inputParams["PathAnalyser::smoothing"].set( oscData["/input/Smoothing"][0] );
     }
     
     // Update with Midi
