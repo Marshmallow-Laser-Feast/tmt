@@ -2,7 +2,7 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Input Parameters">
         <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Input" value="2"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="PathAnalyser::smoothing" value="0.727272749"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Receive OSC" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Receive OSC" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Receive MIDI" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
