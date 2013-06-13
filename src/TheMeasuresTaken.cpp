@@ -506,17 +506,18 @@ void TheMeasuresTaken::draw()
     ofSetColor( 125 );
     
     string s;
-    s+= "  <L>Laser:" + ofToString((int)ildaParams[PARAM_NAME_ENABLED]);
-    s+= "  <O>Receive OSC:" + ofToString((int)inputParams["Receive OSC"]);
-    s+= "  <M>Receive MIDI:" + ofToString((int)inputParams["Receive MIDI"]);
-    s+= "  <f>Toggle Fullscreen";
-    s+= "  <s>Save Settings";
-    s+= "  <p>Toggle Video Play";
-    s+= "  <i>Toggle Input Visualization";
+    s+= "<L>Laser:" + ofToString((int)ildaParams[PARAM_NAME_ENABLED]) + "\n";
+    s+= "<O>Receive OSC:" + ofToString((int)inputParams["Receive OSC"]) + "\n";
+    s+= "   Receiving OSC:" + ofToString((int)inputParams["Receiving OSC"]) + "\n";
+    s+= "<M>Receive MIDI:" + ofToString((int)inputParams["Receive MIDI"]) + "\n";
+    s+= "<f>Toggle Fullscreen\n";
+    s+= "<s>Save Settings\n";
+    s+= "<p>Toggle Video Play\n";
+    s+= "<i>Toggle Input Visualization\n";;
     s += "  " + ofToString(ofGetFrameRate(), 2);
 
     
-    ofDrawBitmapString(s, 0.0f, ofGetHeight() - 20.0f );
+    ofDrawBitmapString(s, 300, 30.0f );
     ofPopStyle();
     
     float scale             = (float)cameraParams[ PARAM_NAME_CAMERA_SCREEN_SCALE ];
@@ -570,7 +571,7 @@ void TheMeasuresTaken::draw()
     ofSetColor(255);
     imageInput.draw(ofGetWidth() - imageInput.getWidth(), ofGetHeight() - imageInput.getHeight());
     ofNoFill();
-    ofRect(ofGetWidth() - imageInput.getWidth(), ofGetHeight() - imageInput.getHeight(), imageInput.getWidth(), imageInput.getHeight());
+    ofRect(ofGetWidth() - imageInput.getWidth()-1, ofGetHeight() - imageInput.getHeight()-1, imageInput.getWidth()+2, imageInput.getHeight()+2);
     ofPopStyle();
 
 }
