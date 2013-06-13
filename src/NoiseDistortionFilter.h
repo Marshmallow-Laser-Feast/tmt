@@ -12,11 +12,13 @@
 
 #include "IFilter.h"
 
-#define PARAM_NAME_NOISE_SCALE  "Scale"
-#define PARAM_NAME_NOISE_OFFSET "Offset"
-#define PARAM_NAME_NOISE_AMP_X  "Amplitude X"
-#define PARAM_NAME_NOISE_AMP_Y  "Amplitude Y"
-#define PARAM_NAME_USE_NORMALS  "Use Normals"
+#define PARAM_NAME_NOISE_SCALE              "Scale"
+#define PARAM_NAME_NOISE_OCS_AMOUNT         "OCS Amount"
+#define PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO   "OCS Amount Audio"
+#define PARAM_NAME_NOISE_OFFSET             "Offset"
+#define PARAM_NAME_NOISE_AMP_X              "Amplitude X"
+#define PARAM_NAME_NOISE_AMP_Y              "Amplitude Y"
+#define PARAM_NAME_USE_NORMALS              "Use Normals"
 
 class NoiseDistortionFilter: public IFilter
 {
@@ -28,10 +30,17 @@ public:
         params.setName("NoiseDistortionFilter");
         
         params.addFloat(PARAM_NAME_NOISE_SCALE).setRange( 0.0f, 10).setClamp( true );
+        params.addFloat(PARAM_NAME_NOISE_OCS_AMOUNT).setRange( 0.0f, 10).setClamp( true );
+        params.addFloat(PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_OFFSET).setRange(-10, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_X).setRange(-2, 2).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_Y).setRange(-2, 2).setClamp( true );
+       
         params.addBool(PARAM_NAME_USE_NORMALS);
+        
+        oscMappings[ &params.get(PARAM_NAME_NOISE_OCS_AMOUNT) ]         = "/NoiseDistortionFilter/Amount";
+        oscMappings[ &params.get(PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO) ]   = "/NoiseDistortionFilter/AmountAudio";
+
     };
     
     virtual ~NoiseDistortionFilter()
@@ -39,15 +48,25 @@ public:
     
 public:
     
-    virtual void apply( std::vector<ofPolyline> &polylines )
+    virtual void apply( std::vector<ofPolyline> &polylines, float audioAmp, vector<float> & audioFFT, float avgFFT )
     {
-        float actv      = (float)params[PARAM_NAME_ACTIVITY_VALUE];
-        float scale     = (float)params[PARAM_NAME_NOISE_SCALE];
-        float offset    = (float)params[PARAM_NAME_NOISE_OFFSET];
-        float ampx      = (float)params[PARAM_NAME_NOISE_AMP_X];
-        float ampy      = (float)params[PARAM_NAME_NOISE_AMP_Y];
+        float actv              = (float)params[PARAM_NAME_ACTIVITY_VALUE];
+        float scale             = (float)params[PARAM_NAME_NOISE_SCALE];
+        float offset            = (float)params[PARAM_NAME_NOISE_OFFSET];
+        float ampx              = (float)params[PARAM_NAME_NOISE_AMP_X];
+        float ampy              = (float)params[PARAM_NAME_NOISE_AMP_Y];
         
-        if( actv == 0.0f )
+        float ocsAmount         = (float)params[PARAM_NAME_NOISE_OCS_AMOUNT];
+        float ocsAudioAmount    = (float)params[PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO];
+        
+        float filteredActv      = actv;
+        
+        if( ocsAudioAmount > 0.0f )
+        {
+            filteredActv        = ofLerp( actv * ( 1 - ocsAudioAmount ), actv, ocsAudioAmount * audioAmp );
+        }
+        
+        if( filteredActv == 0.0f )
         {
             return;
         }
@@ -65,7 +84,7 @@ public:
                                                                     offset + it->getVertices()[i].y * scale )*
                                                 it->getNormalAtIndex( i ) *
                                                 amp *
-                                                actv;
+                                                filteredActv;
                 }
             }
         } else {
@@ -84,7 +103,7 @@ public:
                     it->getVertices()[i]    =   it->getVertices()[i] +
                                                 n *
                                                 amp *
-                                                actv;
+                                                filteredActv;
                 }
             }
         }

@@ -33,6 +33,6 @@ public:
     
 public:
     
-    virtual void apply( std::vector<ofPolyline> &polylines ){};
+    virtual void apply( std::vector<ofPolyline> &polylines, float audioAmp, vector<float> & audioFFT, float avgFFT ){};
         
 };

@@ -471,7 +471,7 @@ void TheMeasuresTaken::update()
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {
-                (*it)->apply( *visualizedLines );
+                (*it)->apply( *visualizedLines, (float)audioParams[ PARAM_NAME_AUDIO_AMP ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
             }
             
             ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
