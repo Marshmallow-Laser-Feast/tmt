@@ -311,6 +311,8 @@ void TheMeasuresTaken::update()
     
     if( oscData.count("input/Smoothing") > 0 )
     {
+        cout << "here" << endl;
+        
         inputParams["PathAnalyser::smoothing"].set( oscData["input/Smoothing"] );
     }
     
@@ -468,7 +470,7 @@ void TheMeasuresTaken::update()
     } else {
         for(int i=0; i<visualizers.size(); i++)
         {
-            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_INPUT_ENABLED ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
+            PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_AMP ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
             
             for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
             {
