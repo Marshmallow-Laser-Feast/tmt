@@ -97,15 +97,15 @@
     </element>
     <element name="curves_20">
         <x>0.000000000</x>
-        <y>809.333251953</y>
+        <y>755.999938965</y>
         <width>1440.000000000</width>
-        <height>2.333333254</height>
+        <height>11.333312988</height>
     </element>
     <element name="curves_21">
         <x>0.000000000</x>
-        <y>835.666564941</y>
+        <y>791.333251953</y>
         <width>1440.000000000</width>
-        <height>2.333333254</height>
+        <height>14.333312988</height>
     </element>
     <element name="curves_3">
         <x>0.000000000</x>
@@ -117,7 +117,7 @@
         <x>0.000000000</x>
         <y>731.999938965</y>
         <width>1440.000000000</width>
-        <height>53.333312988</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_5">
         <x>0.000000000</x>

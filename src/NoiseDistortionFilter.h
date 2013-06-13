@@ -30,7 +30,7 @@ public:
         params.setName("NoiseDistortionFilter");
         
         params.addFloat(PARAM_NAME_NOISE_SCALE).setRange( 0.0f, 10).setClamp( true );
-        params.addFloat(PARAM_NAME_NOISE_OCS_AMOUNT).setRange( 0.0f, 10).setClamp( true );
+//        params.addFloat(PARAM_NAME_NOISE_OCS_AMOUNT).setRange( 0.0f, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_OFFSET).setRange(-10, 10).setClamp( true );
         params.addFloat(PARAM_NAME_NOISE_AMP_X).setRange(-2, 2).setClamp( true );
@@ -38,7 +38,7 @@ public:
        
         params.addBool(PARAM_NAME_USE_NORMALS);
         
-        oscMappings[ &params.get(PARAM_NAME_NOISE_OCS_AMOUNT) ]         = "/NoiseDistortionFilter/Amount";
+        oscMappings[ &params.get(PARAM_NAME_ACTIVITY_VALUE) ]         = "/NoiseDistortionFilter/Amount";
         oscMappings[ &params.get(PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO) ]   = "/NoiseDistortionFilter/AmountAudio";
 
     };
@@ -56,14 +56,14 @@ public:
         float ampx              = (float)params[PARAM_NAME_NOISE_AMP_X];
         float ampy              = (float)params[PARAM_NAME_NOISE_AMP_Y];
         
-        float ocsAmount         = (float)params[PARAM_NAME_NOISE_OCS_AMOUNT];
+//        float ocsAmount         = (float)params[PARAM_NAME_NOISE_OCS_AMOUNT];
         float ocsAudioAmount    = (float)params[PARAM_NAME_NOISE_OCS_AMOUNT_AUDIO];
         
         float filteredActv      = actv;
         
         if( ocsAudioAmount > 0.0f )
         {
-            filteredActv        = ofLerp( actv * ( 1 - ocsAudioAmount ), actv, ocsAmount * audioAmp );
+            filteredActv        = ofLerp( actv * ( 1 - ocsAudioAmount ), actv, audioAmp );
         }
         
         if( filteredActv == 0.0f )
