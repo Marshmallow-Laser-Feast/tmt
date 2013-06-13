@@ -63,7 +63,7 @@ public:
         
         if( ocsAudioAmount > 0.0f )
         {
-            filteredActv        = ofLerp( actv * ( 1 - ocsAudioAmount ), actv, ocsAudioAmount * audioAmp );
+            filteredActv        = ofLerp( actv * ( 1 - ocsAudioAmount ), actv, ocsAmount * audioAmp );
         }
         
         if( filteredActv == 0.0f )
