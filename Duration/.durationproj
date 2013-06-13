@@ -188,7 +188,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip></clip>
+            <clip>/Users/memo/Desktop/TMT/measures-total-test13.aif</clip>
         </track>
         <track>
             <type>Curves</type>
@@ -214,7 +214,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:683</duration>
-    <playhead>00:06:23:488</playhead>
+    <playhead>00:10:55:046</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:683</outpoint>
     <loop>1</loop>
