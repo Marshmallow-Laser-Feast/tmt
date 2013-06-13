@@ -30,10 +30,16 @@
         <value>1.000000000</value>
     </key>
     <key>
-        <easefunc>0</easefunc>
+        <easefunc>1</easefunc>
         <easetype>0</easetype>
-        <time>00:11:17:477</time>
+        <time>00:09:37:614</time>
         <value>1.000000000</value>
+    </key>
+    <key>
+        <easefunc>1</easefunc>
+        <easetype>2</easetype>
+        <time>00:10:28:845</time>
+        <value>0.000000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
