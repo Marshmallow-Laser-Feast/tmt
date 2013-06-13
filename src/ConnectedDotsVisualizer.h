@@ -57,8 +57,8 @@ public:
         {
             ofPolyline  line;
             
-            line.addVertex( offset + inputAnalyser->getPathAnalysers()[i]->getSamples().back() * scale );
-            line.addVertex( offset + inputAnalyser->getPathAnalysers()[ ( i + ( inputAnalyser->getPathAnalysers().size() / 2 ) + neighborOffset ) % inputAnalyser->getPathAnalysers().size() ]->getSamples().back() * scale );
+            line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset(i, timeOffset) * scale );
+            line.addVertex( offset + inputAnalyser->getSampleWithTimeOffset((i + ( inputAnalyser->getPathAnalysers().size() / 2 ) + neighborOffset ) % inputAnalyser->getPathAnalysers().size(), timeOffset) * scale );
             
             result->push_back( line );
         }

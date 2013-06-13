@@ -61,32 +61,32 @@ public:
         }
         
         // add to vector
-        std::vector<ofPoint>    orderedVector;
+        std::vector<ofPoint> points;
         for( int i = 0; i < inputAnalyser->getPathAnalysers().size(); ++i ) {
-            orderedVector.push_back( inputAnalyser->getPathAnalysers()[i]->getSamples().back() );
+            points.push_back( inputAnalyser->getSampleWithTimeOffset(i, timeOffset));
         }
         
         // add point if empty
-        if(orderedVector.size() == 0) {
-            orderedVector.push_back(ofPoint(INPUT_WIDTH * 0.4, INPUT_HEIGHT/2));
+        if(points.size() == 0) {
+            points.push_back(ofPoint(INPUT_WIDTH * 0.4, INPUT_HEIGHT/2));
         }
         
         // add second point if empty
-        if(orderedVector.size() == 1) {
-            orderedVector.push_back(orderedVector.front() + ofPoint(INPUT_WIDTH * 0.1, 0));
+        if(points.size() == 1) {
+            points.push_back(points.front() + ofPoint(INPUT_WIDTH * 0.1, 0));
         }
         
         // lerp to edges
         if(edgeFixAmount) {
-            orderedVector.push_back(orderedVector.front().interpolated(ofVec3f(0, edgeFixHeight, 0), edgeFixAmount));
-            orderedVector.push_back(orderedVector.back().interpolated(ofVec3f(INPUT_WIDTH, edgeFixHeight, 0), edgeFixAmount));
+            points.push_back(points.front().interpolated(ofVec3f(0, edgeFixHeight, 0), edgeFixAmount));
+            points.push_back(points.back().interpolated(ofVec3f(INPUT_WIDTH, edgeFixHeight, 0), edgeFixAmount));
         }
 
         // sort
-        std::sort ( orderedVector.begin(), orderedVector.end(), comparePointX__ );
+        std::sort ( points.begin(), points.end(), comparePointX__ );
 
         // update rope
-        rope->update(orderedVector);
+        rope->update(points);
         
         // offset and scale
         for(int i=0; i<rope->poly.size(); i++) {

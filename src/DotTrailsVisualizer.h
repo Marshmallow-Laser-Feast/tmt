@@ -62,7 +62,8 @@ public:
             
             for( int j = 0; j < MIN( trailCount, inputAnalyser->getPathAnalysers()[i]->getSamples().size() ); ++j )
             {
-                line.addVertex( offset + inputAnalyser->getPathAnalysers()[i]->getSamples()[ inputAnalyser->getPathAnalysers()[i]->getSamples().size() - (j+1) ] * scale );
+//                line.addVertex( offset + inputAnalyser->getPathAnalysers()[i]->getSamples()[ inputAnalyser->getPathAnalysers()[i]->getSamples().size() - (j+1) ] * scale );
+                line.addVertex(offset + inputAnalyser->getSampleWithTimeOffset(i, timeOffset+j) * scale);
             }
             
             result->push_back( line );

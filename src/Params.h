@@ -16,8 +16,8 @@
 //#define INPUT_COUNT                             5
 //#define IMAGESEQINPUT_COUNT                     3
 
-#define MAX_PATH_ANALYSER_SAMPLES               60
-#define MAX_PATH_ANALYSER_HISTORY               60 * 5
+#define MAX_PATH_ANALYSER_SAMPLES               (60 * 10)
+#define MAX_PATH_ANALYSER_HISTORY               (60 * 10)
 #define MAX_PATH_ANALYSER_LENGTH                3700.0f
 
 // Flocking input settings
