@@ -1,6 +1,6 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="CameraContourInput">
-        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="3"></Parameter>
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="87"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="3"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>

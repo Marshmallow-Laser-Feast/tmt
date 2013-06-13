@@ -34,8 +34,8 @@ public:
         midiMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]           = std::pair<int, int>( 4, 16 );
         midiMappings[ &params.get("doPickShortest") ]                           = std::pair<int, int>( 4, 17 );
         
-        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/NearestDots Brightness";
-        oscMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]            = "/NearestDots Count";
+        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/NearestDotsViz/Brightness";
+        oscMappings[ &params.get(PARAM_NAME_NEAREST_DOT_VIS_COUNT) ]            = "/NearestDotsViz/Count";
     };
     
     ~NearestDotsVisualizer()

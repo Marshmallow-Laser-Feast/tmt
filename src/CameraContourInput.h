@@ -53,13 +53,13 @@ public:
         midiMappings[ &params.get("Scale points Y") ]               = std::pair<int, int>( 10, 20 );
         midiMappings[ &params.get(PARAM_NAME_TRACKING_DISTANCE) ]   = std::pair<int, int>( 10, 21 );
         
-        oscMappings[ &params.get("Type") ]                          = "/CameraContourInput Type";
-        oscMappings[ &params.get(PARAM_NAME_CONTOUR_BLUR) ]         = "/CameraContourInput Blur";
-        oscMappings[ &params.get(PARAM_NAME_CONTOUR_RESAMPLE) ]     = "/CameraContourInput Resample";
-        oscMappings[ &params.get(PARAM_NAME_CONTOUR_SMOOTH) ]       = "/CameraContourInput Smooth";
-        oscMappings[ &params.get("Average radius") ]                = "/CameraContourInput Avarage Radius";
-        oscMappings[ &params.get("Stretch points") ]                = "/CameraContourInput Stretch Points";
-        oscMappings[ &params.get(PARAM_NAME_TRACKING_DISTANCE) ]    = "/CameraContourInput Tracking Distance";
+        oscMappings[ &params.get("Type") ]                          = "/CameraContourInput/Type";
+        oscMappings[ &params.get(PARAM_NAME_CONTOUR_BLUR) ]         = "/CameraContourInput/Blur";
+        oscMappings[ &params.get(PARAM_NAME_CONTOUR_RESAMPLE) ]     = "/CameraContourInput/Resample";
+        oscMappings[ &params.get(PARAM_NAME_CONTOUR_SMOOTH) ]       = "/CameraContourInput/Smooth";
+        oscMappings[ &params.get("Average radius") ]                = "/CameraContourInput/Average Radius";
+        oscMappings[ &params.get("Stretch points") ]                = "/CameraContourInput/Stretch Points";
+        oscMappings[ &params.get(PARAM_NAME_TRACKING_DISTANCE) ]    = "/CameraContourInput/Tracking Distance";
     };
     
     ~CameraContourInput()

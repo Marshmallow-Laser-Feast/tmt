@@ -39,9 +39,9 @@ public:
         params.addInt("smoothAmount").setClamp(true);
         params.addFloat("easeAmount").setClamp(true);
         
-        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/RoofVis Brightness";
-        oscMappings[ &params.get("noiseAmp2") ]             = "/RoofVis Amp2";
-        oscMappings[ &params.get("smoothAmount") ]          = "/RoofVis Smooth Amount";
+//        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/RoofVis Brightness";
+//        oscMappings[ &params.get("noiseAmp2") ]             = "/RoofVis Amp2";
+//        oscMappings[ &params.get("smoothAmount") ]          = "/RoofVis Smooth Amount";
         
         
         timer = 0;

@@ -29,15 +29,19 @@ public:
         params.addInt( PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT ).setRange( 0, 100 ).setClamp( true );
         params.addFloat("circleRadius").setRange(0, INPUT_WIDTH/2).setClamp(true);
         params.addFloat("circleAspectRatio").setRange(0, 5).setClamp(true).setSnap(true);
+        params.addFloat("brightnessAudio").setClamp(true);
+        params.addFloat("circleRadiusAudio").setClamp(true);
         
         midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 2, 14 );
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 2, 15 );
         midiMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_RATIO) ]            = std::pair<int, int>( 2, 16 );
         midiMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]     = std::pair<int, int>( 2, 17 );
         
-        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/DotTrailsVis Brightness";
-        oscMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]      = "/DotTrailsVis TrailCount";
-        oscMappings[ &params.get("circleRadius") ]                                = "/DotTrailsVis CircleRadius";
+        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                       = "/DotTrailsViz/Brightness";
+        oscMappings[ &params.get(PARAM_NAME_DOT_TRAILS_VIS_TRAILS_COUNT) ]      = "/DotTrailsViz/TrailCount";
+        oscMappings[ &params.get("circleRadius") ]                              = "/DotTrailsViz/circleRadius";
+        oscMappings[ &params.get("brightnessAudio") ]                           = "/DotTrailsViz/brightnessAudio";
+        oscMappings[ &params.get("circleRadiusAudio") ]                         = "/DotTrailsViz/circleRadiusAudio";
         
     };
     
@@ -47,11 +51,23 @@ public:
     
 public:
 
+    virtual float getBrightness() const {
+        return brightness;
+    }
+    
+    
+
+    
     virtual PolylineVectorRefT visualize( InputAnalyser *inputAnalyser, ofVec3f & offset, ofVec3f scale, float audioAmp, vector<float> & audioFFT, float avgFFT )
     {
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         float circleRadius = params["circleRadius"];
         float circleAspectRatio = params["circleAspectRatio"];
+
+        float brightnessAudio = params["brightnessAudio"];
+        brightness = (float)params[PARAM_NAME_BRIGHTNESS] / 100.0f;
+        if(brightnessAudio > 0) brightness = ofLerp(brightness * (1 - brightnessAudio), brightness, avgFFT);
+
         
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
@@ -84,4 +100,5 @@ public:
     };
     
 private:
+    float brightness;
 };

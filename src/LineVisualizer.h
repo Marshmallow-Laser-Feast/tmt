@@ -41,7 +41,7 @@ public:
         midiMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]                      = std::pair<int, int>( 5, 14 );
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
         
-        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/LineVisualizer Brightness";
+        oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/LineViz/Brightness";
     };
     
     ~LineVisualizer()

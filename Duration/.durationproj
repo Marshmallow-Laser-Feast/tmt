@@ -3,9 +3,19 @@
         <name>Page One</name>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_18_.xml</xmlFileName>
+            <trackName>curves_18</trackName>
+            <displayName>input/Smoothing</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
             <xmlFileName>curves_.xml</xmlFileName>
             <trackName>curves</trackName>
-            <displayName>CameraContourInput Type</displayName>
+            <displayName>CameraContourInput/Type</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -15,7 +25,7 @@
             <type>Curves</type>
             <xmlFileName>curves_0_.xml</xmlFileName>
             <trackName>curves_0</trackName>
-            <displayName>CameraContourInput Blur</displayName>
+            <displayName>CameraContourInput/Blur</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -25,7 +35,7 @@
             <type>Curves</type>
             <xmlFileName>curves_1_.xml</xmlFileName>
             <trackName>curves_1</trackName>
-            <displayName>CameraContourInput Resample</displayName>
+            <displayName>CameraContourInput/Resample</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -35,7 +45,7 @@
             <type>Curves</type>
             <xmlFileName>curves_2_.xml</xmlFileName>
             <trackName>curves_2</trackName>
-            <displayName>CameraContourInput Smooth</displayName>
+            <displayName>CameraContourInput/Smooth</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -45,7 +55,7 @@
             <type>Curves</type>
             <xmlFileName>curves_3_.xml</xmlFileName>
             <trackName>curves_3</trackName>
-            <displayName>CameraContourInput Avarage Radius</displayName>
+            <displayName>CameraContourInput/Average Radius</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -55,7 +65,7 @@
             <type>Curves</type>
             <xmlFileName>curves_4_.xml</xmlFileName>
             <trackName>curves_4</trackName>
-            <displayName>CameraContourInput Stretch Points</displayName>
+            <displayName>CameraContourInput/Stretch Points</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -65,7 +75,7 @@
             <type>Curves</type>
             <xmlFileName>curves_5_.xml</xmlFileName>
             <trackName>curves_5</trackName>
-            <displayName>CameraContourInput Tracking Distance</displayName>
+            <displayName>CameraContourInput/Tracking Distance</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -75,7 +85,7 @@
             <type>Curves</type>
             <xmlFileName>curves_6_.xml</xmlFileName>
             <trackName>curves_6</trackName>
-            <displayName>DotTrailsVis Brightness</displayName>
+            <displayName>DotTrailsViz/Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -85,7 +95,7 @@
             <type>Curves</type>
             <xmlFileName>curves_7_.xml</xmlFileName>
             <trackName>curves_7</trackName>
-            <displayName>DotTrailsVis TrailCount</displayName>
+            <displayName>DotTrailsViz/TrailCount</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -93,9 +103,39 @@
         </track>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_15_.xml</xmlFileName>
+            <trackName>curves_15</trackName>
+            <displayName>DotTrailsVis/circleRadius</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>100.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_16_.xml</xmlFileName>
+            <trackName>curves_16</trackName>
+            <displayName>DotTrailsViz/circleRadiusAudio</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_17_.xml</xmlFileName>
+            <trackName>curves_17</trackName>
+            <displayName>DotTrailsViz/brightnessAudio</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
             <xmlFileName>curves_8_.xml</xmlFileName>
             <trackName>curves_8</trackName>
-            <displayName>NearestDots Brightness</displayName>
+            <displayName>NearestDotsViz/Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -105,47 +145,17 @@
             <type>Curves</type>
             <xmlFileName>curves_9_.xml</xmlFileName>
             <trackName>curves_9</trackName>
-            <displayName>NearestDots Count</displayName>
+            <displayName>NearestDotsViz/Count</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>100.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_10_.xml</xmlFileName>
-            <trackName>curves_10</trackName>
-            <displayName>RoofVis Brightness</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>100.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_11_.xml</xmlFileName>
-            <trackName>curves_11</trackName>
-            <displayName>RoofVis Amp2</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>10.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_12_.xml</xmlFileName>
-            <trackName>curves_12</trackName>
-            <displayName>RoofVis Smooth Amount</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>152.000000000</max>
         </track>
         <track>
             <type>Curves</type>
             <xmlFileName>curves_13_.xml</xmlFileName>
             <trackName>curves_13</trackName>
-            <displayName>LineVisualizer Brightness</displayName>
+            <displayName>LineViz/Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -155,7 +165,7 @@
             <type>Curves</type>
             <xmlFileName>curves_14_.xml</xmlFileName>
             <trackName>curves_14</trackName>
-            <displayName>LineVisualizer Amp</displayName>
+            <displayName>LineViz/Amp</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -174,7 +184,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:683</duration>
-    <playhead>00:10:04:959</playhead>
+    <playhead>00:03:18:722</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:683</outpoint>
     <loop>1</loop>

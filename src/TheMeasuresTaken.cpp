@@ -429,7 +429,7 @@ void TheMeasuresTaken::update()
     
     float avgFFT    = 0.0f;
     
-    if( oscData.count( OCS_AUDIO_PATH ) )
+    if( oscData.count( OCS_AUDIO_PATH ) && oscData[ OCS_AUDIO_PATH ].size() > 0)
     {
         for( int i = 0; i < oscData[ OCS_AUDIO_PATH ].size(); ++i )
         {

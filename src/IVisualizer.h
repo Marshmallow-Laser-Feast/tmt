@@ -39,7 +39,7 @@ public:
     {};
     
     
-    float getBrightness() const {
+    virtual float getBrightness() const {
         return (float)params[PARAM_NAME_BRIGHTNESS] / 100.0f;
     }
     
