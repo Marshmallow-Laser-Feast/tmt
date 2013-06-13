@@ -4,6 +4,6 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Time Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Nearest Dots Count" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="doPickShortest" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="brightnessAudio" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="brightnessAudio" value="1.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
