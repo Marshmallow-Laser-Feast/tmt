@@ -21,8 +21,12 @@ public:
     DeformableRope(msa::controlfreak::ParameterGroup &params) : params(params) {
         params.startGroup("Rope");
         params.startGroup("Physics");
-        params.addInt("numParticles").setRange(0, 50).setClamp(true).setSnap(true);
+        params.addFloat("drag").setRange(0, 1).setClamp(true);
+        params.addInt("iterations").setRange(0, 50).setClamp(true);
+
+        params.addInt("numParticles").setRange(0, 200).setClamp(true).setSnap(true);
         params.addFloat("stiffness").setRange(0, 1).setClamp(true).setSnap(true);
+        params.addFloat("stiffnessHome").setRange(0, 1).setClamp(true).setSnap(true);
         params.addFloat("restLengthMult").setRange(0, 1).setClamp(true).setSnap(true);
         params.addFloat("restLengthSpeed").setRange(0, 1).setClamp(true).setSnap(true);
         params.addFloat("radiusBase").setRange(0, 50).setClamp(true).setSnap(true);
@@ -58,9 +62,15 @@ public:
         physics.setDrag(1);
     }
     
-    void update(ofPoint a, ofPoint b, const ofPolyline &deformer) {
+    void update(const vector<ofPoint>& shape) {
+        if(shape.size() < 2) return;
+        
+        physics.setDrag(params["Rope.Physics.drag"]);
+        physics.setNumIterations(params["Rope.Physics.iterations"]);
+
         rope.numParticles = params["Rope.Physics.numParticles"];
         rope.stiffness = params["Rope.Physics.stiffness"];
+        rope.stiffnessHome = params["Rope.Physics.stiffnessHome"];
         rope.restLengthMult = params["Rope.Physics.restLengthMult"];
         rope.restLengthSpeed = params["Rope.Physics.restLengthSpeed"];
         rope.radiusBase = params["Rope.Physics.stiffness"];
@@ -82,11 +92,12 @@ public:
         float easeAmount = params["Rope.Post.easeAmount"];
 
 
+        ofPoint a(shape.front());
+        ofPoint b(shape.back());
         
         rope.set(a, b, physics, easeAmount);
         rope.update();
-        
-        physics.update();
+
         
         for(int i=0; i<rope.particles.size(); i++) {
             msa::physics::Particle2D &p = *rope.particles[i];
@@ -106,16 +117,29 @@ public:
             if(noiseAmp1) o.y += ta * noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
             if(noiseAmp2) o.y += ta * noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
             if(noiseAmpX) o.x += ta * noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
-            if(amp && deformer.size() > 2) {
-                float homeY = ofLerp(a.y, b.y, t);
-                float deformedY = deformer.getPointAtPercent(t).y;
-                o.y += (deformedY - homeY) * amp;
-            }
+//            if(amp && shape.size() > 1) {
+//                float homeY = ofLerp(a.y, b.y, t);
+//                float deformedY = shape.getPointAtPercent(t).y;
+//                o.y += (deformedY - homeY) * amp;
+//            }
             p.moveBy(o);
         }
         
+        if(amp) {
+            for(int i=0; i<shape.size(); i++) {
+                ofPoint p(shape[i]);
+                int particleIndex = round(ofMap(p.x, a.x, b.x, 0, rope.particles.size()-1));
+                float homeY = ofMap(particleIndex, 0, rope.particles.size()-1, a.y, b.y);
+                rope.particles[particleIndex]->moveBy(ofVec2f(0, (p.y - homeY) * amp));
+            }
+        }
+        
+        physics.update();
+        
+
         poly = resample ? rope.drawVector().getResampledByCount(resample) : rope.drawVector();
 //
+        // post noise
 //        for(int j=0; j<poly.size(); j++) {
 //            float t = ofMap(j, 0, poly.size()-1, -1, 1);
 //            ofPoint &p = poly[j];

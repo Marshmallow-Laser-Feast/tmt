@@ -3,7 +3,7 @@
         <x>0.000000000</x>
         <y>142.000000000</y>
         <width>1300.000000000</width>
-        <height>89.000000000</height>
+        <height>204.000000000</height>
     </element>
     <element name="colors">
         <x>0.000000000</x>
@@ -13,97 +13,97 @@
     </element>
     <element name="curves">
         <x>0.000000000</x>
-        <y>255.000000000</y>
+        <y>370.000000000</y>
         <width>1300.000000000</width>
-        <height>74.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_0">
         <x>0.000000000</x>
-        <y>353.000000000</y>
+        <y>394.000000000</y>
         <width>1300.000000000</width>
-        <height>67.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_1">
         <x>0.000000000</x>
-        <y>444.000000000</y>
+        <y>418.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_10">
         <x>0.000000000</x>
-        <y>660.000000000</y>
+        <y>634.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_11">
         <x>0.000000000</x>
-        <y>684.000000000</y>
+        <y>658.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_12">
         <x>0.000000000</x>
-        <y>708.000000000</y>
+        <y>682.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_13">
         <x>0.000000000</x>
-        <y>732.000000000</y>
+        <y>706.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_14">
         <x>0.000000000</x>
-        <y>756.000000000</y>
+        <y>730.000000000</y>
         <width>1300.000000000</width>
-        <height>58.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_2">
         <x>0.000000000</x>
-        <y>468.000000000</y>
+        <y>442.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_3">
         <x>0.000000000</x>
-        <y>492.000000000</y>
+        <y>466.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_4">
         <x>0.000000000</x>
-        <y>516.000000000</y>
+        <y>490.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_5">
         <x>0.000000000</x>
-        <y>540.000000000</y>
+        <y>514.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_6">
         <x>0.000000000</x>
-        <y>564.000000000</y>
+        <y>538.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_7">
         <x>0.000000000</x>
-        <y>588.000000000</y>
+        <y>562.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_8">
         <x>0.000000000</x>
-        <y>612.000000000</y>
+        <y>586.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_9">
         <x>0.000000000</x>
-        <y>636.000000000</y>
+        <y>610.000000000</y>
         <width>1300.000000000</width>
         <height>0.000000000</height>
     </element>

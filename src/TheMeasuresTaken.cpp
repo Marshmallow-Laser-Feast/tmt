@@ -48,7 +48,7 @@ void TheMeasuresTaken::setup()
     cameraParams.addFloat( PARAM_NAME_CAMERA_SCREEN_SCALE ).setRange( 0, 1.0f ).setClamp( true );
     cameraParams.addBool(PARAM_NAME_CAMERA_USE_VIDEO);
     cameraParams.addBool(PARAM_NAME_VIDEO_PLAY);
-    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setRange(0, 10 * 60 * 60).setClamp(true);
+    cameraParams.addInt(PARAM_NAME_VIDEO_FRAME).setRange(0, 60 * 60 * 60).setClamp(true);
     
     //    outputParams.addNamedIndex( PARAM_NAME_CURRENT_OUTPUT ).setLabels( 2, "Visualisation", "Calibration" );
     
@@ -140,8 +140,8 @@ void TheMeasuresTaken::setup()
     
     visualizers.push_back( dotTrailsVisualizer     = new DotTrailsVisualizer());
     visualizers.push_back( nearestDotsVisualizer   = new NearestDotsVisualizer());
-    visualizers.push_back( roofVisualizer          = new RoofVisualizer());
     visualizers.push_back( lineVisualizer          = new LineVisualizer());
+    visualizers.push_back( roofVisualizer          = new RoofVisualizer());
     visualizers.push_back( fixedPointVisualizer    = new FixedPointVisualizer());
     visualizers.push_back( contourVisualizer       = new ContourVisualizer());
     visualizers.push_back( convexHullVisualizer    = new ConvexHullVisualizer());

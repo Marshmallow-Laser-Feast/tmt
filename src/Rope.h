@@ -7,8 +7,12 @@ public:
     vector<msa::physics::Particle2D*> particles;
     vector<msa::physics::Spring2D*> springs;
     
+    vector<msa::physics::Particle2D*> homeParticles;
+    vector<msa::physics::Spring2D*> homeSprings;
+    
     int numParticles;
     float stiffness;
+    float stiffnessHome;
     float restLengthMult;
     float restLengthSpeed;
     float radiusBase;
@@ -28,15 +32,19 @@ public:
     void clear() {
         for(int i=0; i<particles.size(); i++) particles[i]->kill();
         for(int i=0; i<springs.size(); i++) springs[i]->kill();
+
+        for(int i=0; i<homeParticles.size(); i++) homeParticles[i]->kill();
+        for(int i=0; i<homeSprings.size(); i++) homeSprings[i]->kill();
         
         particles.clear();
         springs.clear();
+        
+        homeParticles.clear();
+        homeSprings.clear();
     }
     
     //--------------------------------------------------------------
     void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics, float smoothing) {
-        if(_a == _b) _b.y += 1;
-        
         a += (_a - a) * (1-smoothing);
         b += (_b - b) * (1-smoothing);
 
@@ -47,11 +55,19 @@ public:
             b = _b;
             clear();
             for(int i=0; i<numParticles; i++) {
-                msa::physics::Particle2D *p = physics.makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
-                p->enablePassiveCollision();
-                p->enableCollision();
-                p->makeFree();
-                particles.push_back(p);
+                msa::physics::Particle2D *p1 = physics.makeParticle(a.getInterpolated(b, i/(float)(numParticles-1)));
+                p1->enablePassiveCollision();
+                p1->enableCollision();
+                p1->makeFree();
+                particles.push_back(p1);
+                
+                msa::physics::Particle2D *p2 = physics.makeParticle(p1->getPosition());
+                p2->disablePassiveCollision();
+                p2->disableCollision();
+                p2->makeFixed();
+                homeParticles.push_back(p2);
+                
+                homeSprings.push_back(physics.makeSpring(p1, p2, stiffnessHome, 0));
             }
             particles.front()->makeFixed();
             particles.back()->makeFixed();
@@ -82,19 +98,28 @@ public:
         life--;
         
         if(springs.size() > 0 && particles.size() > 0) {
+            // update particles
             float segmentLength = (b - a).length() / springs.size();
+            float radius = radiusBase + segmentLength * radiusMult;
+            for(int i=0; i<particles.size(); i++) particles[i]->setRadius(radius);
+
+            // update springs
             float targetRestLength = restLengthMult * segmentLength;
-            
             for(int i=0; i<springs.size(); i++) {
                 msa::physics::Spring2D &spring = *springs[i];
                 spring.setStrength(stiffness);
                 spring.setRestLength(ofLerp(spring.getRestLength(), targetRestLength, restLengthSpeed));
             }
             
-            float radius = radiusBase + segmentLength * radiusMult;
-            for(int i=0; i<particles.size(); i++) {
-                particles[i]->setRadius(radius);
-            }
+            // update home particles
+            for(int i=0; i<homeParticles.size(); i++) homeParticles[i]->moveTo(a.getInterpolated(b, i/(float)(homeParticles.size()-1)));
+            
+            // update home springs
+            for(int i=0; i<homeSprings.size(); i++) homeSprings[i]->setStrength(stiffnessHome);
+            
+            
+            
+
         }
     }
     
