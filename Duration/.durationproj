@@ -157,7 +157,7 @@
             <trackName>curves_9</trackName>
             <displayName>NearestDotsViz/brightnessAudio</displayName>
             <sendOSC>1</sendOSC>
-            <receiveOSC>1</receiveOSC>
+            <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
         </track>
@@ -216,7 +216,7 @@
             <trackName>curves_4</trackName>
             <displayName>LineViz/noiseAmount2</displayName>
             <sendOSC>1</sendOSC>
-            <receiveOSC>1</receiveOSC>
+            <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
         </track>
@@ -226,7 +226,7 @@
             <trackName>curves_20</trackName>
             <displayName>NoiseDistortionFilter/Amount</displayName>
             <sendOSC>1</sendOSC>
-            <receiveOSC>1</receiveOSC>
+            <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
         </track>
@@ -236,7 +236,7 @@
             <trackName>curves_21</trackName>
             <displayName>NoiseDistortionFilter/AmountAudio</displayName>
             <sendOSC>1</sendOSC>
-            <receiveOSC>1</receiveOSC>
+            <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
         </track>
@@ -244,8 +244,8 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:632</duration>
-    <playhead>00:10:17:520</playhead>
-    <inpoint>00:10:17:520</inpoint>
+    <playhead>00:11:58:608</playhead>
+    <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:632</outpoint>
     <loop>1</loop>
 </timelineSettings>

@@ -15,7 +15,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Libdc gain" value="0.789999962"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Screen Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Video" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="867"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Video Play" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Video Frame" value="4541"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

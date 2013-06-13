@@ -35,6 +35,7 @@ public:
         params.setName("LineVisualizer");
         params.addFloat("edgeFixAmount").setClamp(true);    // fix to edges
         params.addFloat("edgeFixHeight").setRange(0, INPUT_HEIGHT).setClamp(true);
+        params.addFloat("noiseAmount2Audio").setRange(0, 20).setClamp(true);
 
         rope = new DeformableRope(params);
         
@@ -45,6 +46,7 @@ public:
         oscMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]  =  "/LineViz/timeOffset";
         oscMappings[ &params.get("edgeFixAmount") ]         = "/LineViz/edgeFixAmount";
         oscMappings[ &params.get("Rope.Deform.amp") ]       = "/LineViz/Amp";
+        oscMappings[ &params.get("noiseAmount2Audio") ]     = "/LineViz/noiseAmount2";
         
     };
     
@@ -58,6 +60,7 @@ public:
         int timeOffset = params[PARAM_NAME_TIME_OFFSET];
         float edgeFixAmount = params["edgeFixAmount"];
         float edgeFixHeight = params["edgeFixHeight"];
+        params["Rope.Noise.noiseAmp2"] = (float)params["noiseAmount2Audio"] * audioAmp;
 
         PolylineVectorRefT  result( new std::vector<ofPolyline>() );
         if((int)params[PARAM_NAME_BRIGHTNESS] == 0) {
