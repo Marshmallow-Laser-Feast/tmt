@@ -82,7 +82,7 @@ public:
         {
             ofPolyline  line;
             
-            for( int j = 0; j < MIN( trailCount+1, inputAnalyser->getPathAnalysers()[i]->getSamples().size() ); ++j )
+            for( int j = 0; j < MIN( trailCount, inputAnalyser->getPathAnalysers()[i]->getSamples().size() ); ++j )
             {
 //                line.addVertex( offset + inputAnalyser->getPathAnalysers()[i]->getSamples()[ inputAnalyser->getPathAnalysers()[i]->getSamples().size() - (j+1) ] * scale );
                 line.addVertex(offset + inputAnalyser->getSampleWithTimeOffset(i, timeOffset+j) * scale);
@@ -90,7 +90,7 @@ public:
             
             result->push_back( line );
             
-            if(circleRadius>0) {
+            if(circleRadius>FLT_EPSILON) {
                 ofPolyline circle;
                 circle.arc(offset + inputAnalyser->getSampleWithTimeOffset(i, timeOffset) * scale, circleRadius * scale.x, circleRadius * scale.x * circleAspectRatio, 0, 360);
                 result->push_back(circle);

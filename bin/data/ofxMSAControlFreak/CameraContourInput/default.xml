@@ -15,7 +15,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="2.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="2.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="138.497650146"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tracking distance" value="187.278182983"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tracking persistence" value="30"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Debug point size" value="6.651785851"></Parameter>
     </Parameter>

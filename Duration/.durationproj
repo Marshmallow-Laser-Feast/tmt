@@ -188,7 +188,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip></clip>
+            <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test16.aif</clip>
         </track>
         <track>
             <type>Curves</type>
@@ -213,10 +213,10 @@
     </page>
 </tracks>
 <timelineSettings>
-    <duration>00:20:01:683</duration>
-    <playhead>00:06:23:488</playhead>
+    <duration>00:20:01:632</duration>
+    <playhead>00:09:34:627</playhead>
     <inpoint>00:00:00:000</inpoint>
-    <outpoint>00:20:01:683</outpoint>
+    <outpoint>00:20:01:632</outpoint>
     <loop>1</loop>
 </timelineSettings>
 <projectSettings>
