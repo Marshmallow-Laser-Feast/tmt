@@ -86,10 +86,9 @@ void TheMeasuresTaken::setup()
     audioParams.addFloat( PARAM_NAME_AUDIO_AMP_SCALE );
     audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true );
     audioParams.addFloat( PARAM_NAME_AUDIO_SMOOTHING_HIGH ).setClamp( true );
+    audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
     audioParams.addFloat( PARAM_NAME_AUDIO_AVG_FFT ).setClamp( true );
     audioParams.addFloat( PARAM_NAME_AUDIO_AVG_FFT_SCALE );
-    
-    audioParams.addBool( PARAM_NAME_AUDIO_INPUT_ENABLED );
     
     gui.addPage( inputParams );
     gui.addPage( cameraParams );
@@ -311,7 +310,7 @@ void TheMeasuresTaken::update()
     
     if( oscData.count("/input/Smoothing") > 0 )
     {
-        inputParams["PathAnalyser::smoothing"].set( oscData["/input/Smoothing"] );
+        inputParams["PathAnalyser::smoothing"].set( oscData["/input/Smoothing"][0] );
     }
     
     // Update with Midi
