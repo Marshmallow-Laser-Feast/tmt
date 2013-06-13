@@ -309,11 +309,9 @@ void TheMeasuresTaken::update()
         }
     }
     
-    if( oscData.count("input/Smoothing") > 0 )
+    if( oscData.count("/input/Smoothing") > 0 )
     {
-        cout << "here" << endl;
-        
-        inputParams["PathAnalyser::smoothing"].set( oscData["input/Smoothing"] );
+        inputParams["PathAnalyser::smoothing"].set( oscData["/input/Smoothing"] );
     }
     
     // Update with Midi
