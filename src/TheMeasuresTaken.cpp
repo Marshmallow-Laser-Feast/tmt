@@ -307,6 +307,11 @@ void TheMeasuresTaken::update()
         }
     }
     
+    if( oscData.count("input/Smoothing") > 0 )
+    {
+        inputParams["PathAnalyser::smoothing"].set( oscData["input/Smoothing"] );
+    }
+    
     // Update with Midi
     if(inputParams["Receive MIDI"]) {
         
