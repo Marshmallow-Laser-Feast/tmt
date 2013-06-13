@@ -249,10 +249,24 @@ void TheMeasuresTaken::update()
                     case OFXOSC_TYPE_INT64  :
                     case OFXOSC_TYPE_FLOAT  :
                         
-                        oscData[ m.getAddress() ].push_back( m.getArgAsFloat(0) );
+                        oscData[ m.getAddress() ].push_back( m.getArgAsFloat(i) );
                         
-                        break;
+                    break;
                         
+                    case OFXOSC_TYPE_BUNDLE :
+                    break;
+                        
+                    case OFXOSC_TYPE_BLOB   :                        
+                    break;
+                        
+                    case OFXOSC_TYPE_INDEXOUTOFBOUNDS :
+                    break;
+                        
+                    case OFXOSC_TYPE_STRING :
+                    break;
+                        
+                    case OFXOSC_TYPE_NONE   :
+                    break;
                 }
             }
         }
@@ -438,7 +452,7 @@ void TheMeasuresTaken::update()
         
         avgFFT      /= (float)oscData[ OCS_AUDIO_PATH ].size();
     }
-    
+        
     if( (bool)ildaParams[ PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY ] )
     {
         ildaFrame.drawCalibration();

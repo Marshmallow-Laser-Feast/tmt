@@ -36,7 +36,7 @@
 
 #define OSC_PORT                                12345
 
-#define OCS_AUDIO_PATH                          "AudioFFT"
+#define OCS_AUDIO_PATH                          "/AudioFFT"
 
 ////////////////////////////
 //      Gui & Params      //
