@@ -31,13 +31,13 @@
     </element>
     <element name="curves_10">
         <x>0.000000000</x>
-        <y>670.000000000</y>
+        <y>598.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_11">
         <x>0.000000000</x>
-        <y>694.000000000</y>
+        <y>622.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
@@ -49,13 +49,13 @@
     </element>
     <element name="curves_13">
         <x>0.000000000</x>
-        <y>622.000000000</y>
+        <y>550.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_14">
         <x>0.000000000</x>
-        <y>646.000000000</y>
+        <y>574.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
@@ -63,17 +63,17 @@
         <x>0.000000000</x>
         <y>430.000000000</y>
         <width>1440.000000000</width>
-        <height>32.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_16">
         <x>0.000000000</x>
-        <y>486.000000000</y>
+        <y>454.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
     <element name="curves_17">
         <x>0.000000000</x>
-        <y>510.000000000</y>
+        <y>478.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
@@ -85,9 +85,9 @@
     </element>
     <element name="curves_19">
         <x>0.000000000</x>
-        <y>558.000000000</y>
+        <y>526.000000000</y>
         <width>1440.000000000</width>
-        <height>40.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="curves_2">
         <x>0.000000000</x>
@@ -127,7 +127,7 @@
     </element>
     <element name="curves_8">
         <x>0.000000000</x>
-        <y>534.000000000</y>
+        <y>502.000000000</y>
         <width>1440.000000000</width>
         <height>0.000000000</height>
     </element>
