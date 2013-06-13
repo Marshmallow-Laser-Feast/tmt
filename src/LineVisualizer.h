@@ -42,6 +42,9 @@ public:
         midiMappings[ &params.get(PARAM_NAME_TIME_OFFSET) ]                     = std::pair<int, int>( 5, 15 );
         
         oscMappings[ &params.get(PARAM_NAME_BRIGHTNESS) ]   = "/LineViz/Brightness";
+        oscMappings[ &params.get("edgeFixAmount") ]         = "/LineViz/edgeFixAmount";
+        oscMappings[ &params.get("Rope.Deform.amp") ]         = "/LineViz/Amp";
+        
     };
     
     ~LineVisualizer()

@@ -159,7 +159,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>92.800003052</max>
+            <max>100.000015259</max>
         </track>
         <track>
             <type>Curves</type>
@@ -169,7 +169,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>92.000000000</max>
+            <max>5.000000000</max>
         </track>
         <track>
             <type>Audio</type>
@@ -180,11 +180,21 @@
             <receiveOSC>0</receiveOSC>
             <clip>/Users/memo/Desktop/TMT/measures-total-test13.aif</clip>
         </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_10_.xml</xmlFileName>
+            <trackName>curves_10</trackName>
+            <displayName>LineViz/edgeFixAmount</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
     </page>
 </tracks>
 <timelineSettings>
     <duration>00:20:01:683</duration>
-    <playhead>00:03:18:722</playhead>
+    <playhead>00:10:54:079</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:20:01:683</outpoint>
     <loop>1</loop>
