@@ -63,16 +63,6 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_4_.xml</xmlFileName>
-            <trackName>curves_4</trackName>
-            <displayName>CameraContourInput/Stretch Points</displayName>
-            <sendOSC>0</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
             <xmlFileName>curves_5_.xml</xmlFileName>
             <trackName>curves_5</trackName>
             <displayName>CameraContourInput/Tracking Distance</displayName>
@@ -222,6 +212,16 @@
         </track>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_4_.xml</xmlFileName>
+            <trackName>curves_4</trackName>
+            <displayName>LineViz/noiseAmount2</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
             <xmlFileName>curves_20_.xml</xmlFileName>
             <trackName>curves_20</trackName>
             <displayName>NoiseDistortionFilter/Amount</displayName>
@@ -244,8 +244,8 @@
 </tracks>
 <timelineSettings>
     <duration>00:20:01:632</duration>
-    <playhead>00:08:07:479</playhead>
-    <inpoint>00:00:00:000</inpoint>
+    <playhead>00:10:17:520</playhead>
+    <inpoint>00:10:17:520</inpoint>
     <outpoint>00:20:01:632</outpoint>
     <loop>1</loop>
 </timelineSettings>
