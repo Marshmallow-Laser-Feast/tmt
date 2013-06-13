@@ -8,14 +8,14 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Cap X" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Cap Y" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blank Count" value="27"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="End Count" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blank Count" value="30"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="End Count" value="10"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset X" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset Y" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale X" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale Y" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="124"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="780"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="100"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="776"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth Amount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="776"></Parameter>
