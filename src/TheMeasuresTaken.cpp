@@ -25,6 +25,7 @@ void TheMeasuresTaken::setup()
     inputParams.addNamedIndex( PARAM_NAME_CURRENT_INPUT ).setLabels( 3, "MultiTouch", "Flocking", "Camera" );
     inputParams.addFloat("PathAnalyser::smoothing").setClamp(true);
     inputParams.addBool("Receive OSC");
+    inputParams.addBool("Receiving OSC");
     inputParams.addBool("Receive MIDI");
     
     cameraParams.addFloat( PARAM_NAME_CAMERA_ROI_X1 ).setRange( 0, 1.0f ).setClamp( true );
@@ -220,6 +221,8 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    inputParams["Receiving OSC"] = false;
+    
     // Update with OSC
     
     if( oscData.count( OCS_AUDIO_PATH ) )
@@ -229,6 +232,8 @@ void TheMeasuresTaken::update()
     
     while ( receiver.hasWaitingMessages() )
     {
+        inputParams["Receiving OSC"] = true;
+
         ofxOscMessage   m;
         
         receiver.getNextMessage( &m );
@@ -560,6 +565,14 @@ void TheMeasuresTaken::draw()
     }
     
     ofPopMatrix();
+    
+    ofPushStyle();
+    ofSetColor(255);
+    imageInput.draw(ofGetWidth() - imageInput.getWidth(), ofGetHeight() - imageInput.getHeight());
+    ofNoFill();
+    ofRect(ofGetWidth() - imageInput.getWidth(), ofGetHeight() - imageInput.getHeight(), imageInput.getWidth(), imageInput.getHeight());
+    ofPopStyle();
+
 }
 
 //--------------------------------------------------------------

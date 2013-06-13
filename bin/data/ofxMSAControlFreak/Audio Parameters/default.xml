@@ -1,6 +1,6 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Audio Parameters">
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.037628066"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.276265323"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="27.316968918"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="0.553571403"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="1.000000000"></Parameter>
