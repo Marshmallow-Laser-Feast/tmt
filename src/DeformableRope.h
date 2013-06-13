@@ -114,9 +114,9 @@ public:
             ofVec2f o;
             if(curvature != 0) o.y += curvature * sin(t * PI);
             if(centerOffset != 0) o.y += centerOffset;
-            if(noiseAmp1) o.y += ta * noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
-            if(noiseAmp2) o.y += ta * noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
-            if(noiseAmpX) o.x += ta * noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
+//            if(noiseAmp1) o.y += ta * noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
+//            if(noiseAmp2) o.y += ta * noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
+//            if(noiseAmpX) o.x += ta * noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
 //            if(amp && shape.size() > 1) {
 //                float homeY = ofLerp(a.y, b.y, t);
 //                float deformedY = shape.getPointAtPercent(t).y;
@@ -140,12 +140,12 @@ public:
         poly = resample ? rope.drawVector().getResampledByCount(resample) : rope.drawVector();
 //
         // post noise
-//        for(int j=0; j<poly.size(); j++) {
-//            float t = ofMap(j, 0, poly.size()-1, -1, 1);
-//            ofPoint &p = poly[j];
-//            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
-//            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
-//        }
+        for(int j=0; j<poly.size(); j++) {
+            float t = ofMap(j, 0, poly.size()-1, -1, 1);
+            ofPoint &p = poly[j];
+            p.y += (noiseAmp1 * ofSignedNoise(t * noisePosScale1) + noiseAmp2 * ofSignedNoise(t * noisePosScale2));
+            p.x += noiseAmpX * ofSignedNoise(t * noisePosScaleX);
+        }
         
         if(smoothPoly) poly = poly.getSmoothed(smoothPoly);
     }
