@@ -12,6 +12,8 @@
 
 #include "ofxMSAControlFreak.h"
 
+#define PARAM_NAME_MIDI_INPUT_ENABLED   "Midi Input Enabled"
+
 class IControlFreakMapperMidiExt
 {
     
@@ -22,6 +24,9 @@ protected:
 public:
     
     IControlFreakMapperMidiExt()
+    
+    :paramsPtr( NULL )
+    
     {};
     
     virtual ~IControlFreakMapperMidiExt()
@@ -29,8 +34,37 @@ public:
     
 public:
     
+    void setParams( msa::controlfreak::ParameterGroup &param )
+    {
+        paramsPtr    = &param;
+    };
+    
+    void setupMidi()
+    {
+        if( paramsPtr != NULL )
+        {
+            paramsPtr->addBool( PARAM_NAME_MIDI_INPUT_ENABLED );
+        }
+    };
+    
     template<typename T>
-    void applyMidi( const std::map<std::pair<int,int>, T> &midiData )
+    void applyMidi( std::map<std::pair<int,int>, T> &midiData )
+    {
+        if( paramsPtr != NULL )
+        {
+            if( (bool)(*paramsPtr)[ PARAM_NAME_MIDI_INPUT_ENABLED ] )
+            {
+                applyMidiInternal( midiData );
+            }
+        } else {
+            applyMidiInternal( midiData );
+        }
+    };
+    
+public:
+    
+    template<typename T>
+    void applyMidiInternal( std::map<std::pair<int,int>, T> &midiData )
     {
         for ( MidiMappingsT::iterator pIt = midiMappings.begin() ; pIt != midiMappings.end(); ++pIt )
         {
@@ -41,8 +75,8 @@ public:
         }
     };
     
-public:
+    msa::controlfreak::ParameterGroup   *paramsPtr;
     
-      MidiMappingsT midiMappings;
+    MidiMappingsT                       midiMappings;
     
 };

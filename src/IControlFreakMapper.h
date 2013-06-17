@@ -6,7 +6,7 @@
 //
 //
 
-#pragma
+#pragma once
 
 #include <string>
 
@@ -19,13 +19,13 @@ public:
     
     IControlFreakMapper( const std::string &paramName )
     {
-        param.setName( paramName );
+        params.setName( paramName );
     };
     
     virtual ~IControlFreakMapper(){};
     
 public:
     
-    msa::controlfreak::ParameterGroup param;
+    msa::controlfreak::ParameterGroup params;
     
 };
