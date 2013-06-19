@@ -114,7 +114,12 @@ public:
         return true;
     };
     
-    virtual std::string getName(){ return "Video/File"; };
+    virtual std::string getName(){ return "Video/Camera"; };
+    
+    virtual ofVec2f getSize()
+    {
+        return ofVec2f( INPUT_WIDTH, INPUT_HEIGHT );
+    };
     
 private:
         

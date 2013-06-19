@@ -79,6 +79,11 @@ protected:
         }
     }
     
+    virtual ofVec2f getSize()
+    {
+        return ofVec2f( 200, 200 );
+    };
+    
 private:
     
     ofxMultiTouchPad                multiTouchPad;

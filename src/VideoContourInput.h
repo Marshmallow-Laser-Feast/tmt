@@ -31,7 +31,7 @@ public:
     
     VideoContourInput()
     
-    :IVideoInput( "Input/VideoContour", Input::SAMPLING_TYPE_POLYLINE )
+    :IVideoInput( "Input/Video Contour", Input::SAMPLING_TYPE_POLYLINE )
     
     {
         params.addInt( PARAM_NAME_THRESHOLD ).setRange(0, 255).setClamp(true);
@@ -104,6 +104,18 @@ protected:
                 sample.setSampleID( labels[i] );
             }
         }
+    };
+    
+    virtual std::string getName(){ return "Input/Video Contour"; };
+    
+    virtual ofVec2f getSize()
+    {
+        if( image != NULL )
+        {
+            return ofVec2f( image->getWidth(), image->getHeight() );
+        }
+        
+        return ofVec2f( 150, 100 );
     };
     
 private:

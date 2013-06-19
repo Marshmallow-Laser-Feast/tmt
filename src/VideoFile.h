@@ -162,6 +162,11 @@ private:
         videoPlayer.setVolume( 0 );
     };
     
+    virtual ofVec2f getSize()
+    {
+        return ofVec2f( videoPlayer.getWidth(), videoPlayer.getHeight() );
+    };
+    
 private:
     
     std::vector<std::string>            videoFileNames;

@@ -16,6 +16,8 @@
 #include "IControlFreakMapperOSCExt.h"
 #include "IControlFreakMapperMidiExt.h"
 
+#include "IPanelDraws.h"
+
 #define SOUND_FILE_NAME                 "sound/measures-total-test16.aif"
         
 #define FFT_DATA_SIZE                   128
@@ -29,7 +31,7 @@
 #define PARAM_NAME_AUDIO_AMP            "Amplitude"
 #define PARAM_NAME_POSITON              "Position"
 
-class AudioInput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt
+class AudioInput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
     
 public:
@@ -107,6 +109,18 @@ public:
             soundPlayer.setPosition( (float)params[ PARAM_NAME_POSITON ] );
         }
     }
+    
+    virtual std::string getName(){ return "Audio Input"; };
+    
+    virtual void draw( float width, float height )
+    {
+        
+    };
+    
+    virtual ofVec2f getSize()
+    {
+        return ofVec2f( 150, 100 );
+    };
     
 public:
     

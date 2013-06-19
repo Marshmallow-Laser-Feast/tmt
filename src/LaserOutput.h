@@ -17,6 +17,8 @@
 #include "ofxEtherdream.h"
 #include "ofxIldaFrame.h"
 
+#include "IPanelDraws.h"
+
 #define PARAM_NAME_ENABLED                      "Enabled"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
@@ -46,7 +48,7 @@
 #define PARAM_NAME_POINT_COUNT_ORIG             "Point Count Orig"
 #define PARAM_NAME_POINT_COUNT_PROC             "Point Count Processed"
 
-class LaserOutput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt
+class LaserOutput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
     
 public:
@@ -160,6 +162,18 @@ public:
     void draw( float x, float y, float width, float height )
     {
         ildaFrame.draw( x, y, width, height );
+    };
+    
+    virtual std::string getName(){ return "Laser Output"; };
+    
+    virtual void draw( float width, float height )
+    {
+        
+    };
+    
+    virtual ofVec2f getSize()
+    {
+        return ofVec2f( 150, 100 );
     };
     
 private:

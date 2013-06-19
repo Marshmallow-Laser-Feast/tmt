@@ -17,7 +17,7 @@
 
 #define TITLE_BAR_HEIGHT    20.0f
 #define CLOSE_BUTTON_WIDTH  50.0f
-#define RESIZE_CORNER_SIZE  10.0f
+#define RESIZE_CORNER_SIZE  20.0f
 
 class Panel
 {
@@ -41,7 +41,7 @@ public:
         
         titleBar->set( x, y, width - CLOSE_BUTTON_WIDTH, TITLE_BAR_HEIGHT );
         closeBar->set( x + width - CLOSE_BUTTON_WIDTH, y, CLOSE_BUTTON_WIDTH, TITLE_BAR_HEIGHT );
-        resizeCorner->set( x + width - RESIZE_CORNER_SIZE, y + height - RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE );
+        resizeCorner->set( x + width - RESIZE_CORNER_SIZE, y + TITLE_BAR_HEIGHT + height - RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE );
     };
     
     ~Panel(){};
@@ -81,7 +81,7 @@ public:
         
         titleBar->set( x, y, width - CLOSE_BUTTON_WIDTH, TITLE_BAR_HEIGHT );
         closeBar->set( x + width - CLOSE_BUTTON_WIDTH, y, CLOSE_BUTTON_WIDTH, TITLE_BAR_HEIGHT );
-        resizeCorner->set( (x + width) - RESIZE_CORNER_SIZE, (y + height) - RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE );
+        resizeCorner->set( x + width - RESIZE_CORNER_SIZE, y + TITLE_BAR_HEIGHT + height - RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE, RESIZE_CORNER_SIZE );
     }
     
     void draw()
@@ -94,21 +94,21 @@ public:
         ofTranslate( x, y + TITLE_BAR_HEIGHT );
         
         ofSetColor( 30 );
-        ofRect( 0, 0, width, height - TITLE_BAR_HEIGHT );
+        ofRect( 0, 0, width, height );
         
         ofNoFill();
         
         ofSetColor( ofColor( 100, 200 ) );
-        ofRect( 0, 0, width, height - TITLE_BAR_HEIGHT );
+        ofRect( 0, 0, width, height );
         
         ofFill();
         
         glEnable( GL_SCISSOR_TEST );
-        glScissor( x + 2, ofGetHeight() - ( (y + height) - 2), width - 4, height - (TITLE_BAR_HEIGHT + 4) );
+        glScissor( x + 2, ofGetHeight() - ( (y + TITLE_BAR_HEIGHT + height) - 2), width - 4, height - 4 );
         
         ofTranslate( 3, 3 );
         
-        panelDraws->draw( width, height - TITLE_BAR_HEIGHT );
+        panelDraws->draw( width, height );
         
         glDisable( GL_SCISSOR_TEST );
         

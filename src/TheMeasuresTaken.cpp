@@ -19,17 +19,15 @@ void TheMeasuresTaken::setup()
     initInputs();
     initVideo();
     initAudioInput();
-    
     initLaserOutput();
+    initPanelDraws();
+    initContextGUI();
     
     setupMidi();
     setupOCS();
     
     loadGuiMappedObjectsIntoGui();
     loadGUI();
-    
-    panelGroup.addPanel( new Panel( 100, 100, 300, 300, multiTouchInput ) );
-    panelGroup.addPanel( new Panel( 200, 100, 300, 300, videoFile ) );
 }
 
 //--------------------------------------------------------------
@@ -73,6 +71,12 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         panelGroup.toggleVisibility();
     }
+    
+    if( key == 9 )
+    {
+        contextGui->setPosition( ofGetMouseX(), ofGetMouseY() );
+        contextGui->setVisible(true);
+    }
 }
 
 //--------------------------------------------------------------
@@ -96,7 +100,10 @@ void TheMeasuresTaken::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void TheMeasuresTaken::mousePressed(int x, int y, int button)
 {
-    
+    if(!contextGui->isHit(x, y))
+    {
+        contextGui->setVisible(false);
+    }
 }
 
 //--------------------------------------------------------------
@@ -152,6 +159,32 @@ void TheMeasuresTaken::saveGUI()
 }
 
 //--------------------------------------------------------------
+void TheMeasuresTaken::initPanelDraws()
+{
+    for( vector<IPanelDraws*>::iterator it = panelDraws.begin(); it != panelDraws.end(); ++it )
+    {
+        panelDrawNames.push_back( (*it)->getName() );
+        
+        panelDrawsMap[ (*it)->getName() ]   = *it;
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initContextGUI()
+{
+    contextGui  = new ofxUICanvas();
+    
+    for (vector<string>::iterator it = panelDrawNames.begin(); it != panelDrawNames.end(); ++it )
+    {
+        contextGui->addButton( *it, false );
+    }
+    
+    contextGui->setVisible(false); 
+    
+    ofAddListener(contextGui->newGUIEvent, this, &TheMeasuresTaken::guiEvent);    
+}
+
+//--------------------------------------------------------------
 void TheMeasuresTaken::loadGuiMappedObjectsIntoGui()
 {
     for( vector<IControlFreakMapper *>::iterator it = guiMappedObjects.begin(); it != guiMappedObjects.end(); ++it )
@@ -168,6 +201,7 @@ void TheMeasuresTaken::initAudioInput()
     guiMappedObjects.push_back( audioInput );
     midiMappedObjects.push_back( audioInput );
     ocsMappedObjects.push_back( audioInput );
+    panelDraws.push_back( audioInput );
 }
 
 //--------------------------------------------------------------
@@ -184,6 +218,7 @@ void TheMeasuresTaken::initLaserOutput()
     guiMappedObjects.push_back( laserOutput );
     midiMappedObjects.push_back( laserOutput );
     ocsMappedObjects.push_back( laserOutput );
+    panelDraws.push_back( laserOutput );
 }
 
 //--------------------------------------------------------------
@@ -206,6 +241,9 @@ void TheMeasuresTaken::initVideo()
     
     ocsMappedObjects.push_back( videoFile );
     ocsMappedObjects.push_back( videoCamera );
+    
+    panelDraws.push_back( videoFile );
+    panelDraws.push_back( videoCamera );
     
     videos.push_back( videoFile );
     videos.push_back( videoCamera );
@@ -234,6 +272,9 @@ void TheMeasuresTaken::initInputs()
     
     ocsMappedObjects.push_back( multiTouchInput );
     ocsMappedObjects.push_back( videoContourInput );
+    
+    panelDraws.push_back( multiTouchInput );
+    panelDraws.push_back( videoContourInput );
     
     inputs.push_back( multiTouchInput );
     inputs.push_back( videoContourInput );
@@ -328,5 +369,18 @@ void TheMeasuresTaken::updateOCSMappedObjects()
     for ( vector<IControlFreakMapperOSCExt *>::iterator it = ocsMappedObjects.begin() ; it != ocsMappedObjects.end(); ++it )
     {
         (*it)->applyOCS( oscData );
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::guiEvent(ofxUIEventArgs &e)
+{
+    if( e.widget->getState() == 1 )
+    {
+        IPanelDraws *panelDraws = panelDrawsMap[ e.widget->getName() ];
+        
+        panelGroup.addPanel( new Panel( ofGetMouseX(), ofGetMouseY(), panelDraws->getSize().x, panelDraws->getSize().y, panelDraws ));
+        
+        contextGui->setVisible(false); 
     }
 }

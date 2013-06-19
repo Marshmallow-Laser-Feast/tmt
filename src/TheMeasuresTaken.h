@@ -8,6 +8,8 @@
 #include "ofxMSAControlFreak/src/ofxMSAControlFreak.h"
 #include "ofxMSAControlFreakGui/src/ofxMSAControlFreakGui.h"
 
+#include "ofxUI.h"
+
 #include "IControlFreakMapper.h"
 #include "IControlFreakMapperMidiExt.h"
 #include "IControlFreakMapperOSCExt.h"
@@ -59,7 +61,14 @@ public:
     void newMidiMessage(ofxMidiMessage& eventArgs);
     void audioIn(float * input, int bufferSize, int nChannels); 
     
+    // GUI
+    
+    void guiEvent(ofxUIEventArgs &e);
+    
 private:
+    
+    void initPanelDraws();
+    void initContextGUI();
     
     void initAudioInput();
     void updateAudioInput();
@@ -84,7 +93,7 @@ private:
     void saveGUI();
     
     void loadGuiMappedObjectsIntoGui();
-
+    
 private:
     
     // Audio
@@ -125,8 +134,12 @@ private:
     // GUI
     
     msa::controlfreak::gui::Gui             gui;
-    
     PanelGroup                              panelGroup;
+    ofxUICanvas                             *contextGui;
+    
+    map<string, IPanelDraws*>               panelDrawsMap;
+    vector<string>                          panelDrawNames;
+    vector<IPanelDraws*>                    panelDraws;
     
     // Mapped Objects
     

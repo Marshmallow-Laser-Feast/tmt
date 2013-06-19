@@ -25,4 +25,6 @@ public:
     
     virtual void draw( float width, float height ){};
     
+    virtual ofVec2f getSize(){ return ofVec2f(300, 300); };
+    
 };
