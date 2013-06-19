@@ -28,6 +28,7 @@ void TheMeasuresTaken::setup()
     
     loadGuiMappedObjectsIntoGui();
     loadGUI();
+    loadPanels();
 }
 
 //--------------------------------------------------------------
@@ -65,6 +66,7 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 's' )
     {
         saveGUI();
+        savePanels();
     }
     
     if( key == 'p' )
@@ -383,4 +385,56 @@ void TheMeasuresTaken::guiEvent(ofxUIEventArgs &e)
         
         contextGui->setVisible(false); 
     }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::loadPanels()
+{
+    if( panelXML.load( PANELS_FILE ) )
+    {
+        panelXML.pushTag( "PanelsData" );
+        
+        for ( int i = 0; i < panelXML.getNumTags( "Panel" ); ++i )
+        {
+            string  name    = panelXML.getAttribute( "Panel", "name", "", i );
+            float   x       = panelXML.getAttribute( "Panel", "x", 0.0f, i );
+            float   y       = panelXML.getAttribute( "Panel", "y", 0.0f, i );
+            float   width   = panelXML.getAttribute( "Panel", "width", 0.0f, i );
+            float   height  = panelXML.getAttribute( "Panel", "height", 0.0f, i );
+            
+            if( name.length() > 0 )
+            {
+                IPanelDraws *panelDraws = panelDrawsMap[ name ];
+                
+                panelGroup.addPanel( new Panel( x, y, width, height, panelDraws ));
+            }        
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::savePanels()
+{
+    panelXML.clear();
+    
+    int i = 0;
+    
+    panelXML.addTag( "PanelsData" );
+        
+    for( vector<Panel *>::const_iterator it = panelGroup.getPanels().begin(); it != panelGroup.getPanels().end(); ++it )
+    {
+        panelXML.addTag( "Panel" );
+                
+        panelXML.addAttribute( "Panel", "name", (*it)->getName(), i );
+        panelXML.addAttribute( "Panel", "x", (*it)->getX(), i );
+        panelXML.addAttribute( "Panel", "y", (*it)->getY(), i );
+        panelXML.addAttribute( "Panel", "width", (*it)->getWidth(), i );
+        panelXML.addAttribute( "Panel", "height", (*it)->getHeight(), i );
+                
+        ++i;        
+    }
+    
+    panelXML.popTag();
+    
+    panelXML.save( PANELS_FILE );
 }

@@ -10,6 +10,8 @@
 
 #include "ofxUI.h"
 
+#include "ofxXmlSettings.h"
+
 #include "IControlFreakMapper.h"
 #include "IControlFreakMapperMidiExt.h"
 #include "IControlFreakMapperOSCExt.h"
@@ -36,6 +38,7 @@
 
 #define MIDI_PORT       0
 #define OSC_PORT        12345
+#define PANELS_FILE     "panels.xml"
 
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
@@ -66,6 +69,9 @@ public:
     void guiEvent(ofxUIEventArgs &e);
     
 private:
+    
+    void loadPanels();
+    void savePanels();
     
     void initPanelDraws();
     void initContextGUI();
@@ -140,6 +146,8 @@ private:
     map<string, IPanelDraws*>               panelDrawsMap;
     vector<string>                          panelDrawNames;
     vector<IPanelDraws*>                    panelDraws;
+    
+    ofxXmlSettings                          panelXML;
     
     // Mapped Objects
     

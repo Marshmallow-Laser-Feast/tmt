@@ -1,0 +1,6 @@
+<PanelsData>
+    <PanelsData></PanelsData>
+    <Panel name="Input/Multi Touch" x="25.000000000" y="3.000000000" width="1415.000000000" height="351.000000000"></Panel>
+    <Panel name="Video/File" x="25.000000000" y="380.000000000" width="640.000000000" height="480.000000000"></Panel>
+    <Panel name="Audio Input" x="669.000000000" y="380.000000000" width="770.000000000" height="479.000000000"></Panel>
+</PanelsData>

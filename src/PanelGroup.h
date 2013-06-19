@@ -30,6 +30,11 @@ public:
     
 public:
     
+    const std::vector<Panel *> & getPanels() const
+    {
+        return panels;
+    }
+    
     void hide()
     {
         visible = false;

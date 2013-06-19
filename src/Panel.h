@@ -48,6 +48,31 @@ public:
     
 public:
     
+    float getX()
+    {
+        return x;
+    }
+    
+    float getY()
+    {
+        return y;
+    }
+    
+    float getWidth()
+    {
+        return width;
+    }
+    
+    float getHeight()
+    {
+        return height;
+    }
+    
+    string getName()
+    {
+        return panelDraws->getName();
+    }
+    
     bool isActive()
     {
         return isActivePanel;
