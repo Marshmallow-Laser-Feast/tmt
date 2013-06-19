@@ -1,5 +1,5 @@
 //
-//  VideoCameraInput.h
+//  VideoCamera.h
 //  TheMeasuresTaken
 //
 //  Created by Ali Nakipoglu on 6/18/13.
@@ -10,7 +10,7 @@
 
 #include "ofMain.h"
 
-#include "VideoInput.h"
+#include "Video.h"
 
 #include "Grabber.h"
 
@@ -27,14 +27,14 @@
 #define PARAM_NAME_CAMERA_SHUTTER       "Camera Shutter"
 #define PARAM_NAME_CAMERA_GAIN          "Camera Gain"
 
-class VideoCameraInput: public VideoInput
+class VideoCamera: public Video
 {
     
 public:
     
-    VideoCameraInput()
+    VideoCamera()
     
-    :VideoInput( "Video Camera Input" )
+    :Video( "Video/Camera" )
     
     {
         params.addBool( PARAM_NAME_ENABLE_UPDATE );
@@ -57,7 +57,7 @@ public:
         grabber.setup();
     };
     
-    ~VideoCameraInput(){};
+    ~VideoCamera(){};
     
 public:
     
@@ -113,6 +113,8 @@ public:
     {
         return true;
     };
+    
+    virtual std::string getName(){ return "Video/File"; };
     
 private:
         

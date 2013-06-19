@@ -1,5 +1,5 @@
 //
-//  VideoFileInput.h
+//  VideoFile.h
 //  TheMeasuresTaken
 //
 //  Created by Ali Nakipoglu on 6/18/13.
@@ -13,7 +13,7 @@
 
 #include "ofMain.h"
 
-#include "VideoInput.h"
+#include "Video.h"
 
 #define VIDEO_FOLDER                    "inputVideo"
 
@@ -25,14 +25,14 @@
 #define PARAM_NAME_VIDEO_SOURCE         "Video Source"
 #define PARAM_NAME_VIDEO_FRAME          "Video Frame"
 
-class VideoFileInput: public VideoInput
+class VideoFile: public Video
 {
     
 public:
     
-    VideoFileInput()
+    VideoFile()
     
-    :VideoInput( "Video File Input" )
+    :Video( "Video/File" )
     
     {
         updateVideoFiles();
@@ -57,7 +57,7 @@ public:
         params.addInt( PARAM_NAME_VIDEO_FRAME ).setRange(0, videoPlayer.getTotalNumFrames());
     };
     
-    ~VideoFileInput(){};
+    ~VideoFile(){};
     
 public:
     
@@ -124,6 +124,8 @@ public:
     {
         return videoPlayer.isFrameNew();
     };
+    
+    virtual std::string getName(){ return "Video/File"; };
     
 private:
     

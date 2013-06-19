@@ -1,5 +1,5 @@
 //
-//  VideoInput.h
+//  Video.h
 //  TheMeasuresTaken
 //
 //  Created by Ali Nakipoglu on 6/18/13.
@@ -14,17 +14,19 @@
 #include "IControlFreakMapperOSCExt.h"
 #include "IControlFreakMapperMidiExt.h"
 
+#include "IPanelDraws.h"
+
 #define PARAM_NAME_ROI_X1   "ROI X1"
 #define PARAM_NAME_ROI_Y1   "ROI Y1"
 #define PARAM_NAME_ROI_X2   "ROI X2"
 #define PARAM_NAME_ROI_Y2   "ROI Y2"
 
-class VideoInput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt
+class Video: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
     
 public:
     
-    VideoInput( const std::string &name )
+    Video( const std::string &name )
     
     :IControlFreakMapper( name )
     
@@ -36,7 +38,7 @@ public:
         setupOCS();
     };
     
-    ~VideoInput(){};
+    ~Video(){};
     
 public:
     
@@ -68,7 +70,7 @@ public:
         ofPushStyle();
         ofPushMatrix();
         
-        ofSetColor( 50 );
+        ofSetColor( 100 );
         
         drawOriginalFrameImage( x, y );
         
@@ -91,6 +93,13 @@ public:
         
         ofPopMatrix();
         ofPopStyle();
+    };
+    
+    virtual std::string getName(){ return "Empty Video"; };
+    
+    virtual void draw( float width, float height )
+    {
+        drawROIImage( 0, 0 );
     };
     
 protected:

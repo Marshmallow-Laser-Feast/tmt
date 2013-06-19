@@ -8,6 +8,7 @@ void TheMeasuresTaken::setup()
     // Setup App Settings
     
     ofSetWindowTitle( "The Measures Taken" );
+    ofSetWindowShape( 1000 , 800 );
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
     ofSetLogLevel( OF_LOG_ERROR );
@@ -16,7 +17,7 @@ void TheMeasuresTaken::setup()
     gui.setDefaultKeys(true);
         
     initInputs();
-    initVideoInputs();
+    initVideo();
     initAudioInput();
     
     initLaserOutput();
@@ -26,6 +27,9 @@ void TheMeasuresTaken::setup()
     
     loadGuiMappedObjectsIntoGui();
     loadGUI();
+    
+    panelGroup.addPanel( new Panel( 100, 100, 300, 300, multiTouchInput ) );
+    panelGroup.addPanel( new Panel( 200, 100, 300, 300, videoFile ) );
 }
 
 //--------------------------------------------------------------
@@ -36,16 +40,20 @@ void TheMeasuresTaken::update()
     updateOCSData();
     updateMidiMappedObjects();
     updateOCSMappedObjects();
-    updateVideoInputs();
+    updateVideo();
     updateInputs();
     updateAudioInput();
     updateLaserOutput();
+    
+    panelGroup.update();
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::draw()
 {
     ofClear( 0 );
+    
+    panelGroup.draw();
 }
 
 //--------------------------------------------------------------
@@ -59,6 +67,11 @@ void TheMeasuresTaken::keyPressed(int key)
     if( key == 's' )
     {
         saveGUI();
+    }
+    
+    if( key == 'p' )
+    {
+        panelGroup.toggleVisibility();
     }
 }
 
@@ -180,28 +193,28 @@ void TheMeasuresTaken::updateLaserOutput()
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::initVideoInputs()
+void TheMeasuresTaken::initVideo()
 {
-    videoFileInput      = new VideoFileInput();
-    videoCameraInput    = new VideoCameraInput();
+    videoFile   = new VideoFile();
+    videoCamera = new VideoCamera();
     
-    guiMappedObjects.push_back( videoFileInput );
-    guiMappedObjects.push_back( videoCameraInput );
+    guiMappedObjects.push_back( videoFile );
+    guiMappedObjects.push_back( videoCamera );
     
-    midiMappedObjects.push_back( videoFileInput );
-    midiMappedObjects.push_back( videoCameraInput );
+    midiMappedObjects.push_back( videoFile );
+    midiMappedObjects.push_back( videoCamera );
     
-    ocsMappedObjects.push_back( videoFileInput );
-    ocsMappedObjects.push_back( videoCameraInput );
+    ocsMappedObjects.push_back( videoFile );
+    ocsMappedObjects.push_back( videoCamera );
     
-    videoInputs.push_back( videoFileInput );
-    videoInputs.push_back( videoCameraInput );
+    videos.push_back( videoFile );
+    videos.push_back( videoCamera );
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::updateVideoInputs()
+void TheMeasuresTaken::updateVideo()
 {
-    for ( std::vector<VideoInput *>::iterator it = videoInputs.begin(); it != videoInputs.end(); ++it )
+    for ( std::vector<Video *>::iterator it = videos.begin(); it != videos.end(); ++it )
     {
         (*it)->update();
     }
@@ -210,13 +223,20 @@ void TheMeasuresTaken::updateVideoInputs()
 //--------------------------------------------------------------
 void TheMeasuresTaken::initInputs()
 {
-    multiTouchInput = new MultiTouchInput();
+    multiTouchInput     = new MultiTouchInput();
+    videoContourInput   = new VideoContourInput();
     
     guiMappedObjects.push_back( multiTouchInput );
+    guiMappedObjects.push_back( videoContourInput );
+    
     midiMappedObjects.push_back( multiTouchInput );
+    midiMappedObjects.push_back( videoContourInput );
+    
     ocsMappedObjects.push_back( multiTouchInput );
+    ocsMappedObjects.push_back( videoContourInput );
     
     inputs.push_back( multiTouchInput );
+    inputs.push_back( videoContourInput );
 }
 
 //--------------------------------------------------------------

@@ -16,14 +16,21 @@
 
 #include "MultiTouchInput.h"
 
-#include "VideoInput.h"
+#include "Video.h"
 
-#include "VideoCameraInput.h"
-#include "VideoFileInput.h"
+#include "VideoCamera.h"
+#include "VideoFile.h"
 
 #include "LaserOutput.h"
 
 #include "AudioInput.h"
+
+#include "IVideoInput.h"
+
+#include "VideoContourInput.h"
+
+#include "Panel.h"
+#include "PanelGroup.h"
 
 #define MIDI_PORT       0
 #define OSC_PORT        12345
@@ -60,8 +67,8 @@ private:
     void initLaserOutput();
     void updateLaserOutput();
     
-    void initVideoInputs();
-    void updateVideoInputs();
+    void initVideo();
+    void updateVideo();
     
     void initInputs();
     void updateInputs();
@@ -88,14 +95,16 @@ private:
     
     LaserOutput                             *laserOutput;
     
-    // Video Inputs
+    // Video
     
-    VideoFileInput                          *videoFileInput;
-    VideoCameraInput                        *videoCameraInput;
+    VideoFile                               *videoFile;
+    VideoCamera                             *videoCamera;
     
-    vector<VideoInput *>                    videoInputs;
+    vector<Video *>                         videos;
     
     // Inputs
+    
+    VideoContourInput                       *videoContourInput;
     
     MultiTouchInput                         *multiTouchInput;
     
@@ -116,6 +125,8 @@ private:
     // GUI
     
     msa::controlfreak::gui::Gui             gui;
+    
+    PanelGroup                              panelGroup;
     
     // Mapped Objects
     

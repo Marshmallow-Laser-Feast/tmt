@@ -15,6 +15,8 @@
 #include "Input.h"
 #include "InputSample.h"
 
+#define DRAW_CIRCLE_RADIUS      2.0f
+
 #define PARAM_NAME_WIDTH        "width"
 #define PARAM_NAME_HEIGHT       "height"
 
@@ -25,7 +27,7 @@ public:
     
     MultiTouchInput()
     
-    :Input( "MultiTouch Input" )
+    :Input( "Input/Multi Touch", Input::SAMPLING_TYPE_POINT )
     
     {
         multiTouchPad   = ofxMultiTouchPad();
@@ -39,8 +41,30 @@ public:
     
 public:
     
+    virtual std::string getName(){ return "Input/Multi Touch"; };
+    
+    virtual void draw( float width, float height )
+    {
+        ofPushStyle();
+        
+        ofSetColor( ofColor::yellow );
+        
+        ofVec3f scale( width / (int)params[ PARAM_NAME_WIDTH ], height / (int)params[ PARAM_NAME_HEIGHT ] );
+        
+        for( vector<PointSampleT>::const_iterator it = pointSamples.begin(); it != pointSamples.end(); ++it )
+        {
+            ofCircle( it->getSample() * scale, DRAW_CIRCLE_RADIUS );
+        }
+        
+        ofPopStyle();
+    };
+    
+protected:
+    
     virtual void processPointSamples()
     {
+        pointSamples.clear();
+        
         std::vector<MTouch> touches = multiTouchPad.getTouches();
                 
         for (std::vector<MTouch>::iterator it = touches.begin(); it != touches.end(); ++it )

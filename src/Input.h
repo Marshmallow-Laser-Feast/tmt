@@ -14,19 +14,30 @@
 #include "IControlFreakMapperOSCExt.h"
 #include "IControlFreakMapperMidiExt.h"
 
+#include "IPanelDraws.h"
+
 #include "InputSample.h"
 
-#define PARAM_NAME_ENABLE_POINT_SAMPLING    "Point Sampling"
-#define PARAM_NAME_ENABLE_POLYLINE_SAMPLING "Polyline Sampling"
+#define PARAM_NAME_ENABLE   "Enabled"
 
-class Input: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt
+class Input: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
     
 public:
     
-    Input( const std::string &name )
+    typedef enum
+    {
+        SAMPLING_TYPE_POINT,
+        SAMPLING_TYPE_POLYLINE,
+        SAMPLING_TYPE_BOTH
+    } SamplingType;
+    
+public:
+    
+    Input( const std::string &name, SamplingType availableSamplingType_ )
     
     :IControlFreakMapper( name )
+    ,availableSamplingType( availableSamplingType_ )
     
     {
         IControlFreakMapperMidiExt::setParams( params );
@@ -35,8 +46,7 @@ public:
         setupMidi();
         setupOCS();
         
-        params.addBool( PARAM_NAME_ENABLE_POINT_SAMPLING ).set( true );
-        params.addBool( PARAM_NAME_ENABLE_POLYLINE_SAMPLING ).set( true );
+        params.addBool( PARAM_NAME_ENABLE ).set( true );
     };
     
     virtual ~Input(){};
@@ -45,22 +55,24 @@ public:
     
     virtual void update()
     {
-        pointSamples.clear();
-        polylineSamples.clear();
-        
-        if( (bool)params[ PARAM_NAME_ENABLE_POINT_SAMPLING ] )
+        if( (bool)params[ PARAM_NAME_ENABLE ] )
         {
             processPointSamples();
-        }
-        
-        if( (bool)params[ PARAM_NAME_ENABLE_POLYLINE_SAMPLING ] )
-        {
             processPolylineSamples();
         }
+    };
+
+    const SamplingType getAvailableSamplingType() const
+    {
+        return availableSamplingType;
     };
     
     const vector<PointSampleT> & getPointSamples() const { return pointSamples; };
     const vector<PolylineSampleT> & getPolylineSamples() const { return polylineSamples; };
+    
+    virtual std::string getName(){ return "Empty Input"; };
+    
+    virtual void draw( float width, float height ){};
     
 protected:
     
@@ -69,4 +81,8 @@ protected:
     
     vector<PointSampleT>    pointSamples;
     vector<PolylineSampleT> polylineSamples;
+    
+private:
+    
+    SamplingType    availableSamplingType;
 };
