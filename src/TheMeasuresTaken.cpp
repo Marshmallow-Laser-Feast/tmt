@@ -14,6 +14,12 @@ void TheMeasuresTaken::setup()
     
     gui.toggleDraw();
     gui.setDefaultKeys(true);
+        
+    initInputs();
+    initVideoInputs();
+    initAudioInput();
+    
+    initLaserOutput();
     
     setupMidi();
     setupOCS();
@@ -25,17 +31,21 @@ void TheMeasuresTaken::setup()
 //--------------------------------------------------------------
 void TheMeasuresTaken::update()
 {
+    msa::controlfreak::update();
+
     updateOCSData();
     updateMidiMappedObjects();
     updateOCSMappedObjects();
+    updateVideoInputs();
+    updateInputs();
+    updateAudioInput();
+    updateLaserOutput();
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::draw()
 {
     ofClear( 0 );
-    
-    
 }
 
 //--------------------------------------------------------------
@@ -134,6 +144,87 @@ void TheMeasuresTaken::loadGuiMappedObjectsIntoGui()
     for( vector<IControlFreakMapper *>::iterator it = guiMappedObjects.begin(); it != guiMappedObjects.end(); ++it )
     {
         gui.addPage( (*it)->params );
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initAudioInput()
+{
+    audioInput  = new AudioInput();
+    
+    guiMappedObjects.push_back( audioInput );
+    midiMappedObjects.push_back( audioInput );
+    ocsMappedObjects.push_back( audioInput );
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::updateAudioInput()
+{
+    audioInput->update();
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initLaserOutput()
+{
+    laserOutput = new LaserOutput();
+    
+    guiMappedObjects.push_back( laserOutput );
+    midiMappedObjects.push_back( laserOutput );
+    ocsMappedObjects.push_back( laserOutput );
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::updateLaserOutput()
+{
+    laserOutput->update();
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initVideoInputs()
+{
+    videoFileInput      = new VideoFileInput();
+    videoCameraInput    = new VideoCameraInput();
+    
+    guiMappedObjects.push_back( videoFileInput );
+    guiMappedObjects.push_back( videoCameraInput );
+    
+    midiMappedObjects.push_back( videoFileInput );
+    midiMappedObjects.push_back( videoCameraInput );
+    
+    ocsMappedObjects.push_back( videoFileInput );
+    ocsMappedObjects.push_back( videoCameraInput );
+    
+    videoInputs.push_back( videoFileInput );
+    videoInputs.push_back( videoCameraInput );
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::updateVideoInputs()
+{
+    for ( std::vector<VideoInput *>::iterator it = videoInputs.begin(); it != videoInputs.end(); ++it )
+    {
+        (*it)->update();
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initInputs()
+{
+    multiTouchInput = new MultiTouchInput();
+    
+    guiMappedObjects.push_back( multiTouchInput );
+    midiMappedObjects.push_back( multiTouchInput );
+    ocsMappedObjects.push_back( multiTouchInput );
+    
+    inputs.push_back( multiTouchInput );
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::updateInputs()
+{
+    for ( std::vector<Input *>::iterator it = inputs.begin(); it != inputs.end(); ++it )
+    {
+        (*it)->update();
     }
 }
 

@@ -12,7 +12,7 @@
 
 #include "ofxMSAControlFreak.h"
 
-#define PARAM_NAME_MIDI_INPUT_ENABLED   "Midi Input Enabled"
+#define PARAM_NAME_ENABLE_MIDI_INPUT    "Midi Input"
 
 class IControlFreakMapperMidiExt
 {
@@ -43,7 +43,7 @@ public:
     {
         if( paramsPtr != NULL )
         {
-            paramsPtr->addBool( PARAM_NAME_MIDI_INPUT_ENABLED );
+            paramsPtr->addBool( PARAM_NAME_ENABLE_MIDI_INPUT );
         }
     };
     
@@ -52,7 +52,7 @@ public:
     {
         if( paramsPtr != NULL )
         {
-            if( (bool)(*paramsPtr)[ PARAM_NAME_MIDI_INPUT_ENABLED ] )
+            if( (bool)(*paramsPtr)[ PARAM_NAME_ENABLE_MIDI_INPUT ] )
             {
                 applyMidiInternal( midiData );
             }

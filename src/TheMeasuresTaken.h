@@ -5,15 +5,25 @@
 #include "ofxMidi.h"
 #include "ofxOsc.h"
 
-#include "ofxEtherdream.h"
-#include "ofxIldaFrame.h"
-
 #include "ofxMSAControlFreak/src/ofxMSAControlFreak.h"
 #include "ofxMSAControlFreakGui/src/ofxMSAControlFreakGui.h"
 
 #include "IControlFreakMapper.h"
 #include "IControlFreakMapperMidiExt.h"
 #include "IControlFreakMapperOSCExt.h"
+
+#include "Input.h"
+
+#include "MultiTouchInput.h"
+
+#include "VideoInput.h"
+
+#include "VideoCameraInput.h"
+#include "VideoFileInput.h"
+
+#include "LaserOutput.h"
+
+#include "AudioInput.h"
 
 #define MIDI_PORT       0
 #define OSC_PORT        12345
@@ -44,6 +54,18 @@ public:
     
 private:
     
+    void initAudioInput();
+    void updateAudioInput();
+    
+    void initLaserOutput();
+    void updateLaserOutput();
+    
+    void initVideoInputs();
+    void updateVideoInputs();
+    
+    void initInputs();
+    void updateInputs();
+    
     void setupMidi();
     void updateMidiMappedObjects();
     
@@ -55,8 +77,29 @@ private:
     void saveGUI();
     
     void loadGuiMappedObjectsIntoGui();
-    
+
 private:
+    
+    // Audio
+    
+    AudioInput                              *audioInput;
+    
+    // Laser
+    
+    LaserOutput                             *laserOutput;
+    
+    // Video Inputs
+    
+    VideoFileInput                          *videoFileInput;
+    VideoCameraInput                        *videoCameraInput;
+    
+    vector<VideoInput *>                    videoInputs;
+    
+    // Inputs
+    
+    MultiTouchInput                         *multiTouchInput;
+    
+    vector<Input *>                         inputs;
     
     // OCS Input
     

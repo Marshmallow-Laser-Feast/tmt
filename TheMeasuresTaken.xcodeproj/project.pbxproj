@@ -143,6 +143,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		410CF93C176FD193005B155A /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		419F10EE1761446400BF91D6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -157,6 +158,13 @@
 		419F10FB1761446400BF91D6 /* MTTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTypes.h; sourceTree = "<group>"; };
 		419F10FC1761446400BF91D6 /* ofxMultiTouchPad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMultiTouchPad.cpp; sourceTree = "<group>"; };
 		419F10FD1761446400BF91D6 /* ofxMultiTouchPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMultiTouchPad.h; sourceTree = "<group>"; };
+		419FB4651770BD5C0010D8C4 /* InputSample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputSample.h; sourceTree = "<group>"; };
+		419FB4681770BF0F0010D8C4 /* MultiTouchInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTouchInput.h; sourceTree = "<group>"; };
+		419FB46A1770C7A50010D8C4 /* VideoInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoInput.h; sourceTree = "<group>"; };
+		419FB46B1770DF520010D8C4 /* VideoFileInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoFileInput.h; sourceTree = "<group>"; };
+		419FB46C1770E1630010D8C4 /* VideoCameraInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoCameraInput.h; sourceTree = "<group>"; };
+		419FB46E177113430010D8C4 /* LaserOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaserOutput.h; sourceTree = "<group>"; };
+		419FB4711771385C0010D8C4 /* AudioInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioInput.h; sourceTree = "<group>"; };
 		41D230CE1767247300F88CA5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		41D2330C1767247900F88CA5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		41D233101767247900F88CA5 /* ETF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETF.h; sourceTree = "<group>"; };
@@ -469,6 +477,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		410CF93A176FD145005B155A /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				419FB4681770BF0F0010D8C4 /* MultiTouchInput.h */,
+				419FB4671770BE620010D8C4 /* Core */,
+			);
+			name = Input;
+			sourceTree = "<group>";
+		};
 		419F10E71761446400BF91D6 /* ofxMultiTouchPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +579,41 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 			);
 			name = Bootstrap;
+			sourceTree = "<group>";
+		};
+		419FB4671770BE620010D8C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				410CF93C176FD193005B155A /* Input.h */,
+				419FB4651770BD5C0010D8C4 /* InputSample.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		419FB4691770C7940010D8C4 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				419FB46A1770C7A50010D8C4 /* VideoInput.h */,
+				419FB46B1770DF520010D8C4 /* VideoFileInput.h */,
+				419FB46C1770E1630010D8C4 /* VideoCameraInput.h */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
+		419FB46D177113280010D8C4 /* LaserOutput */ = {
+			isa = PBXGroup;
+			children = (
+				419FB46E177113430010D8C4 /* LaserOutput.h */,
+			);
+			name = LaserOutput;
+			sourceTree = "<group>";
+		};
+		419FB46F177119ED0010D8C4 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				419FB4711771385C0010D8C4 /* AudioInput.h */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 		41D230CD1767247300F88CA5 /* ofxCv */ = {
@@ -969,14 +1021,14 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		41F07E79176F64CB007A8E84 /* ParameterMappings */ = {
+		41F07E79176F64CB007A8E84 /* ParameterMapping */ = {
 			isa = PBXGroup;
 			children = (
 				41F07E7A176F651B007A8E84 /* IControlFreakMapperOSCExt.h */,
 				41F07E7B176F652D007A8E84 /* IControlFreakMapperMidiExt.h */,
 				41F07E7C176F6546007A8E84 /* IControlFreakMapper.h */,
 			);
-			name = ParameterMappings;
+			name = ParameterMapping;
 			sourceTree = "<group>";
 		};
 		41F156CB1762109E004DD184 /* ofxMSAControlFreak */ = {
@@ -1382,7 +1434,11 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				41F07E79176F64CB007A8E84 /* ParameterMappings */,
+				419FB46F177119ED0010D8C4 /* Audio */,
+				419FB46D177113280010D8C4 /* LaserOutput */,
+				419FB4691770C7940010D8C4 /* Video */,
+				410CF93A176FD145005B155A /* Input */,
+				41F07E79176F64CB007A8E84 /* ParameterMapping */,
 				419F11331761466300BF91D6 /* Bootstrap */,
 				419F11321761465C00BF91D6 /* App */,
 			);
