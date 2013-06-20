@@ -30,6 +30,16 @@ public:
     
 public:
     
+    void clear()
+    {
+        for( std::vector<Panel *>::iterator it = panels.begin(); it != panels.end(); ++it )
+        {
+            delete *it;
+        }
+        
+        panels.clear();
+    }
+    
     const std::vector<Panel *> & getPanels() const
     {
         return panels;

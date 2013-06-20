@@ -12,9 +12,6 @@ void TheMeasuresTaken::setup()
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
     ofSetLogLevel( OF_LOG_ERROR );
-    
-    gui.toggleDraw();
-    gui.setDefaultKeys(true);
         
     initInputs();
     initVideo();
@@ -31,6 +28,9 @@ void TheMeasuresTaken::setup()
     loadGuiMappedObjectsIntoGui();
     loadGUI();
     loadPanels();
+    
+    gui.toggleDraw();
+    gui.setDefaultKeys(true);
 }
 
 //--------------------------------------------------------------
@@ -103,6 +103,13 @@ void TheMeasuresTaken::keyPressed(int key)
         panelGroup.toggleVisibility();
     }
     
+    if( key == 'r' )
+    {
+        panelGroup.clear();
+        
+        loadPanels();
+    }
+    
     if( key == 9 )
     {
         contextGui->setPosition( ofGetMouseX(), ofGetMouseY() );
@@ -113,22 +120,13 @@ void TheMeasuresTaken::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::keyReleased(int key)
-{
-    
-}
+void TheMeasuresTaken::keyReleased(int key){}
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::mouseMoved(int x, int y )
-{
-    
-}
+void TheMeasuresTaken::mouseMoved(int x, int y ){}
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::mouseDragged(int x, int y, int button)
-{
-    
-}
+void TheMeasuresTaken::mouseDragged(int x, int y, int button){}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::mousePressed(int x, int y, int button)
@@ -140,26 +138,16 @@ void TheMeasuresTaken::mousePressed(int x, int y, int button)
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::mouseReleased(int x, int y, int button)
-{
-}
+void TheMeasuresTaken::mouseReleased(int x, int y, int button){}
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::windowResized(int w, int h)
-{
-}
+void TheMeasuresTaken::windowResized(int w, int h){}
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::gotMessage(ofMessage msg)
-{
-    
-}
+void TheMeasuresTaken::gotMessage(ofMessage msg){}
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo)
-{
-    
-}
+void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo){}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
@@ -168,10 +156,7 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
-{
-    
-}
+void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels){}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::initParams()

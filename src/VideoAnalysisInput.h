@@ -27,13 +27,26 @@
 #define PARAM_NAME_ERODE                            "Erode"
 #define PARAM_NAME_MIN_AREA                         "Min Area"
 #define PARAM_NAME_MAX_AREA                         "Max Area"
-#define PARAM_NAME_RESAMPLING                       "Resampling"
-#define PARAM_NAME_SMOOTHING                        "Smoothing"
-#define PARAM_NAME_SIMPLIFICATION                   "Simplification"
 
+#define PARAM_NAME_CONTOURT_RESAMPLING              "Contour Resampling"
+#define PARAM_NAME_CONTOURT_SMOOTHING               "Contour Smoothing"
+#define PARAM_NAME_CONTOURT_SIMPLIFICATION          "Contour Simplification"
+
+#define PARAM_NAME_CONVEXHULL_RESAMPLING            "Convex Resampling"
+#define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Smoothing"
+#define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Simplification"
+
+#define PARAM_NAME_TIPS_RESAMPLING                  "Tips Resampling"
+#define PARAM_NAME_TIPS_SMOOTHING                   "Tips Smoothing"
+#define PARAM_NAME_TIPS_SIMPLIFICATION              "Tips Simplification"
 #define PARAM_NAME_TIP_THRESHOLD                    "Tip Threshold"
+#define PARAM_NAME_TIP_TRACK_DIST                   "Tip Dist"
+#define PARAM_NAME_TIP_TRACK_PERS                   "Tip Pers"
+
 #define PARAM_NAME_CENT_TRACK_DIST                  "Centroid Dist"
 #define PARAM_NAME_CENT_TRACK_PERS                  "Centroid Pers"
+
+//int resampleCount, int smoothAmount, float simplify
 
 class VideoAnalysisInput: public Input
 {
@@ -65,20 +78,30 @@ public:
         params.addInt( PARAM_NAME_ERODE ).setRange(0, 50).setClamp(true);;
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);;
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);;
-        params.addInt(PARAM_NAME_RESAMPLING).setClamp(true).setRange(0, 1000);
-        params.addInt( PARAM_NAME_SMOOTHING ).setRange(0, 40).setClamp( true );
-        params.addFloat( PARAM_NAME_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         
-        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange(-180, 180).setClamp(true);
+        params.addInt( PARAM_NAME_CONTOURT_RESAMPLING ).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_CONTOURT_SMOOTHING ).setRange(0, 40).setClamp( true );
+        params.addFloat( PARAM_NAME_CONTOURT_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        
+        params.addInt( PARAM_NAME_CONVEXHULL_RESAMPLING ).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
+        params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        
+        params.addInt( PARAM_NAME_TIPS_RESAMPLING ).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_TIPS_SMOOTHING ).setRange(0, 40).setClamp( true );
+        params.addFloat( PARAM_NAME_TIPS_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange( -180, 180 ).setClamp(true);
+        params.addFloat(PARAM_NAME_TIP_TRACK_DIST);
+        params.addFloat(PARAM_NAME_TIP_TRACK_PERS);
         
         params.addFloat(PARAM_NAME_CENT_TRACK_DIST);
         params.addFloat(PARAM_NAME_CENT_TRACK_PERS);
                 
         pointSamplesMap[ CENTROID_TAG ]         = vector<PointSampleT>();
+        pointSamplesMap[ TIPS_TAG ]             = vector<PointSampleT>();
         
         polylineSamplesMap[ CONTOUR_TAG ]       = vector<PolylineSampleT>();
         polylineSamplesMap[ CONVEXHULL_TAG ]    = vector<PolylineSampleT>();
-        polylineSamplesMap[ TIPS_TAG ]          = vector<PolylineSampleT>();
     };
     
     ~VideoAnalysisInput(){};
@@ -98,7 +121,7 @@ public:
         if( (bool)params[ PARAM_NAME_VIS_CONTOUR ] )
         {
             ofSetColor( ofColor::red );
-            ofDrawBitmapString( "Contour", 20.0f, 40.0f );
+            ofDrawBitmapString( "-> Contour", 20.0f, 40.0f );
             drawPolylineSamples( polylineSamplesMap[ CONTOUR_TAG ] );
             
             yOffset += 40.0f;
@@ -107,7 +130,7 @@ public:
         if( (bool)params[ PARAM_NAME_VIS_CONVEXHULL ] )
         {
             ofSetColor( ofColor::blue );
-            ofDrawBitmapString( "Convex", 20.0f, yOffset + 20.0f );
+            ofDrawBitmapString( "-> Convex", 20.0f, yOffset + 20.0f );
             drawPolylineSamples( polylineSamplesMap[ CONVEXHULL_TAG ] );
             
             yOffset += 20.0f;
@@ -116,8 +139,13 @@ public:
         if( (bool)params[ PARAM_NAME_VIS_TIPS ] )
         {
             ofSetColor( ofColor::yellow );
-            ofDrawBitmapString( "Tips", 20.0f, yOffset + 20.0f );
-            drawPolylineSamples( polylineSamplesMap[ TIPS_TAG ] );
+            ofDrawBitmapString( "-> Tips", 20.0f, yOffset + 20.0f );
+            drawPointSamples( pointSamplesMap[ TIPS_TAG ], 2.0f );
+            
+            for( std::vector<PointSampleT>::iterator it = pointSamplesMap[ TIPS_TAG ].begin(); it != pointSamplesMap[ TIPS_TAG ].end(); ++it )
+            {
+                ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() + ofPoint( 4.0f, 0.0f ) );
+            }
             
             yOffset += 20.0f;
         }
@@ -125,8 +153,15 @@ public:
         if( (bool)params[ PARAM_NAME_VIS_CENTROID ] )
         {
             ofSetColor( ofColor::green );
-            ofDrawBitmapString( "Centroids", 20.0f, yOffset + 20.0f );
+            ofDrawBitmapString( "-> Centroids", 20.0f, yOffset + 20.0f );
             drawPointSamples( pointSamplesMap[ CENTROID_TAG ], 4.0f );
+            
+            ofSetColor( ofColor::white );
+            
+            for( std::vector<PointSampleT>::iterator it = pointSamplesMap[ CENTROID_TAG ].begin(); it != pointSamplesMap[ CENTROID_TAG ].end(); ++it )
+            {
+                ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() + ofPoint( 8.0f, 0.0f ) );
+            }
         }
         
         ofPopStyle();
@@ -158,7 +193,7 @@ public:
     {
         if( (bool)params[ PARAM_NAME_ENABLE ] )
         {
-            if( isCurrentFrameNew && image != NULL )
+            if( (params.hasChanged() || isCurrentFrameNew) && image != NULL )
             {
                 contourFinder.setThreshold(params[PARAM_NAME_THRESHOLD]);
                 contourFinder.setBlur(params[PARAM_NAME_BLUR]);
@@ -181,17 +216,22 @@ public:
 protected:
     
     virtual void processPointSamples()
-    {
-        processCentroids( (float)params[PARAM_NAME_CENT_TRACK_DIST], (float)params[PARAM_NAME_CENT_TRACK_PERS]  );
+    {        
+        processCentroids(   params[PARAM_NAME_CENT_TRACK_DIST],
+                            params[PARAM_NAME_CENT_TRACK_PERS]
+                         );
+        
+        processTips(    params[PARAM_NAME_TIPS_RESAMPLING],
+                        params[PARAM_NAME_TIPS_SMOOTHING],
+                        params[PARAM_NAME_TIPS_SIMPLIFICATION],
+                        params[PARAM_NAME_TIP_THRESHOLD],
+                        params[PARAM_NAME_CENT_TRACK_DIST],
+                        params[PARAM_NAME_CENT_TRACK_PERS]
+                    );
     };
     
     virtual void processPolylineSamples()
     {
-        int     resampleCount   = params[PARAM_NAME_RESAMPLING];
-        int     smoothAmount    = params[PARAM_NAME_SMOOTHING];
-        float   simplify        = params[PARAM_NAME_SIMPLIFICATION];
-        float   tipThreshold    = params[PARAM_NAME_TIP_THRESHOLD];
-        
         std::vector<cv::Rect>   bboxes;
         
         for( int i = 0; i < contourFinder.size(); ++i )
@@ -200,10 +240,19 @@ protected:
         }
         
         vector<unsigned int>    labels  = boundingBoxTracker.track( bboxes );
-                
-        processContour( labels, resampleCount, smoothAmount, simplify );
-        processConvexHull( labels, resampleCount, smoothAmount, simplify );
-        processTips( labels, resampleCount, smoothAmount, simplify, tipThreshold );
+        
+        processContour( labels,
+                        params[PARAM_NAME_CONTOURT_RESAMPLING],
+                        params[PARAM_NAME_CONTOURT_SMOOTHING],
+                        params[PARAM_NAME_CONTOURT_SIMPLIFICATION]
+                       );
+        
+        processConvexHull(  labels,
+                            params[PARAM_NAME_CONVEXHULL_RESAMPLING],
+                            params[PARAM_NAME_CONVEXHULL_SMOOTHING],
+                            params[PARAM_NAME_CONVEXHULL_SIMPLIFICATION]
+                          );
+        
     };
     
 private:
@@ -268,11 +317,13 @@ private:
         }
     }
     
-    void processTips(  vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float tipThreshold )
+    void processTips( int resampleCount, int smoothAmount, float simplify, float tipThreshold, float trackingDistance, float trackingPersistance )
     {
-        polylineSamplesMap[ TIPS_TAG ].clear();
+        pointSamplesMap[ TIPS_TAG ].clear();
         
-        for( int i = 0; i < labels.size(); ++i )
+        vector<cv::Point2f> allFloatPoints;
+        
+        for( int i = 0; i < contourFinder.size(); ++i )
         {
             ofPolyline polyline = ofxCv::toOf( contourFinder.getContour(i) );
             
@@ -305,10 +356,22 @@ private:
                 polyline.simplify( simplify );
             }
             
-            polylineSamplesMap[ TIPS_TAG ].push_back( PolylineSampleT() );
+            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+            {
+                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+            }
+        }
+        
+        tipTracker.setMaximumDistance(trackingDistance);
+        tipTracker.setPersistence(trackingPersistance);
+        tipTracker.track( allFloatPoints );
+        
+        for( int i = 0; i < allFloatPoints.size(); ++i )
+        {
+            pointSamplesMap[ TIPS_TAG ].push_back( PointSampleT() );
             
-            polylineSamplesMap[ TIPS_TAG ].back().setSample( polyline );
-            polylineSamplesMap[ TIPS_TAG ].back().setSampleID( labels[i] );
+            pointSamplesMap[ TIPS_TAG ].back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
+            pointSamplesMap[ TIPS_TAG ].back().setSampleID( tipTracker.getLabelFromIndex( i ) );
         }
     }
     
@@ -341,6 +404,7 @@ private:
     ofImage                 *image;
     
     ofxCv::RectTracker      boundingBoxTracker;
+    ofxCv::PointTracker     tipTracker;
     ofxCv::PointTracker     centroidTracker;
     ofxCv::ContourFinder2   contourFinder;
     

@@ -22,9 +22,11 @@ public:
     PanelBar( std::string title_ )
     
     :title( title_ )
-    ,dragging( false )
     
     {
+        dragging    = false;
+        visible     = false;
+        
         enableMouseEvents();
     };
     

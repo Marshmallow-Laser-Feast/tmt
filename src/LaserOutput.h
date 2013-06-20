@@ -32,6 +32,8 @@
 #define PARAM_NAME_ILDA_DOCAPX                  "Cap X"
 #define PARAM_NAME_ILDA_DOCAPY                  "Cap Y"
 
+#define PARAM_NAME_ILDA_PPS                     "PPS"
+
 #define PARAM_NAME_ILDA_BLANK_COUNT             "Blank Count"
 #define PARAM_NAME_ILDA_END_COUNT               "End Count"
 #define PARAM_NAME_ILDA_OFFSET_X                "Offset X"
@@ -77,6 +79,8 @@ public:
         params.addBool( PARAM_NAME_ILDA_DOCAPX );
         params.addBool( PARAM_NAME_ILDA_DOCAPY );
         
+        params.addInt(PARAM_NAME_ILDA_PPS).setRange(10000, 90000).setClamp(true).set(30000);
+        
         params.addInt( PARAM_NAME_ILDA_BLANK_COUNT ).setRange( 0, 1000 ).setClamp( true );
         params.addInt( PARAM_NAME_ILDA_END_COUNT ).setRange( 0, 1000 ).setClamp( true );
         
@@ -106,6 +110,11 @@ public:
     
     void update()
     {
+        if( params[ PARAM_NAME_ILDA_PPS ].hasChanged() )
+        {
+            etherdream.setPPS( params[PARAM_NAME_ILDA_PPS] );
+        }
+        
         ildaFrame.clear();
         
         ildaFrame.params.output.transform.doFlipX           = (bool)params[ PARAM_NAME_ILDA_FLIPX ];

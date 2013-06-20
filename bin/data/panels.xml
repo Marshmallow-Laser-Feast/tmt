@@ -1,5 +1,6 @@
 <PanelsData>
     <Panel name="Input/Video Analysis" x="735.000000000" y="60.000000000" width="640.000000000" height="480.000000000"></Panel>
     <Panel name="Stats" x="734.000000000" y="570.000000000" width="360.000000000" height="90.000000000"></Panel>
-    <Panel name="Audio Input" x="431.000000000" y="60.000000000" width="300.000000000" height="80.000000000"></Panel>
+    <Panel name="Audio Input" x="431.000000000" y="60.000000000" width="297.000000000" height="109.000000000"></Panel>
+    <Panel name="Help" x="735.000000000" y="689.000000000" width="360.000000000" height="105.000000000"></Panel>
 </PanelsData>

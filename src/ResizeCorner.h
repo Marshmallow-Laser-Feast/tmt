@@ -21,6 +21,9 @@ public:
     
     ResizeCorner()
     {
+        dragging    = false;
+        visible     = false;
+        
         enableMouseEvents();
     };
     

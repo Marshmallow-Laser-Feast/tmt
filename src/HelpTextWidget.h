@@ -22,7 +22,8 @@ public:
         std::stringstream stream;
         
         stream << "  <f>    Toggles fullscreen" << endl;
-        stream << "  <s>    Saves all parameters and UI state" << endl;
+        stream << "  <s>    Saves all parameters and ui state" << endl;
+        stream << "  <r>    Resets panels from (via saved file)" << endl;
         stream << "  <p>    Toggles pannel visibility" << endl;
         stream << " <tab>   Opens contextual panel menu" << endl;
         stream << "<space>  Toggles controlfreak visibility" << endl;
@@ -46,7 +47,7 @@ public:
         ofPopStyle();
     };
     
-    virtual ofVec2f getSize(){ return ofVec2f(360, 90); };
+    virtual ofVec2f getSize(){ return ofVec2f(360, 105); };
     
 private:
     
