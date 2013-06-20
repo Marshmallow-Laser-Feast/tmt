@@ -23,9 +23,17 @@
 
 #define PARAM_NAME_ENABLE   "Enabled"
 
+typedef vector<PointSampleT>            PointSampleVectorT;
+typedef vector<PointSampleVectorT>      PointSampleVectorVectorT;
+typedef vector<PolylineSampleT>         PolylineSampleVectorT;
+
+typedef ofPtr<PointSampleVectorT>       PointSampleVectorRefT;
+typedef ofPtr<PointSampleVectorVectorT> PointSampleVectorVectorRefT;
+typedef ofPtr<PolylineSampleVectorT>    PolylineSampleVectorRefT;
+
 class Input: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
-
+    
 public:
     
     static const std::string DEFAULT_TAG;
@@ -45,8 +53,9 @@ public:
         
         params.addBool( PARAM_NAME_ENABLE ).set( true );
         
-        pointSamplesMap[ DEFAULT_TAG ]      = vector<PointSampleT>();
-        polylineSamplesMap[ DEFAULT_TAG ]   = vector<PolylineSampleT>();
+        pointSamplesMap[ DEFAULT_TAG ]          = PointSampleVectorRefT( new PointSampleVectorT );
+        pointVectorSamplesMap[ DEFAULT_TAG ]    = PointSampleVectorVectorRefT( new PointSampleVectorVectorT() );
+        polylineSamplesMap[ DEFAULT_TAG ]       = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
         
     };
     
@@ -68,14 +77,20 @@ public:
         return pointSamplesMap.count( tag ) > 0;
     };
     
+    bool hasPointVectorSamples( const std::string &tag )
+    {
+        return pointVectorSamplesMap.count( tag ) > 0;
+    };
+    
     bool hasPolylineSamples( const std::string &tag )
     {
         return polylineSamplesMap.count( tag ) > 0;
     }
     
-    const vector<PointSampleT> & getPointSamples( const std::string &tag ) const { return pointSamplesMap.at( tag ); };
-    const vector<PolylineSampleT> & getPolylineSamples( const std::string &tag ) const { return polylineSamplesMap.at( tag ); };
-    
+    const PointSampleVectorRefT getPointSamples( const std::string &tag ) const { return pointSamplesMap.at( tag ); };
+    const PointSampleVectorVectorRefT getPointVectorSamples( const std::string &tag ) const { return pointVectorSamplesMap.at( tag ); };
+    const PolylineSampleVectorRefT getPolylineSamples( const std::string &tag ) const { return polylineSamplesMap.at( tag ); };
+
     virtual std::string getName(){ return "Unnamed Input"; };
     
     virtual void draw( float width, float height ){};
@@ -83,25 +98,38 @@ public:
 protected:
     
     virtual void processPointSamples(){};
+    virtual void processPointVectorSamples(){};
     virtual void processPolylineSamples(){};
     
-    void drawPointSamples( std::vector<PointSampleT> &samples, float circleR )
+    void drawPointSamples( PointSampleVectorRefT & samples, float circleR )
     {
-        for( std::vector<PointSampleT>::iterator it = samples.begin(); it != samples.end(); ++it )
+        for( PointSampleVectorT::iterator it = samples->begin(); it != samples->end(); ++it )
         {
             ofCircle( it->getSample(), circleR );
         }
     }
     
-    void drawPolylineSamples( std::vector<PolylineSampleT> &samples )
+    void drawPointVectorSamples( PointSampleVectorVectorRefT & samples, float circleR )
     {
-        for( std::vector<PolylineSampleT>::iterator it = samples.begin(); it != samples.end(); ++it )
+        for( PointSampleVectorVectorT::iterator it = samples->begin(); it != samples->end(); ++it )
+        {
+            for( PointSampleVectorT::iterator pit = it->begin(); pit != it->end(); ++pit )
+            {
+                ofCircle( pit->getSample(), circleR );
+            }
+        }
+    }
+    
+    void drawPolylineSamples( PolylineSampleVectorRefT & samples )
+    {
+        for( PolylineSampleVectorT::iterator it = samples->begin(); it != samples->end(); ++it )
         {
             it->getSample().draw();
         }
     }
     
-    std::map< std::string, vector<PointSampleT> >       pointSamplesMap;
-    std::map< std::string, vector<PolylineSampleT> >    polylineSamplesMap;
+    std::map< std::string, PointSampleVectorRefT>       pointSamplesMap;
+    std::map< std::string, PointSampleVectorVectorRefT> pointVectorSamplesMap;
+    std::map< std::string, PolylineSampleVectorRefT>    polylineSamplesMap;
     
 };

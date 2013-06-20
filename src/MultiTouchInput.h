@@ -51,7 +51,7 @@ public:
         
         ofVec3f scale( width / (int)params[ PARAM_NAME_WIDTH ], height / (int)params[ PARAM_NAME_HEIGHT ] );
         
-        for( vector<PointSampleT>::const_iterator it = pointSamplesMap[ Input::DEFAULT_TAG ].begin(); it != pointSamplesMap[ Input::DEFAULT_TAG ].end(); ++it )
+        for( vector<PointSampleT>::const_iterator it = pointSamplesMap[ Input::DEFAULT_TAG ]->begin(); it != pointSamplesMap[ Input::DEFAULT_TAG ]->end(); ++it )
         {
             ofCircle( it->getSample() * scale, DRAW_CIRCLE_RADIUS );
         }
@@ -63,19 +63,16 @@ protected:
     
     virtual void processPointSamples()
     {
-        pointSamplesMap[ Input::DEFAULT_TAG ].clear();
+        pointSamplesMap[ Input::DEFAULT_TAG ]->clear();
         
         std::vector<MTouch> touches = multiTouchPad.getTouches();
                 
         for (std::vector<MTouch>::iterator it = touches.begin(); it != touches.end(); ++it )
         {
-            PointSampleT    sample;
-            
-            sample.setSampleID( it->ID );
-            
-            sample.setSample( ofPoint( it->x * (int)params[ PARAM_NAME_WIDTH ], it->y * (int)params[ PARAM_NAME_HEIGHT ], 0.0f ) );
-            
-            pointSamplesMap[ Input::DEFAULT_TAG ].push_back( sample );
+            pointSamplesMap[ Input::DEFAULT_TAG ]->push_back( PointSampleT() );
+                        
+            pointSamplesMap[ Input::DEFAULT_TAG ]->back().setSampleID( it->ID );
+            pointSamplesMap[ Input::DEFAULT_TAG ]->back().setSample( ofPoint( it->x * (int)params[ PARAM_NAME_WIDTH ], it->y * (int)params[ PARAM_NAME_HEIGHT ], 0.0f ) );
         }
     }
     

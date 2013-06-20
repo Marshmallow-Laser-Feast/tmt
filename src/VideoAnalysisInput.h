@@ -46,8 +46,6 @@
 #define PARAM_NAME_CENT_TRACK_DIST                  "Centroid Dist"
 #define PARAM_NAME_CENT_TRACK_PERS                  "Centroid Pers"
 
-//int resampleCount, int smoothAmount, float simplify
-
 class VideoAnalysisInput: public Input
 {
     
@@ -90,18 +88,19 @@ public:
         params.addInt( PARAM_NAME_TIPS_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_TIPS_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_TIPS_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
-        params.addFloat(PARAM_NAME_TIP_THRESHOLD).setRange( -180, 180 ).setClamp(true);
-        params.addFloat(PARAM_NAME_TIP_TRACK_DIST);
-        params.addFloat(PARAM_NAME_TIP_TRACK_PERS);
+        params.addFloat( PARAM_NAME_TIP_THRESHOLD ).setRange( -180, 180 ).setClamp(true);
+        params.addFloat( PARAM_NAME_TIP_TRACK_DIST );
+        params.addFloat( PARAM_NAME_TIP_TRACK_PERS );
         
-        params.addFloat(PARAM_NAME_CENT_TRACK_DIST);
-        params.addFloat(PARAM_NAME_CENT_TRACK_PERS);
+        params.addFloat( PARAM_NAME_CENT_TRACK_DIST );
+        params.addFloat( PARAM_NAME_CENT_TRACK_PERS );
                 
-        pointSamplesMap[ CENTROID_TAG ]         = vector<PointSampleT>();
-        pointSamplesMap[ TIPS_TAG ]             = vector<PointSampleT>();
+        pointSamplesMap[ CENTROID_TAG ]         = PointSampleVectorRefT( new PointSampleVectorT );
         
-        polylineSamplesMap[ CONTOUR_TAG ]       = vector<PolylineSampleT>();
-        polylineSamplesMap[ CONVEXHULL_TAG ]    = vector<PolylineSampleT>();
+        pointVectorSamplesMap[ TIPS_TAG ]       = PointSampleVectorVectorRefT( new PointSampleVectorVectorT() );
+        
+        polylineSamplesMap[ CONTOUR_TAG ]       = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
+        polylineSamplesMap[ CONVEXHULL_TAG ]    = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
     };
     
     ~VideoAnalysisInput(){};
@@ -140,11 +139,14 @@ public:
         {
             ofSetColor( ofColor::yellow );
             ofDrawBitmapString( "-> Tips", 20.0f, yOffset + 20.0f );
-            drawPointSamples( pointSamplesMap[ TIPS_TAG ], 2.0f );
+            drawPointVectorSamples( pointVectorSamplesMap[ TIPS_TAG ], 2.0f );
             
-            for( std::vector<PointSampleT>::iterator it = pointSamplesMap[ TIPS_TAG ].begin(); it != pointSamplesMap[ TIPS_TAG ].end(); ++it )
+            for( PointSampleVectorVectorT::iterator it = pointVectorSamplesMap[ TIPS_TAG ]->begin(); it != pointVectorSamplesMap[ TIPS_TAG ]->end(); ++it )
             {
-                ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() + ofPoint( 4.0f, 0.0f ) );
+                for( PointSampleVectorT::iterator pit = it->begin(); pit != it->end(); ++pit )
+                {
+                    ofDrawBitmapString( ofToString( pit->getSampleID() ), pit->getSample() + ofPoint( 4.0f, 0.0f ) );
+                }
             }
             
             yOffset += 20.0f;
@@ -158,7 +160,7 @@ public:
             
             ofSetColor( ofColor::white );
             
-            for( std::vector<PointSampleT>::iterator it = pointSamplesMap[ CENTROID_TAG ].begin(); it != pointSamplesMap[ CENTROID_TAG ].end(); ++it )
+            for( std::vector<PointSampleT>::iterator it = pointSamplesMap[ CENTROID_TAG ]->begin(); it != pointSamplesMap[ CENTROID_TAG ]->end(); ++it )
             {
                 ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() + ofPoint( 8.0f, 0.0f ) );
             }
@@ -205,9 +207,11 @@ public:
                 contourFinder.findContours( *image );
                 
                 processPointSamples();
+                processPointVectorSamples();
                 processPolylineSamples();
                 
                 pointSamplesMap[ Input::DEFAULT_TAG ]       = pointSamplesMap[ CENTROID_TAG ];
+                pointVectorSamplesMap[ DEFAULT_TAG ]        = pointVectorSamplesMap[ TIPS_TAG ];
                 polylineSamplesMap[ Input::DEFAULT_TAG ]    = polylineSamplesMap[ CONTOUR_TAG ];
             }
         }
@@ -220,7 +224,10 @@ protected:
         processCentroids(   params[PARAM_NAME_CENT_TRACK_DIST],
                             params[PARAM_NAME_CENT_TRACK_PERS]
                          );
-        
+    };
+    
+    virtual void processPointVectorSamples()
+    {
         processTips(    params[PARAM_NAME_TIPS_RESAMPLING],
                         params[PARAM_NAME_TIPS_SMOOTHING],
                         params[PARAM_NAME_TIPS_SIMPLIFICATION],
@@ -257,11 +264,11 @@ protected:
     
 private:
     
-    void processContour(  vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
+    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
     {
-        polylineSamplesMap[ CONTOUR_TAG ].clear();
+        polylineSamplesMap[ CONTOUR_TAG ]->clear();
         
-        for( int i = 0; i < labels.size(); ++i )
+        for( int i = 0; i < contourFinder.size(); ++i )
         {
             ofPolyline polyline = ofxCv::toOf( contourFinder.getContour(i) );
             
@@ -280,18 +287,19 @@ private:
                 polyline.simplify( simplify );
             }
             
-            polylineSamplesMap[ CONTOUR_TAG ].push_back( PolylineSampleT() );
+            polylineSamplesMap[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
             
-            polylineSamplesMap[ CONTOUR_TAG ].back().setSample( polyline );
-            polylineSamplesMap[ CONTOUR_TAG ].back().setSampleID( labels[i] );
+            polylineSamplesMap[ CONTOUR_TAG ]->back().setSample( polyline );
+            polylineSamplesMap[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
+            polylineSamplesMap[ CONTOUR_TAG ]->back().setGroupID( i );
         }
     }
     
-    void processConvexHull(  vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
+    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
     {
-        polylineSamplesMap[ CONVEXHULL_TAG ].clear();
+        polylineSamplesMap[ CONVEXHULL_TAG ]->clear();
         
-        for( int i = 0; i < labels.size(); ++i )
+        for( int i = 0; i < contourFinder.size(); ++i )
         {
             ofPolyline polyline = ofxCv::toOf( contourFinder.getConvexHull(i) );
             
@@ -310,18 +318,20 @@ private:
                 polyline.simplify( simplify );
             }
             
-            polylineSamplesMap[ CONVEXHULL_TAG ].push_back( PolylineSampleT() );
+            polylineSamplesMap[ CONVEXHULL_TAG ]->push_back( PolylineSampleT() );
             
-            polylineSamplesMap[ CONVEXHULL_TAG ].back().setSample( polyline );
-            polylineSamplesMap[ CONVEXHULL_TAG ].back().setSampleID( labels[i] );
+            polylineSamplesMap[ CONVEXHULL_TAG ]->back().setSample( polyline );
+            polylineSamplesMap[ CONVEXHULL_TAG ]->back().setSampleID( labels[i] );
+            polylineSamplesMap[ CONVEXHULL_TAG ]->back().setGroupID( i );
         }
     }
     
     void processTips( int resampleCount, int smoothAmount, float simplify, float tipThreshold, float trackingDistance, float trackingPersistance )
     {
-        pointSamplesMap[ TIPS_TAG ].clear();
+        pointVectorSamplesMap[ TIPS_TAG ]->clear();
         
         vector<cv::Point2f> allFloatPoints;
+        vector<int>         groupIDs;
         
         for( int i = 0; i < contourFinder.size(); ++i )
         {
@@ -359,25 +369,36 @@ private:
             for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
             {
                 allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+                groupIDs.push_back( i );
             }
         }
         
         tipTracker.setMaximumDistance(trackingDistance);
         tipTracker.setPersistence(trackingPersistance);
         tipTracker.track( allFloatPoints );
+                
+        int currentGroupId  = -1;
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
-            pointSamplesMap[ TIPS_TAG ].push_back( PointSampleT() );
+            if( currentGroupId != groupIDs[ i ] )
+            {
+                currentGroupId  = groupIDs[ i ];
+                
+                pointVectorSamplesMap[ TIPS_TAG ]->push_back( PointSampleVectorT() );
+            }
             
-            pointSamplesMap[ TIPS_TAG ].back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
-            pointSamplesMap[ TIPS_TAG ].back().setSampleID( tipTracker.getLabelFromIndex( i ) );
+            pointVectorSamplesMap[ TIPS_TAG ]->back().push_back( PointSampleT() );
+            
+            pointVectorSamplesMap[ TIPS_TAG ]->back().back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
+            pointVectorSamplesMap[ TIPS_TAG ]->back().back().setSampleID( tipTracker.getLabelFromIndex( i ) );
+            pointVectorSamplesMap[ TIPS_TAG ]->back().back().setGroupID( groupIDs[ i ] );
         }
     }
     
     void processCentroids( float trackingDistance, float trackingPersistance )
     {
-        pointSamplesMap[ CENTROID_TAG ].clear();
+        pointSamplesMap[ CENTROID_TAG ]->clear();
         
         vector<cv::Point2f> allFloatPoints;
         
@@ -392,10 +413,11 @@ private:
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
-            pointSamplesMap[ CENTROID_TAG ].push_back( PointSampleT() );
+            pointSamplesMap[ CENTROID_TAG ]->push_back( PointSampleT() );
             
-            pointSamplesMap[ CENTROID_TAG ].back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
-            pointSamplesMap[ CENTROID_TAG ].back().setSampleID( centroidTracker.getLabelFromIndex( i ) );
+            pointSamplesMap[ CENTROID_TAG ]->back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
+            pointSamplesMap[ CENTROID_TAG ]->back().setSampleID( centroidTracker.getLabelFromIndex( i ) );
+            pointSamplesMap[ CENTROID_TAG ]->back().setGroupID( i );
         }
     }
     

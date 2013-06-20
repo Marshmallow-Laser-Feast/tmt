@@ -29,6 +29,11 @@ public:
         sampleID    = sampleID_;
     };
     
+    void setGroupID( const int groupID_ )
+    {
+        groupID     = groupID_;
+    };
+    
     void setSample( const T & sample_ )
     {
         sample  = sample_;
@@ -37,6 +42,11 @@ public:
     const int & getSampleID() const
     {
         return sampleID;
+    };
+    
+    const int & getGroupID() const
+    {
+        return groupID;
     };
     
     const T & getSample() const
@@ -52,6 +62,7 @@ public:
 private:
     
     int     sampleID;
+    int     groupID;
     T       sample;
 };
 
