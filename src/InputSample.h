@@ -44,6 +44,11 @@ public:
         return sample;
     };
     
+    T & getSample()
+    {
+        return sample;
+    };
+    
 private:
     
     int     sampleID;

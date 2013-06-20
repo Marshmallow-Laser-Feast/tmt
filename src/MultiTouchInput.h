@@ -27,7 +27,7 @@ public:
     
     MultiTouchInput()
     
-    :Input( "Input/Multi Touch", Input::SAMPLING_TYPE_POINT )
+    :Input( "Input/Multi Touch" )
     
     {
         multiTouchPad   = ofxMultiTouchPad();
@@ -51,7 +51,7 @@ public:
         
         ofVec3f scale( width / (int)params[ PARAM_NAME_WIDTH ], height / (int)params[ PARAM_NAME_HEIGHT ] );
         
-        for( vector<PointSampleT>::const_iterator it = pointSamples.begin(); it != pointSamples.end(); ++it )
+        for( vector<PointSampleT>::const_iterator it = pointSamplesMap[ Input::DEFAULT_TAG ].begin(); it != pointSamplesMap[ Input::DEFAULT_TAG ].end(); ++it )
         {
             ofCircle( it->getSample() * scale, DRAW_CIRCLE_RADIUS );
         }
@@ -63,7 +63,7 @@ protected:
     
     virtual void processPointSamples()
     {
-        pointSamples.clear();
+        pointSamplesMap[ Input::DEFAULT_TAG ].clear();
         
         std::vector<MTouch> touches = multiTouchPad.getTouches();
                 
@@ -75,9 +75,12 @@ protected:
             
             sample.setSample( ofPoint( it->x * (int)params[ PARAM_NAME_WIDTH ], it->y * (int)params[ PARAM_NAME_HEIGHT ], 0.0f ) );
             
-            pointSamples.push_back( sample );
+            pointSamplesMap[ Input::DEFAULT_TAG ].push_back( sample );
         }
     }
+    
+    virtual void processPolylineSamples()
+    {}
     
     virtual ofVec2f getSize()
     {

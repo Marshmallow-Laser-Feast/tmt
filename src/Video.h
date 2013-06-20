@@ -50,12 +50,12 @@ public:
         return false;
     };
     
-    const ofImage & getOriginalFrameImage() const
+    ofImage & getOriginalFrameImage()
     {
         return originalFrameImage;
     };
     
-    const ofImage & getRoiImage() const
+    ofImage & getRoiImage()
     {
         return roiImage;
     };

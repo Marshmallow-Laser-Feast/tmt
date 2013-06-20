@@ -29,12 +29,16 @@
 
 #include "AudioInput.h"
 
-#include "IVideoInput.h"
-
-#include "VideoContourInput.h"
+#include "VideoAnalysisInput.h"
 
 #include "Panel.h"
 #include "PanelGroup.h"
+
+#include "HelpTextWidget.h"
+#include "StatsWidget.h"
+
+#include "AppParams.h"
+#include "VideoParams.h"
 
 #define MIDI_PORT       0
 #define OSC_PORT        12345
@@ -70,10 +74,13 @@ public:
     
 private:
     
+    void initParams();
+    
     void loadPanels();
     void savePanels();
     
     void initPanelDraws();
+    void addWidgets();
     void initContextGUI();
     
     void initAudioInput();
@@ -119,7 +126,7 @@ private:
     
     // Inputs
     
-    VideoContourInput                       *videoContourInput;
+    VideoAnalysisInput                      *videoAnalysisInput;
     
     MultiTouchInput                         *multiTouchInput;
     
@@ -143,16 +150,23 @@ private:
     PanelGroup                              panelGroup;
     ofxUICanvas                             *contextGui;
     
+    HelpTextWidget                          helpTextWidget;
+    StatsWidget                             statsWidget;
+    
     map<string, IPanelDraws*>               panelDrawsMap;
     vector<string>                          panelDrawNames;
     vector<IPanelDraws*>                    panelDraws;
-    
-    ofxXmlSettings                          panelXML;
     
     // Mapped Objects
     
     vector<IControlFreakMapper *>           guiMappedObjects;
     vector<IControlFreakMapperMidiExt *>    midiMappedObjects;
     vector<IControlFreakMapperOSCExt *>     ocsMappedObjects;
+    
+    // Other Parameters
+    
+    AppParams                               *appParams;
+    VideoParams                             *videoParams;
+    
     
 };

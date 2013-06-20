@@ -1,6 +1,5 @@
 <PanelsData>
-    <PanelsData></PanelsData>
-    <Panel name="Input/Multi Touch" x="25.000000000" y="3.000000000" width="1415.000000000" height="351.000000000"></Panel>
-    <Panel name="Video/File" x="25.000000000" y="380.000000000" width="640.000000000" height="480.000000000"></Panel>
-    <Panel name="Audio Input" x="669.000000000" y="380.000000000" width="770.000000000" height="479.000000000"></Panel>
+    <Panel name="Input/Video Analysis" x="735.000000000" y="60.000000000" width="640.000000000" height="480.000000000"></Panel>
+    <Panel name="Stats" x="734.000000000" y="570.000000000" width="360.000000000" height="90.000000000"></Panel>
+    <Panel name="Audio Input" x="431.000000000" y="60.000000000" width="300.000000000" height="80.000000000"></Panel>
 </PanelsData>

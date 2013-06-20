@@ -49,7 +49,7 @@ public:
         
         params.addBool( PARAM_NAME_ENABLE_PLAYBACK ).set( true );
         
-        params.addFloat( PARAM_NAME_AUDIO_SCALE ).set( 100.0f );
+        params.addFloat( PARAM_NAME_AUDIO_SCALE ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_HIGH ).setClamp( true ).set( 1.0f );
         
@@ -114,12 +114,28 @@ public:
     
     virtual void draw( float width, float height )
     {
+        float scale             = (float)params[ PARAM_NAME_AUDIO_SCALE ];
+        float cellWidth         = width / (float)FFT_DATA_SIZE;
         
+        ofPushStyle();
+        
+        for (int i = 0; i < FFT_DATA_SIZE; i++)
+        {
+            float value         = ofClamp(fftData[i] * scale, 0.0f, 1.0f);
+            float cellHeight    = value * height;
+            float y             = (height - cellHeight) * 0.5f;
+            
+            ofSetColor( ofColor::beige.getLerped( ofColor::chocolate, value ) );
+            
+            ofRect( i * cellWidth, y, cellWidth - 1.0f, cellHeight );
+        }
+        
+        ofPopStyle();
     };
     
     virtual ofVec2f getSize()
     {
-        return ofVec2f( 150, 100 );
+        return ofVec2f( 300, 80 );
     };
     
 public:

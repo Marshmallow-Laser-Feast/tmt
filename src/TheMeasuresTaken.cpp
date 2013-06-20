@@ -20,8 +20,10 @@ void TheMeasuresTaken::setup()
     initVideo();
     initAudioInput();
     initLaserOutput();
+    addWidgets();
     initPanelDraws();
     initContextGUI();
+    initParams();
     
     setupMidi();
     setupOCS();
@@ -37,9 +39,36 @@ void TheMeasuresTaken::update()
     msa::controlfreak::update();
 
     updateOCSData();
-    updateMidiMappedObjects();
-    updateOCSMappedObjects();
+    
+    if( (bool)appParams->params[ PARAM_OSC_ENABLED ] )
+    {
+        updateOCSMappedObjects();
+    }
+    
+    if( (bool)appParams->params[ PARAM_MIDI_ENABLED ] )
+    {
+        updateMidiMappedObjects();
+    }
+
     updateVideo();
+    
+    switch ( (int)videoParams->params[ INPUT_VIDEO ] )
+    {
+        case VideoParams::VIDEO_FILE    :
+            
+            videoAnalysisInput->setImage( videoFile->getRoiImage() );
+            videoAnalysisInput->setCurrentFrameNew( videoFile->isFrameNew() );
+            
+        break;
+        
+        case VideoParams::VIDEO_CAMERA  :
+            
+            videoAnalysisInput->setImage( videoCamera->getRoiImage() );
+            videoAnalysisInput->setCurrentFrameNew( videoCamera->isFrameNew() );
+            
+        break;
+    }
+    
     updateInputs();
     updateAudioInput();
     updateLaserOutput();
@@ -78,6 +107,8 @@ void TheMeasuresTaken::keyPressed(int key)
     {
         contextGui->setPosition( ofGetMouseX(), ofGetMouseY() );
         contextGui->setVisible(true);
+    } else {
+        contextGui->setVisible(false); 
     }
 }
 
@@ -143,6 +174,16 @@ void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
 }
 
 //--------------------------------------------------------------
+void TheMeasuresTaken::initParams()
+{
+    appParams   = new AppParams();
+    videoParams = new VideoParams();
+    
+    guiMappedObjects.push_back( appParams );
+    guiMappedObjects.push_back( videoParams );
+}
+
+//--------------------------------------------------------------
 void TheMeasuresTaken::loadGUI()
 {
     for( int i = 0; i < gui.getNumPages(); ++i )
@@ -158,6 +199,12 @@ void TheMeasuresTaken::saveGUI()
     {
         gui.getPage( i + 1 ).saveXMLValues();
     }
+}
+
+void TheMeasuresTaken::addWidgets()
+{
+    panelDraws.push_back( &helpTextWidget );
+    panelDraws.push_back( &statsWidget );
 }
 
 //--------------------------------------------------------------
@@ -264,22 +311,22 @@ void TheMeasuresTaken::updateVideo()
 void TheMeasuresTaken::initInputs()
 {
     multiTouchInput     = new MultiTouchInput();
-    videoContourInput   = new VideoContourInput();
+    videoAnalysisInput  = new VideoAnalysisInput();
     
     guiMappedObjects.push_back( multiTouchInput );
-    guiMappedObjects.push_back( videoContourInput );
+    guiMappedObjects.push_back( videoAnalysisInput );
     
     midiMappedObjects.push_back( multiTouchInput );
-    midiMappedObjects.push_back( videoContourInput );
+    midiMappedObjects.push_back( videoAnalysisInput );
     
     ocsMappedObjects.push_back( multiTouchInput );
-    ocsMappedObjects.push_back( videoContourInput );
+    ocsMappedObjects.push_back( videoAnalysisInput );
     
     panelDraws.push_back( multiTouchInput );
-    panelDraws.push_back( videoContourInput );
+    panelDraws.push_back( videoAnalysisInput );
     
     inputs.push_back( multiTouchInput );
-    inputs.push_back( videoContourInput );
+    inputs.push_back( videoAnalysisInput );
 }
 
 //--------------------------------------------------------------
@@ -390,6 +437,8 @@ void TheMeasuresTaken::guiEvent(ofxUIEventArgs &e)
 //--------------------------------------------------------------
 void TheMeasuresTaken::loadPanels()
 {
+    ofxXmlSettings  panelXML;
+
     if( panelXML.load( PANELS_FILE ) )
     {
         panelXML.pushTag( "PanelsData" );
@@ -415,22 +464,24 @@ void TheMeasuresTaken::loadPanels()
 //--------------------------------------------------------------
 void TheMeasuresTaken::savePanels()
 {
-    panelXML.clear();
+    ofxXmlSettings  panelXML;
     
     int i = 0;
     
     panelXML.addTag( "PanelsData" );
-        
+    
+    panelXML.pushTag( "PanelsData" );
+    
     for( vector<Panel *>::const_iterator it = panelGroup.getPanels().begin(); it != panelGroup.getPanels().end(); ++it )
     {
         panelXML.addTag( "Panel" );
-                
+        
         panelXML.addAttribute( "Panel", "name", (*it)->getName(), i );
         panelXML.addAttribute( "Panel", "x", (*it)->getX(), i );
         panelXML.addAttribute( "Panel", "y", (*it)->getY(), i );
         panelXML.addAttribute( "Panel", "width", (*it)->getWidth(), i );
         panelXML.addAttribute( "Panel", "height", (*it)->getHeight(), i );
-                
+        
         ++i;        
     }
     
