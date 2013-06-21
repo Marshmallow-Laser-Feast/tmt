@@ -13,13 +13,15 @@
 #include "ofxCv.h"
 
 #include "ContourFinder2.h"
+#include "SkeletonFinder.h"
 
 #include "Input.h"
 
 #define PARAM_NAME_VIS_CENTROID                     "Draw Centroids"
+#define PARAM_NAME_VIS_TIPS                         "Draw Tips"
 #define PARAM_NAME_VIS_CONTOUR                      "Draw Contours"
 #define PARAM_NAME_VIS_CONVEXHULL                   "Draw Convex Hull"
-#define PARAM_NAME_VIS_TIPS                         "Draw Tips"
+#define PARAM_NAME_VIS_SKLELETON                    "Draw Skeleton"
 
 #define PARAM_NAME_THRESHOLD                        "Threshold"
 #define PARAM_NAME_BLUR                             "Blur"
@@ -32,9 +34,13 @@
 #define PARAM_NAME_CONTOURT_SMOOTHING               "Contour Smoothing"
 #define PARAM_NAME_CONTOURT_SIMPLIFICATION          "Contour Simplification"
 
-#define PARAM_NAME_CONVEXHULL_RESAMPLING            "Convex Resampling"
-#define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Smoothing"
-#define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Simplification"
+#define PARAM_NAME_CONVEXHULL_RESAMPLING            "Convex Hull Resampling"
+#define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Hull Smoothing"
+#define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Hull Simplification"
+
+#define PARAM_NAME_SKELETON_RESAMPLING              "Skeleton Resampling"
+#define PARAM_NAME_SKELETON_SMOOTHING               "Skeleton Smoothing"
+#define PARAM_NAME_SKELETON_SIMPLIFICATION          "Skeleton Simplification"
 
 #define PARAM_NAME_TIPS_RESAMPLING                  "Tips Resampling"
 #define PARAM_NAME_TIPS_SMOOTHING                   "Tips Smoothing"
@@ -53,6 +59,7 @@ public:
     
     static const std::string CONTOUR_TAG;
     static const std::string CONVEXHULL_TAG;
+    static const std::string SKELETON_TAG;
     static const std::string TIPS_TAG;
     static const std::string CENTROID_TAG;
     
@@ -66,9 +73,10 @@ public:
     
     {
         params.addBool( PARAM_NAME_VIS_CENTROID ).set( true );
+        params.addBool( PARAM_NAME_VIS_TIPS ).set( true );
         params.addBool( PARAM_NAME_VIS_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_VIS_CONVEXHULL ).set( true );
-        params.addBool( PARAM_NAME_VIS_TIPS ).set( true );
+        params.addBool( PARAM_NAME_VIS_SKLELETON ).set( true );
         
         params.addInt( PARAM_NAME_THRESHOLD ).setRange(0, 255).setClamp(true);
         params.addInt( PARAM_NAME_BLUR ).setRange(0, 50).setClamp(true);
@@ -84,6 +92,10 @@ public:
         params.addInt( PARAM_NAME_CONVEXHULL_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        
+        params.addInt( PARAM_NAME_SKELETON_RESAMPLING ).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_SKELETON_SMOOTHING ).setRange(0, 40).setClamp( true );
+        params.addFloat( PARAM_NAME_SKELETON_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         
         params.addInt( PARAM_NAME_TIPS_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_TIPS_SMOOTHING ).setRange(0, 40).setClamp( true );
@@ -101,6 +113,7 @@ public:
         
         polylineSamplesMap[ CONTOUR_TAG ]       = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
         polylineSamplesMap[ CONVEXHULL_TAG ]    = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
+        polylineSamplesMap[ SKELETON_TAG ]      = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
     };
     
     ~VideoAnalysisInput(){};
@@ -131,6 +144,15 @@ public:
             ofSetColor( ofColor::blue );
             ofDrawBitmapString( "-> Convex", 20.0f, yOffset + 20.0f );
             drawPolylineSamples( polylineSamplesMap[ CONVEXHULL_TAG ] );
+            
+            yOffset += 20.0f;
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_SKLELETON ] )
+        {
+            ofSetColor( ofColor::salmon );
+            ofDrawBitmapString( "-> Skeleton", 20.0f, yOffset + 20.0f );
+            drawPolylineSamples( polylineSamplesMap[ SKELETON_TAG ] );
             
             yOffset += 20.0f;
         }
@@ -205,6 +227,7 @@ public:
                 contourFinder.setMaxAreaRadius(params[PARAM_NAME_MAX_AREA]);
                 
                 contourFinder.findContours( *image );
+                skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects() );
                 
                 processPointSamples();
                 processPointVectorSamples();
@@ -259,6 +282,12 @@ protected:
                             params[PARAM_NAME_CONVEXHULL_SMOOTHING],
                             params[PARAM_NAME_CONVEXHULL_SIMPLIFICATION]
                           );
+        
+        processSkeletons(   labels,
+                            params[PARAM_NAME_SKELETON_RESAMPLING],
+                            params[PARAM_NAME_SKELETON_SMOOTHING],
+                            params[PARAM_NAME_SKELETON_SIMPLIFICATION]
+                         );
         
     };
     
@@ -326,6 +355,41 @@ private:
         }
     }
     
+    void processSkeletons( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
+    {
+        polylineSamplesMap[ SKELETON_TAG ]->clear();
+        
+        int i = 0;
+        
+        for( vector<ofPolyline>::const_iterator it = skeletonFinder.getSkeletons().begin(); it != skeletonFinder.getSkeletons().end(); ++it )
+        {
+            ofPolyline polyline = *it;
+            
+            if( resampleCount )
+            {
+                polyline    = polyline.getResampledByCount(resampleCount);
+            }
+            
+            if( smoothAmount )
+            {
+                polyline    = polyline.getSmoothed(smoothAmount);
+            }
+            
+            if( simplify > 0 )
+            {
+                polyline.simplify( simplify );
+            }
+            
+            polylineSamplesMap[ SKELETON_TAG ]->push_back( PolylineSampleT() );
+            
+            polylineSamplesMap[ SKELETON_TAG ]->back().setSample( polyline );
+            polylineSamplesMap[ SKELETON_TAG ]->back().setSampleID( labels[i] );
+            polylineSamplesMap[ SKELETON_TAG ]->back().setGroupID( i );
+            
+            ++i;
+        }
+    };
+    
     void processTips( int resampleCount, int smoothAmount, float simplify, float tipThreshold, float trackingDistance, float trackingPersistance )
     {
         pointVectorSamplesMap[ TIPS_TAG ]->clear();
@@ -377,7 +441,7 @@ private:
         tipTracker.setPersistence(trackingPersistance);
         tipTracker.track( allFloatPoints );
                 
-        int currentGroupId  = -1;
+        int currentGroupId      = -1;
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
@@ -429,5 +493,6 @@ private:
     ofxCv::PointTracker     tipTracker;
     ofxCv::PointTracker     centroidTracker;
     ofxCv::ContourFinder2   contourFinder;
+    ofxCv::SkeletonFinder   skeletonFinder;
     
 };

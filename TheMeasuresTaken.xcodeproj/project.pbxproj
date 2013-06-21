@@ -153,6 +153,8 @@
 		41085E71177335F900D620B7 /* AppParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppParams.h; sourceTree = "<group>"; };
 		41085E731773394A00D620B7 /* VideoParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoParams.h; sourceTree = "<group>"; };
 		410CF93C176FD193005B155A /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
+		41823D0317746B490093C6B7 /* SkeletonFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkeletonFinder.h; sourceTree = "<group>"; };
+		41823D0417747C560093C6B7 /* Thinner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Thinner.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		419F10EE1761446400BF91D6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -571,6 +573,15 @@
 			name = Input;
 			sourceTree = "<group>";
 		};
+		41823D0117746B3C0093C6B7 /* SkeletonFinder */ = {
+			isa = PBXGroup;
+			children = (
+				41823D0317746B490093C6B7 /* SkeletonFinder.h */,
+				41823D0417747C560093C6B7 /* Thinner.h */,
+			);
+			name = SkeletonFinder;
+			sourceTree = "<group>";
+		};
 		419F10E71761446400BF91D6 /* ofxMultiTouchPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,6 +789,7 @@
 		419FB7501771DC6E0010D8C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				41823D0117746B3C0093C6B7 /* SkeletonFinder */,
 				419FB74F1771DC650010D8C4 /* ContourFinder2 */,
 			);
 			name = Utils;
