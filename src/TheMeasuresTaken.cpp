@@ -291,7 +291,7 @@ void TheMeasuresTaken::initLaserOutput()
 //--------------------------------------------------------------
 void TheMeasuresTaken::updateLaserOutput()
 {
-    laserOutput->update();
+    laserOutput->update( visualizers );
 }
 
 //--------------------------------------------------------------

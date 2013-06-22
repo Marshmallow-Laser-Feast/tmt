@@ -19,6 +19,8 @@
 
 #include "IPanelDraws.h"
 
+#include "IVisualizer.h"
+
 #define PARAM_NAME_ENABLED                      "Enabled"
 
 #define PARAM_NAME_ILDA_OUTPUT_CALIBRATION_ONLY "Calibration Only"
@@ -108,7 +110,7 @@ public:
     
 public:
     
-    void update()
+    void update( const vector<IVisualizer *> &visualizers  )
     {
         if( params[ PARAM_NAME_ILDA_PPS ].hasChanged() )
         {
@@ -147,17 +149,12 @@ public:
         {
             ildaFrame.drawCalibration();
         } else {
-//            for(int i=0; i<visualizers.size(); i++)
-//            {
-//                PolylineVectorRefT visualizedLines = visualizers[i]->visualize( currentInputAnalyser , offset, scale, (float)audioParams[ PARAM_NAME_AUDIO_AMP ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
-//                
-//                for( vector<IFilter*>::iterator it = preFilters.begin(); it != preFilters.end(); ++it )
-//                {
-//                    (*it)->apply( *visualizedLines, (float)audioParams[ PARAM_NAME_AUDIO_AMP ], oscData[OCS_AUDIO_PATH], ofClamp( (float)audioParams[PARAM_NAME_AUDIO_AVG_FFT] , 0.0f, 1.0f ) );
-//                }
-//                
-//                ildaFrame.addPolys( *visualizedLines, ofFloatColor(visualizers[i]->getBrightness()) );
-//            }
+            for(int i=0; i<visualizers.size(); i++)
+            {
+                PolylineVectorRefT visualizedLines = visualizers[i]->getOutput();
+                
+                ildaFrame.addPolys( *visualizedLines, ofFloatColor( visualizers[i]->getBrightness() ) );
+            }
         }
         
         ildaFrame.update();
@@ -177,7 +174,7 @@ public:
     
     virtual void draw( float width, float height )
     {
-        
+        ildaFrame.draw( 0, 0, width, height );
     };
     
     virtual const ofVec2f getPanelSize() const

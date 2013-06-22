@@ -80,6 +80,19 @@ public:
         }
     }
     
+    const PolylineVectorRefT getOutput() const
+    {
+        if( polylineVectorRefDeque.size() > 0 )
+        {
+            int offset  = ofClamp( (int)polylineVectorRefDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, polylineVectorRefDeque.size() - 1 );
+            
+            return polylineVectorRefDeque[ offset ];
+        }
+        
+        return PolylineVectorRefT( new PolylineVectorT() );
+        
+    };
+    
     PolylineVectorRefT getOutput()
     {
         if( polylineVectorRefDeque.size() > 0 )
@@ -103,6 +116,11 @@ public:
                             const float time
                            )
     {};
+    
+    const float getBrightness() const
+    {
+        return (float)params[ PARAM_NAME_BRIGHTNESS ];
+    }
     
 public:
     
