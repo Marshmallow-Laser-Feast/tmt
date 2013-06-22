@@ -95,7 +95,7 @@ public:
         ofPopStyle();
     };
     
-    virtual std::string getName(){ return "Empty Video"; };
+    virtual const std::string getPanelName() const { return "Empty Video"; };
     
     virtual void draw( float width, float height )
     {

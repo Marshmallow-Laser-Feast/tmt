@@ -15,23 +15,17 @@
 
 #include "ofxMultiTouchPad.h"
 
-#include "IControlFreakMapper.h"
-#include "IControlFreakMapperOSCExt.h"
-#include "IControlFreakMapperMidiExt.h"
-
-#include "IPanelDraws.h"
-
 #include "Input.h"
 #include "InputSample.h"
 
-#define DRAW_CIRCLE_RADIUS      2.0f
+#define DRAW_CIRCLE_RADIUS      12.0f
 
 #define PARAM_NAME_WIDTH        "width"
 #define PARAM_NAME_HEIGHT       "height"
 
 #define PARAM_NAME_ENABLE       "Enabled"
 
-class MultiTouchInput : public Input, public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
+class MultiTouchInput : public Input
 {
     
 protected:
@@ -40,21 +34,15 @@ protected:
     
 public:
     
-    static const std::string DEFAULT_TAG;
+    static const std::string FINGERS_TAG;
 
 public:
     
     MultiTouchInput()
     
-    :IControlFreakMapper( "Input/Video Analysis" )
+    :Input( "Input/Multi Touch" )
     
     {
-        IControlFreakMapperMidiExt::setParams( params );
-        IControlFreakMapperOSCExt::setParams( params );
-        
-        setupMidi();
-        setupOCS();
-        
         multiTouchPad   = ofxMultiTouchPad();
         
         params.addBool( PARAM_NAME_ENABLE ).set( true );
@@ -62,7 +50,9 @@ public:
         params.addInt( PARAM_NAME_WIDTH ).set( 1024 );
         params.addInt( PARAM_NAME_HEIGHT ).set( 768 );
         
-        pointSampleVectorRefMap[ DEFAULT_TAG ]  = PointSampleVectorRefT( new PointSampleVectorT() );
+        pointSampleVectorRefMap[ FINGERS_TAG ]  = PointSampleVectorRefT( new PointSampleVectorT() );
+        
+        pointSampleTags.push_back( FINGERS_TAG );
     };
     
     ~MultiTouchInput()
@@ -92,39 +82,53 @@ public:
     {
         ofPushStyle();
         
-        ofSetColor( ofColor::yellow );
+        ofEnableAlphaBlending();
+        
+        ofSetColor( ofColor::yellow, 125 );
         
         ofVec3f scale( width / (int)params[ PARAM_NAME_WIDTH ], height / (int)params[ PARAM_NAME_HEIGHT ] );
         
-        for( vector<PointSampleT>::const_iterator it = pointSampleVectorRefMap[ DEFAULT_TAG ]->begin(); it != pointSampleVectorRefMap[ DEFAULT_TAG ]->end(); ++it )
+        for( vector<PointSampleT>::const_iterator it = pointSampleVectorRefMap[ FINGERS_TAG ]->begin(); it != pointSampleVectorRefMap[ FINGERS_TAG ]->end(); ++it )
         {
             ofCircle( it->getSample() * scale, DRAW_CIRCLE_RADIUS );
+        }
+        
+        ofDisableAlphaBlending();
+        
+        ofSetColor( ofColor::white );
+        
+        for( vector<PointSampleT>::const_iterator it = pointSampleVectorRefMap[ FINGERS_TAG ]->begin(); it != pointSampleVectorRefMap[ FINGERS_TAG ]->end(); ++it )
+        {
+            ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() * scale + ofPoint( DRAW_CIRCLE_RADIUS + 2, 0, 0 ) );
         }
         
         ofPopStyle();
     };
     
-    virtual std::string getName(){ return "Input/Multi Touch"; };
-    
-    virtual ofVec2f getSize()
+    virtual const ofVec2f getPanelSize() const
     {
         return ofVec2f( 200, 200 );
+    };
+    
+    virtual const ofVec2f getSize() const
+    {
+        return ofVec2f( (int)params[ PARAM_NAME_WIDTH ], (int)params[ PARAM_NAME_HEIGHT ] );
     };
     
 private:
     
     void processPointSamples()
     {
-        pointSampleVectorRefMap[ DEFAULT_TAG ]->clear();
+        pointSampleVectorRefMap[ FINGERS_TAG ]->clear();
         
         std::vector<MTouch> touches = multiTouchPad.getTouches();
                 
         for (std::vector<MTouch>::iterator it = touches.begin(); it != touches.end(); ++it )
         {
-            pointSampleVectorRefMap[ DEFAULT_TAG ]->push_back( PointSampleT() );
+            pointSampleVectorRefMap[ FINGERS_TAG ]->push_back( PointSampleT() );
                         
-            pointSampleVectorRefMap[ DEFAULT_TAG ]->back().setSampleID( it->ID );
-            pointSampleVectorRefMap[ DEFAULT_TAG ]->back().setSample( ofPoint( it->x * (int)params[ PARAM_NAME_WIDTH ], it->y * (int)params[ PARAM_NAME_HEIGHT ], 0.0f ) );
+            pointSampleVectorRefMap[ FINGERS_TAG ]->back().setSampleID( it->ID );
+            pointSampleVectorRefMap[ FINGERS_TAG ]->back().setSample( ofPoint( it->x * (int)params[ PARAM_NAME_WIDTH ], it->y * (int)params[ PARAM_NAME_HEIGHT ], 0.0f ) );
         }
     }
     

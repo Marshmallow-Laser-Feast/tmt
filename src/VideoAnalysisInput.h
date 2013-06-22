@@ -16,12 +16,6 @@
 
 #include "ofxCv.h"
 
-#include "IControlFreakMapper.h"
-#include "IControlFreakMapperOSCExt.h"
-#include "IControlFreakMapperMidiExt.h"
-
-#include "IPanelDraws.h"
-
 #include "ContourFinder2.h"
 #include "SkeletonFinder.h"
 
@@ -34,7 +28,9 @@
 #define PARAM_NAME_PROC_SKLELETON                   "Process Skeleton"
 
 #define PARAM_NAME_VIS_CENTROID                     "Draw Centroids"
+#define PARAM_NAME_VIS_CENTROID_IDS                 "Draw Centroids IDs"
 #define PARAM_NAME_VIS_TIPS                         "Draw Tips"
+#define PARAM_NAME_VIS_TIPS_IDS                     "Draw Tips IDs"
 #define PARAM_NAME_VIS_CONTOUR                      "Draw Contours"
 #define PARAM_NAME_VIS_CONVEXHULL                   "Draw Convex Hull"
 #define PARAM_NAME_VIS_SKLELETON                    "Draw Skeleton"
@@ -67,11 +63,12 @@
 #define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Hull Smoothing"
 #define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Hull Simplification"
 
+#define PARAM_NAME_SKELETON_PRECISE_PROCESS         "Skeleton Precise Processing"
 #define PARAM_NAME_SKELETON_RESAMPLING              "Skeleton Resampling"
 #define PARAM_NAME_SKELETON_SMOOTHING               "Skeleton Smoothing"
 #define PARAM_NAME_SKELETON_SIMPLIFICATION          "Skeleton Simplification"
 
-class VideoAnalysisInput: public Input, public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
+class VideoAnalysisInput: public Input
 {
     
 protected:
@@ -96,25 +93,21 @@ public:
     
     VideoAnalysisInput()
     
-    :IControlFreakMapper( "Input/Video Analysis" )
+    :Input( "Input/Video Analysis" )
     ,image( NULL )
     ,isCurrentFrameNew( false )
     
     {
-        IControlFreakMapperMidiExt::setParams( params );
-        IControlFreakMapperOSCExt::setParams( params );
-        
-        setupMidi();
-        setupOCS();
-        
         params.addBool( PARAM_NAME_PROC_CENTROID ).set( true );
         params.addBool( PARAM_NAME_PROC_TIPS ).set( true );
         params.addBool( PARAM_NAME_PROC_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_PROC_CONVEXHULL ).set( true );
         params.addBool( PARAM_NAME_PROC_SKLELETON ).set( true );
         
-        params.addBool( PARAM_NAME_VIS_CENTROID ).set( true );
+        params.addBool( PARAM_NAME_VIS_CENTROID );
+        params.addBool( PARAM_NAME_VIS_CENTROID_IDS );
         params.addBool( PARAM_NAME_VIS_TIPS ).set( true );
+        params.addBool( PARAM_NAME_VIS_TIPS_IDS ).set( true );
         params.addBool( PARAM_NAME_VIS_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_VIS_CONVEXHULL ).set( true );
         params.addBool( PARAM_NAME_VIS_SKLELETON ).set( true );
@@ -129,14 +122,14 @@ public:
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);
         
-        params.addFloat( PARAM_NAME_CENT_TRACK_DIST );
+        params.addFloat( PARAM_NAME_CENT_TRACK_DIST ).set( true ).set( 10.0f );
         params.addFloat( PARAM_NAME_CENT_TRACK_PERS );
         
         params.addInt( PARAM_NAME_TIPS_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_TIPS_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_TIPS_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat( PARAM_NAME_TIP_THRESHOLD ).setRange( -180, 180 ).setClamp(true);
-        params.addFloat( PARAM_NAME_TIP_TRACK_DIST );
+        params.addFloat( PARAM_NAME_TIP_TRACK_DIST ).set( true ).set( 10.0f );
         params.addFloat( PARAM_NAME_TIP_TRACK_PERS );
         
         params.addInt( PARAM_NAME_CONTOURT_RESAMPLING ).setClamp(true).setRange(0, 1000);
@@ -147,6 +140,7 @@ public:
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         
+        params.addBool( PARAM_NAME_SKELETON_PRECISE_PROCESS ).set( false );
         params.addInt( PARAM_NAME_SKELETON_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_SKELETON_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_SKELETON_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
@@ -219,7 +213,7 @@ public:
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_MAX_AREA]);
             
             contourFinder.findContours( *image );
-            skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects() );
+            skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects(), (bool)params[ PARAM_NAME_SKELETON_PRECISE_PROCESS ] );
             
             bboxes.clear();
             
@@ -358,7 +352,7 @@ public:
         
         if( (bool)params[ PARAM_NAME_VIS_CONVEXHULL ] )
         {
-            ofSetColor( ofColor::blue );
+            ofSetColor( ofColor::pink );
             ofDrawBitmapString( "-> Convex", 20.0f, yOffset + 20.0f );
             drawPolylineSamples( getPolylineSamples( CONVEXHULL_TAG ) );
             
@@ -372,7 +366,7 @@ public:
             drawPolylineSamples( getPolylineSamples( SKELETON_TAG ) );
         }
         
-        if( (bool)params[ PARAM_NAME_VIS_CENTROID ] )
+        if( (bool)params[ PARAM_NAME_VIS_CENTROID_IDS ] )
         {
             ofSetColor( ofColor::white );
             
@@ -382,7 +376,7 @@ public:
             }
         }
         
-        if( (bool)params[ PARAM_NAME_VIS_TIPS ] )
+        if( (bool)params[ PARAM_NAME_VIS_TIPS_IDS ] )
         {
             ofSetColor( ofColor::yellow );
             
@@ -398,10 +392,17 @@ public:
         ofPopStyle();
     };
     
+    virtual const ofVec2f getPanelSize() const
+    {
+        if( image != NULL )
+        {
+            return ofVec2f( image->getWidth(), image->getHeight() );
+        }
+        
+        return ofVec2f( 150, 100 );
+    };
     
-    virtual std::string getName(){ return "Input/Video Analysis"; };
-    
-    virtual ofVec2f getSize()
+    virtual const ofVec2f getSize() const
     {
         if( image != NULL )
         {

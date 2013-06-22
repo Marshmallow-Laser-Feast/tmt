@@ -173,14 +173,14 @@ public:
         ildaFrame.draw( x, y, width, height );
     };
     
-    virtual std::string getName(){ return "Laser Output"; };
+    virtual const std::string getPanelName() const { return "Laser Output"; };
     
     virtual void draw( float width, float height )
     {
         
     };
     
-    virtual ofVec2f getSize()
+    virtual const ofVec2f getPanelSize() const
     {
         return ofVec2f( 150, 100 );
     };

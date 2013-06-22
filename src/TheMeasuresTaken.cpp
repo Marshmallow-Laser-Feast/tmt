@@ -14,6 +14,7 @@ void TheMeasuresTaken::setup()
     ofSetLogLevel( OF_LOG_ERROR );
         
     initInputs();
+    initVisualizers();
     initVideo();
     initAudioInput();
     initLaserOutput();
@@ -71,6 +72,7 @@ void TheMeasuresTaken::update()
     
     updateInputs();
     updateAudioInput();
+    updateVisualizers();
     updateLaserOutput();
     
     panelGroup.update();
@@ -159,6 +161,37 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels){}
 
 //--------------------------------------------------------------
+void TheMeasuresTaken::initVisualizers()
+{
+    dotVisualizer       = new DotVisualizer();
+    
+    visualizers.push_back( dotVisualizer );
+    
+    for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
+    {
+        guiMappedObjects.push_back( *it );
+        panelDraws.push_back( *it );
+        
+        (*it)->setup( inputsMap );
+    }
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::updateVisualizers()
+{
+    for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
+    {
+        (*it)->update();
+        (*it)->visualize(   inputsMap,
+                            audioInput->getAmp(),
+                            audioInput->getFFTSampleCount(),
+                            audioInput->getFFTData(),
+                            ofGetElapsedTimef()
+                         );
+    }
+}
+
+//--------------------------------------------------------------
 void TheMeasuresTaken::initParams()
 {
     appParams   = new AppParams();
@@ -197,9 +230,9 @@ void TheMeasuresTaken::initPanelDraws()
 {
     for( vector<IPanelDraws*>::iterator it = panelDraws.begin(); it != panelDraws.end(); ++it )
     {
-        panelDrawNames.push_back( (*it)->getName() );
+        panelDrawNames.push_back( (*it)->getPanelName() );
         
-        panelDrawsMap[ (*it)->getName() ]   = *it;
+        panelDrawsMap[ (*it)->getPanelName() ]  = *it;
     }
 }
 
@@ -312,6 +345,11 @@ void TheMeasuresTaken::initInputs()
     
     inputs.push_back( multiTouchInput );
     inputs.push_back( videoAnalysisInput );
+        
+    for(  vector<Input *>::const_iterator it = inputs.begin(); it != inputs.end(); ++it )
+    {
+        inputsMap[ (*it)->getName() ]   = *it;
+    }
 }
 
 //--------------------------------------------------------------
@@ -413,7 +451,7 @@ void TheMeasuresTaken::guiEvent(ofxUIEventArgs &e)
     {
         IPanelDraws *panelDraws = panelDrawsMap[ e.widget->getName() ];
         
-        panelGroup.addPanel( new Panel( ofGetMouseX(), ofGetMouseY(), panelDraws->getSize().x, panelDraws->getSize().y, panelDraws ));
+        panelGroup.addPanel( new Panel( ofGetMouseX(), ofGetMouseY(), panelDraws->getPanelSize().x, panelDraws->getPanelSize().y, panelDraws ));
         
         contextGui->setVisible(false); 
     }
@@ -438,9 +476,14 @@ void TheMeasuresTaken::loadPanels()
             
             if( name.length() > 0 )
             {
-                IPanelDraws *panelDraws = panelDrawsMap[ name ];
-                
-                panelGroup.addPanel( new Panel( x, y, width, height, panelDraws ));
+                if( panelDrawsMap.count( name ) > 0 )
+                {
+                    IPanelDraws *panelDraws = panelDrawsMap[ name ];
+                    
+                    panelGroup.addPanel( new Panel( x, y, width, height, panelDraws ));
+                } else {
+                    ofLogError( "TheMeasuresTaken::loadPanels", name + " paneldraws not found! ");
+                }
             }        
         }
     }

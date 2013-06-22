@@ -36,8 +36,6 @@ public:
     
 public:
     
-    virtual std::string getName(){ return "Help"; };
-    
     virtual void draw( float width, float height )
     {
         ofPushStyle();
@@ -47,7 +45,9 @@ public:
         ofPopStyle();
     };
     
-    virtual ofVec2f getSize(){ return ofVec2f(360, 105); };
+    virtual const std::string getPanelName() const { return "Help"; };
+    
+    virtual ofVec2f const getSize() const { return ofVec2f(360, 105); };
     
 private:
     

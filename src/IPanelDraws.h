@@ -21,10 +21,10 @@ public:
     
 public:
     
-    virtual std::string getName(){ return "Empty Panel Draws"; };
+    virtual const std::string getPanelName() const { return "Empty Panel Draws"; };
     
     virtual void draw( float width, float height ){};
     
-    virtual ofVec2f getSize(){ return ofVec2f(300, 300); };
+    virtual const ofVec2f getPanelSize() const { return ofVec2f(300, 300); };
     
 };

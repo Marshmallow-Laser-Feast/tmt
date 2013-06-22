@@ -32,9 +32,9 @@ namespace ofxCv {
     public:
         
         template <class T>
-        void findSkeletons( T& img, const ContourVectorT &contours, const vector<cv::Rect> &boundingRects )
+        void findSkeletons( T& img, const ContourVectorT &contours, const vector<cv::Rect> &boundingRects, bool preciseProcess )
         {
-            findSkeletons( toCv(img), contours, boundingRects );
+            findSkeletons( toCv(img), contours, boundingRects, preciseProcess );
         }
         
         const vector<ofPolyline> & getSkeletons() const
@@ -44,42 +44,39 @@ namespace ofxCv {
         
     private:
         
-        void findSkeletons( cv::Mat img, const ContourVectorT &contours, const vector<cv::Rect> &boundingRects )
+        void findSkeletons( cv::Mat img, const ContourVectorT &contours, const vector<cv::Rect> &boundingRects, bool preciseProcess )
         {
             cv::Mat contoursImage(img.size(), CV_8UC1, cv::Scalar(0));
             cv::Mat skeletonImage(img.size(), CV_8UC1, cv::Scalar(0));
             
             cv::drawContours( contoursImage, contours, -1, cv::Scalar(255), CV_FILLED );
             
-#if 0
-            
-            // Slower + No gaps in skeleton
-            
-            Thinner::process( contoursImage, skeletonImage );
-            
-#else
-            
-            // Faster + Gaps in skeleton
-            // http://felix.abecassis.me/2011/09/opencv-morphological-skeleton/
-            
-            cv::Mat temp;
-            cv::Mat eroded;
-            
-            cv::Mat element = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3));
-            
-            bool done;
-            do
+            if( preciseProcess )
             {
-                cv::erode(contoursImage, eroded, element);
-                cv::dilate(eroded, temp, element);
-                cv::subtract(contoursImage, temp, temp);
-                cv::bitwise_or(skeletonImage, temp, skeletonImage);
-                eroded.copyTo(contoursImage);
+                // Slower + No gaps in skeleton
                 
-                done = (cv::countNonZero(contoursImage) == 0);
-            } while (!done);
-            
-#endif
+                Thinner::process( contoursImage, skeletonImage );
+            } else {
+                // Faster + Gaps in skeleton
+                // http://felix.abecassis.me/2011/09/opencv-morphological-skeleton/
+                
+                cv::Mat temp;
+                cv::Mat eroded;
+                
+                cv::Mat element = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3));
+                
+                bool done;
+                do
+                {
+                    cv::erode(contoursImage, eroded, element);
+                    cv::dilate(eroded, temp, element);
+                    cv::subtract(contoursImage, temp, temp);
+                    cv::bitwise_or(skeletonImage, temp, skeletonImage);
+                    eroded.copyTo(contoursImage);
+                    
+                    done = (cv::countNonZero(contoursImage) == 0);
+                } while (!done);
+            }
             
             skeletonImage.convertTo(skeletonImage,CV_8UC1);
             

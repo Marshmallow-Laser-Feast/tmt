@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41085E6E17731BC000D620B7 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41085E6D17731BC000D620B7 /* Input.cpp */; };
+		41085E6E17731BC000D620B7 /* MultiTouchInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41085E6D17731BC000D620B7 /* MultiTouchInput.cpp */; };
 		41085E7017731C7200D620B7 /* VideoAnalysisInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41085E6F17731C7200D620B7 /* VideoAnalysisInput.cpp */; };
 		419F1135176149E600BF91D6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		419F1136176149E600BF91D6 /* TheMeasuresTaken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* TheMeasuresTaken.cpp */; };
@@ -148,13 +148,15 @@
 /* Begin PBXFileReference section */
 		41085E69177250EE00D620B7 /* HelpTextWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTextWidget.h; sourceTree = "<group>"; };
 		41085E6C177253F600D620B7 /* StatsWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsWidget.h; sourceTree = "<group>"; };
-		41085E6D17731BC000D620B7 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Input.cpp; sourceTree = "<group>"; };
+		41085E6D17731BC000D620B7 /* MultiTouchInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTouchInput.cpp; sourceTree = "<group>"; };
 		41085E6F17731C7200D620B7 /* VideoAnalysisInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoAnalysisInput.cpp; sourceTree = "<group>"; };
 		41085E71177335F900D620B7 /* AppParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppParams.h; sourceTree = "<group>"; };
 		41085E731773394A00D620B7 /* VideoParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoParams.h; sourceTree = "<group>"; };
 		410CF93C176FD193005B155A /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Input.h; sourceTree = "<group>"; };
 		41823D0317746B490093C6B7 /* SkeletonFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkeletonFinder.h; sourceTree = "<group>"; };
 		41823D0417747C560093C6B7 /* Thinner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Thinner.h; sourceTree = "<group>"; };
+		41823D0B177605E70093C6B7 /* DotVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotVisualizer.h; sourceTree = "<group>"; };
+		41823D0C177606020093C6B7 /* IVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVisualizer.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		419F10EE1761446400BF91D6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				419FB74B1771D6770010D8C4 /* VideoAnalysisInput.h */,
 				41085E6F17731C7200D620B7 /* VideoAnalysisInput.cpp */,
 				419FB4681770BF0F0010D8C4 /* MultiTouchInput.h */,
+				41085E6D17731BC000D620B7 /* MultiTouchInput.cpp */,
 				419FB4671770BE620010D8C4 /* Core */,
 			);
 			name = Input;
@@ -580,6 +583,15 @@
 				41823D0417747C560093C6B7 /* Thinner.h */,
 			);
 			name = SkeletonFinder;
+			sourceTree = "<group>";
+		};
+		41823D0A177605CA0093C6B7 /* Visualizer */ = {
+			isa = PBXGroup;
+			children = (
+				41823D0B177605E70093C6B7 /* DotVisualizer.h */,
+				41823D0C177606020093C6B7 /* IVisualizer.h */,
+			);
+			name = Visualizer;
 			sourceTree = "<group>";
 		};
 		419F10E71761446400BF91D6 /* ofxMultiTouchPad */ = {
@@ -680,7 +692,6 @@
 		419FB4671770BE620010D8C4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				41085E6D17731BC000D620B7 /* Input.cpp */,
 				410CF93C176FD193005B155A /* Input.h */,
 				419FB4651770BD5C0010D8C4 /* InputSample.h */,
 			);
@@ -1626,6 +1637,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				41823D0A177605CA0093C6B7 /* Visualizer */,
 				41085E721773393D00D620B7 /* Params */,
 				419FB7511771F0150010D8C4 /* Panel */,
 				419FB7501771DC6E0010D8C4 /* Utils */,
@@ -1820,7 +1832,7 @@
 				41F8AB7417691B9600380B6F /* ofxOscReceiver.cpp in Sources */,
 				41F8AB7517691B9600380B6F /* ofxOscSender.cpp in Sources */,
 				419FB74E1771DC620010D8C4 /* ContourFinder2.cpp in Sources */,
-				41085E6E17731BC000D620B7 /* Input.cpp in Sources */,
+				41085E6E17731BC000D620B7 /* MultiTouchInput.cpp in Sources */,
 				41085E7017731C7200D620B7 /* VideoAnalysisInput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

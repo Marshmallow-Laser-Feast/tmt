@@ -28,8 +28,6 @@ public:
     
 public:
     
-    virtual std::string getName(){ return "Stats"; };
-    
     virtual void draw( float width, float height )
     {
         std::stringstream stream;
@@ -47,7 +45,9 @@ public:
         ofPopStyle();
     };
     
-    virtual ofVec2f getSize(){ return ofVec2f(360, 90); };
+    virtual const std::string getPanelName() const { return "Stats"; };
+    
+    virtual const ofVec2f getPanelSize() const { return ofVec2f(360, 90); };
     
 public:
     

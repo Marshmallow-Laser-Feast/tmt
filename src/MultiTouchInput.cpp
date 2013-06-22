@@ -8,4 +8,4 @@
 
 #include "MultiTouchInput.h"
 
-const std::string MultiTouchInput::DEFAULT_TAG  = "DEFAULT_TAG";
+const std::string MultiTouchInput::FINGERS_TAG  = "FINGERS_TAG";

@@ -15,6 +15,12 @@
 
 #include "InputSample.h"
 
+#include "IControlFreakMapper.h"
+#include "IControlFreakMapperOSCExt.h"
+#include "IControlFreakMapperMidiExt.h"
+
+#include "IPanelDraws.h"
+
 typedef vector<PointSampleT>                PointSampleVectorT;
 typedef vector<PointSampleVectorT>          PointSampleVectorVectorT;
 typedef vector<PolylineSampleT>             PolylineSampleVectorT;
@@ -23,13 +29,23 @@ typedef ofPtr<PointSampleVectorT>           PointSampleVectorRefT;
 typedef ofPtr<PointSampleVectorVectorT>     PointSampleVectorVectorRefT;
 typedef ofPtr<PolylineSampleVectorT>        PolylineSampleVectorRefT;
 
-class Input
+class Input: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
     
 public:
     
-    Input()
+    Input( const std::string &name_ )
+    
+    :IControlFreakMapper( name_ )
+    ,name( name_ )
+    
     {
+        IControlFreakMapperMidiExt::setParams( params );
+        IControlFreakMapperOSCExt::setParams( params );
+        
+        setupMidi();
+        setupOCS();
+        
         emptyPointSampleVector          = PointSampleVectorRefT( new PointSampleVectorT() );
         emptyPointSampleVectorVector    = PointSampleVectorVectorRefT( new PointSampleVectorVectorT() );
         emptyPolylineSampleVector       = PolylineSampleVectorRefT( new PolylineSampleVectorT() );
@@ -53,6 +69,13 @@ public:
     virtual const PointSampleVectorVectorRefT getPointVectorSamples( const std::string &tag ) const { return emptyPointSampleVectorVector; };
     virtual const PolylineSampleVectorRefT getPolylineSamples( const std::string &tag ) const { return emptyPolylineSampleVector; };
     
+public:
+    
+    virtual const ofVec2f getSize() const { return ofVec2f(300, 300); };
+    
+    virtual const std::string getName() const { return name; };
+    virtual const std::string getPanelName() const { return name; };
+    
 protected:
     
     std::vector<string>         pointSampleTags;
@@ -62,6 +85,8 @@ protected:
     PointSampleVectorRefT       emptyPointSampleVector;
     PointSampleVectorVectorRefT emptyPointSampleVectorVector;
     PolylineSampleVectorRefT    emptyPolylineSampleVector;
+    
+    std::string                 name;
     
 };
 

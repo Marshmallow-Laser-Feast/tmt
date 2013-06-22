@@ -33,6 +33,8 @@ public:
     VideoFile()
     
     :Video( "Video/File" )
+    ,videoWidth( 0 )
+    ,videoHeight( 0 )
     
     {
         updateVideoFiles();
@@ -125,7 +127,12 @@ public:
         return videoPlayer.isFrameNew();
     };
     
-    virtual std::string getName(){ return "Video/File"; };
+    virtual const std::string getPanelName() const { return "Video/File"; };
+    
+    virtual const ofVec2f getPanelSize() const
+    {
+        return ofVec2f( videoWidth, videoHeight );
+    };
     
 private:
     
@@ -160,11 +167,9 @@ private:
         videoPlayer.loadMovie( videoFileNamePathMap[ videoFileNames[index] ] );
         videoPlayer.setLoopState( OF_LOOP_NORMAL );
         videoPlayer.setVolume( 0 );
-    };
-    
-    virtual ofVec2f getSize()
-    {
-        return ofVec2f( videoPlayer.getWidth(), videoPlayer.getHeight() );
+        
+        videoWidth  = videoPlayer.getWidth();
+        videoHeight = videoPlayer.getHeight();
     };
     
 private:
@@ -172,5 +177,8 @@ private:
     std::vector<std::string>            videoFileNames;
     std::map<std::string, std::string>  videoFileNamePathMap;
     ofVideoPlayer                       videoPlayer;
+    
+    int                                 videoWidth;
+    int                                 videoHeight;
     
 };

@@ -39,6 +39,9 @@
 #include "AppParams.h"
 #include "VideoParams.h"
 
+#include "IVisualizer.h"
+#include "DotVisualizer.h"
+
 #define MIDI_PORT       0
 #define OSC_PORT        12345
 #define PANELS_FILE     "panels.xml"
@@ -72,6 +75,9 @@ public:
     void guiEvent(ofxUIEventArgs &e);
     
 private:
+    
+    void initVisualizers();
+    void updateVisualizers();
     
     void initParams();
     
@@ -108,6 +114,12 @@ private:
     
 private:
     
+    // Visualizers
+    
+    DotVisualizer                           *dotVisualizer;
+    
+    vector<IVisualizer *>                   visualizers;
+    
     // Audio
     
     AudioInput                              *audioInput;
@@ -130,6 +142,7 @@ private:
     MultiTouchInput                         *multiTouchInput;
     
     vector<Input *>                         inputs;
+    InputsMapT                              inputsMap;
     
     // OCS Input
     

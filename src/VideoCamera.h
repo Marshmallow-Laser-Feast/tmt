@@ -114,9 +114,9 @@ public:
         return true;
     };
     
-    virtual std::string getName(){ return "Video/Camera"; };
+    virtual const std::string getPanelName() const { return "Video/Camera"; };
     
-    virtual ofVec2f getSize()
+    virtual const ofVec2f getPanelSize() const
     {
         return ofVec2f( INPUT_WIDTH, INPUT_HEIGHT );
     };

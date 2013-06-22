@@ -1,0 +1,5 @@
+<ofxMSAControlFreak version="1.000000000" bFullSchema="0">
+    <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Video Params">
+        <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Input Video" value="0"></Parameter>
+    </Parameter>
+</ofxMSAControlFreak>

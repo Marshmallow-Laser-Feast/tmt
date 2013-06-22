@@ -1,3 +1,4 @@
+
 //
 //  Panel.h
 //  TheMeasuresTaken
@@ -35,7 +36,7 @@ public:
     ,isClose( false )
     
     {
-        titleBar        = new PanelBar( panelDraws_->getName() );
+        titleBar        = new PanelBar( panelDraws_->getPanelName() );
         closeBar        = new PanelBar( "Close" );
         resizeCorner    = new ResizeCorner();
         
@@ -70,7 +71,7 @@ public:
     
     string getName()
     {
-        return panelDraws->getName();
+        return panelDraws->getPanelName();
     }
     
     bool isActive()
