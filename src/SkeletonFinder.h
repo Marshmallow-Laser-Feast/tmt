@@ -51,7 +51,35 @@ namespace ofxCv {
             
             cv::drawContours( contoursImage, contours, -1, cv::Scalar(255), CV_FILLED );
             
+#if 0
+            
+            // Slower + No gaps in skeleton
+            
             Thinner::process( contoursImage, skeletonImage );
+            
+#else
+            
+            // Faster + Gaps in skeleton
+            // http://felix.abecassis.me/2011/09/opencv-morphological-skeleton/
+            
+            cv::Mat temp;
+            cv::Mat eroded;
+            
+            cv::Mat element = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3));
+            
+            bool done;
+            do
+            {
+                cv::erode(contoursImage, eroded, element);
+                cv::dilate(eroded, temp, element);
+                cv::subtract(contoursImage, temp, temp);
+                cv::bitwise_or(skeletonImage, temp, skeletonImage);
+                eroded.copyTo(contoursImage);
+                
+                done = (cv::countNonZero(contoursImage) == 0);
+            } while (!done);
+            
+#endif
             
             skeletonImage.convertTo(skeletonImage,CV_8UC1);
             

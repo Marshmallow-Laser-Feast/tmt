@@ -39,6 +39,11 @@ public:
         sample  = sample_;
     };
     
+    void setVelocity( const ofPoint & velocity_ )
+    {
+        velocity    = velocity_;
+    };
+    
     const int & getSampleID() const
     {
         return sampleID;
@@ -54,6 +59,11 @@ public:
         return sample;
     };
     
+    const ofPoint & getVelocity() const
+    {
+        return velocity;
+    };
+    
     T & getSample()
     {
         return sample;
@@ -64,6 +74,8 @@ private:
     int     sampleID;
     int     groupID;
     T       sample;
+    
+    ofPoint velocity;
 };
 
 typedef InputSample<ofPoint>        PointSampleT;

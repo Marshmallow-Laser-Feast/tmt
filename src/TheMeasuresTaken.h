@@ -19,6 +19,7 @@
 #include "Input.h"
 
 #include "MultiTouchInput.h"
+#include "VideoAnalysisInput.h"
 
 #include "Video.h"
 
@@ -28,8 +29,6 @@
 #include "LaserOutput.h"
 
 #include "AudioInput.h"
-
-#include "VideoAnalysisInput.h"
 
 #include "Panel.h"
 #include "PanelGroup.h"
