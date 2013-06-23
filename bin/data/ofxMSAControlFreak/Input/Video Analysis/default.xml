@@ -16,7 +16,7 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="50"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="204"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="121"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="2"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="3"></Parameter>

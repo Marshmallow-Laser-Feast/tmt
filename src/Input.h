@@ -57,9 +57,9 @@ public:
     
     virtual void update(){};
     
-    virtual bool hasPointSamples( const std::string &tag ){ return false; };
-    virtual bool hasPointVectorSamples( const std::string &tag ){ return false; };
-    virtual bool hasPolylineSamples( const std::string &tag ){ return false; }
+    virtual const bool hasPointSamples( const std::string &tag ) const  { return false; };
+    virtual const bool hasPointVectorSamples( const std::string &tag ) const { return false; };
+    virtual const bool hasPolylineSamples( const std::string &tag ) const { return false; }
     
     virtual const std::vector<string> & getPointSampleTags() const{ return pointSampleTags; };
     virtual const std::vector<string> & getPointVectorSampleTags() const{ return pointVectorSampleTags; };

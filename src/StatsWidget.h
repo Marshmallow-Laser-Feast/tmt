@@ -33,10 +33,10 @@ public:
         std::stringstream stream;
         
         stream << "Framerate                : " << ofToString( ofGetFrameRate() ) << endl;
-        stream << "OSC Enabled              : " << ofToString( oscMessageRecieved ) << endl;
+        stream << "OSC Enabled              : " << ofToString( oscEnabled ) << endl;
         stream << "Midi Enabled             : " << ofToString( midiEnbled ) << endl;
         stream << "OSC Message Recieved     : " << ofToString( oscMessageRecieved ) << endl;
-        stream << "Midi Message Recieved    : " << ofToString( oscMessageRecieved ) << endl;
+        stream << "Midi Message Recieved    : " << ofToString( midiMessageRecieved ) << endl;
         
         ofPushStyle();
         

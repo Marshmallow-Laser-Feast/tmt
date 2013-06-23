@@ -1,9 +1,5 @@
 <PanelsData>
-    <Panel name="Audio Input" x="431.000000000" y="60.000000000" width="297.000000000" height="109.000000000"></Panel>
-    <Panel name="Input/Multi Touch" x="432.000000000" y="194.000000000" width="200.000000000" height="200.000000000"></Panel>
-    <Panel name="Input/Video Analysis" x="735.000000000" y="60.000000000" width="646.000000000" height="191.000000000"></Panel>
-    <Panel name="Help" x="169.000000000" y="703.000000000" width="360.000000000" height="105.000000000"></Panel>
-    <Panel name="Video/File" x="735.000000000" y="279.000000000" width="640.000000000" height="480.000000000"></Panel>
-    <Panel name="Stats" x="165.000000000" y="585.000000000" width="360.000000000" height="90.000000000"></Panel>
-    <Panel name="Visualizer/Dot" x="302.000000000" y="421.000000000" width="333.000000000" height="122.000000000"></Panel>
+    <Panel name="Video/File" x="835.000000000" y="31.000000000" width="600.000000000" height="462.000000000"></Panel>
+    <Panel name="Input/Video Analysis" x="302.000000000" y="533.000000000" width="1076.000000000" height="322.000000000"></Panel>
+    <Panel name="Visualizer/Trails" x="291.000000000" y="279.000000000" width="508.000000000" height="174.000000000"></Panel>
 </PanelsData>

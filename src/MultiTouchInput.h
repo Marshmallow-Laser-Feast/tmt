@@ -68,7 +68,7 @@ public:
         }
     };
     
-    virtual bool hasPointSamples( const std::string &tag )
+    virtual const bool hasPointSamples( const std::string &tag ) const
     {
         return pointSampleVectorRefMap.count( tag ) > 0;
     };

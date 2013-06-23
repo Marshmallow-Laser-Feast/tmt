@@ -67,7 +67,7 @@ public:
     
 public:
     
-    void update()
+    virtual void update()
     {
         if( params[ PARAM_NAME_CACHE_SIZE ].hasChanged() )
         {

@@ -98,8 +98,23 @@ public:
     virtual const std::string getPanelName() const { return "Empty Video"; };
     
     virtual void draw( float width, float height )
-    {
+    {        
+        float scale = 0.0f;
+        
+        if( width / originalFrameImage.getWidth() > height / originalFrameImage.getHeight() )
+        {
+            scale   = height / originalFrameImage.getHeight();
+        } else {
+            scale   = width / originalFrameImage.getWidth();
+        }
+        
+        ofPushMatrix();
+        
+        ofScale(scale, scale);
+        
         drawROIImage( 0, 0 );
+        
+        ofPopMatrix();
     };
     
 protected:

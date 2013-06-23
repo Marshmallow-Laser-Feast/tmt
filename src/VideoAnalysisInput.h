@@ -271,21 +271,21 @@ public:
         }
     };
     
-    virtual bool hasPointSamples( const std::string &tag )
+    virtual const bool hasPointSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)pointSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointSamplesMapDeque.size() - 1 );
         
         return pointSamplesMapDeque[ offset ].count( tag ) > 0;
     };
     
-    virtual bool hasPointVectorSamples( const std::string &tag )
+    virtual const bool hasPointVectorSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)pointVectorSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointVectorSamplesMapDeque.size() - 1 );
         
         return pointVectorSamplesMapDeque[ offset ].count( tag ) > 0;
     };
     
-    virtual bool hasPolylineSamples( const std::string &tag )
+    virtual const bool hasPolylineSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)polylineSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, polylineSamplesMapDeque.size() - 1 );
         
@@ -315,11 +315,54 @@ public:
     
     virtual void draw( float width, float height )
     {
-        ofPushStyle();
+        float scale = 0.0f;
         
+        if( width / image->getWidth() > height / image->getHeight() )
+        {
+            scale   = height / image->getHeight();
+        } else {
+            scale   = width / image->getWidth();
+        }
+        
+        ofPushMatrix();
+        ofScale(scale, scale);
+        
+        ofPushStyle();
         ofSetColor( 150 );
         
         image->draw(0, 0);
+        
+        ofPopMatrix();
+                
+        if( (bool)params[ PARAM_NAME_VIS_CENTROID ] )
+        {
+            ofSetColor( ofColor::green );
+            drawPointSamples( getPointSamples( CENTROID_TAG ), 4.0f, scale );
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_TIPS ] )
+        {
+            ofSetColor( ofColor::yellow );
+            drawPointVectorSamples( getPointVectorSamples( TIPS_TAG ), 2.0f, scale );
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_CONTOUR ] )
+        {
+            ofSetColor( ofColor::red );
+            drawPolylineSamples( getPolylineSamples( CONTOUR_TAG ), scale );
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_CONVEXHULL ] )
+        {
+            ofSetColor( ofColor::pink );
+            drawPolylineSamples( getPolylineSamples( CONVEXHULL_TAG ), scale );
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_SKLELETON ] )
+        {
+            ofSetColor( ofColor::salmon );
+            drawPolylineSamples( getPolylineSamples( SKELETON_TAG ), scale );
+        }
         
         float yOffset   = 0.0f;
         
@@ -327,7 +370,6 @@ public:
         {
             ofSetColor( ofColor::green );
             ofDrawBitmapString( "-> Centroids", 20.0f, 20.0f );
-            drawPointSamples( getPointSamples( CENTROID_TAG ), 4.0f );
             
             yOffset += 20.0f;
         }
@@ -336,8 +378,7 @@ public:
         {
             ofSetColor( ofColor::yellow );
             ofDrawBitmapString( "-> Tips", 20.0f, yOffset + 20.0f );
-            drawPointVectorSamples( getPointVectorSamples( TIPS_TAG ), 2.0f );
-        
+            
             yOffset += 20.0f;
         }
         
@@ -345,7 +386,6 @@ public:
         {
             ofSetColor( ofColor::red );
             ofDrawBitmapString( "-> Contour", 20.0f, yOffset + 20.0f );
-            drawPolylineSamples( getPolylineSamples( CONTOUR_TAG ) );
             
             yOffset += 20.0f;
         }
@@ -354,7 +394,6 @@ public:
         {
             ofSetColor( ofColor::pink );
             ofDrawBitmapString( "-> Convex", 20.0f, yOffset + 20.0f );
-            drawPolylineSamples( getPolylineSamples( CONVEXHULL_TAG ) );
             
             yOffset += 20.0f;
         }
@@ -363,7 +402,6 @@ public:
         {
             ofSetColor( ofColor::salmon );
             ofDrawBitmapString( "-> Skeleton", 20.0f, yOffset + 20.0f );
-            drawPolylineSamples( getPolylineSamples( SKELETON_TAG ) );
         }
         
         if( (bool)params[ PARAM_NAME_VIS_CENTROID_IDS ] )
@@ -372,7 +410,7 @@ public:
             
             for( std::vector<PointSampleT>::const_iterator it = getPointSamples( CENTROID_TAG )->begin(); it != getPointSamples( CENTROID_TAG )->end(); ++it )
             {
-                ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() + ofPoint( 8.0f, 0.0f ) );
+                ofDrawBitmapString( ofToString( it->getSampleID() ), it->getSample() * scale + ofPoint( 8.0f, 0.0f ) );
             }
         }
         
@@ -384,7 +422,7 @@ public:
             {
                 for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
                 {
-                    ofDrawBitmapString( ofToString( pit->getSampleID() ), pit->getSample() + ofPoint( 4.0f, 0.0f ) );
+                    ofDrawBitmapString( ofToString( pit->getSampleID() ), pit->getSample() * scale + ofPoint( 4.0f, 0.0f ) );
                 }
             }
         }
@@ -615,35 +653,41 @@ private:
         }
     };
     
-    void drawPointSamples( const PointSampleVectorRefT & samples, float circleR )
+    void drawPointSamples( const PointSampleVectorRefT & samples, float circleR, float scale )
     {
         for( PointSampleVectorT::const_iterator it = samples->begin(); it != samples->end(); ++it )
         {
-            ofCircle( it->getSample(), circleR );
-            ofLine( it->getSample() , it->getSample() + it->getVelocity().normalized() * circleR * 2.0f );
+            ofCircle( it->getSample() * scale, circleR );
+            ofLine( it->getSample() * scale , it->getSample() * scale + it->getVelocity().normalized() * circleR * 2.0f );
         }
     }
     
-    void drawPointVectorSamples( const PointSampleVectorVectorRefT & samples, float circleR )
+    void drawPointVectorSamples( const PointSampleVectorVectorRefT & samples, float circleR, float scale  )
     {
         for( PointSampleVectorVectorT::const_iterator it = samples->begin(); it != samples->end(); ++it )
         {
             for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
             {
-                ofCircle( pit->getSample(), circleR );
-                ofLine( pit->getSample() , pit->getSample() + pit->getVelocity().normalized() * circleR * 2.0f );
+                ofCircle( pit->getSample() * scale, circleR );
+                ofLine( pit->getSample() * scale , pit->getSample() * scale + pit->getVelocity().normalized() * circleR * 2.0f );
             }
         }
     }
     
-    void drawPolylineSamples( const PolylineSampleVectorRefT & samples )
+    void drawPolylineSamples( const PolylineSampleVectorRefT & samples, float scale )
     {
         PolylineSampleVectorRefT newRef = samples;
+        
+        ofPushMatrix();
+        
+        ofScale( scale, scale );
         
         for( PolylineSampleVectorT::iterator it = newRef->begin(); it != newRef->end(); ++it )
         {
             it->getSample().draw();
         }
+        
+        ofPopMatrix();
     }
     
 private:

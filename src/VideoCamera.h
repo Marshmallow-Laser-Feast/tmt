@@ -37,7 +37,7 @@ public:
     :Video( "Video/Camera" )
     
     {
-        params.addBool( PARAM_NAME_ENABLE_UPDATE );
+        params.addBool( PARAM_NAME_ENABLE_UPDATE ).set( true );
         
         params.addBool( PARAM_NAME_FLIP_X );
         params.addBool( PARAM_NAME_FLIP_Y );
@@ -47,14 +47,16 @@ public:
         params.addFloat( PARAM_NAME_ROI_X2 ).setClamp( true ).set( 1.0f );
         params.addFloat( PARAM_NAME_ROI_Y2 ).setClamp( true ).set( 1.0f );
         
-        params.addFloat( PARAM_NAME_CAMERA_BRIGHTNESS ).setClamp( true ).setSnap( true );
-        params.addFloat( PARAM_NAME_CAMERA_GAMMA ).setClamp( true ).setSnap( true );
-        params.addFloat( PARAM_NAME_CAMERA_SHUTTER ).setClamp( true ).setSnap( true );
-        params.addFloat( PARAM_NAME_CAMERA_GAIN ).setClamp( true ).setSnap( true );
+        params.addFloat( PARAM_NAME_CAMERA_BRIGHTNESS ).setClamp( true ).setSnap( true ).set( 1 );
+        params.addFloat( PARAM_NAME_CAMERA_GAMMA ).setClamp( true ).setSnap( true ).set( 1 );
+        params.addFloat( PARAM_NAME_CAMERA_SHUTTER ).setClamp( true ).setSnap( true ).set( 1 );
+        params.addFloat( PARAM_NAME_CAMERA_GAIN ).setClamp( true ).setSnap( true ).set( 1 );
         
         grabber.setSize( INPUT_WIDTH , INPUT_HEIGHT );
         grabber.setImageType( OF_IMAGE_GRAYSCALE );
         grabber.setup();
+        
+        grabber.printFeatures();
     };
     
     ~VideoCamera(){};

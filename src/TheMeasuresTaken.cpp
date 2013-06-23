@@ -12,7 +12,12 @@ void TheMeasuresTaken::setup()
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
     ofSetLogLevel( OF_LOG_ERROR );
-        
+    
+    oscRecieved     = false;
+    midiRecieved    = false;
+    
+    oscTimeout      = 0;
+    
     initInputs();
     initVisualizers();
     initVideo();
@@ -38,7 +43,7 @@ void TheMeasuresTaken::setup()
 void TheMeasuresTaken::update()
 {
     msa::controlfreak::update();
-
+    
     updateOCSData();
     
     if( (bool)appParams->params[ PARAM_OSC_ENABLED ] )
@@ -70,6 +75,7 @@ void TheMeasuresTaken::update()
         break;
     }
     
+    updateWidgets();
     updateInputs();
     updateAudioInput();
     updateVisualizers();
@@ -153,7 +159,7 @@ void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo){}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
-{
+{    
     midiData[ std::pair<int, int>( eventArgs.channel, eventArgs.control ) ] = eventArgs.value;
 }
 
@@ -163,9 +169,17 @@ void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels){}
 //--------------------------------------------------------------
 void TheMeasuresTaken::initVisualizers()
 {
-    dotVisualizer       = new DotVisualizer();
+    dotVisualizer           = new DotVisualizer();
+    dotTrailsVisualizer     = new DotTrailsVisualizer();
+    particleVisualizer      = new ParticleVisualizer();
+    contourVisualizer       = new ContourVisualizer();
+    convexHullVisualizer    = new ConvexHullVisualizer();
     
     visualizers.push_back( dotVisualizer );
+    visualizers.push_back( dotTrailsVisualizer );
+    visualizers.push_back( particleVisualizer );
+    visualizers.push_back( contourVisualizer );
+    visualizers.push_back( convexHullVisualizer );
     
     for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
     {
@@ -225,6 +239,15 @@ void TheMeasuresTaken::addWidgets()
     panelDraws.push_back( &statsWidget );
 }
 
+void TheMeasuresTaken::updateWidgets()
+{
+    statsWidget.oscEnabled          = appParams->params[ PARAM_OSC_ENABLED ];
+    statsWidget.midiEnbled          = appParams->params[ PARAM_MIDI_ENABLED ];
+    
+    statsWidget.oscMessageRecieved  = oscRecieved;
+    statsWidget.midiMessageRecieved = midiRecieved;
+}
+
 //--------------------------------------------------------------
 void TheMeasuresTaken::initPanelDraws()
 {
@@ -246,7 +269,8 @@ void TheMeasuresTaken::initContextGUI()
         contextGui->addButton( *it, false );
     }
     
-    contextGui->setVisible(false); 
+    contextGui->setVisible(false);
+    contextGui->autoSizeToFitWidgets();
     
     ofAddListener(contextGui->newGUIEvent, this, &TheMeasuresTaken::guiEvent);    
 }
@@ -382,17 +406,17 @@ void TheMeasuresTaken::updateMidiMappedObjects()
 //--------------------------------------------------------------
 void TheMeasuresTaken::setupOCS()
 {
-    ocsReceiver.setup( OSC_PORT );
+    oscReceiver.setup( OSC_PORT );
 }
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::updateOCSData()
 {
-    while ( ocsReceiver.hasWaitingMessages() )
+    while ( oscReceiver.hasWaitingMessages() )
     {        
         ofxOscMessage   m;
         
-        ocsReceiver.getNextMessage( &m );
+        oscReceiver.getNextMessage( &m );
         
         if( m.getNumArgs() > 0 )
         {

@@ -61,74 +61,72 @@ public:
                             const float time
                            )
     {
-        if( !(bool)params[ PARAM_NAME_ENABLED ] )
+        if( !(bool)params[ PARAM_NAME_ENABLED ] || (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f )
         {
+            addOutput( newOutput() );
+            
             return;
         }
         
-        if( (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f )
+        PolylineVectorRefT  output  = newOutput();
+        
+        float ratio                 = (float)params[ PARAM_NAME_RATIO ];
+        
+        output->push_back( ofPolyline() );
+        
+        for (InputsMapT::const_iterator it = inputsMap.begin(); it != inputsMap.end(); ++it )
         {
-            addOutput( newOutput() );
-        } else {
+            ofVec2f inputSize = it->second->getSize();
             
-            PolylineVectorRefT  output  = newOutput();
+            ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
             
-            output->push_back( ofPolyline() );
-            
-            for (InputsMapT::const_iterator it = inputsMap.begin(); it != inputsMap.end(); ++it )
+            for( std::vector<std::string>::const_iterator tit = it->second->getPointSampleTags().begin(); tit != it->second->getPointSampleTags().end(); ++tit )
             {
-                ofVec2f inputSize = it->second->getSize();
-                
-                ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
-                
-                for( std::vector<std::string>::const_iterator tit = it->second->getPointSampleTags().begin(); tit != it->second->getPointSampleTags().end(); ++tit )
+                if( (bool)params[ (*tit) ] )
                 {
-                    if( (bool)params[ (*tit) ] )
+                    PointSampleVectorRefT   pointSamples    = it->second->getPointSamples( (*tit) );
+                    
+                    for( int i = 0; i < pointSamples->size() * ratio; ++i )
                     {
-                        PointSampleVectorRefT   pointSamples    = it->second->getPointSamples( (*tit) );
-                        
-                        for( PointSampleVectorT::const_iterator sit = pointSamples->begin(); sit != pointSamples->end(); ++sit )
-                        {
-                            output->back().addVertex( sit->getSample() * scale );
-                        }
+                        output->back().addVertex( pointSamples->at( i ).getSample() * scale );
                     }
                 }
-                
-                for( std::vector<std::string>::const_iterator tit = it->second->getPointVectorSampleTags().begin(); tit != it->second->getPointVectorSampleTags().end(); ++tit )
+            }
+            
+            for( std::vector<std::string>::const_iterator tit = it->second->getPointVectorSampleTags().begin(); tit != it->second->getPointVectorSampleTags().end(); ++tit )
+            {
+                if( (bool)params[ (*tit) ] )
                 {
-                    if( (bool)params[ (*tit) ] )
+                    PointSampleVectorVectorRefT pointVectorSamples  = it->second->getPointVectorSamples( (*tit) );
+                    
+                    for( PointSampleVectorVectorT::const_iterator it = pointVectorSamples->begin(); it != pointVectorSamples->end(); ++it )
                     {
-                        PointSampleVectorVectorRefT pointVectorSamples  = it->second->getPointVectorSamples( (*tit) );
-                        
-                        for( PointSampleVectorVectorT::const_iterator it = pointVectorSamples->begin(); it != pointVectorSamples->end(); ++it )
+                        for( int i = 0; i < it->size() * ratio; ++i )
                         {
-                            for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
-                            {                                
-                                output->back().addVertex( pit->getSample() * scale );
-                            }
-                        }
-                    }
-                }
-                
-                for( std::vector<std::string>::const_iterator tit = it->second->getPolylineSampleTags().begin(); tit != it->second->getPolylineSampleTags().end(); ++tit )
-                {
-                    if( (bool)params[ (*tit) ] )
-                    {
-                        PolylineSampleVectorRefT polylineSamples    = it->second->getPolylineSamples( (*tit) );
-                        
-                        for( PolylineSampleVectorT::iterator pit = polylineSamples->begin(); pit != polylineSamples->end(); ++pit )
-                        {
-                            for( std::vector<ofPoint>::const_iterator ppit = pit->getSample().getVertices().begin(); ppit != pit->getSample().getVertices().end(); ++ppit )
-                            {
-                                output->back().addVertex( (*ppit) * scale );
-                            }
+                            output->back().addVertex( it->at( i ).getSample() * scale );
                         }
                     }
                 }
             }
             
-            addOutput( output );
+            for( std::vector<std::string>::const_iterator tit = it->second->getPolylineSampleTags().begin(); tit != it->second->getPolylineSampleTags().end(); ++tit )
+            {
+                if( (bool)params[ (*tit) ] )
+                {
+                    PolylineSampleVectorRefT polylineSamples    = it->second->getPolylineSamples( (*tit) );
+                    
+                    for( PolylineSampleVectorT::iterator pit = polylineSamples->begin(); pit != polylineSamples->end(); ++pit )
+                    {
+                        for( int i = 0; i < pit->getSample().getVertices().size() * ratio; ++i )
+                        {
+                            output->back().addVertex( pit->getSample().getVertices()[ i ] * scale );
+                        }
+                    }
+                }
+            }
         }
+        
+        addOutput( output );
     };
     
     virtual void draw( float width, float height )

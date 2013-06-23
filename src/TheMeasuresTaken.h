@@ -40,11 +40,17 @@
 #include "VideoParams.h"
 
 #include "IVisualizer.h"
-#include "DotVisualizer.h"
 
-#define MIDI_PORT       0
-#define OSC_PORT        12345
-#define PANELS_FILE     "panels.xml"
+#include "DotVisualizer.h"
+#include "DotTrailsVisualizer.h"
+#include "ParticleVisualizer.h"
+#include "ContourVisualizer.h"
+#include "ConvexHullVisualizer.h"
+
+#define MIDI_PORT           0
+#define OSC_PORT            12345
+#define OSC_STATUS_TIMEOUT  60
+#define PANELS_FILE         "panels.xml"
 
 class TheMeasuresTaken : public ofBaseApp, public ofxMidiListener
 {
@@ -86,6 +92,7 @@ private:
     
     void initPanelDraws();
     void addWidgets();
+    void updateWidgets();
     void initContextGUI();
     
     void initAudioInput();
@@ -117,6 +124,10 @@ private:
     // Visualizers
     
     DotVisualizer                           *dotVisualizer;
+    DotTrailsVisualizer                     *dotTrailsVisualizer;
+    ParticleVisualizer                      *particleVisualizer;
+    ContourVisualizer                       *contourVisualizer;
+    ConvexHullVisualizer                    *convexHullVisualizer;
     
     vector<IVisualizer *>                   visualizers;
     
@@ -146,15 +157,20 @@ private:
     
     // OCS Input
     
-    ofxOscReceiver                          ocsReceiver;
+    ofxOscReceiver                          oscReceiver;
     
     std::map<string, vector<float> >        oscData;
+    
+    int                                     oscTimeout;
+    bool                                    oscRecieved;
     
     // Midi
     
     ofxMidiIn                               midiIn;
     
     std::map<std::pair<int,int>, int>       midiData;
+    
+    bool                                    midiRecieved;
     
     // GUI
     

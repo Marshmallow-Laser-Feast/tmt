@@ -4,14 +4,14 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OCS" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Update" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip X" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="ROI X1" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="ROI Y1" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="ROI X2" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="ROI Y2" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Brigtness" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gamma" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Shutter" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gain" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Brigtness" value="0.349999994"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gamma" value="0.659999967"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Shutter" value="1.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gain" value="1.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
