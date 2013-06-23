@@ -157,6 +157,14 @@
 		41823D0417747C560093C6B7 /* Thinner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Thinner.h; sourceTree = "<group>"; };
 		41823D0B177605E70093C6B7 /* DotVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotVisualizer.h; sourceTree = "<group>"; };
 		41823D0C177606020093C6B7 /* IVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVisualizer.h; sourceTree = "<group>"; };
+		41823D0E1776760D0093C6B7 /* ParticleVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleVisualizer.h; sourceTree = "<group>"; };
+		41823D0F177738590093C6B7 /* ContourVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContourVisualizer.h; sourceTree = "<group>"; };
+		41823D101777387B0093C6B7 /* ConvexHullVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHullVisualizer.h; sourceTree = "<group>"; };
+		41823D111777389F0093C6B7 /* DotTrailsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DotTrailsVisualizer.h; sourceTree = "<group>"; };
+		41823D12177738AA0093C6B7 /* FixedPointVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FixedPointVisualizer.h; sourceTree = "<group>"; };
+		41823D13177738D40093C6B7 /* LineVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineVisualizer.h; sourceTree = "<group>"; };
+		41823D14177738DF0093C6B7 /* NearestDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearestDotsVisualizer.h; sourceTree = "<group>"; };
+		41823D15177738E70093C6B7 /* RoofVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoofVisualizer.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		419F10EE1761446400BF91D6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -589,7 +597,15 @@
 			isa = PBXGroup;
 			children = (
 				41823D0B177605E70093C6B7 /* DotVisualizer.h */,
+				41823D111777389F0093C6B7 /* DotTrailsVisualizer.h */,
+				41823D0E1776760D0093C6B7 /* ParticleVisualizer.h */,
 				41823D0C177606020093C6B7 /* IVisualizer.h */,
+				41823D0F177738590093C6B7 /* ContourVisualizer.h */,
+				41823D101777387B0093C6B7 /* ConvexHullVisualizer.h */,
+				41823D12177738AA0093C6B7 /* FixedPointVisualizer.h */,
+				41823D13177738D40093C6B7 /* LineVisualizer.h */,
+				41823D14177738DF0093C6B7 /* NearestDotsVisualizer.h */,
+				41823D15177738E70093C6B7 /* RoofVisualizer.h */,
 			);
 			name = Visualizer;
 			sourceTree = "<group>";

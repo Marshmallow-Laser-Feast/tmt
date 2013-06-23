@@ -160,18 +160,13 @@ private:
     ofxOscReceiver                          oscReceiver;
     
     std::map<string, vector<float> >        oscData;
-    
-    int                                     oscTimeout;
-    bool                                    oscRecieved;
-    
+        
     // Midi
     
     ofxMidiIn                               midiIn;
     
     std::map<std::pair<int,int>, int>       midiData;
-    
-    bool                                    midiRecieved;
-    
+        
     // GUI
     
     msa::controlfreak::gui::Gui             gui;

@@ -13,11 +13,6 @@ void TheMeasuresTaken::setup()
     ofSetBackgroundColor( 0 );
     ofSetLogLevel( OF_LOG_ERROR );
     
-    oscRecieved     = false;
-    midiRecieved    = false;
-    
-    oscTimeout      = 0;
-    
     initInputs();
     initVisualizers();
     initVideo();
@@ -43,6 +38,8 @@ void TheMeasuresTaken::setup()
 void TheMeasuresTaken::update()
 {
     msa::controlfreak::update();
+    
+    statsWidget.setMidi( false );
     
     updateOCSData();
     
@@ -159,7 +156,9 @@ void TheMeasuresTaken::dragEvent(ofDragInfo dragInfo){}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
-{    
+{
+    statsWidget.setMidi( true );
+    
     midiData[ std::pair<int, int>( eventArgs.channel, eventArgs.control ) ] = eventArgs.value;
 }
 
@@ -243,9 +242,6 @@ void TheMeasuresTaken::updateWidgets()
 {
     statsWidget.oscEnabled          = appParams->params[ PARAM_OSC_ENABLED ];
     statsWidget.midiEnbled          = appParams->params[ PARAM_MIDI_ENABLED ];
-    
-    statsWidget.oscMessageRecieved  = oscRecieved;
-    statsWidget.midiMessageRecieved = midiRecieved;
 }
 
 //--------------------------------------------------------------
@@ -412,6 +408,8 @@ void TheMeasuresTaken::setupOCS()
 //--------------------------------------------------------------
 void TheMeasuresTaken::updateOCSData()
 {
+    statsWidget.setOSC( oscReceiver.hasWaitingMessages() );
+    
     while ( oscReceiver.hasWaitingMessages() )
     {        
         ofxOscMessage   m;
