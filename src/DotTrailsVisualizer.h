@@ -70,11 +70,11 @@ public:
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
         
-        newSampleRecievedMap.clear();
+        newSampleReceivedMap.clear();
         
         for( std::map<int, std::deque<ofPoint> >::iterator it = samplesDequeMap.begin(); it != samplesDequeMap.end(); ++it )
         {
-            newSampleRecievedMap[ it->first ]   = false;
+            newSampleReceivedMap[ it->first ]   = false;
         }
         
         for( PointSampleVectorVectorT::const_iterator it = pointVectorSamples->begin(); it != pointVectorSamples->end(); ++it )
@@ -86,7 +86,7 @@ public:
                     samplesDequeMap[ it->at( i ).getSampleID() ]    = std::deque<ofPoint>();
                 }
                 
-                newSampleRecievedMap[ it->at( i ).getSampleID() ]   = true;
+                newSampleReceivedMap[ it->at( i ).getSampleID() ]   = true;
                 
                 samplesDequeMap[ it->at( i ).getSampleID() ].push_back( it->at( i ).getSample() * scale );
             }
@@ -98,7 +98,7 @@ public:
         
         while( it != samplesDequeMap.end() )
         {
-            if( !newSampleRecievedMap[ it->first ] )
+            if( !newSampleReceivedMap[ it->first ] )
             {
                 if( it->second.size() > 0 )
                 {
@@ -176,5 +176,5 @@ public:
 private:
     
     std::map<int, std::deque<ofPoint> > samplesDequeMap;
-    std::map<int, bool>                 newSampleRecievedMap;
+    std::map<int, bool>                 newSampleReceivedMap;
 };

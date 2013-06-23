@@ -25,8 +25,8 @@ public:
     
     :oscEnabled( false )
     ,midiEnbled( false )
-    ,oscMessageRecieved( false )
-    ,midiMessageRecieved( false )
+    ,oscMessageReceived( false )
+    ,midiMessageReceived( false )
     ,oscTimeout( 0 )
     ,midiTimeout( 0 )
     
@@ -45,8 +45,8 @@ public:
         stream << "Framerate                : " << ofToString( ofGetFrameRate() ) << endl;
         stream << "OSC Enabled              : " << ofToString( oscEnabled ) << endl;
         stream << "Midi Enabled             : " << ofToString( midiEnbled ) << endl;
-        stream << "OSC Message Recieved     : " << ofToString( oscMessageRecieved ) << endl;
-        stream << "Midi Message Recieved    : " << ofToString( midiMessageRecieved ) << endl;
+        stream << "OSC Message Received     : " << ofToString( oscMessageReceived ) << endl;
+        stream << "Midi Message Received    : " << ofToString( midiMessageReceived ) << endl;
         
         ofPushStyle();
         
@@ -55,21 +55,21 @@ public:
         ofPopStyle();
     };
     
-    void setOSC( bool recieved )
+    void setOSC( bool received )
     {
-        if( oscMessageRecieved != recieved )
+        if( oscMessageReceived != received )
         {
-            if( !recieved )
+            if( !received )
             {
                 if( oscTimeout == TIMEOUT )
                 {
-                    oscMessageRecieved  = recieved;
+                    oscMessageReceived  = received;
                     oscTimeout          = 0;
                 } else {
                     oscTimeout++;
                 }
             } else {
-                oscMessageRecieved      = recieved;
+                oscMessageReceived      = received;
                 oscTimeout              = 0;
             }
         } else {
@@ -77,21 +77,21 @@ public:
         }
     }
     
-    void setMidi( bool recieved )
+    void setMidi( bool received )
     {
-        if( midiMessageRecieved != recieved )
+        if( midiMessageReceived != received )
         {
-            if( !recieved )
+            if( !received )
             {
                 if( midiTimeout == TIMEOUT )
                 {
-                    midiMessageRecieved  = recieved;
+                    midiMessageReceived  = received;
                     midiTimeout          = 0;
                 } else {
                     midiTimeout++;
                 }
             } else {
-                midiMessageRecieved     = recieved;
+                midiMessageReceived     = received;
                 midiTimeout             = 0;
             }
             
@@ -108,8 +108,8 @@ public:
     
     bool        oscEnabled;
     bool        midiEnbled;
-    bool        oscMessageRecieved;
-    bool        midiMessageRecieved;
+    bool        oscMessageReceived;
+    bool        midiMessageReceived;
     
     int         oscTimeout;
     int         midiTimeout;
