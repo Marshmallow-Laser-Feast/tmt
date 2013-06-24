@@ -110,6 +110,11 @@ public:
     
 public:
     
+    void reconnect() {
+        etherdream.kill();
+        etherdream.setup();
+    }
+    
     void update( const vector<IVisualizer *> &visualizers  )
     {
         if( params[ PARAM_NAME_ILDA_PPS ].hasChanged() )
