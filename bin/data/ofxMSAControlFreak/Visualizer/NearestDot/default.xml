@@ -5,8 +5,8 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness/Audio" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="100.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness/Audio" value="0.971121967"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Count" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Pick Shortest" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CENTROID_TAG" value="0"></Parameter>

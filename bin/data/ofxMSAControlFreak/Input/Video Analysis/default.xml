@@ -40,6 +40,9 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Smoothing" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Simplification" value="3.794642925"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Avarage Radius" value="0.200892851"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Tracking Dist" value="10.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Tracking Pers" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Sample Smoothing" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Resampling" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Smoothing" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Hull Simplification" value="10.491071701"></Parameter>

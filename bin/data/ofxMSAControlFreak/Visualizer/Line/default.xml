@@ -30,7 +30,7 @@
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="0"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.729999959"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
