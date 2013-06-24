@@ -146,9 +146,9 @@ void TheMeasuresTaken::keyPressed(int key)
         contextGui->setVisible(false); 
     }
     
-    if(key == OF_KEY_LEFT) {
+    if(key == ',') {
         videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] - 1;
-    } else if(key == OF_KEY_RIGHT) {
+    } else if(key == '.') {
         videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] + 1;
         
     }
