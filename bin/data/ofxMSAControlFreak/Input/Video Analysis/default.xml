@@ -1,7 +1,7 @@
 <ofxMSAControlFreak version="1.000000000" bFullSchema="0">
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Input/Video Analysis">
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OCS" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Centroids" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Tips" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Contours" value="1"></Parameter>
