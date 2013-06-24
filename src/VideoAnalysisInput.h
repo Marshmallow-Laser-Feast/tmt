@@ -34,6 +34,7 @@
 #define PARAM_NAME_VIS_CENTROID_IDS                 "Draw Centroids IDs"
 #define PARAM_NAME_VIS_TIPS                         "Draw Tips"
 #define PARAM_NAME_VIS_TIPS_IDS                     "Draw Tips IDs"
+#define PARAM_NAME_VIS_RAW_CONTOUR                  "Draw Raw Contours"
 #define PARAM_NAME_VIS_CONTOUR                      "Draw Contours"
 #define PARAM_NAME_VIS_CONVEXHULL                   "Draw Convex Hull"
 #define PARAM_NAME_VIS_SKLELETON                    "Draw Skeleton"
@@ -125,6 +126,7 @@ public:
         params.addBool( PARAM_NAME_VIS_CENTROID_IDS );
         params.addBool( PARAM_NAME_VIS_TIPS ).set( true );
         params.addBool( PARAM_NAME_VIS_TIPS_IDS ).set( true );
+        params.addBool( PARAM_NAME_VIS_RAW_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_VIS_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_VIS_CONVEXHULL ).set( true );
         params.addBool( PARAM_NAME_VIS_SKLELETON ).set( true );
@@ -437,6 +439,21 @@ public:
             drawPolylineSamples( getPolylineSamples( CONTOUR_TAG ), scale );
         }
         
+        if( (bool)params[ PARAM_NAME_VIS_RAW_CONTOUR ] )
+        {
+            ofSetColor( ofColor::gold );
+            
+            ofPushMatrix();
+            ofScale(scale, scale);
+            
+            for( int i = 0; i < contourFinder.size(); ++i )
+            {
+                contourFinder.getPolyline( i ).draw();
+            }
+            
+            ofPopMatrix();
+        }
+        
         if( (bool)params[ PARAM_NAME_VIS_CONVEXHULL ] )
         {
             ofSetColor( ofColor::pink );
@@ -469,6 +486,14 @@ public:
         {
             ofSetColor( ofColor::yellow );
             ofDrawBitmapString( "-> Tips", 20.0f, yOffset + 20.0f );
+            
+            yOffset += 20.0f;
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_RAW_CONTOUR ] )
+        {
+            ofSetColor( ofColor::gold );
+            ofDrawBitmapString( "-> Raw Contours", 20.0f, yOffset + 20.0f );
             
             yOffset += 20.0f;
         }
