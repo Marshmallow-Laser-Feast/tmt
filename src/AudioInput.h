@@ -33,8 +33,8 @@
 #define PARAM_NAME_AUDIO_SMOOTHING_HIGH     "Smoothing High"
 
 #define PARAM_NAME_AUDIO_AMP                "Amplitude"
-#define PARAM_NAME_EXTERNAL_AUDIO           "Ext. Audio Amp"
-#define PARAM_NAME_EXTERNAL_AUDIO_SCALED    "Scaled Ext. Audio Amp"
+#define PARAM_NAME_EXTERNAL_AUDIO           "Ext Audio Amp"
+#define PARAM_NAME_EXTERNAL_AUDIO_SCALED    "Scaled Ext Audio Amp"
 #define PARAM_NAME_POSITON                  "Position"
 
 class AudioInput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
