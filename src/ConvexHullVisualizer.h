@@ -17,8 +17,8 @@
 
 #include "IVisualizer.h"
 
-#define INPUT_NAME                          "Input/Video Analysis"
-#define TARGET_POLYLINE_SAMPLE_TAG          "CONVEXHULL_TAG"
+#define INPUT_NAME              "Input/Video Analysis"
+#define CONVEXHULL_SAMPLE_TAG   "CONVEXHULL_TAG"
 
 class ConvexHullVisualizer: public IVisualizer
 {
@@ -48,8 +48,8 @@ public:
                            )
     {
         if( !(bool)params[ PARAM_NAME_ENABLED ] ||
-           (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f ||
-           inputsMap.count( INPUT_NAME ) == 0
+            (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f ||
+            inputsMap.count( INPUT_NAME ) == 0
            )
         {
             addOutput( newOutput() );
@@ -62,7 +62,7 @@ public:
         
         PolylineVectorRefT          output          = newOutput();
         
-        PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( TARGET_POLYLINE_SAMPLE_TAG );
+        PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( CONVEXHULL_SAMPLE_TAG );
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
         

@@ -46,6 +46,9 @@
 #include "ParticleVisualizer.h"
 #include "ContourVisualizer.h"
 #include "ConvexHullVisualizer.h"
+#include "FixedPointVisualizer.h"
+#include "LineVisualizer.h"
+#include "NearestDotsVisualizer.h"
 
 #define MIDI_PORT           0
 #define OSC_PORT            12345
@@ -128,6 +131,9 @@ private:
     ParticleVisualizer                      *particleVisualizer;
     ContourVisualizer                       *contourVisualizer;
     ConvexHullVisualizer                    *convexHullVisualizer;
+    FixedPointVisualizer                    *fixedPointVisualizer;
+    LineVisualizer                          *lineVisualizer;
+    NearestDotsVisualizer                   *nearesDotVisualizer;
     
     vector<IVisualizer *>                   visualizers;
     
@@ -190,6 +196,10 @@ private:
     
     AppParams                               *appParams;
     VideoParams                             *videoParams;
+    
+    // Misc
+    
+    float                                   usageInfoBarAlpha;
     
     
 };

@@ -17,8 +17,8 @@
 
 #include "IVisualizer.h"
 
-#define INPUT_NAME                          "Input/Video Analysis"
-#define TARGET_POLYLINE_SAMPLE_TAG          "CONTOUR_TAG"
+#define INPUT_NAME      "Input/Video Analysis"
+#define CONTOUR_TAG     "CONTOUR_TAG"
 
 class ContourVisualizer: public IVisualizer
 {
@@ -62,7 +62,7 @@ public:
         
         PolylineVectorRefT          output          = newOutput();
         
-        PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( TARGET_POLYLINE_SAMPLE_TAG );
+        PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( CONTOUR_TAG );
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
         

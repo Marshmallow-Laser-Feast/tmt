@@ -18,8 +18,8 @@
 #include "IVisualizer.h"
 
 #define INPUT_NAME                          "Input/Video Analysis"
-#define PARTICLE_SOURCE_POINT_SAMPLE_TAG    "TIPS_TAG"
-#define ATTRACTOR_SOURCE_POINT_SAMPLE_TAG   "CENTROID_TAG"
+#define PARTICLE_SOURCE_TIPS_TAG            "TIPS_TAG"
+#define ATTRACTOR_SOURCE_CENTROID_TAG       "CENTROID_TAG"
 
 #define PARTICLE_RATIO_TO_KILL              0.02f
 
@@ -82,8 +82,8 @@ public:
         
         int groupIndex              = 0;
         
-        PointSampleVectorVectorRefT particleSourceVectorSamples = input->getPointVectorSamples( PARTICLE_SOURCE_POINT_SAMPLE_TAG );
-        PointSampleVectorRefT       attractorSourceSamples      = input->getPointSamples( ATTRACTOR_SOURCE_POINT_SAMPLE_TAG );
+        PointSampleVectorVectorRefT particleSourceVectorSamples = input->getPointVectorSamples( PARTICLE_SOURCE_TIPS_TAG );
+        PointSampleVectorRefT       attractorSourceSamples      = input->getPointSamples( ATTRACTOR_SOURCE_CENTROID_TAG );
         
         for( PointSampleVectorVectorT::const_iterator it = particleSourceVectorSamples->begin(); it != particleSourceVectorSamples->end(); ++it )
         {

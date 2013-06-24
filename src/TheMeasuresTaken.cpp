@@ -32,6 +32,8 @@ void TheMeasuresTaken::setup()
     
     gui.toggleDraw();
     gui.setDefaultKeys(true);
+    
+    usageInfoBarAlpha   = 1.0f;
 }
 
 //--------------------------------------------------------------
@@ -85,6 +87,26 @@ void TheMeasuresTaken::update()
 void TheMeasuresTaken::draw()
 {
     ofClear( 0 );
+    
+    if( usageInfoBarAlpha > 0.0f )
+    {
+        usageInfoBarAlpha   = usageInfoBarAlpha - ( 1.0f / (ofGetFrameRate() * 8.0f) );
+        
+        float rectWidth     = 460.0f;
+        float rectHeight    = 20.0f;
+        
+        ofPushStyle();
+        ofEnableAlphaBlending();
+        
+        ofSetColor( 30, 255 * usageInfoBarAlpha );
+        ofRectRounded( ( ofGetWidth() - rectWidth ) * 0.5f , ( ofGetHeight() - rectHeight ) * 0.5f, rectWidth, rectHeight, 10.0f );
+        
+        ofSetColor( 80, 255 * usageInfoBarAlpha );
+        ofDrawBitmapString( "<space> parameter controls <tab> contextual panels menu", ( ofGetWidth() - rectWidth ) * 0.5f + 8.0f, ( ofGetHeight() - rectHeight ) * 0.5f + 13.0f );
+        
+        ofDisableAlphaBlending();
+        ofPopStyle();
+    }
     
     panelGroup.draw();
 }
@@ -173,12 +195,18 @@ void TheMeasuresTaken::initVisualizers()
     particleVisualizer      = new ParticleVisualizer();
     contourVisualizer       = new ContourVisualizer();
     convexHullVisualizer    = new ConvexHullVisualizer();
+    fixedPointVisualizer    = new FixedPointVisualizer();
+    lineVisualizer          = new LineVisualizer();
+    nearesDotVisualizer     = new NearestDotsVisualizer();
     
     visualizers.push_back( dotVisualizer );
     visualizers.push_back( dotTrailsVisualizer );
     visualizers.push_back( particleVisualizer );
     visualizers.push_back( contourVisualizer );
     visualizers.push_back( convexHullVisualizer );
+    visualizers.push_back( fixedPointVisualizer );
+    visualizers.push_back( lineVisualizer );
+    visualizers.push_back( nearesDotVisualizer );
     
     for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
     {

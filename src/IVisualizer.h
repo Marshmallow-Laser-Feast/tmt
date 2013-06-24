@@ -54,12 +54,12 @@ public:
         setupMidi();
         setupOCS();
         
-        params.addBool( PARAM_NAME_ENABLED );
+        params.addBool( PARAM_NAME_ENABLED ).set( true );
         
         params.addInt( PARAM_NAME_CACHE_SIZE ).set( 1 );
         params.addInt( PARAM_NAME_CACHE_OFFSET ).setRange(0, 1).setClamp(true);
         
-        params.addFloat( PARAM_NAME_BRIGHTNESS ).setRange(0, 1).setClamp(true);        
+        params.addFloat( PARAM_NAME_BRIGHTNESS ).setRange(0, 1).setClamp(true).set( 1.0f );
     };
     
     virtual ~IVisualizer()

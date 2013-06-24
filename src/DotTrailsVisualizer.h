@@ -16,7 +16,7 @@
 #include "IVisualizer.h"
 
 #define INPUT_NAME                  "Input/Video Analysis"
-#define TARGET_POINT_SAMPLE_TAG     "TIPS_TAG"
+#define TIPS_TAG                    "TIPS_TAG"
 
 #define PARAM_NAME_RATIO            "Ratio"
 #define PARAM_NAME_TRAILS_COUNT     "Trails Count"
@@ -66,7 +66,7 @@ public:
         
         float       ratio       = (float)params[ PARAM_NAME_RATIO ];
         
-        PointSampleVectorVectorRefT pointVectorSamples  = input->getPointVectorSamples( TARGET_POINT_SAMPLE_TAG );
+        PointSampleVectorVectorRefT pointVectorSamples  = input->getPointVectorSamples( TIPS_TAG );
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
         
