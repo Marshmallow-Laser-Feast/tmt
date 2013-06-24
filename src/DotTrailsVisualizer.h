@@ -121,10 +121,10 @@ public:
         
         PolylineVectorRefT  output  = newOutput();
         
-        output->push_back( ofPolyline() );
-        
         for( std::map<int, std::deque<ofPoint> >::iterator it = samplesDequeMap.begin(); it != samplesDequeMap.end(); ++it )
         {
+            output->push_back( ofPolyline() );
+            
             for( std::deque<ofPoint>::iterator pit = it->second.begin(); pit != it->second.end(); ++pit )
             {
                 output->back().addVertex( *pit );
@@ -139,21 +139,20 @@ public:
         if( (bool)params[ PARAM_NAME_ENABLED ] )
         {
             ofPushStyle();
+            ofPushMatrix();
             
             ofSetColor( ofColor::white );
             
-            ofVec3f scale( width, height, 1.0f );
+            ofScale( width, height, 1.0f );
             
             PolylineVectorRefT currentOutput    = getOutput();
-        
+            
             for( std::vector<ofPolyline>::iterator it = currentOutput->begin(); it != currentOutput->end(); ++it )
             {
-                for( std::vector<ofPoint>::const_iterator pit = it->getVertices().begin(); pit != it->getVertices().end(); ++pit )
-                {
-                    ofCircle( *pit * scale, 2.0f );
-                }
+                it->draw();
             }
             
+            ofPopMatrix();
             ofPopStyle();
         } else {
             ofPushStyle();

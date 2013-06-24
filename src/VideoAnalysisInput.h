@@ -577,6 +577,11 @@ private:
         centroidTracker.setPersistence(trackingPersistance);
         centroidTracker.track( allFloatPoints );
         
+        for(std::map<unsigned int, PointSampleSmoother>::iterator it = centroidSmoothersMap.begin(); it != centroidSmoothersMap.end(); ++it )
+        {
+            it->second.setNewSampleReceived( false );
+        }
+        
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
             unsigned int sampleID   = centroidTracker.getLabelFromIndex( i );
@@ -585,6 +590,8 @@ private:
             {
                 centroidSmoothersMap[ sampleID ]    = PointSampleSmoother();
             }
+            
+            centroidSmoothersMap[ sampleID ].setNewSampleReceived( true );
             
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->push_back( PointSampleT() );
             
@@ -599,6 +606,18 @@ private:
             
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSampleID( sampleID );
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setGroupID( i );
+        }
+        
+        std::map<unsigned int, PointSampleSmoother>::iterator it = centroidSmoothersMap.begin();
+        
+        while( it != centroidSmoothersMap.end() )
+        {
+            if( !it->second.getNewSampleReceived() )
+            {
+                centroidSmoothersMap.erase( it++ );
+            } else {
+                ++it;
+            }
         }
     }
     
@@ -682,6 +701,11 @@ private:
             }
         }
         
+        for(std::map<unsigned int, PointSampleSmoother>::iterator it = tipsSmoothersMap.begin(); it != tipsSmoothersMap.end(); ++it )
+        {
+            it->second.setNewSampleReceived( false );
+        }
+        
         tipTracker.setMaximumDistance(trackingDistance);
         tipTracker.setPersistence(trackingPersistance);
         tipTracker.track( allFloatPoints );
@@ -717,6 +741,18 @@ private:
             
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSampleID( tipTracker.getLabelFromIndex( i ) );
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setGroupID( groupIDs[ i ] );
+        }
+        
+        std::map<unsigned int, PointSampleSmoother>::iterator it = tipsSmoothersMap.begin();
+        
+        while( it != tipsSmoothersMap.end() )
+        {
+            if( !it->second.getNewSampleReceived() )
+            {
+                tipsSmoothersMap.erase( it++ );
+            } else {
+                ++it;
+            }
         }
     }
     
@@ -853,6 +889,11 @@ private:
             }
         }
         
+        for(std::map<unsigned int, PointSampleSmoother>::iterator it = convexHullSmoothersMap.begin(); it != convexHullSmoothersMap.end(); ++it )
+        {
+            it->second.setNewSampleReceived( false );
+        }
+        
         convexHullPointTracker.setMaximumDistance(trackingDistance);
         convexHullPointTracker.setPersistence(trackingPersistance);
         convexHullPointTracker.track( allFloatPoints );
@@ -878,6 +919,18 @@ private:
             }
             
             polylinePointsVector.back().push_back( convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+        }
+        
+        std::map<unsigned int, PointSampleSmoother>::iterator it = convexHullSmoothersMap.begin();
+        
+        while( it != convexHullSmoothersMap.end() )
+        {
+            if( !it->second.getNewSampleReceived() )
+            {
+                convexHullSmoothersMap.erase( it++ );
+            } else {
+                ++it;
+            }
         }
         
         for( int i = 0; i < polylinePointsVector.size(); ++i )
@@ -938,6 +991,11 @@ private:
             ++i;
         }
         
+        for(std::map<unsigned int, PointSampleSmoother>::iterator it = skeletonSmoothersMap.begin(); it != skeletonSmoothersMap.end(); ++it )
+        {
+            it->second.setNewSampleReceived( false );
+        }
+        
         skeletonPointsTracker.setMaximumDistance(trackingDistance);
         skeletonPointsTracker.setPersistence(trackingPersistance);
         skeletonPointsTracker.track( allFloatPoints );
@@ -973,6 +1031,18 @@ private:
             
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSampleID( skeletonPointsTracker.getLabelFromIndex( i ) );
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setGroupID( groupIDs[ i ] );
+        }
+        
+        std::map<unsigned int, PointSampleSmoother>::iterator it = skeletonSmoothersMap.begin();
+        
+        while( it != skeletonSmoothersMap.end() )
+        {
+            if( !it->second.getNewSampleReceived() )
+            {
+                skeletonSmoothersMap.erase( it++ );
+            } else {
+                ++it;
+            }
         }
     };
     
