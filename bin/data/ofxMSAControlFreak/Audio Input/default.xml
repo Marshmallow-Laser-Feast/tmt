@@ -2,12 +2,12 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Audio Input">
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OCS" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Playback" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Playback" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Audio Source" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000099156"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.006415463"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000000437"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.139342934"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

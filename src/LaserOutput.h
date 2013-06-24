@@ -111,7 +111,14 @@ public:
     
 public:
     
+    void reconnect()
+    {
+        etherdream.kill();
+        etherdream.setup();
+    }
+
     void update( const vector<IVisualizer *> &visualizers, vector<IFilter *> &filters, float audioAmp )
+
     {
         if( params[ PARAM_NAME_ILDA_PPS ].hasChanged() )
         {

@@ -3,16 +3,6 @@
         <name>Page One</name>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_18_.xml</xmlFileName>
-            <trackName>curves_18</trackName>
-            <displayName>input/Smoothing</displayName>
-            <sendOSC>0</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
             <xmlFileName>curves_.xml</xmlFileName>
             <trackName>curves</trackName>
             <displayName>CameraContourInput/Type</displayName>
@@ -20,56 +10,6 @@
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>3.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_0_.xml</xmlFileName>
-            <trackName>curves_0</trackName>
-            <displayName>CameraContourInput/Blur</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>0.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_1_.xml</xmlFileName>
-            <trackName>curves_1</trackName>
-            <displayName>CameraContourInput/Resample</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>500.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_2_.xml</xmlFileName>
-            <trackName>curves_2</trackName>
-            <displayName>CameraContourInput/Smooth</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>20.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_3_.xml</xmlFileName>
-            <trackName>curves_3</trackName>
-            <displayName>CameraContourInput/Average Radius</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_5_.xml</xmlFileName>
-            <trackName>curves_5</trackName>
-            <displayName>CameraContourInput/Tracking Distance</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>500.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -83,56 +23,6 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_12_.xml</xmlFileName>
-            <trackName>curves_12</trackName>
-            <displayName>DotTrailsViz/timeOffset</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>300.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_7_.xml</xmlFileName>
-            <trackName>curves_7</trackName>
-            <displayName>DotTrailsViz/TrailCount</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>100.000007629</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_15_.xml</xmlFileName>
-            <trackName>curves_15</trackName>
-            <displayName>DotTrailsViz/circleRadius</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>10.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_16_.xml</xmlFileName>
-            <trackName>curves_16</trackName>
-            <displayName>DotTrailsViz/circleRadiusAudio</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_17_.xml</xmlFileName>
-            <trackName>curves_17</trackName>
-            <displayName>DotTrailsViz/brightnessAudio</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
             <xmlFileName>curves_8_.xml</xmlFileName>
             <trackName>curves_8</trackName>
             <displayName>NearestDotsViz/Brightness</displayName>
@@ -140,16 +30,6 @@
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>100.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_19_.xml</xmlFileName>
-            <trackName>curves_19</trackName>
-            <displayName>NearestDotsViz/timeOffset</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>300.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -188,7 +68,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test19-fix.aif</clip>
+            <clip></clip>
         </track>
         <track>
             <type>Curves</type>
@@ -199,16 +79,6 @@
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_11_.xml</xmlFileName>
-            <trackName>curves_11</trackName>
-            <displayName>LineViz/timeOffset</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>300.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -264,7 +134,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:13:04:632</playhead>
+    <playhead>00:17:47:909</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>

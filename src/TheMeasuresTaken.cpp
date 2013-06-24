@@ -146,6 +146,27 @@ void TheMeasuresTaken::keyPressed(int key)
     } else {
         contextGui->setVisible(false); 
     }
+    
+    if(key == ',') {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] - 1;
+    } else if(key == '.') {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] + 1;
+    } else if(key == '<') {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] - 25;
+    } else if(key == '>') {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] + 25;
+    }
+
+    
+    if(key == 'v') {
+        videoFile->params[PARAM_NAME_ENABLE_PLAYBACK] = !(bool)videoFile->params[PARAM_NAME_ENABLE_PLAYBACK];
+    }
+    
+    if(key == 'x') {
+        laserOutput->reconnect();
+    }
+    
+    
 }
 
 //--------------------------------------------------------------
