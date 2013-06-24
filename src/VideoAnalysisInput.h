@@ -72,6 +72,9 @@
 #define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Hull Smoothing"
 #define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Hull Simplification"
 #define PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS        "Convex Hull Avarage Radius"
+#define PARAM_NAME_CONVEXHULL_TRACK_DIST            "Convex Tracking Dist"
+#define PARAM_NAME_CONVEXHULL_TRACK_PERS            "Convex Tracking Pers"
+#define PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING      "Convex Sample Smoothing"
 
 #define PARAM_NAME_SKELETON_PRECISE_PROCESS         "Skeleton Precise Processing"
 #define PARAM_NAME_SKELETON_RESAMPLING              "Skeleton Resampling"
@@ -102,7 +105,6 @@ public:
     static const std::string CONVEXHULL_TAG;
     static const std::string SKELETON_LINES_TAG;
     static const std::string SKELETON_POINTS_TAG;
-    
     
 public:
     
@@ -161,6 +163,9 @@ public:
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat( PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS ).setClamp( true );
+        params.addFloat( PARAM_NAME_CONVEXHULL_TRACK_DIST ).set( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_CONVEXHULL_TRACK_PERS );
+        params.addFloat( PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING ).setClamp( true );
         
         params.addBool( PARAM_NAME_SKELETON_PRECISE_PROCESS ).set( false );
         params.addInt( PARAM_NAME_SKELETON_RESAMPLING ).setClamp(true).setRange(0, 1000);
@@ -178,6 +183,10 @@ public:
         polylineSampleTags.push_back( CONTOUR_TAG );
         polylineSampleTags.push_back( CONVEXHULL_TAG );
         polylineSampleTags.push_back( SKELETON_LINES_TAG );
+        
+        pointSamplesMapDeque.push_back( PointSampleVectorRefMapT() );
+        pointVectorSamplesMapDeque.push_back( PointSampleVectorVectorRefMapT() );
+        polylineSamplesMapDeque.push_back( PolylineSampleVectorRefMapT() );
     };
     
     ~VideoAnalysisInput(){};
@@ -203,7 +212,7 @@ public:
             params[ PARAM_NAME_CACHE_OFFSET ].setRange(0, (int)params[ PARAM_NAME_CACHE_SIZE ] ).setClamp(true);
         }
         
-        if( (params.hasChanged() || isCurrentFrameNew) && image != NULL )
+        if( (params.hasChanged() || isCurrentFrameNew) && image != NULL && image->bAllocated() )
         {
             pointSamplesMapDeque.push_back( PointSampleVectorRefMapT() );
             pointVectorSamplesMapDeque.push_back( PointSampleVectorVectorRefMapT() );
@@ -287,7 +296,10 @@ public:
                                     params[PARAM_NAME_CONVEXHULL_RESAMPLING],
                                     params[PARAM_NAME_CONVEXHULL_SMOOTHING],
                                     params[PARAM_NAME_CONVEXHULL_SIMPLIFICATION],
-                                    params[PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS]
+                                    params[PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS],
+                                    params[PARAM_NAME_CONVEXHULL_TRACK_DIST],
+                                    params[PARAM_NAME_CONVEXHULL_TRACK_PERS],
+                                    params[PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING]
                                   );
             }
             
@@ -309,42 +321,81 @@ public:
     {
         int offset  = ofClamp( (int)pointSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointSamplesMapDeque.size() - 1 );
         
-        return pointSamplesMapDeque[ offset ].count( tag ) > 0;
+        if( pointSamplesMapDeque.size() > offset )
+        {
+            return pointSamplesMapDeque[ offset ].count( tag ) > 0;
+        }
+        
+        return false;
     };
     
     virtual const bool hasPointVectorSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)pointVectorSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointVectorSamplesMapDeque.size() - 1 );
+                
+        if( pointVectorSamplesMapDeque.size() > offset )
+        {
+            return pointVectorSamplesMapDeque[ offset ].count( tag ) > 0;
+        }
         
-        return pointVectorSamplesMapDeque[ offset ].count( tag ) > 0;
+        return false;
     };
     
     virtual const bool hasPolylineSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)polylineSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, polylineSamplesMapDeque.size() - 1 );
         
-        return polylineSamplesMapDeque[ offset ].count( tag ) > 0;
+        if( polylineSamplesMapDeque.size() > offset )
+        {
+            return polylineSamplesMapDeque[ offset ].count( tag ) > 0;
+        }
+        
+        return false;
     };
     
     virtual const PointSampleVectorRefT getPointSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)pointSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointSamplesMapDeque.size() - 1 );
         
-        return pointSamplesMapDeque[ offset ].at( tag );
+        if( pointSamplesMapDeque.size() > offset )
+        {
+            if( pointSamplesMapDeque[ offset ].count( tag ) )
+            {
+                return pointSamplesMapDeque[ offset ].at( tag );
+            }
+        }
+        
+        return PointSampleVectorRefT( new PointSampleVectorT() );
     };
     
     virtual const PointSampleVectorVectorRefT getPointVectorSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)pointVectorSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, pointVectorSamplesMapDeque.size() - 1 );
         
-        return pointVectorSamplesMapDeque[ offset ].at( tag );
+        if( pointVectorSamplesMapDeque.size() > offset )
+        {
+            if( pointVectorSamplesMapDeque[ offset ].count( tag ) )
+            {
+                return pointVectorSamplesMapDeque[ offset ].at( tag );
+            }
+        }
+        
+        return PointSampleVectorVectorRefT( new PointSampleVectorVectorT() );
     };
     
     virtual const PolylineSampleVectorRefT getPolylineSamples( const std::string &tag ) const
     {
         int offset  = ofClamp( (int)polylineSamplesMapDeque.size() - (int)params[ PARAM_NAME_CACHE_OFFSET ], 0, polylineSamplesMapDeque.size() - 1 );
         
-        return polylineSamplesMapDeque[ offset ].at( tag );
+        if( polylineSamplesMapDeque.size() > offset )
+        {
+            if( polylineSamplesMapDeque[ offset ].count( tag ) )
+            {
+                return polylineSamplesMapDeque[ offset ].at( tag );
+            }
+        }
+        
+        return PolylineSampleVectorRefT( new PolylineSampleVectorT() );
     };
     
     virtual void draw( float width, float height )
@@ -671,8 +722,6 @@ private:
     
     void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
     {
-//        vector<cv::Point2f>     allFloatPoints;
-//        vector<unsigned int>    groupIDs;
         
         for( int i = 0; i < contourFinder.size(); ++i )
         {
@@ -738,8 +787,11 @@ private:
 
     }
     
-    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
-    {        
+    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing )
+    {
+        vector<cv::Point2f>     allFloatPoints;
+        vector<unsigned int>    groupIDs;
+        
         for( int i = 0; i < contourFinder.size(); ++i )
         {
             ofPolyline polyline = ofxCv::toOf( contourFinder.getConvexHull(i) );
@@ -793,6 +845,47 @@ private:
                 
                 polyline    = temp;
             }
+            
+            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+            {
+                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+                groupIDs.push_back( i );
+            }
+        }
+        
+        convexHullPointTracker.setMaximumDistance(trackingDistance);
+        convexHullPointTracker.setPersistence(trackingPersistance);
+        convexHullPointTracker.track( allFloatPoints );
+        
+        std::vector<std::vector<ofPoint> > polylinePointsVector;
+        
+        int currentGroupId      = -1;
+        
+        for( int i = 0; i < allFloatPoints.size(); ++i )
+        {
+            if( currentGroupId != groupIDs[ i ] )
+            {
+                currentGroupId  = groupIDs[ i ];
+                
+                polylinePointsVector.push_back( std::vector<ofPoint>() );
+            }
+            
+            unsigned int sampleID   = convexHullPointTracker.getLabelFromIndex( i );
+            
+            if( convexHullSmoothersMap.count( sampleID ) == 0 )
+            {
+                convexHullSmoothersMap[ sampleID ]  = PointSampleSmoother();
+            }
+            
+            polylinePointsVector.back().push_back( convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+        }
+        
+        for( int i = 0; i < polylinePointsVector.size(); ++i )
+        {
+            ofPolyline  polyline;
+            
+            polyline.addVertices( polylinePointsVector[i] );
+            polyline.close();
             
             polylineSamplesMapDeque.back()[ CONVEXHULL_TAG ]->push_back( PolylineSampleT() );
             
@@ -930,7 +1023,6 @@ private:
     
     ofxCv::PointTracker                 centroidTracker;
     ofxCv::PointTracker                 tipTracker;
-    ofxCv::PointTracker                 contourPointTracker;
     ofxCv::PointTracker                 convexHullPointTracker;
     ofxCv::PointTracker                 skeletonPointsTracker;
     
@@ -946,8 +1038,7 @@ private:
     
     std::map<unsigned int, PointSampleSmoother>  centroidSmoothersMap;
     std::map<unsigned int, PointSampleSmoother>  tipsSmoothersMap;
-    std::map<unsigned int, PointSampleSmoother>  contourSmoothersMap;
-    std::map<unsigned int, PointSampleSmoother>  convexSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>  convexHullSmoothersMap;
     std::map<unsigned int, PointSampleSmoother>  skeletonSmoothersMap;
     
 };

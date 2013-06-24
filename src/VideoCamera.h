@@ -37,7 +37,7 @@ public:
     :Video( "Video/Camera" )
     
     {
-        params.addBool( PARAM_NAME_ENABLE_UPDATE ).set( true );
+        params.addBool( PARAM_NAME_ENABLE_UPDATE ).set( grabber.getCameraCount() > 0 );
         
         params.addBool( PARAM_NAME_FLIP_X );
         params.addBool( PARAM_NAME_FLIP_Y );
@@ -56,7 +56,7 @@ public:
         grabber.setImageType( OF_IMAGE_GRAYSCALE );
         grabber.setup();
         
-        grabber.printFeatures();
+        
     };
     
     ~VideoCamera(){};
