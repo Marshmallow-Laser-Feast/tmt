@@ -21,7 +21,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Spacing" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="8"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="8"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="26"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="26"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

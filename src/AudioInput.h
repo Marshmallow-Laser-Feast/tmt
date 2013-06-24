@@ -18,9 +18,13 @@
 
 #include "IPanelDraws.h"
 
-#define SOUND_FILE_NAME                 "sound/measures-total-test16.aif"
+#define AUDIO_FILE_NAME                 "sound/measures-total-test16.aif"
+
+#define AUDIO_FOLDER                    "sound"
         
-#define FFT_SAMPLE_COUNT                   128
+#define FFT_SAMPLE_COUNT                128
+
+#define PARAM_NAME_AUDIO_SOURCE         "Audio Source"
 
 #define PARAM_NAME_ENABLE_PLAYBACK      "Playback"
 
@@ -47,7 +51,16 @@ public:
         setupMidi();
         setupOCS();
         
+        updateAudioFiles();
+        
+        if( audioFileNames.size() > 0 )
+        {
+            loadAudioAtIndex( 0 );
+        }
+        
         params.addBool( PARAM_NAME_ENABLE_PLAYBACK ).set( true );
+        
+        params.addNamedIndex( PARAM_NAME_AUDIO_SOURCE ).setLabels( audioFileNames );
         
         params.addFloat( PARAM_NAME_AUDIO_SCALE ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true ).set( 1.0f );
@@ -55,9 +68,6 @@ public:
         
         params.addFloat( PARAM_NAME_AUDIO_AMP ).setClamp( true );
         params.addFloat( PARAM_NAME_POSITON ).setClamp( true );
-        
-        soundPlayer.loadSound( SOUND_FILE_NAME );
-        soundPlayer.play();
         
         fftData     = new float[ FFT_SAMPLE_COUNT ];
         
@@ -75,6 +85,11 @@ public:
     
     void update()
     {
+        if( params[ PARAM_NAME_AUDIO_SOURCE ].hasChanged() )
+        {
+            loadAudioAtIndex( params[ PARAM_NAME_AUDIO_SOURCE ] );
+        }
+        
         ofSoundUpdate();
         
         fftData         = ofSoundGetSpectrum( FFT_SAMPLE_COUNT );
@@ -159,4 +174,42 @@ public:
     
     float           *fftData;
     float           amp;
+    
+private:
+    
+    void updateAudioFiles()
+    {
+        ofDirectory audioDirectory;
+        
+        audioDirectory.listDir( AUDIO_FOLDER );
+        
+        audioFileNames.clear();
+        
+        for( int i = 0; i < audioDirectory.getFiles().size(); i++ )
+        {
+            std::string fileName    = audioDirectory.getName( i );
+            
+            if( fileName.length() > 17 )
+            {
+                fileName            = fileName.substr( 0, 17 );
+                fileName            = fileName + "...";
+            }
+            
+            audioFileNames.push_back( fileName );
+            
+            audioFileNamePathMap[ fileName ] = audioDirectory.getPath( i );
+        }
+    };
+    
+    void loadAudioAtIndex( int index )
+    {
+        soundPlayer.loadSound( audioFileNamePathMap[ audioFileNames[index] ] );
+        soundPlayer.play();
+    }
+    
+    
+private:
+    
+    std::vector<std::string>            audioFileNames;
+    std::map<std::string, std::string>  audioFileNamePathMap;
 };

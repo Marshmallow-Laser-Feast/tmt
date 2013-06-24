@@ -1,5 +1,1 @@
-<PanelsData>
-    <Panel name="Laser Output" x="382.000000000" y="35.000000000" width="681.000000000" height="261.000000000"></Panel>
-    <Panel name="Input/Video Analysis" x="46.000000000" y="626.000000000" width="927.000000000" height="272.000000000"></Panel>
-    <Panel name="Visualizer/Skeleton" x="396.000000000" y="322.000000000" width="766.000000000" height="274.000000000"></Panel>
-</PanelsData>
+<PanelsData></PanelsData>

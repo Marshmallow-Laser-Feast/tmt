@@ -158,8 +158,6 @@ private:
             
             videoFileNamePathMap[ fileName ] = videoDirectory.getPath( i );
         }
-        
-        return videoFileNames;
     };
     
     void loadVideoAtIndex( int index )

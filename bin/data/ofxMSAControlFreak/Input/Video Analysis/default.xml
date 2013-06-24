@@ -14,6 +14,8 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Contours" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Convex Hull" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Points" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Point IDs" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="50"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="121"></Parameter>
@@ -22,16 +24,16 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Area" value="10"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Area" value="2455"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Dist" value="10.098213196"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Pers" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Tracking Dist" value="10.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Tracking Pers" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Sample Smoothing" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Resampling" value="102"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Smoothing" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Simplification" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Avarage Radius" value="0.236607149"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Threshold" value="61.071426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Dist" value="10.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Pers" value="0.004464266"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Tracking Dist" value="10.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Tracking Pers" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Sample Smoothing" value="0.571428597"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Resampling" value="53"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Smoothing" value="2"></Parameter>
@@ -45,5 +47,8 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Resampling" value="53"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Smoothing" value="3"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Simplification" value="5.133928776"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Tracking Dist" value="10.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Tracking Pers" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Sample Smoothing" value="0.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
