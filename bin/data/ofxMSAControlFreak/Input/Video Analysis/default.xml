@@ -27,17 +27,17 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Tracking Dist" value="10.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Centroid Tracking Pers" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Sample Smoothing" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Resampling" value="102"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Smoothing" value="3"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Simplification" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Avarage Radius" value="0.062500000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Threshold" value="61.071426392"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Tracking Dist" value="30.459821701"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Resampling" value="100"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Smoothing" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Simplification" value="3.798213720"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Avarage Radius" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Threshold" value="28.928573608"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Tracking Dist" value="8.928571701"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Tips Tracking Pers" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Sample Smoothing" value="0.598214269"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tips Sample Smoothing" value="0.968750000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Resampling" value="100"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Smoothing" value="2"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Simplification" value="1.562500000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Smoothing" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Simplification" value="3.794642925"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Avarage Radius" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Resampling" value="66"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Smoothing" value="0"></Parameter>

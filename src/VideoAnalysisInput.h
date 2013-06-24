@@ -141,7 +141,7 @@ public:
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);
         
-        params.addFloat( PARAM_NAME_CENT_TRACK_DIST ).setRange(0, 1000).setClamp( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_CENT_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_CENT_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_CENT_SAMPLE_SMOOTHING ).setClamp( true );
         
@@ -150,7 +150,7 @@ public:
         params.addFloat( PARAM_NAME_TIPS_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat( PARAM_NAME_TIPS_AVERAGE_RADIUS ).setClamp( true );
         params.addFloat( PARAM_NAME_TIPS_THRESHOLD ).setRange( -180, 180 ).setClamp(true);
-        params.addFloat( PARAM_NAME_TIPS_TRACK_DIST ).setRange(0, 1000).setClamp( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_TIPS_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_TIPS_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_TIPS_SAMPLE_SMOOTHING ).setClamp( true );
         
@@ -163,7 +163,7 @@ public:
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat( PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS ).setClamp( true );
-        params.addFloat( PARAM_NAME_CONVEXHULL_TRACK_DIST ).setRange(0, 1000).setClamp( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_CONVEXHULL_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_CONVEXHULL_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING ).setClamp( true );
         
@@ -171,7 +171,7 @@ public:
         params.addInt( PARAM_NAME_SKELETON_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_SKELETON_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_SKELETON_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
-        params.addFloat( PARAM_NAME_SKELETON_TRACK_DIST ).setRange(0, 1000).setClamp( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_SKELETON_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_SKELETON_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_SKELETON_SAMPLE_SMOOTHING ).setClamp( true );
         
