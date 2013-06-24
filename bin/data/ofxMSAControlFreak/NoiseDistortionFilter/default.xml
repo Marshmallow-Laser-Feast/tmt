@@ -3,11 +3,11 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Activity Value" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="10.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="OCS Amount Audio" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude X" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude Y" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset" value="2.410715103"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude X" value="1.071428537"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude Y" value="1.071428537"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Use Normals" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

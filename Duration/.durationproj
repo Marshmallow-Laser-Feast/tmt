@@ -25,7 +25,7 @@
             <type>Curves</type>
             <xmlFileName>curves_8_.xml</xmlFileName>
             <trackName>curves_8</trackName>
-            <displayName>NearestDotsViz/Brightness</displayName>
+            <displayName>DotsViz/Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -35,7 +35,7 @@
             <type>Curves</type>
             <xmlFileName>curves_9_.xml</xmlFileName>
             <trackName>curves_9</trackName>
-            <displayName>NearestDotsViz/brightnessAudio</displayName>
+            <displayName>DotsViz/brightnessAudio</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -134,7 +134,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:10:27:194</playhead>
+    <playhead>00:13:29:100</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>

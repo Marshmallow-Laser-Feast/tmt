@@ -14,6 +14,7 @@
 #include "IVisualizer.h"
 
 #define PARAM_NAME_RATIO    "Ratio"
+#define PARAM_NAME_BRIGHT_AUDIO     "Brightness/Audio"
 
 class DotVisualizer: public IVisualizer
 {
@@ -25,7 +26,13 @@ public:
     :IVisualizer( "Visualizer/Dot" )
     
     {
+        params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
         params.addFloat( PARAM_NAME_RATIO ).setClamp( true );
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/DotsViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/DotsViz/brightnessAudio";
+        oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]   = "/DotsViz/timeOffset";
+
     };
     
     ~DotVisualizer()
@@ -61,6 +68,8 @@ public:
                             const float time
                            )
     {
+        latestAudioAmp  = audioAmp;
+
         if( !(bool)params[ PARAM_NAME_ENABLED ] || (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f )
         {
             addOutput( newOutput() );
@@ -129,6 +138,19 @@ public:
         addOutput( output );
     };
     
+    virtual const float getBrightness() const
+    {
+        float brightness        = (float)params[ PARAM_NAME_BRIGHTNESS ];
+        float birghtnessAudio   = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        
+        if( birghtnessAudio > 0 )
+        {
+            brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
+        }
+        
+        return (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+    }
+    
     virtual void draw( float width, float height )
     {
         if( (bool)params[ PARAM_NAME_ENABLED ] && (bool)params[ PARAM_NAME_BRIGHTNESS ] != 0.0f )
@@ -167,4 +189,8 @@ public:
             ofPopStyle();
         }
     };
+    
+private:
+    float   latestAudioAmp;
+
 };
