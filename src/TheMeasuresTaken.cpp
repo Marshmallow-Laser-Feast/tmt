@@ -12,7 +12,7 @@ void TheMeasuresTaken::setup()
     ofSetFullscreen( true );
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
-    ofSetLogLevel( OF_LOG_ERROR );
+    ofSetLogLevel( OF_LOG_FATAL_ERROR );
     
     initInputs();
     initVisualizers();
@@ -24,6 +24,7 @@ void TheMeasuresTaken::setup()
     initPanelDraws();
     initContextGUI();
     initParams();
+    initSound();
     
     setupMidi();
     setupOCS();
@@ -208,7 +209,40 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 }
 
 //--------------------------------------------------------------
-void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels){}
+void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
+{
+    float curVol = 0.0;
+    
+    int numCounted = 0;
+    
+    for (int i = 0; i < bufferSize; i++)
+    {
+        curVol += (input[i*2]*0.5) * (input[i*2]*0.5);
+        curVol += (input[i*2+1]*0.5) * (input[i*2+1]*0.5);
+        
+        numCounted+=2;
+    }
+    curVol /= (float)numCounted;
+    
+    curVol = sqrt( curVol );
+        
+    if( prevVol < curVol )
+    {
+        audioInput->params[ PARAM_NAME_LINEIN_AUDIO_AMP ].set( ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_HIGH]) );
+    } else {
+        audioInput->params[ PARAM_NAME_LINEIN_AUDIO_AMP ].set( ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_LOW]) );
+    }
+    
+    prevVol = curVol;
+}
+
+//--------------------------------------------------------------
+void TheMeasuresTaken::initSound()
+{
+    soundStream.setup( this, 0, 2, 44100, 256, 4);
+    
+    prevVol = 0.0f;
+}
 
 //--------------------------------------------------------------
 void TheMeasuresTaken::initFilters()

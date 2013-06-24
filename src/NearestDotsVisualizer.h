@@ -233,15 +233,15 @@ public:
     
     virtual const float getBrightness() const
     {
-        float brightness        = (float)params[ PARAM_NAME_BRIGHTNESS ];
-        float birghtnessAudio   = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        float brightness            = (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+        float birghtnessAudio       = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
         
-        if( birghtnessAudio > 0 )
+        if( birghtnessAudio > 0.0f )
         {
             brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
         }
         
-        return (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+        return brightness;
     }
     
 private:

@@ -89,6 +89,8 @@ public:
     
 private:
     
+    void initSound();
+    
     void initFilters();
     
     void initVisualizers();
@@ -214,5 +216,9 @@ private:
     
     float                                   usageInfoBarAlpha;
     
+    // Sound
     
+    ofSoundStream                           soundStream;
+    
+    float                                   prevVol;
 };

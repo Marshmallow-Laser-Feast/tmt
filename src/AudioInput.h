@@ -18,25 +18,27 @@
 
 #include "IPanelDraws.h"
 
-#define AUDIO_FILE_NAME                     "sound/measures-total-test16.aif"
+#define AUDIO_FILE_NAME                         "sound/measures-total-test16.aif"
 
-#define AUDIO_FOLDER                        "sound"
+#define AUDIO_FOLDER                            "sound"
         
-#define FFT_SAMPLE_COUNT                    128
+#define FFT_SAMPLE_COUNT                        128
     
-#define PARAM_NAME_AUDIO_SOURCE             "Audio Source"
-#define PARAM_NAME_AUDIO_OUTPUT             "Audio Output"
+#define PARAM_NAME_AUDIO_SOURCE                 "Audio Source"
+#define PARAM_NAME_AUDIO_OUTPUT                 "Audio Output"
 
-#define PARAM_NAME_ENABLE_PLAYBACK          "Playback"
+#define PARAM_NAME_ENABLE_PLAYBACK              "Playback"
 
-#define PARAM_NAME_AUDIO_SCALE              "Scale"
-#define PARAM_NAME_AUDIO_SMOOTHING_LOW      "Smoothing Low"
-#define PARAM_NAME_AUDIO_SMOOTHING_HIGH     "Smoothing High"
+#define PARAM_NAME_AUDIO_SCALE                  "Scale"
+#define PARAM_NAME_AUDIO_SMOOTHING_LOW          "Smoothing Low"
+#define PARAM_NAME_AUDIO_SMOOTHING_HIGH         "Smoothing High"
 
-#define PARAM_NAME_AUDIO_AMP                "Amplitude"
-#define PARAM_NAME_EXTERNAL_AUDIO           "Ext Audio Amp"
-#define PARAM_NAME_EXTERNAL_AUDIO_SCALED    "Scaled Ext Audio Amp"
-#define PARAM_NAME_POSITON                  "Position"
+#define PARAM_NAME_AUDIO_AMP                    "Amplitude"
+#define PARAM_NAME_EXTERNAL_AUDIO_AMP           "Ext Audio Amp"
+#define PARAM_NAME_EXTERNAL_AUDIO_AMP_SCALED    "Scaled Ext Audio Amp"
+#define PARAM_NAME_LINEIN_AUDIO_AMP             "LineIn Amp"
+#define PARAM_NAME_LINEIN_AUDIO_AMP_SCALED      "Scaled LineIn Amp"
+#define PARAM_NAME_POSITON                      "Position"
 
 class AudioInput: public IControlFreakMapper, public IControlFreakMapperMidiExt, public IControlFreakMapperOSCExt, public IPanelDraws
 {
@@ -64,18 +66,23 @@ public:
         params.addBool( PARAM_NAME_ENABLE_PLAYBACK ).set( false );
         
         params.addNamedIndex( PARAM_NAME_AUDIO_SOURCE ).setLabels( audioFileNames );
-        params.addNamedIndex( PARAM_NAME_AUDIO_OUTPUT ).setLabels( 2, "File", "OSC" );
+        params.addNamedIndex( PARAM_NAME_AUDIO_OUTPUT ).setLabels( 3, "File", "OSC", "Mic" );
         
         params.addFloat( PARAM_NAME_AUDIO_SCALE ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_HIGH ).setClamp( true ).set( 1.0f );
         
         params.addFloat( PARAM_NAME_AUDIO_AMP ).setClamp( true );
-        params.addFloat( PARAM_NAME_EXTERNAL_AUDIO ).setClamp( true );
-        params.addFloat( PARAM_NAME_EXTERNAL_AUDIO_SCALED ).setClamp( true );
+        
+        params.addFloat( PARAM_NAME_EXTERNAL_AUDIO_AMP ).setClamp( true );
+        params.addFloat( PARAM_NAME_EXTERNAL_AUDIO_AMP_SCALED ).setClamp( true );
+        
+        params.addFloat( PARAM_NAME_LINEIN_AUDIO_AMP ).setClamp( true );
+        params.addFloat( PARAM_NAME_LINEIN_AUDIO_AMP_SCALED ).setClamp( true );
+        
         params.addFloat( PARAM_NAME_POSITON ).setClamp( true );
         
-        oscMappings[ &params.get( PARAM_NAME_EXTERNAL_AUDIO ) ]     = "/AudioFFT";
+        oscMappings[ &params.get( PARAM_NAME_EXTERNAL_AUDIO_AMP ) ]     = "/AudioFFT";
         
         fftData     = new float[ FFT_SAMPLE_COUNT ];
         
@@ -83,7 +90,6 @@ public:
         {
             fftData[i] = 0;
         }
-    
     };
     
     ~AudioInput()
@@ -129,7 +135,8 @@ public:
         }
         
         params[ PARAM_NAME_AUDIO_AMP ].set( amp * (float)params[ PARAM_NAME_AUDIO_SCALE ] );
-        params[ PARAM_NAME_EXTERNAL_AUDIO_SCALED ].set( (float)params[ PARAM_NAME_EXTERNAL_AUDIO ] * (float)params[ PARAM_NAME_AUDIO_SCALE ] );
+        params[ PARAM_NAME_EXTERNAL_AUDIO_AMP_SCALED ].set( (float)params[ PARAM_NAME_EXTERNAL_AUDIO_AMP ] * (float)params[ PARAM_NAME_AUDIO_SCALE ] );
+        params[ PARAM_NAME_LINEIN_AUDIO_AMP_SCALED ].set( (float)params[ PARAM_NAME_LINEIN_AUDIO_AMP ] * (float)params[ PARAM_NAME_AUDIO_SCALE ] );
         
         if( (bool)params[ PARAM_NAME_ENABLE_PLAYBACK ] )
         {
@@ -179,11 +186,19 @@ public:
     
     const float getAmp() const
     {
-        if( (int)params[ PARAM_NAME_AUDIO_OUTPUT ] == 0 )
+        switch ( (int)params[ PARAM_NAME_AUDIO_OUTPUT ] )
         {
-            return (float)params[ PARAM_NAME_AUDIO_AMP ];
-        } else {
-            return (float)params[ PARAM_NAME_EXTERNAL_AUDIO ] * (float)params[ PARAM_NAME_AUDIO_SCALE ];
+            case 0  :
+                return (float)params[ PARAM_NAME_AUDIO_AMP ];
+            break;
+                
+            case 1  :
+                return (float)params[ PARAM_NAME_EXTERNAL_AUDIO_AMP_SCALED ];
+            break;
+                
+            case 2  :
+                return (float)params[ PARAM_NAME_LINEIN_AUDIO_AMP_SCALED ];
+            break;
         }
         
         return 0.0f;
