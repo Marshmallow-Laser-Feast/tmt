@@ -68,6 +68,9 @@
 #define PARAM_NAME_CONTOUR_SMOOTHING                "Contour Smoothing"
 #define PARAM_NAME_CONTOUR_SIMPLIFICATION           "Contour Simplification"
 #define PARAM_NAME_CONTOUR_AVERAGE_RADIUS           "Contour Avarage Radius"
+#define PARAM_NAME_CONTOUR_TRACK_DIST               "Contour Tracking Dist"
+#define PARAM_NAME_CONTOUR_TRACK_PERS               "Contour Tracking Pers"
+#define PARAM_NAME_CONTOUR_SAMPLE_SMOOTHING         "Contour Sample Smoothing"
 
 #define PARAM_NAME_CONVEXHULL_RESAMPLING            "Convex Hull Resampling"
 #define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Hull Smoothing"
@@ -160,6 +163,9 @@ public:
         params.addInt( PARAM_NAME_CONTOUR_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
         params.addFloat( PARAM_NAME_CONTOUR_AVERAGE_RADIUS ).setClamp( true );
+        params.addFloat( PARAM_NAME_CONTOUR_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
+        params.addInt( PARAM_NAME_CONTOUR_TRACK_PERS ).setClamp(true);
+        params.addFloat( PARAM_NAME_CONTOUR_SAMPLE_SMOOTHING ).setClamp( true );
         
         params.addInt( PARAM_NAME_CONVEXHULL_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
@@ -288,7 +294,10 @@ public:
                                 params[PARAM_NAME_CONTOUR_RESAMPLING],
                                 params[PARAM_NAME_CONTOUR_SMOOTHING],
                                 params[PARAM_NAME_CONTOUR_SIMPLIFICATION],
-                                params[PARAM_NAME_CONTOUR_AVERAGE_RADIUS]
+                                params[PARAM_NAME_CONTOUR_AVERAGE_RADIUS],
+                                params[PARAM_NAME_CONTOUR_TRACK_DIST],
+                                params[PARAM_NAME_CONTOUR_TRACK_PERS],
+                                params[PARAM_NAME_CONTOUR_SAMPLE_SMOOTHING]
                                );
             }
             
@@ -783,8 +792,11 @@ private:
         }
     }
     
-    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
+    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing )
     {
+        
+        vector<cv::Point2f>     allFloatPoints;
+        vector<unsigned int>    groupIDs;
         
         for( int i = 0; i < contourFinder.size(); ++i )
         {
@@ -840,6 +852,66 @@ private:
                 polyline    = temp;
             }
             
+            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+            {
+                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+                groupIDs.push_back( i );
+            }
+        }
+        
+        for(std::map<unsigned int, PointSampleSmoother>::iterator it = contourSmoothersMap.begin(); it != contourSmoothersMap.end(); ++it )
+        {
+            it->second.setNewSampleReceived( false );
+        }
+        
+        contourTracker.setMaximumDistance(trackingDistance);
+        contourTracker.setPersistence(trackingPersistance);
+        contourTracker.track( allFloatPoints );
+        
+        std::vector<std::vector<ofPoint> > polylinePointsVector;
+        
+        int currentGroupId      = -1;
+        
+        for( int i = 0; i < allFloatPoints.size(); ++i )
+        {
+            if( currentGroupId != groupIDs[ i ] )
+            {
+                currentGroupId  = groupIDs[ i ];
+                
+                polylinePointsVector.push_back( std::vector<ofPoint>() );
+            }
+            
+            unsigned int sampleID   = contourTracker.getLabelFromIndex( i );
+            
+            if( contourSmoothersMap.count( sampleID ) == 0 )
+            {
+                contourSmoothersMap[ sampleID ]  = PointSampleSmoother();
+            }
+            
+            contourSmoothersMap[ sampleID ].setNewSampleReceived( true );
+            
+            polylinePointsVector.back().push_back( contourSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+        }
+        
+        std::map<unsigned int, PointSampleSmoother>::iterator it = contourSmoothersMap.begin();
+        
+        while( it != contourSmoothersMap.end() )
+        {
+            if( !it->second.getNewSampleReceived() )
+            {
+                contourSmoothersMap.erase( it++ );
+            } else {
+                ++it;
+            }
+        }
+        
+        for( int i = 0; i < polylinePointsVector.size(); ++i )
+        {
+            ofPolyline  polyline;
+            
+            polyline.addVertices( polylinePointsVector[i] );
+            polyline.close();
+            
             polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
             
             polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSample( polyline );
@@ -847,7 +919,6 @@ private:
             polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
             polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setGroupID( i );
         }
-
     }
     
     void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing )
@@ -944,6 +1015,7 @@ private:
             {
                 convexHullSmoothersMap[ sampleID ]  = PointSampleSmoother();
             }
+            
             convexHullSmoothersMap[ sampleID ].setNewSampleReceived( true );
 
             polylinePointsVector.back().push_back( convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
@@ -1123,6 +1195,7 @@ private:
     
     ofxCv::PointTracker                             centroidTracker;
     ofxCv::PointTracker                             tipTracker;
+    ofxCv::PointTracker                             contourTracker;
     ofxCv::PointTracker                             convexHullPointTracker;
     ofxCv::PointTracker                             skeletonPointsTracker;
     
@@ -1138,6 +1211,7 @@ private:
     
     std::map<unsigned int, PointSampleSmoother>     centroidSmoothersMap;
     std::map<unsigned int, PointSampleSmoother>     tipsSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>     contourSmoothersMap;
     std::map<unsigned int, PointSampleSmoother>     convexHullSmoothersMap;
     std::map<unsigned int, PointSampleSmoother>     skeletonSmoothersMap;
     
