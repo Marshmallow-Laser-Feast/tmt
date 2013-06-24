@@ -7,33 +7,33 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmount2Audio" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Rope">
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Physics">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="0.493392885"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="0.191964284"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="iterations" value="5"></Parameter>
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="50"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.399999976"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffnessHome" value="0.209999993"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="200"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.500000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffnessHome" value="0.010000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthMult" value="1.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthSpeed" value="1.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusBase" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Deform">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="1.495535612"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.683761001"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="centerOffset" value="0"></Parameter>
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="-2"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="0"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Noise">
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="320"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="410"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="39.509998322"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.049999997"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="408.569976807"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="10.489999771"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.229999989"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="117.139999390"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="4.909999847"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Post">
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothPoly" value="0"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.933035731"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothPoly" value="41"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.900000095"></Parameter>
             </Parameter>
         </Parameter>
     </Parameter>

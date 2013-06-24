@@ -2,16 +2,16 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="CameraContourInput">
         <Parameter type="N3msa12controlfreak19ParameterNamedIndexE" name="Type" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Threshold" value="80"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="3"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Blur" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Dilate" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Contour" value="10"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Contour" value="10000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Resample count" value="399"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Simplify" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth" value="11"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Tip treshold" value="6.428573608"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.075892858"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Average radius" value="0.309859157"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch points" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points X" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale points Y" value="2.000000000"></Parameter>
