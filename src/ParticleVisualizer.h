@@ -111,7 +111,7 @@ public:
     
     virtual void draw( float width, float height )
     {
-        if( (bool)params[ PARAM_NAME_ENABLED ] )
+        if( (bool)params[ PARAM_NAME_ENABLED ] && (bool)params[ PARAM_NAME_BRIGHTNESS ] != 0.0f )
         {
             ofPushStyle();
             
