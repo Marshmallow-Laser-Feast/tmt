@@ -145,6 +145,19 @@ void TheMeasuresTaken::keyPressed(int key)
     } else {
         contextGui->setVisible(false); 
     }
+    
+    if(key == OF_KEY_LEFT) {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] - 1;
+    } else if(key == OF_KEY_RIGHT) {
+        videoFile->params[PARAM_NAME_VIDEO_FRAME] = (int)videoFile->params[PARAM_NAME_VIDEO_FRAME] + 1;
+        
+    }
+    
+    if(key == 'v') {
+        videoFile->params[PARAM_NAME_ENABLE_PLAYBACK] = !(bool)videoFile->params[PARAM_NAME_ENABLE_PLAYBACK];
+    }
+    
+    
 }
 
 //--------------------------------------------------------------
