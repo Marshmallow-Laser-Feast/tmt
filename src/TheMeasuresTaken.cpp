@@ -12,7 +12,7 @@ void TheMeasuresTaken::setup()
     ofSetFullscreen( true );
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
-    ofSetLogLevel( OF_LOG_FATAL_ERROR );
+    ofSetLogLevel( OF_LOG_ERROR );
     
     initInputs();
     initVisualizers();
@@ -228,10 +228,14 @@ void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels)
         
     if( prevVol < curVol )
     {
-        audioInput->params[ PARAM_NAME_LINEIN_AUDIO_AMP ].set( ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_HIGH]) );
+        curVol  = ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_HIGH]);
+        
     } else {
-        audioInput->params[ PARAM_NAME_LINEIN_AUDIO_AMP ].set( ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_LOW]) );
+        
+        curVol  = ofLerp( prevVol, curVol, (float)audioInput->params[PARAM_NAME_AUDIO_SMOOTHING_LOW]);
     }
+    
+    audioInput->params[ PARAM_NAME_LINEIN_AUDIO_AMP ].set( curVol );
     
     prevVol = curVol;
 }
