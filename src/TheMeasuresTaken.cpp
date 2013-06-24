@@ -161,6 +161,10 @@ void TheMeasuresTaken::keyPressed(int key)
         videoFile->params[PARAM_NAME_ENABLE_PLAYBACK] = !(bool)videoFile->params[PARAM_NAME_ENABLE_PLAYBACK];
     }
     
+    if(key == 'x') {
+        laserOutput->reconnect();
+    }
+    
     
 }
 
