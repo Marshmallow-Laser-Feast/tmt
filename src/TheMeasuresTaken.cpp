@@ -468,6 +468,8 @@ void TheMeasuresTaken::updateMidiMappedObjects()
     {
         (*it)->applyMidi( midiData );
     }
+    
+    midiData.clear();
 }
 
 //--------------------------------------------------------------
@@ -535,6 +537,8 @@ void TheMeasuresTaken::updateOCSMappedObjects()
     {
         (*it)->applyOCS( oscData );
     }
+    
+    oscData.clear();
 }
 
 //--------------------------------------------------------------
