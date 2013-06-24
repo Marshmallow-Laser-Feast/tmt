@@ -728,20 +728,14 @@ private:
                 polyline    = temp;
             }
             
-//            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
-//            {
-//                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
-//                groupIDs.push_back( i );
-//            }
+            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
+            
+            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSample( polyline );
+            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
+            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
+            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setGroupID( i );
         }
-        /*
-        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
-        
-        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSample( polyline );
-        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
-        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
-        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setGroupID( i );
-         */
+
     }
     
     void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
