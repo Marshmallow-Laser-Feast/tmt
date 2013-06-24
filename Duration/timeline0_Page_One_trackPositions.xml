@@ -2,8 +2,8 @@
     <element name="audio">
         <x>0.000000000</x>
         <y>142.000000000</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="colors">
         <x>0.000000000</x>
@@ -13,9 +13,9 @@
     </element>
     <element name="curves">
         <x>0.000000000</x>
-        <y>205.505126953</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>166.000000000</y>
+        <width>1440.000000000</width>
+        <height>29.000000000</height>
     </element>
     <element name="curves_0">
         <x>0.000000000</x>
@@ -31,9 +31,9 @@
     </element>
     <element name="curves_10">
         <x>0.000000000</x>
-        <y>586.535888672</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>442.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_11">
         <x>0.000000000</x>
@@ -49,15 +49,15 @@
     </element>
     <element name="curves_13">
         <x>0.000000000</x>
-        <y>459.525634766</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>394.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_14">
         <x>0.000000000</x>
-        <y>523.030761719</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>418.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_15">
         <x>0.000000000</x>
@@ -97,27 +97,27 @@
     </element>
     <element name="curves_20">
         <x>0.000000000</x>
-        <y>713.546142578</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>490.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_21">
         <x>0.000000000</x>
-        <y>777.051269531</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>514.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_22">
         <x>0.000000000</x>
-        <y>840.556396484</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>538.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_23">
         <x>0.000000000</x>
-        <y>904.061523438</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>562.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_24">
         <x>0.000000000</x>
@@ -133,9 +133,9 @@
     </element>
     <element name="curves_4">
         <x>0.000000000</x>
-        <y>650.041015625</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>466.000000000</y>
+        <width>1440.000000000</width>
+        <height>0.000000000</height>
     </element>
     <element name="curves_5">
         <x>0.000000000</x>
@@ -145,9 +145,9 @@
     </element>
     <element name="curves_6">
         <x>0.000000000</x>
-        <y>269.010253906</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>219.000000000</y>
+        <width>1440.000000000</width>
+        <height>34.000000000</height>
     </element>
     <element name="curves_7">
         <x>0.000000000</x>
@@ -157,15 +157,15 @@
     </element>
     <element name="curves_8">
         <x>0.000000000</x>
-        <y>332.515380859</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>277.000000000</y>
+        <width>1440.000000000</width>
+        <height>33.000000000</height>
     </element>
     <element name="curves_9">
         <x>0.000000000</x>
-        <y>396.020507812</y>
-        <width>1920.000000000</width>
-        <height>39.505126953</height>
+        <y>334.000000000</y>
+        <width>1440.000000000</width>
+        <height>36.000000000</height>
     </element>
     <element name="lfo">
         <x>0.000000000</x>
