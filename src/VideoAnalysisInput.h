@@ -1085,30 +1085,30 @@ private:
     
 private:
     
-    bool                                isCurrentFrameNew;
+    bool                                            isCurrentFrameNew;
     
-    ofImage                             *image;
+    ofImage                                         *image;
     
-    ofxCv::RectTracker                  boundingBoxTracker;
+    ofxCv::RectTracker                              boundingBoxTracker;
     
-    ofxCv::PointTracker                 centroidTracker;
-    ofxCv::PointTracker                 tipTracker;
-    ofxCv::PointTracker                 convexHullPointTracker;
-    ofxCv::PointTracker                 skeletonPointsTracker;
+    ofxCv::PointTracker                             centroidTracker;
+    ofxCv::PointTracker                             tipTracker;
+    ofxCv::PointTracker                             convexHullPointTracker;
+    ofxCv::PointTracker                             skeletonPointsTracker;
     
-    ofxCv::ContourFinder2               contourFinder;
+    ofxCv::ContourFinder2                           contourFinder;
     
-    ofxCv::SkeletonFinder               skeletonFinder;
+    ofxCv::SkeletonFinder                           skeletonFinder;
     
-    std::vector<cv::Rect>               bboxes;
+    std::vector<cv::Rect>                           bboxes;
         
-    PointSampleVectorRefMapDequeT       pointSamplesMapDeque;
-    PointSampleVectorVectorRefMapDequeT pointVectorSamplesMapDeque;
-    PolylineSampleVectorRefMapDequeT    polylineSamplesMapDeque;
+    PointSampleVectorRefMapDequeT                   pointSamplesMapDeque;
+    PointSampleVectorVectorRefMapDequeT             pointVectorSamplesMapDeque;
+    PolylineSampleVectorRefMapDequeT                polylineSamplesMapDeque;
     
-    std::map<unsigned int, PointSampleSmoother>  centroidSmoothersMap;
-    std::map<unsigned int, PointSampleSmoother>  tipsSmoothersMap;
-    std::map<unsigned int, PointSampleSmoother>  convexHullSmoothersMap;
-    std::map<unsigned int, PointSampleSmoother>  skeletonSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>     centroidSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>     tipsSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>     convexHullSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>     skeletonSmoothersMap;
     
 };

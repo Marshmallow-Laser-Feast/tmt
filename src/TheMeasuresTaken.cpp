@@ -9,6 +9,7 @@ void TheMeasuresTaken::setup()
     
     ofSetWindowTitle( "The Measures Taken" );
     ofSetWindowShape( 1000 , 800 );
+    ofSetFullscreen( true );
     ofSetFrameRate( 60 );
     ofSetBackgroundColor( 0 );
     ofSetLogLevel( OF_LOG_ERROR );

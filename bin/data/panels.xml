@@ -1,5 +1,17 @@
 <PanelsData>
-    <Panel name="Video/Camera" x="783.000000000" y="8.000000000" width="640.000000000" height="480.000000000"></Panel>
-    <Panel name="Input/Video Analysis" x="501.000000000" y="581.000000000" width="927.000000000" height="272.000000000"></Panel>
-    <Panel name="Laser Output" x="391.000000000" y="48.000000000" width="317.000000000" height="279.000000000"></Panel>
+    <Panel name="Laser Output" x="662.000000000" y="14.000000000" width="1248.000000000" height="391.000000000"></Panel>
+    <Panel name="Input/Video Analysis" x="661.000000000" y="430.000000000" width="1250.000000000" height="417.000000000"></Panel>
+    <Panel name="Visualizer/Dot" x="662.000000000" y="873.000000000" width="263.000000000" height="91.000000000"></Panel>
+    <Panel name="Visualizer/Trails" x="931.000000000" y="873.000000000" width="257.000000000" height="92.000000000"></Panel>
+    <Panel name="Visualizer/Contour" x="1191.000000000" y="873.000000000" width="252.000000000" height="92.000000000"></Panel>
+    <Panel name="Visualizer/ConvexHull" x="1447.000000000" y="873.000000000" width="248.000000000" height="93.000000000"></Panel>
+    <Panel name="Visualizer/Skeleton" x="1699.000000000" y="872.000000000" width="212.000000000" height="94.000000000"></Panel>
+    <Panel name="Visualizer/FixedPoint" x="661.000000000" y="989.000000000" width="266.000000000" height="88.000000000"></Panel>
+    <Panel name="Visualizer/Line" x="932.000000000" y="988.000000000" width="256.000000000" height="90.000000000"></Panel>
+    <Panel name="Visualizer/NearestDot" x="1191.000000000" y="988.000000000" width="253.000000000" height="93.000000000"></Panel>
+    <Panel name="Video/File" x="406.000000000" y="430.000000000" width="251.000000000" height="189.000000000"></Panel>
+    <Panel name="Video/Camera" x="406.000000000" y="642.000000000" width="251.000000000" height="184.000000000"></Panel>
+    <Panel name="Stats" x="155.000000000" y="918.000000000" width="389.000000000" height="89.000000000"></Panel>
+    <Panel name="Help" x="154.000000000" y="1032.000000000" width="390.000000000" height="97.000000000"></Panel>
+    <Panel name="Input/Multi Touch" x="407.000000000" y="181.000000000" width="249.000000000" height="224.000000000"></Panel>
 </PanelsData>
