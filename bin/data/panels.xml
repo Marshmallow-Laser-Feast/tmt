@@ -1,11 +1,8 @@
 <PanelsData>
     <Panel name="Visualizer/Contour" x="906.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
-    <Panel name="Visualizer/Trails" x="652.000000000" y="438.000000000" width="250.000000000" height="50.000000000"></Panel>
-    <Panel name="Visualizer/Dot" x="400.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/ConvexHull" x="1158.000000000" y="440.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/NearestDot" x="1159.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/Line" x="907.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
-    <Panel name="Visualizer/FixedPoint" x="652.000000000" y="511.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/Skeleton" x="400.000000000" y="511.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Help" x="399.000000000" y="585.000000000" width="363.000000000" height="97.000000000"></Panel>
     <Panel name="Stats" x="398.000000000" y="705.000000000" width="364.000000000" height="89.000000000"></Panel>
@@ -13,4 +10,7 @@
     <Panel name="Video/Camera" x="337.000000000" y="242.000000000" width="242.000000000" height="171.000000000"></Panel>
     <Panel name="Video/File" x="339.000000000" y="33.000000000" width="237.000000000" height="185.000000000"></Panel>
     <Panel name="Input/Video Analysis" x="582.000000000" y="33.000000000" width="851.000000000" height="302.000000000"></Panel>
+    <Panel name="Visualizer/Dot" x="400.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
+    <Panel name="Visualizer/Trails" x="653.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
+    <Panel name="Visualizer/FixedPoint" x="653.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
 </PanelsData>

@@ -9,8 +9,8 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000004124"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ext Audio Amp" value="0.002571561"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled Ext Audio Amp" value="0.024280587"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ext Audio Amp" value="0.002422989"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled Ext Audio Amp" value="0.022877773"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.139342934"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

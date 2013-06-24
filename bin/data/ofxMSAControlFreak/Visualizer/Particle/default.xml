@@ -2,7 +2,7 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Visualizer/Particle">
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="0.000000000"></Parameter>

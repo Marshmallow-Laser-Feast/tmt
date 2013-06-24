@@ -5,7 +5,7 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="100.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Edge fix Amount" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Edge fix Height" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Audio Noise Amount" value="0.000000000"></Parameter>
@@ -22,7 +22,7 @@
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Deform">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.005955800"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="centerOffset" value="0"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="0"></Parameter>
             </Parameter>
@@ -30,7 +30,7 @@
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="0"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp1" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale1" value="0.000000000"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="0.729999959"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmp2" value="1.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScale2" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noiseAmpX" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>

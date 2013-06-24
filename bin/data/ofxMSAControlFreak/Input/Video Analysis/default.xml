@@ -7,14 +7,14 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Contours" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Convex Hull" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Process Skeleton" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Centroids" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Centroids" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Centroids IDs" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Tips" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Tips IDs" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Raw Contours" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Raw Contours" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Contours" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Convex Hull" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Points" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Point IDs" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
@@ -39,10 +39,10 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Resampling" value="100"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Smoothing" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Simplification" value="3.794642925"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Avarage Radius" value="0.200892851"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Tracking Dist" value="10.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Tracking Pers" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Sample Smoothing" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Avarage Radius" value="0.160714284"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Tracking Dist" value="21.875000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Contour Tracking Pers" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Contour Sample Smoothing" value="0.620535731"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Resampling" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Hull Smoothing" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Hull Simplification" value="10.491071701"></Parameter>
@@ -50,7 +50,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Tracking Dist" value="20.089284897"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Tracking Pers" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Sample Smoothing" value="0.839285731"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Skeleton Precise Processing" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Skeleton Precise Processing" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Resampling" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Smoothing" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Simplification" value="2.628571510"></Parameter>
