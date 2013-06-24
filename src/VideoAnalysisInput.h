@@ -20,6 +20,9 @@
 #include "SkeletonFinder.h"
 
 #include "Input.h"
+#include "PointSampleSmoothing.h"
+
+#define MIN_AVERAGE_RADIUS                          0.01f
 
 #define PARAM_NAME_PROC_CENTROID                    "Process Centroids"
 #define PARAM_NAME_PROC_TIPS                        "Process Tips"
@@ -34,6 +37,8 @@
 #define PARAM_NAME_VIS_CONTOUR                      "Draw Contours"
 #define PARAM_NAME_VIS_CONVEXHULL                   "Draw Convex Hull"
 #define PARAM_NAME_VIS_SKLELETON                    "Draw Skeleton"
+#define PARAM_NAME_VIS_SKLELETON_POINTS             "Draw Skeleton Points"
+#define PARAM_NAME_VIS_SKLELETON_POINTS_IDS         "Draw Skeleton Point IDs"
 
 #define PARAM_NAME_CACHE_SIZE                       "Cache Size"
 #define PARAM_NAME_CACHE_OFFSET                     "Cache Offset"
@@ -45,28 +50,36 @@
 #define PARAM_NAME_MIN_AREA                         "Min Area"
 #define PARAM_NAME_MAX_AREA                         "Max Area"
 
-#define PARAM_NAME_CENT_TRACK_DIST                  "Centroid Dist"
-#define PARAM_NAME_CENT_TRACK_PERS                  "Centroid Pers"
+#define PARAM_NAME_CENT_TRACK_DIST                  "Centroid Tracking Dist"
+#define PARAM_NAME_CENT_TRACK_PERS                  "Centroid Tracking Pers"
+#define PARAM_NAME_CENT_SAMPLE_SMOOTHING            "Centroid Sample Smoothing"
 
 #define PARAM_NAME_TIPS_RESAMPLING                  "Tips Resampling"
 #define PARAM_NAME_TIPS_SMOOTHING                   "Tips Smoothing"
 #define PARAM_NAME_TIPS_SIMPLIFICATION              "Tips Simplification"
-#define PARAM_NAME_TIP_THRESHOLD                    "Tip Threshold"
-#define PARAM_NAME_TIP_TRACK_DIST                   "Tip Dist"
-#define PARAM_NAME_TIP_TRACK_PERS                   "Tip Pers"
+#define PARAM_NAME_TIPS_AVERAGE_RADIUS              "Tips Avarage Radius"
+#define PARAM_NAME_TIPS_THRESHOLD                   "Tips Threshold"
+#define PARAM_NAME_TIPS_TRACK_DIST                  "Tips Tracking Dist"
+#define PARAM_NAME_TIPS_TRACK_PERS                  "Tips Tracking Pers"
+#define PARAM_NAME_TIPS_SAMPLE_SMOOTHING            "Tips Sample Smoothing"
 
-#define PARAM_NAME_CONTOURT_RESAMPLING              "Contour Resampling"
-#define PARAM_NAME_CONTOURT_SMOOTHING               "Contour Smoothing"
-#define PARAM_NAME_CONTOURT_SIMPLIFICATION          "Contour Simplification"
+#define PARAM_NAME_CONTOUR_RESAMPLING               "Contour Resampling"
+#define PARAM_NAME_CONTOUR_SMOOTHING                "Contour Smoothing"
+#define PARAM_NAME_CONTOUR_SIMPLIFICATION           "Contour Simplification"
+#define PARAM_NAME_CONTOUR_AVERAGE_RADIUS           "Contour Avarage Radius"
 
 #define PARAM_NAME_CONVEXHULL_RESAMPLING            "Convex Hull Resampling"
 #define PARAM_NAME_CONVEXHULL_SMOOTHING             "Convex Hull Smoothing"
 #define PARAM_NAME_CONVEXHULL_SIMPLIFICATION        "Convex Hull Simplification"
+#define PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS        "Convex Hull Avarage Radius"
 
 #define PARAM_NAME_SKELETON_PRECISE_PROCESS         "Skeleton Precise Processing"
 #define PARAM_NAME_SKELETON_RESAMPLING              "Skeleton Resampling"
 #define PARAM_NAME_SKELETON_SMOOTHING               "Skeleton Smoothing"
 #define PARAM_NAME_SKELETON_SIMPLIFICATION          "Skeleton Simplification"
+#define PARAM_NAME_SKELETON_TRACK_DIST              "Skeleton Tracking Dist"
+#define PARAM_NAME_SKELETON_TRACK_PERS              "Skeleton Tracking Pers"
+#define PARAM_NAME_SKELETON_SAMPLE_SMOOTHING        "Skeleton Sample Smoothing"
 
 class VideoAnalysisInput: public Input
 {
@@ -83,11 +96,13 @@ protected:
     
 public:
     
+    static const std::string CENTROID_TAG;
+    static const std::string TIPS_TAG;
     static const std::string CONTOUR_TAG;
     static const std::string CONVEXHULL_TAG;
-    static const std::string SKELETON_TAG;
-    static const std::string TIPS_TAG;
-    static const std::string CENTROID_TAG;
+    static const std::string SKELETON_LINES_TAG;
+    static const std::string SKELETON_POINTS_TAG;
+    
     
 public:
     
@@ -111,6 +126,8 @@ public:
         params.addBool( PARAM_NAME_VIS_CONTOUR ).set( true );
         params.addBool( PARAM_NAME_VIS_CONVEXHULL ).set( true );
         params.addBool( PARAM_NAME_VIS_SKLELETON ).set( true );
+        params.addBool( PARAM_NAME_VIS_SKLELETON_POINTS ).set( true );
+        params.addBool( PARAM_NAME_VIS_SKLELETON_POINTS_IDS ).set( true );
         
         params.addInt( PARAM_NAME_CACHE_SIZE ).set( 1 );
         params.addInt( PARAM_NAME_CACHE_OFFSET ).setRange(0, 1).setClamp(true);
@@ -124,34 +141,43 @@ public:
         
         params.addFloat( PARAM_NAME_CENT_TRACK_DIST ).set( true ).set( 10.0f );
         params.addFloat( PARAM_NAME_CENT_TRACK_PERS );
+        params.addFloat( PARAM_NAME_CENT_SAMPLE_SMOOTHING ).setClamp( true );
         
         params.addInt( PARAM_NAME_TIPS_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_TIPS_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_TIPS_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
-        params.addFloat( PARAM_NAME_TIP_THRESHOLD ).setRange( -180, 180 ).setClamp(true);
-        params.addFloat( PARAM_NAME_TIP_TRACK_DIST ).set( true ).set( 10.0f );
-        params.addFloat( PARAM_NAME_TIP_TRACK_PERS );
+        params.addFloat( PARAM_NAME_TIPS_AVERAGE_RADIUS ).setClamp( true );
+        params.addFloat( PARAM_NAME_TIPS_THRESHOLD ).setRange( -180, 180 ).setClamp(true);
+        params.addFloat( PARAM_NAME_TIPS_TRACK_DIST ).set( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_TIPS_TRACK_PERS );
+        params.addFloat( PARAM_NAME_TIPS_SAMPLE_SMOOTHING ).setClamp( true );
         
-        params.addInt( PARAM_NAME_CONTOURT_RESAMPLING ).setClamp(true).setRange(0, 1000);
-        params.addInt( PARAM_NAME_CONTOURT_SMOOTHING ).setRange(0, 40).setClamp( true );
-        params.addFloat( PARAM_NAME_CONTOURT_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addInt( PARAM_NAME_CONTOUR_RESAMPLING ).setClamp(true).setRange(0, 1000);
+        params.addInt( PARAM_NAME_CONTOUR_SMOOTHING ).setRange(0, 40).setClamp( true );
+        params.addFloat( PARAM_NAME_CONTOUR_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat( PARAM_NAME_CONTOUR_AVERAGE_RADIUS ).setClamp( true );
         
         params.addInt( PARAM_NAME_CONVEXHULL_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_CONVEXHULL_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_CONVEXHULL_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat( PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS ).setClamp( true );
         
         params.addBool( PARAM_NAME_SKELETON_PRECISE_PROCESS ).set( false );
         params.addInt( PARAM_NAME_SKELETON_RESAMPLING ).setClamp(true).setRange(0, 1000);
         params.addInt( PARAM_NAME_SKELETON_SMOOTHING ).setRange(0, 40).setClamp( true );
         params.addFloat( PARAM_NAME_SKELETON_SIMPLIFICATION ).setRange( 0.0f, 50.0f ).setClamp( true ).setIncrement( 0.01f );
+        params.addFloat( PARAM_NAME_SKELETON_TRACK_DIST ).set( true ).set( 10.0f );
+        params.addFloat( PARAM_NAME_SKELETON_TRACK_PERS );
+        params.addFloat( PARAM_NAME_SKELETON_SAMPLE_SMOOTHING ).setClamp( true );
         
         pointSampleTags.push_back( CENTROID_TAG );
         
         pointVectorSampleTags.push_back( TIPS_TAG );
+        pointVectorSampleTags.push_back( SKELETON_POINTS_TAG );
         
         polylineSampleTags.push_back( CONTOUR_TAG );
         polylineSampleTags.push_back( CONVEXHULL_TAG );
-        polylineSampleTags.push_back( SKELETON_TAG );
+        polylineSampleTags.push_back( SKELETON_LINES_TAG );
     };
     
     ~VideoAnalysisInput(){};
@@ -227,7 +253,8 @@ public:
             if( (bool)params[ PARAM_NAME_PROC_CENTROID ] )
             {
                 processCentroids(   params[PARAM_NAME_CENT_TRACK_DIST],
-                                    params[PARAM_NAME_CENT_TRACK_PERS]
+                                    params[PARAM_NAME_CENT_TRACK_PERS],
+                                    params[PARAM_NAME_CENT_SAMPLE_SMOOTHING]
                                  );
             }
             
@@ -236,18 +263,21 @@ public:
                 processTips(    params[PARAM_NAME_TIPS_RESAMPLING],
                                 params[PARAM_NAME_TIPS_SMOOTHING],
                                 params[PARAM_NAME_TIPS_SIMPLIFICATION],
-                                params[PARAM_NAME_TIP_THRESHOLD],
-                                params[PARAM_NAME_CENT_TRACK_DIST],
-                                params[PARAM_NAME_CENT_TRACK_PERS]
+                                params[PARAM_NAME_TIPS_AVERAGE_RADIUS],
+                                params[PARAM_NAME_TIPS_THRESHOLD],
+                                params[PARAM_NAME_TIPS_TRACK_DIST],
+                                params[PARAM_NAME_TIPS_TRACK_PERS],
+                                params[PARAM_NAME_TIPS_SAMPLE_SMOOTHING]
                             );
             }
             
             if( (bool)params[ PARAM_NAME_PROC_CONTOUR ] )
             {
                 processContour( labels,
-                                params[PARAM_NAME_CONTOURT_RESAMPLING],
-                                params[PARAM_NAME_CONTOURT_SMOOTHING],
-                                params[PARAM_NAME_CONTOURT_SIMPLIFICATION]
+                                params[PARAM_NAME_CONTOUR_RESAMPLING],
+                                params[PARAM_NAME_CONTOUR_SMOOTHING],
+                                params[PARAM_NAME_CONTOUR_SIMPLIFICATION],
+                                params[PARAM_NAME_CONTOUR_AVERAGE_RADIUS]
                                );
             }
             
@@ -256,7 +286,8 @@ public:
                 processConvexHull(  labels,
                                     params[PARAM_NAME_CONVEXHULL_RESAMPLING],
                                     params[PARAM_NAME_CONVEXHULL_SMOOTHING],
-                                    params[PARAM_NAME_CONVEXHULL_SIMPLIFICATION]
+                                    params[PARAM_NAME_CONVEXHULL_SIMPLIFICATION],
+                                    params[PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS]
                                   );
             }
             
@@ -265,7 +296,10 @@ public:
                 processSkeletons(   labels,
                                     params[PARAM_NAME_SKELETON_RESAMPLING],
                                     params[PARAM_NAME_SKELETON_SMOOTHING],
-                                    params[PARAM_NAME_SKELETON_SIMPLIFICATION]
+                                    params[PARAM_NAME_SKELETON_SIMPLIFICATION],
+                                    params[PARAM_NAME_SKELETON_TRACK_DIST],
+                                    params[PARAM_NAME_SKELETON_TRACK_PERS],
+                                    params[PARAM_NAME_SKELETON_SAMPLE_SMOOTHING]
                                  );
             }
         }
@@ -361,7 +395,13 @@ public:
         if( (bool)params[ PARAM_NAME_VIS_SKLELETON ] )
         {
             ofSetColor( ofColor::salmon );
-            drawPolylineSamples( getPolylineSamples( SKELETON_TAG ), scale );
+            drawPolylineSamples( getPolylineSamples( SKELETON_LINES_TAG ), scale );
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_SKLELETON_POINTS ] )
+        {
+            ofSetColor( ofColor::salmon );
+            drawPointVectorSamples( getPointVectorSamples( SKELETON_POINTS_TAG ), 2.0f, scale );
         }
         
         float yOffset   = 0.0f;
@@ -402,6 +442,14 @@ public:
         {
             ofSetColor( ofColor::salmon );
             ofDrawBitmapString( "-> Skeleton", 20.0f, yOffset + 20.0f );
+            
+            yOffset += 20.0f;
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_SKLELETON_POINTS ] )
+        {
+            ofSetColor( ofColor::salmon );
+            ofDrawBitmapString( "-> Skeleton Points", 20.0f, yOffset + 20.0f );
         }
         
         if( (bool)params[ PARAM_NAME_VIS_CENTROID_IDS ] )
@@ -419,6 +467,19 @@ public:
             ofSetColor( ofColor::yellow );
             
             for( PointSampleVectorVectorT::const_iterator it = getPointVectorSamples( TIPS_TAG )->begin(); it != getPointVectorSamples( TIPS_TAG )->end(); ++it )
+            {
+                for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
+                {
+                    ofDrawBitmapString( ofToString( pit->getSampleID() ), pit->getSample() * scale + ofPoint( 4.0f, 0.0f ) );
+                }
+            }
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_SKLELETON_POINTS_IDS ] )
+        {
+            ofSetColor( ofColor::salmon );
+            
+            for( PointSampleVectorVectorT::const_iterator it = getPointVectorSamples( SKELETON_POINTS_TAG )->begin(); it != getPointVectorSamples( SKELETON_POINTS_TAG )->end(); ++it )
             {
                 for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
                 {
@@ -452,7 +513,7 @@ public:
     
 private:
     
-    void processCentroids( float trackingDistance, float trackingPersistance )
+    void processCentroids( float trackingDistance, float trackingPersistance, float smoothing )
     {
         vector<cv::Point2f> allFloatPoints;
         
@@ -467,9 +528,16 @@ private:
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
+            unsigned int sampleID   = centroidTracker.getLabelFromIndex( i );
+            
+            if( centroidSmoothersMap.count( sampleID ) == 0 )
+            {
+                centroidSmoothersMap[ sampleID ]    = PointSampleSmoother();
+            }
+            
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->push_back( PointSampleT() );
             
-            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
+            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSample( centroidSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
             
             if( centroidTracker.existsPrevious( i ) )
             {
@@ -478,15 +546,15 @@ private:
                 pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setVelocity( ofPoint() );
             }
             
-            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSampleID( centroidTracker.getLabelFromIndex( i ) );
+            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSampleID( sampleID );
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setGroupID( i );
         }
     }
     
-    void processTips( int resampleCount, int smoothAmount, float simplify, float tipThreshold, float trackingDistance, float trackingPersistance )
+    void processTips( int resampleCount, int smoothAmount, float simplify, float averageRadius, float tipThreshold, float trackingDistance, float trackingPersistance, float smoothing )
     {
-        vector<cv::Point2f> allFloatPoints;
-        vector<int>         groupIDs;
+        vector<cv::Point2f>     allFloatPoints;
+        vector<unsigned int>    groupIDs;
         
         for( int i = 0; i < contourFinder.size(); ++i )
         {
@@ -504,6 +572,46 @@ private:
                 polyline        = polyline.getSmoothed(smoothAmount);
             }
             
+            if( simplify > 0 )
+            {
+                polyline.simplify( simplify );
+            }
+            
+            if( averageRadius > MIN_AVERAGE_RADIUS )
+            {
+                ofPolyline  temp;
+                
+                cv::Rect boundingRect(contourFinder.getBoundingRect(i));
+                
+                int         count           = 1;
+                float       distThresh      = averageRadius * ( boundingRect.width + boundingRect.height ) * 0.5f;
+                float       distThresh2     = distThresh * distThresh;
+                
+                for( int j=0; j < polyline.size(); j++ )
+                {
+                    ofPoint p = polyline[j];
+                    
+                    if( temp.size() > 0 && p.distanceSquared(temp.getVertices().back()) < distThresh2 )
+                    {
+                        ofPoint &back   = temp.getVertices().back();
+                        ofPoint curAvg  = back * count;
+                        
+                        count++;
+                        
+                        back = (curAvg + p) / count;
+                        
+                    } else {
+                        
+                        count = 0;
+                        temp.addVertex(p);
+                    }
+                }
+                
+                temp.close();
+                
+                polyline    = temp;
+            }
+            
             for( int i = 0; i < polyline.size(); ++i )
             {
                 if( polyline.getAngleAtIndex(i) > tipThreshold )
@@ -515,11 +623,6 @@ private:
             temporaryPolyline.close();
             
             polyline            = temporaryPolyline;
-            
-            if( simplify > 0 )
-            {
-                polyline.simplify( simplify );
-            }
             
             for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
             {
@@ -543,9 +646,16 @@ private:
                 pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().push_back( PointSampleT() );
+            unsigned int sampleID   = tipTracker.getLabelFromIndex( i );
             
-            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) );
+            if( tipsSmoothersMap.count( sampleID ) == 0 )
+            {
+                tipsSmoothersMap[ sampleID ]    = PointSampleSmoother();
+            }
+            
+            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().push_back( PointSampleT() );
+                        
+            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( tipsSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
             
             if( tipTracker.existsPrevious( i ) )
             {
@@ -559,8 +669,11 @@ private:
         }
     }
     
-    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
-    {        
+    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
+    {
+//        vector<cv::Point2f>     allFloatPoints;
+//        vector<unsigned int>    groupIDs;
+        
         for( int i = 0; i < contourFinder.size(); ++i )
         {
             ofPolyline polyline = ofxCv::toOf( contourFinder.getContour(i) );
@@ -580,16 +693,58 @@ private:
                 polyline.simplify( simplify );
             }
             
-            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
+            if( averageRadius > MIN_AVERAGE_RADIUS )
+            {
+                ofPolyline  temp;
+                
+                cv::Rect boundingRect(contourFinder.getBoundingRect(i));
+                
+                int         count           = 1;
+                float       distThresh      = averageRadius * ( boundingRect.width + boundingRect.height ) * 0.5f;
+                float       distThresh2     = distThresh * distThresh;
+                
+                for( int j=0; j < polyline.size(); j++ )
+                {
+                    ofPoint p = polyline[j];
+                    
+                    if( temp.size() > 0 && p.distanceSquared(temp.getVertices().back()) < distThresh2 )
+                    {
+                        ofPoint &back   = temp.getVertices().back();
+                        ofPoint curAvg  = back * count;
+                        
+                        count++;
+                        
+                        back = (curAvg + p) / count;
+                        
+                    } else {
+                        
+                        count = 0;
+                        temp.addVertex(p);
+                    }
+                }
+                
+                temp.close();
+                
+                polyline    = temp;
+            }
             
-            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSample( polyline );
-            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
-            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
-            polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setGroupID( i );
+//            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+//            {
+//                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+//                groupIDs.push_back( i );
+//            }
         }
+        /*
+        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->push_back( PolylineSampleT() );
+        
+        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSample( polyline );
+        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
+        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setSampleID( labels[i] );
+        polylineSamplesMapDeque.back()[ CONTOUR_TAG ]->back().setGroupID( i );
+         */
     }
     
-    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
+    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius )
     {        
         for( int i = 0; i < contourFinder.size(); ++i )
         {
@@ -610,6 +765,41 @@ private:
                 polyline.simplify( simplify );
             }
             
+            if( averageRadius > MIN_AVERAGE_RADIUS )
+            {
+                ofPolyline  temp;
+                
+                cv::Rect boundingRect(contourFinder.getBoundingRect(i));
+                
+                int         count           = 1;
+                float       distThresh      = averageRadius * ( boundingRect.width + boundingRect.height ) * 0.5f;
+                float       distThresh2     = distThresh * distThresh;
+                
+                for( int j=0; j < polyline.size(); j++ )
+                {
+                    ofPoint p = polyline[j];
+                    
+                    if( temp.size() > 0 && p.distanceSquared(temp.getVertices().back()) < distThresh2 )
+                    {
+                        ofPoint &back   = temp.getVertices().back();
+                        ofPoint curAvg  = back * count;
+                        
+                        count++;
+                        
+                        back = (curAvg + p) / count;
+                        
+                    } else {
+                        
+                        count = 0;
+                        temp.addVertex(p);
+                    }
+                }
+                
+                temp.close();
+                
+                polyline    = temp;
+            }
+            
             polylineSamplesMapDeque.back()[ CONVEXHULL_TAG ]->push_back( PolylineSampleT() );
             
             polylineSamplesMapDeque.back()[ CONVEXHULL_TAG ]->back().setSample( polyline );
@@ -619,8 +809,11 @@ private:
         }
     }
     
-    void processSkeletons( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify )
+    void processSkeletons( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float trackingDistance, float trackingPersistance, float smoothing )
     {
+        vector<cv::Point2f>     allFloatPoints;
+        vector<unsigned int>    groupIDs;
+        
         int i = 0;
         
         for( vector<ofPolyline>::const_iterator it = skeletonFinder.getSkeletons().begin(); it != skeletonFinder.getSkeletons().end(); ++it )
@@ -642,14 +835,57 @@ private:
                 polyline.simplify( simplify );
             }
             
-            polylineSamplesMapDeque.back()[ SKELETON_TAG ]->push_back( PolylineSampleT() );
+            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+            {
+                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+                groupIDs.push_back( i );
+            }
             
-            polylineSamplesMapDeque.back()[ SKELETON_TAG ]->back().setSample( polyline );
-            polylineSamplesMapDeque.back()[ SKELETON_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
-            polylineSamplesMapDeque.back()[ SKELETON_TAG ]->back().setSampleID( labels[i] );
-            polylineSamplesMapDeque.back()[ SKELETON_TAG ]->back().setGroupID( i );
+            polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->push_back( PolylineSampleT() );
+            
+            polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setSample( polyline );
+            polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
+            polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setSampleID( labels[i] );
+            polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setGroupID( i );
             
             ++i;
+        }
+        
+        skeletonPointsTracker.setMaximumDistance(trackingDistance);
+        skeletonPointsTracker.setPersistence(trackingPersistance);
+        skeletonPointsTracker.track( allFloatPoints );
+        
+        int currentGroupId      = -1;
+        
+        for( int i = 0; i < allFloatPoints.size(); ++i )
+        {
+            if( currentGroupId != groupIDs[ i ] )
+            {
+                currentGroupId  = groupIDs[ i ];
+                
+                pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->push_back( PointSampleVectorT() );
+            }
+            
+            unsigned int sampleID   = skeletonPointsTracker.getLabelFromIndex( i );
+            
+            if( skeletonSmoothersMap.count( sampleID ) == 0 )
+            {
+                skeletonSmoothersMap[ sampleID ]    = PointSampleSmoother();
+            }
+            
+            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().push_back( PointSampleT() );
+            
+            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSample( skeletonSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            
+            if( skeletonPointsTracker.existsPrevious( i ) )
+            {
+                pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setVelocity( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) - ofPoint(ofxCv::toOf( skeletonPointsTracker.getPrevious( i ) ) ) );
+            } else {
+                pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setVelocity( ofPoint() );
+            }
+            
+            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSampleID( skeletonPointsTracker.getLabelFromIndex( i ) );
+            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setGroupID( groupIDs[ i ] );
         }
     };
     
@@ -658,7 +894,7 @@ private:
         for( PointSampleVectorT::const_iterator it = samples->begin(); it != samples->end(); ++it )
         {
             ofCircle( it->getSample() * scale, circleR );
-            ofLine( it->getSample() * scale , it->getSample() * scale + it->getVelocity().normalized() * circleR * 2.0f );
+            ofLine( it->getSample() * scale , it->getSample() * scale + it->getVelocity().normalized() * circleR * 20.0f );
         }
     }
     
@@ -669,7 +905,7 @@ private:
             for( PointSampleVectorT::const_iterator pit = it->begin(); pit != it->end(); ++pit )
             {
                 ofCircle( pit->getSample() * scale, circleR );
-                ofLine( pit->getSample() * scale , pit->getSample() * scale + pit->getVelocity().normalized() * circleR * 2.0f );
+                ofLine( pit->getSample() * scale , pit->getSample() * scale + pit->getVelocity().normalized() * circleR * 20.0f );
             }
         }
     }
@@ -698,8 +934,11 @@ private:
     
     ofxCv::RectTracker                  boundingBoxTracker;
     
-    ofxCv::PointTracker                 tipTracker;
     ofxCv::PointTracker                 centroidTracker;
+    ofxCv::PointTracker                 tipTracker;
+    ofxCv::PointTracker                 contourPointTracker;
+    ofxCv::PointTracker                 convexHullPointTracker;
+    ofxCv::PointTracker                 skeletonPointsTracker;
     
     ofxCv::ContourFinder2               contourFinder;
     
@@ -710,5 +949,11 @@ private:
     PointSampleVectorRefMapDequeT       pointSamplesMapDeque;
     PointSampleVectorVectorRefMapDequeT pointVectorSamplesMapDeque;
     PolylineSampleVectorRefMapDequeT    polylineSamplesMapDeque;
+    
+    std::map<unsigned int, PointSampleSmoother>  centroidSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>  tipsSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>  contourSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>  convexSmoothersMap;
+    std::map<unsigned int, PointSampleSmoother>  skeletonSmoothersMap;
     
 };

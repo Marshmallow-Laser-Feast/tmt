@@ -46,6 +46,7 @@
 #include "ParticleVisualizer.h"
 #include "ContourVisualizer.h"
 #include "ConvexHullVisualizer.h"
+#include "SkeletonVisualizer.h"
 #include "FixedPointVisualizer.h"
 #include "LineVisualizer.h"
 #include "NearestDotsVisualizer.h"
@@ -131,6 +132,7 @@ private:
     ParticleVisualizer                      *particleVisualizer;
     ContourVisualizer                       *contourVisualizer;
     ConvexHullVisualizer                    *convexHullVisualizer;
+    SkeletonVisualizer                      *skeletonVisualizer;
     FixedPointVisualizer                    *fixedPointVisualizer;
     LineVisualizer                          *lineVisualizer;
     NearestDotsVisualizer                   *nearesDotVisualizer;

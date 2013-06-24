@@ -146,6 +146,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		41065D6F17784C2200F3223B /* DeformableRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeformableRope.h; sourceTree = "<group>"; };
+		41065D7017784C2D00F3223B /* Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rope.h; sourceTree = "<group>"; };
+		41065D7117787A8F00F3223B /* PointSampleSmoothing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointSampleSmoothing.h; sourceTree = "<group>"; };
+		41065D7417788E3300F3223B /* SkeletonVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkeletonVisualizer.h; sourceTree = "<group>"; };
 		41085E69177250EE00D620B7 /* HelpTextWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTextWidget.h; sourceTree = "<group>"; };
 		41085E6C177253F600D620B7 /* StatsWidget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatsWidget.h; sourceTree = "<group>"; };
 		41085E6D17731BC000D620B7 /* MultiTouchInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTouchInput.cpp; sourceTree = "<group>"; };
@@ -164,7 +168,6 @@
 		41823D12177738AA0093C6B7 /* FixedPointVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FixedPointVisualizer.h; sourceTree = "<group>"; };
 		41823D13177738D40093C6B7 /* LineVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineVisualizer.h; sourceTree = "<group>"; };
 		41823D14177738DF0093C6B7 /* NearestDotsVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearestDotsVisualizer.h; sourceTree = "<group>"; };
-		41823D15177738E70093C6B7 /* RoofVisualizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoofVisualizer.h; sourceTree = "<group>"; };
 		419F10E81761446400BF91D6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		419F10EB1761446400BF91D6 /* addons.make */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
 		419F10EE1761446400BF91D6 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
@@ -554,6 +557,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41065D6E17784C1A00F3223B /* Rope */ = {
+			isa = PBXGroup;
+			children = (
+				41065D7017784C2D00F3223B /* Rope.h */,
+				41065D6F17784C2200F3223B /* DeformableRope.h */,
+			);
+			name = Rope;
+			sourceTree = "<group>";
+		};
 		41085E6B177250F200D620B7 /* HelperWidgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,6 +587,7 @@
 		410CF93A176FD145005B155A /* Input */ = {
 			isa = PBXGroup;
 			children = (
+				41065D7117787A8F00F3223B /* PointSampleSmoothing.h */,
 				419FB74B1771D6770010D8C4 /* VideoAnalysisInput.h */,
 				41085E6F17731C7200D620B7 /* VideoAnalysisInput.cpp */,
 				419FB4681770BF0F0010D8C4 /* MultiTouchInput.h */,
@@ -605,7 +618,7 @@
 				41823D12177738AA0093C6B7 /* FixedPointVisualizer.h */,
 				41823D13177738D40093C6B7 /* LineVisualizer.h */,
 				41823D14177738DF0093C6B7 /* NearestDotsVisualizer.h */,
-				41823D15177738E70093C6B7 /* RoofVisualizer.h */,
+				41065D7417788E3300F3223B /* SkeletonVisualizer.h */,
 			);
 			name = Visualizer;
 			sourceTree = "<group>";
@@ -816,6 +829,7 @@
 		419FB7501771DC6E0010D8C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				41065D6E17784C1A00F3223B /* Rope */,
 				41823D0117746B3C0093C6B7 /* SkeletonFinder */,
 				419FB74F1771DC650010D8C4 /* ContourFinder2 */,
 			);

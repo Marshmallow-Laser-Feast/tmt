@@ -195,6 +195,7 @@ void TheMeasuresTaken::initVisualizers()
     particleVisualizer      = new ParticleVisualizer();
     contourVisualizer       = new ContourVisualizer();
     convexHullVisualizer    = new ConvexHullVisualizer();
+    skeletonVisualizer      = new SkeletonVisualizer();
     fixedPointVisualizer    = new FixedPointVisualizer();
     lineVisualizer          = new LineVisualizer();
     nearesDotVisualizer     = new NearestDotsVisualizer();
@@ -204,6 +205,7 @@ void TheMeasuresTaken::initVisualizers()
     visualizers.push_back( particleVisualizer );
     visualizers.push_back( contourVisualizer );
     visualizers.push_back( convexHullVisualizer );
+    visualizers.push_back( skeletonVisualizer );
     visualizers.push_back( fixedPointVisualizer );
     visualizers.push_back( lineVisualizer );
     visualizers.push_back( nearesDotVisualizer );

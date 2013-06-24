@@ -47,7 +47,7 @@ public:
     
     virtual const std::string getPanelName() const { return "Help"; };
     
-    virtual ofVec2f const getSize() const { return ofVec2f(360, 105); };
+    virtual const ofVec2f getSize() const { return ofVec2f(360, 105); };
     
 private:
     

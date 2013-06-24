@@ -6,7 +6,7 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000960541"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.064058013"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000366407"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.078434832"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
