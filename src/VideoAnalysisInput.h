@@ -919,7 +919,8 @@ private:
             {
                 convexHullSmoothersMap[ sampleID ]  = PointSampleSmoother();
             }
-            
+            convexHullSmoothersMap[ sampleID ].setNewSampleReceived( true );
+
             polylinePointsVector.back().push_back( convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
         }
         
@@ -1019,6 +1020,8 @@ private:
             {
                 skeletonSmoothersMap[ sampleID ]    = PointSampleSmoother();
             }
+            skeletonSmoothersMap[ sampleID ].setNewSampleReceived( true );
+
             
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().push_back( PointSampleT() );
             

@@ -56,7 +56,7 @@ public:
         params.addFloat( PARAM_NAME_ROI_X2 ).setClamp( true ).set( 1.0f );
         params.addFloat( PARAM_NAME_ROI_Y2 ).setClamp( true ).set( 1.0f );
         
-        params.addInt( PARAM_NAME_VIDEO_FRAME ).setRange(0, videoPlayer.getTotalNumFrames());
+        params.addInt( PARAM_NAME_VIDEO_FRAME ).setRange(0, videoPlayer.getTotalNumFrames()).setClamp(true);
     };
     
     ~VideoFile(){};

@@ -3,10 +3,10 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OCS" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="20"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ratio" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Trails Count" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ratio" value="1.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Trails Count" value="2"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
