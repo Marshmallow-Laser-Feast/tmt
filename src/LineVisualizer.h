@@ -43,6 +43,16 @@ public:
         params.addFloat( PARAM_NAME_EDGE_FIX_AMOUNT ).setClamp(true);
         params.addFloat( PARAM_NAME_EDGE_FIX_HEIGHT ).setClamp(true);
         params.addFloat( PARAM_NAME_AUDIO_NOISE_AMOUNT ).setRange(0, 20).setClamp(true);
+     
+        rope = new DeformableRope( params );
+        
+        oscMappings[ &params.get( "Rope.Deform.amp" ) ]         = "/LineViz/Amp";
+        oscMappings[ &params.get( "Rope.Noise.noiseAmp2" ) ]   = "/LineViz/noiseAmount2";
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]         = "/LineViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_EDGE_FIX_AMOUNT ) ]    = "/LineViz/edgeFixAmount";
+        oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]       = "/LineViz/timeOffset";
+        
     };
     
     ~LineVisualizer()
@@ -67,7 +77,7 @@ public:
             params.addBool( (*tit) ).set( false );
         }
         
-        rope = new DeformableRope( params );
+        
     };
     
     virtual void visualize( const InputsMapT &inputsMap,

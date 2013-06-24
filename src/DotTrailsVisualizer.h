@@ -18,6 +18,7 @@
 #define INPUT_NAME                  "Input/Video Analysis"
 #define TIPS_TAG                    "TIPS_TAG"
 
+#define PARAM_NAME_BRIGHT_AUDIO     "Brightness/Audio"
 #define PARAM_NAME_RATIO            "Ratio"
 #define PARAM_NAME_TRAILS_COUNT     "Trails Count"
 
@@ -31,8 +32,14 @@ public:
     :IVisualizer( "Visualizer/Trails" )
     
     {
+        params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
         params.addFloat( PARAM_NAME_RATIO ).setClamp( true );
         params.addInt( PARAM_NAME_TRAILS_COUNT ).set( 1 );
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/DotTrailsViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/DotTrailsViz/brightnessAudio";
+        oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]   = "/DotTrailsViz/timeOffset";
+        oscMappings[ &params.get( PARAM_NAME_TRAILS_COUNT ) ]   = "/DotTrailsViz/TrailCount";
     };
     
     ~DotTrailsVisualizer()
@@ -50,6 +57,8 @@ public:
                             const float time
                            )
     {
+        latestAudioAmp          = audioAmp;
+        
         if( !(bool)params[ PARAM_NAME_ENABLED ] ||
             (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f ||
             inputsMap.count( INPUT_NAME ) ==  0
@@ -172,8 +181,23 @@ public:
         }
     };
     
+    virtual const float getBrightness() const
+    {        
+        float brightness        = (float)params[ PARAM_NAME_BRIGHTNESS ];
+        float birghtnessAudio    = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        
+        if( birghtnessAudio > 0 )
+        {
+            brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
+        }
+        
+        return (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+    }
+    
 private:
     
     std::map<int, std::deque<ofPoint> > samplesDequeMap;
     std::map<int, bool>                 newSampleReceivedMap;
+    
+    float                               latestAudioAmp;
 };

@@ -17,8 +17,10 @@
 
 #include "IVisualizer.h"
 
-#define INPUT_NAME      "Input/Video Analysis"
-#define CONTOUR_TAG     "CONTOUR_TAG"
+#define INPUT_NAME                  "Input/Video Analysis"
+#define CONTOUR_TAG                 "CONTOUR_TAG"
+
+#define PARAM_NAME_STRETCH_POINTS   "Stretch Points"
 
 class ContourVisualizer: public IVisualizer
 {
@@ -30,6 +32,10 @@ public:
     :IVisualizer( "Visualizer/Contour" )
     
     {
+        params.addFloat( PARAM_NAME_STRETCH_POINTS ).setClamp( true );
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/ContourViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS ) ] = "/CameraContourInput/Stretch Points";
     };
     
     ~ContourVisualizer()
@@ -62,6 +68,8 @@ public:
         
         PolylineVectorRefT          output          = newOutput();
         
+        float                       stretchPoints   = params[ PARAM_NAME_STRETCH_POINTS ];
+        
         PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( CONTOUR_TAG );
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
@@ -73,6 +81,18 @@ public:
             
             for ( int i = 0; i < pit->getSample().getVertices().size(); ++i )
             {
+//                ofPoint point = pit->getSample().getVertices()[ i ] * scale;
+//                
+//                if( stretchPoints > 0 )
+//                {
+//                    ofPoint pNorm;
+//                    
+//                    pNorm.x = ofMap(point.x, 0, inputSize.x, 0, 1.0f );
+//                    pNorm.y = ofMap(point.y, 0, inputSize.y, 0, 1.0f );
+//                    
+//                    point.interpolate(pNorm, stretchPoints);
+//                }
+                
                 output->back().getVertices()[ i ].set( pit->getSample().getVertices()[ i ] * scale );
             }
             

@@ -20,6 +20,7 @@
 #include "IPanelDraws.h"
 
 #include "IVisualizer.h"
+#include "IFilter.h"
 
 #define PARAM_NAME_ENABLED                      "Enabled"
 
@@ -110,7 +111,7 @@ public:
     
 public:
     
-    void update( const vector<IVisualizer *> &visualizers  )
+    void update( const vector<IVisualizer *> &visualizers, vector<IFilter *> &filters, float audioAmp )
     {
         if( params[ PARAM_NAME_ILDA_PPS ].hasChanged() )
         {
@@ -152,6 +153,11 @@ public:
             for(int i=0; i<visualizers.size(); i++)
             {
                 PolylineVectorRefT visualizedLines = visualizers[i]->getOutput();
+                
+                for( vector<IFilter*>::iterator it = filters.begin(); it != filters.end(); ++it )
+                {
+                    (*it)->apply( *visualizedLines, audioAmp );
+                }
                 
                 ildaFrame.addPolys( *visualizedLines, ofFloatColor( visualizers[i]->getBrightness() ) );
             }

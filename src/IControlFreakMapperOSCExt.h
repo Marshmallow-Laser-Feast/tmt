@@ -13,7 +13,7 @@
 
 #include "ofxMSAControlFreak.h"
 
-#define PARAM_NAME_ENABLE_OCS_INPUT "OCS"
+#define PARAM_NAME_ENABLE_OCS_INPUT "OSC"
 
 class IControlFreakMapperOSCExt
 {

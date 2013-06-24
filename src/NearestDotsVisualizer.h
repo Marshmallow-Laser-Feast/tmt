@@ -15,6 +15,7 @@
 
 #define INPUT_NAME          "Input/Video Analysis"
 
+#define PARAM_NAME_BRIGHT_AUDIO     "Brightness/Audio"
 #define PARAM_NAME_COUNT            "Count"
 #define PARAM_NAME_PICK_SHORTEST    "Pick Shortest"
 
@@ -29,8 +30,13 @@ public:
     :IVisualizer( "Visualizer/NearestDot" )
     
     {
+        params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
         params.addInt( PARAM_NAME_COUNT ).setClamp(true);
         params.addBool( PARAM_NAME_PICK_SHORTEST ).setClamp(true);
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/NearestDotsViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/NearestDotsViz/brightnessAudio";
+        oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]   = "/NearestDotsViz/timeOffset";
 
     };
     
@@ -64,6 +70,8 @@ public:
                             const float time
                            )
     {
+        latestAudioAmp  = audioAmp;
+        
         if( !(bool)params[ PARAM_NAME_ENABLED ] || (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f )
         {
             addOutput( newOutput() );
@@ -223,7 +231,24 @@ public:
         }
     };
     
+    virtual const float getBrightness() const
+    {
+        float brightness        = (float)params[ PARAM_NAME_BRIGHTNESS ];
+        float birghtnessAudio   = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        
+        if( birghtnessAudio > 0 )
+        {
+            brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
+        }
+        
+        return (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+    }
+    
 private:
     
     static bool mysort(const ofVec3f &a, const ofVec3f &b) { return (a.z < b.z); }
+    
+private:
+    
+    float   latestAudioAmp;
 };

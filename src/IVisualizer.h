@@ -59,7 +59,7 @@ public:
         params.addInt( PARAM_NAME_CACHE_SIZE ).set( 1 );
         params.addInt( PARAM_NAME_CACHE_OFFSET ).setRange(0, 1).setClamp(true);
         
-        params.addFloat( PARAM_NAME_BRIGHTNESS ).setRange(0, 1).setClamp(true).set( 1.0f );
+        params.addFloat( PARAM_NAME_BRIGHTNESS ).setRange(0, 100).setClamp(true).set( 1.0f );
     };
     
     virtual ~IVisualizer()
@@ -117,9 +117,9 @@ public:
                            )
     {};
     
-    const float getBrightness() const
+    virtual const float getBrightness() const
     {
-        return (float)params[ PARAM_NAME_BRIGHTNESS ];
+        return (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
     }
     
 public:

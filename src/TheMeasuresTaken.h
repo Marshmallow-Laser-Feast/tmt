@@ -51,6 +51,9 @@
 #include "LineVisualizer.h"
 #include "NearestDotsVisualizer.h"
 
+#include "IFilter.h"
+#include "NoiseDistortionFilter.h"
+
 #define MIDI_PORT           0
 #define OSC_PORT            12345
 #define OSC_STATUS_TIMEOUT  60
@@ -85,6 +88,8 @@ public:
     void guiEvent(ofxUIEventArgs &e);
     
 private:
+    
+    void initFilters();
     
     void initVisualizers();
     void updateVisualizers();
@@ -146,6 +151,12 @@ private:
     // Laser
     
     LaserOutput                             *laserOutput;
+    
+    // Filters
+    
+    NoiseDistortionFilter                   *noiseDistortionFilter;
+    
+    vector<IFilter *>                       filters;
     
     // Video
     

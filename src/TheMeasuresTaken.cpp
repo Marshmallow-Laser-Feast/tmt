@@ -18,6 +18,7 @@ void TheMeasuresTaken::setup()
     initVisualizers();
     initVideo();
     initAudioInput();
+    initFilters();
     initLaserOutput();
     addWidgets();
     initPanelDraws();
@@ -189,6 +190,21 @@ void TheMeasuresTaken::newMidiMessage(ofxMidiMessage& eventArgs)
 void TheMeasuresTaken::audioIn(float * input, int bufferSize, int nChannels){}
 
 //--------------------------------------------------------------
+void TheMeasuresTaken::initFilters()
+{
+    noiseDistortionFilter   = new NoiseDistortionFilter();
+    
+    filters.push_back( noiseDistortionFilter );
+    
+    for (vector<IFilter *>::iterator it = filters.begin(); it != filters.end(); ++it )
+    {
+        guiMappedObjects.push_back( *it );
+        midiMappedObjects.push_back( *it );
+        ocsMappedObjects.push_back( *it );
+    }
+};
+
+//--------------------------------------------------------------
 void TheMeasuresTaken::initVisualizers()
 {
     dotVisualizer           = new DotVisualizer();
@@ -214,6 +230,9 @@ void TheMeasuresTaken::initVisualizers()
     for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
     {
         guiMappedObjects.push_back( *it );
+        midiMappedObjects.push_back( *it );
+        ocsMappedObjects.push_back( *it );
+        
         panelDraws.push_back( *it );
         
         (*it)->setup( inputsMap );
@@ -342,7 +361,7 @@ void TheMeasuresTaken::initLaserOutput()
 //--------------------------------------------------------------
 void TheMeasuresTaken::updateLaserOutput()
 {
-    laserOutput->update( visualizers );
+    laserOutput->update( visualizers, filters, audioInput->amp );
 }
 
 //--------------------------------------------------------------
