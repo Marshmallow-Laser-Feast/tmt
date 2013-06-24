@@ -105,11 +105,11 @@ public:
 //            pos.x /= INPUT_WIDTH;
 //            pos.y /= INPUT_HEIGHT;
             float t = ofMap(i, 0, rope.particles.size()-1, 0, 1);
-            float ts = ofMap(i, 0, rope.particles.size()-1, -1, 1);
+//            float ts = ofMap(i, 0, rope.particles.size()-1, -1, 1);
 
             // bell curve (kind of)
-            float ta = t < 0.5 ? t * 2 : (1 - t) * 2;
-            ta = 3 * ta * ta - 2 * ta * ta * ta;
+//            float ta = t < 0.5 ? t * 2 : (1 - t) * 2;
+//            ta = 3 * ta * ta - 2 * ta * ta * ta;
 
             ofVec2f o;
             if(curvature != 0) o.y += curvature * sin(t * PI);
