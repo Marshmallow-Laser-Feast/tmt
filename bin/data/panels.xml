@@ -1,5 +1,5 @@
 <PanelsData>
-    <Panel name="Laser Output" x="382.000000000" y="35.000000000" width="681.000000000" height="261.000000000"></Panel>
-    <Panel name="Input/Video Analysis" x="46.000000000" y="626.000000000" width="927.000000000" height="272.000000000"></Panel>
-    <Panel name="Visualizer/Skeleton" x="396.000000000" y="322.000000000" width="766.000000000" height="274.000000000"></Panel>
+    <Panel name="Video/Camera" x="783.000000000" y="8.000000000" width="640.000000000" height="480.000000000"></Panel>
+    <Panel name="Input/Video Analysis" x="501.000000000" y="581.000000000" width="927.000000000" height="272.000000000"></Panel>
+    <Panel name="Laser Output" x="391.000000000" y="48.000000000" width="317.000000000" height="279.000000000"></Panel>
 </PanelsData>
