@@ -728,6 +728,8 @@ private:
                 tipsSmoothersMap[ sampleID ]    = PointSampleSmoother();
             }
             
+            tipsSmoothersMap[ sampleID ].setNewSampleReceived( true );
+            
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().push_back( PointSampleT() );
                         
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( tipsSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
