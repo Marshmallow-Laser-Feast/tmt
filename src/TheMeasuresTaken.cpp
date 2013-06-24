@@ -267,7 +267,7 @@ void TheMeasuresTaken::updateVisualizers()
     {
         (*it)->update();
         (*it)->visualize(   inputsMap,
-                            audioInput->getAmpExternal(),
+                            audioInput->getAmp(),
                             audioInput->getFFTSampleCount(),
                             audioInput->getFFTData(),
                             ofGetElapsedTimef()
@@ -382,7 +382,7 @@ void TheMeasuresTaken::initLaserOutput()
 //--------------------------------------------------------------
 void TheMeasuresTaken::updateLaserOutput()
 {
-    laserOutput->update( visualizers, filters, audioInput->getAmpExternal() );
+    laserOutput->update( visualizers, filters, audioInput->getAmp() );
 }
 
 //--------------------------------------------------------------

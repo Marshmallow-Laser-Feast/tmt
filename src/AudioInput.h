@@ -25,6 +25,7 @@
 #define FFT_SAMPLE_COUNT                    128
     
 #define PARAM_NAME_AUDIO_SOURCE             "Audio Source"
+#define PARAM_NAME_AUDIO_OUTPUT             "Audio Output"
 
 #define PARAM_NAME_ENABLE_PLAYBACK          "Playback"
 
@@ -60,9 +61,10 @@ public:
             loadAudioAtIndex( 0 );
         }
         
-        params.addBool( PARAM_NAME_ENABLE_PLAYBACK ).set( true );
+        params.addBool( PARAM_NAME_ENABLE_PLAYBACK ).set( false );
         
         params.addNamedIndex( PARAM_NAME_AUDIO_SOURCE ).setLabels( audioFileNames );
+        params.addNamedIndex( PARAM_NAME_AUDIO_OUTPUT ).setLabels( 2, "File", "OSC" );
         
         params.addFloat( PARAM_NAME_AUDIO_SCALE ).set( 1.0f );
         params.addFloat( PARAM_NAME_AUDIO_SMOOTHING_LOW ).setClamp( true ).set( 1.0f );
@@ -91,7 +93,7 @@ public:
     
     void update()
     {
-        if( params[ PARAM_NAME_AUDIO_SOURCE ].hasChanged() )
+        if( params[ PARAM_NAME_AUDIO_SOURCE ].hasChanged() && (bool)params[ PARAM_NAME_ENABLE_PLAYBACK ] )
         {
             loadAudioAtIndex( params[ PARAM_NAME_AUDIO_SOURCE ] );
         }
@@ -118,6 +120,11 @@ public:
         
         if( params[ PARAM_NAME_ENABLE_PLAYBACK ].hasChanged() )
         {
+            if( (bool)params[ PARAM_NAME_ENABLE_PLAYBACK ] && !soundPlayer.getIsPlaying() )
+            {
+                soundPlayer.play();
+            }
+            
             soundPlayer.setPaused( !(bool)params[ PARAM_NAME_ENABLE_PLAYBACK ] );
         }
         
@@ -172,12 +179,14 @@ public:
     
     const float getAmp() const
     {
-        return (float)params[ PARAM_NAME_AUDIO_AMP ];
-    }
-    
-    const float getAmpExternal() const
-    {
-        return (float)params[ PARAM_NAME_EXTERNAL_AUDIO ] * (float)params[ PARAM_NAME_AUDIO_SCALE ];
+        if( (int)params[ PARAM_NAME_AUDIO_OUTPUT ] == 0 )
+        {
+            return (float)params[ PARAM_NAME_AUDIO_AMP ];
+        } else {
+            return (float)params[ PARAM_NAME_EXTERNAL_AUDIO ] * (float)params[ PARAM_NAME_AUDIO_SCALE ];
+        }
+        
+        return 0.0f;
     }
     
 private:
@@ -216,7 +225,6 @@ private:
     void loadAudioAtIndex( int index )
     {
         soundPlayer.loadSound( audioFileNamePathMap[ audioFileNames[index] ] );
-        soundPlayer.play();
     }
     
     
