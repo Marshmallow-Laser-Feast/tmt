@@ -188,7 +188,7 @@
             <displayName>AudioFFT</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <clip>/Users/alinakipoglu/Desktop/measures-total-test16.aif</clip>
+            <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test17.aif</clip>
         </track>
         <track>
             <type>Curves</type>
@@ -253,10 +253,10 @@
     </page>
 </tracks>
 <timelineSettings>
-    <duration>00:20:01:632</duration>
+    <duration>00:21:15:848</duration>
     <playhead>00:00:00:000</playhead>
     <inpoint>00:00:00:000</inpoint>
-    <outpoint>00:20:01:632</outpoint>
+    <outpoint>00:21:15:848</outpoint>
     <loop>1</loop>
 </timelineSettings>
 <projectSettings>
@@ -267,7 +267,7 @@
     <oscInEnabled>0</oscInEnabled>
     <oscOutEnabled>1</oscOutEnabled>
     <oscInPort>12346</oscInPort>
-    <oscIP>169.254.180.42</oscIP>
+    <oscIP>127.0.0.1</oscIP>
     <oscOutPort>12345</oscOutPort>
     <oscRate>30.000000000</oscRate>
 </projectSettings>
