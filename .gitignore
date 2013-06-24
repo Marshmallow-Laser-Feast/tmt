@@ -85,3 +85,5 @@ Desktop.ini
 
 bin/data/inputVideo/
 bin/data/inputVideo/*
+bin/data/sound/
+bin/data/sound/*
