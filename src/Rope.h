@@ -46,9 +46,12 @@ public:
     }
     
     //--------------------------------------------------------------
-    void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics) {//, float smoothing) {
+    void set(ofVec2f _a, ofVec2f _b, msa::physics::World2D &physics) {//, float smoothing) {
 //        a += (_a - a) * (1-smoothing);
 //        b += (_b - b) * (1-smoothing);
+        
+        a = _a;
+        b = _b;
 
         if(numParticles<2) return;
         
@@ -130,11 +133,19 @@ public:
     ofPolyline drawVector(float easeAmount) {
         if(particles.empty()) return ofPolyline();
         
-        if(easedPoints.size() != particles.size()) easedPoints.resize(particles.size());
+        bool bEase;
+        if(easedPoints.size() != particles.size()) {
+            bEase = false;
+            easedPoints.resize(particles.size());
+        } else {
+            bEase = true;
+        }
         
         ofPolyline poly;
         for(int i=0; i<particles.size(); i++) {
-            easedPoints[i].interpolate(particles[i]->getPosition(), 1 - easeAmount);
+            ofVec2f p(particles[i]->getPosition());
+            if(bEase) easedPoints[i].interpolate(p, 1 - easeAmount);
+            else easedPoints[i] = p;
             poly.lineTo(easedPoints[i]);
         }
         return poly;
@@ -156,7 +167,7 @@ public:
 
     
 private:
-    ofPoint a;
-    ofPoint b;
+    ofVec2f a;
+    ofVec2f b;
     int life;
 };

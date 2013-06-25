@@ -21,6 +21,7 @@
 #define PARAM_NAME_EDGE_FIX_AMOUNT      "Edge fix Amount"
 #define PARAM_NAME_EDGE_FIX_HEIGHT      "Edge fix Height"
 #define PARAM_NAME_AUDIO_NOISE_AMOUNT   "Audio Noise Amount"
+#define PARAM_NAME_SORT                 "Sort Points"
 
 struct comparePointX
 {
@@ -43,6 +44,7 @@ public:
         params.addFloat( PARAM_NAME_EDGE_FIX_AMOUNT ).setClamp(true);
         params.addFloat( PARAM_NAME_EDGE_FIX_HEIGHT ).setClamp(true);
         params.addFloat( PARAM_NAME_AUDIO_NOISE_AMOUNT ).setRange(0, 20).setClamp(true);
+        params.addBool(PARAM_NAME_SORT);
      
         rope = new DeformableRope( params );
         
@@ -94,7 +96,9 @@ public:
             return;
         }
         
-        std::vector<ofPoint> points;
+        bool bSortPoints = params[PARAM_NAME_SORT];
+        
+        std::vector<ofVec2f> points;
         
         ofVec2f inputSize = inputsMap.at(INPUT_NAME)->getSize();
         
@@ -157,15 +161,23 @@ public:
         
         float edgeFixAmount = params[ PARAM_NAME_EDGE_FIX_AMOUNT ];
         float edgeFixHeight = params[ PARAM_NAME_EDGE_FIX_HEIGHT ];
+
+        vector<ofVec2f> sortedPoints(points);
+        std::sort ( sortedPoints.begin(), sortedPoints.end(), comparePointX__ );
         
-        if( edgeFixAmount )
+        if(bSortPoints) {
+//            std::sort ( points.begin(), points.end(), comparePointX__ );
+            points = sortedPoints;
+        }
+
+//        if( edgeFixAmount )
         {
-            points.push_back(points.front().interpolated(ofVec3f(0, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
-            points.push_back(points.back().interpolated(ofVec3f(inputSize.x, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
+//            points.push_back(points.front().interpolated(ofVec3f(0, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
+            points.insert(points.begin(), sortedPoints.front().interpolated(ofVec3f(0, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
+            points.push_back(sortedPoints.back().interpolated(ofVec3f(inputSize.x, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
         }
         
-        std::sort ( points.begin(), points.end(), comparePointX__ );
-                
+        
         rope->update(points);
                 
         for(int i=0; i<rope->poly.size(); i++)
