@@ -16,7 +16,7 @@
             <xmlFileName>curves_0_.xml</xmlFileName>
             <trackName>curves_0</trackName>
             <displayName>CameraContourInput/StretchPointsX</displayName>
-            <sendOSC>0</sendOSC>
+            <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
@@ -26,10 +26,10 @@
             <xmlFileName>curves_1_.xml</xmlFileName>
             <trackName>curves_1</trackName>
             <displayName>CameraContourInput/StretchPointsY</displayName>
-            <sendOSC>0</sendOSC>
+            <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1.000000000</max>
+            <max>nan</max>
         </track>
         <track>
             <type>Curves</type>
@@ -187,8 +187,8 @@
             <displayName>LineViz/curvature</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <min>-50.000000000</min>
-            <max>50.000000000</max>
+            <min>-29.999996185</min>
+            <max>30.000009537</max>
         </track>
         <track>
             <type>Curves</type>
@@ -234,7 +234,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:20:42:837</playhead>
+    <playhead>00:00:00:000</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>

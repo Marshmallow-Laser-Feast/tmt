@@ -19,9 +19,9 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale Y" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Smooth Amount" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Optimize Tolerance" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="687"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count" value="562"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Spacing" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="6"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="688"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Orig" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Point Count Processed" value="0"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>
