@@ -96,6 +96,7 @@
 #define PARAM_NAME_SKELETON_TRACK_DIST              "Skeleton Tracking Dist"
 #define PARAM_NAME_SKELETON_TRACK_PERS              "Skeleton Tracking Pers"
 #define PARAM_NAME_SKELETON_SAMPLE_SMOOTHING        "Skeleton Sample Smoothing"
+#define PARAM_NAME_SKELETON_CONNECTION_THRESHOLD    "Skeleton Connection Threshold"
 
 class VideoAnalysisInput: public Input
 {
@@ -201,6 +202,7 @@ public:
         params.addFloat( PARAM_NAME_SKELETON_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_SKELETON_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_SKELETON_SAMPLE_SMOOTHING ).setClamp( true );
+        params.addFloat( PARAM_NAME_SKELETON_CONNECTION_THRESHOLD );
         
         pointSampleTags.push_back( CENTROID_TAG );
         
@@ -280,7 +282,7 @@ public:
             contourFinder.setMaxAreaRadius(params[PARAM_NAME_MAX_AREA]);
             
             contourFinder.findContours( *image );
-            skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects(), (bool)params[ PARAM_NAME_SKELETON_PRECISE_PROCESS ] );
+            skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects(), (bool)params[ PARAM_NAME_SKELETON_PRECISE_PROCESS ], (float)params[ PARAM_NAME_SKELETON_CONNECTION_THRESHOLD ] );
             
             bboxes.clear();
             smoothedBBoxes.clear();
@@ -1255,21 +1257,15 @@ private:
                 polyline.simplify( simplify );
             }
             
-            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
-            {
-                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
-                groupIDs.push_back( i );
-            }
-            
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->push_back( PolylineSampleT() );
             
             if( stretchPoints_x > 0 || stretchPoints_y > 0 )
             {
-                cv::Rect r(contourFinder.getBoundingRect(i));
+                cv::Rect r  = smoothedBBoxes[i];
                 
-                for (int i = 0; i < polyline.size(); ++i)
+                for (int j = 0; j < polyline.size(); ++j)
                 {
-                    ofPoint &p = polyline.getVertices()[ i ];
+                    ofPoint &p = polyline.getVertices()[ j ];
                     
                     ofPoint pNormX;
                     ofPoint pNormY;
@@ -1283,6 +1279,12 @@ private:
                     p.interpolate(pNormX, stretchPoints_x);
                     p.interpolate(pNormY, stretchPoints_y);
                 }
+            }
+            
+            for( vector<ofPoint>::iterator it = polyline.getVertices().begin(); it != polyline.getVertices().end(); ++it )
+            {
+                allFloatPoints.push_back( cv::Point2f( it->x, it->y ) );
+                groupIDs.push_back( i );
             }
             
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setSample( polyline );
@@ -1313,34 +1315,18 @@ private:
                 pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            cv::Rect r  = smoothedBBoxes[currentGroupId];
             unsigned int sampleID   = skeletonPointsTracker.getLabelFromIndex( i );
             
             if( skeletonSmoothersMap.count( sampleID ) == 0 )
             {
                 skeletonSmoothersMap[ sampleID ]    = PointSampleSmoother();
             }
+            
             skeletonSmoothersMap[ sampleID ].setNewSampleReceived( true );
 
-            
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().push_back( PointSampleT() );
             
             ofPoint p  = skeletonSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
-            
-            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
-            {
-                ofPoint pNormX;
-                ofPoint pNormY;
-                
-                pNormX.set( p );
-                pNormY.set( p );
-                
-                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
-                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
-                
-                p.interpolate(pNormX, stretchPoints_x);
-                p.interpolate(pNormY, stretchPoints_y);
-            }
             
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSample( p );
             
