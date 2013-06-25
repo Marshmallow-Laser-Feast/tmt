@@ -117,7 +117,7 @@
             <displayName>LineViz/Brightness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
+            <min>0.000015259</min>
             <max>100.000015259</max>
         </track>
         <track>
@@ -128,7 +128,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1.000000000</max>
+            <max>0.199999928</max>
         </track>
         <track>
             <type>Curves</type>
@@ -157,7 +157,7 @@
             <displayName>LineViz/stiffness</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
+            <min>-0.000000075</min>
             <max>1.000000000</max>
         </track>
         <track>
@@ -244,9 +244,9 @@
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:15:07:955</playhead>
+    <playhead>00:00:00:000</playhead>
     <inpoint>00:00:00:000</inpoint>
-    <outpoint>00:18:42:997</outpoint>
+    <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>
 </timelineSettings>
 <projectSettings>

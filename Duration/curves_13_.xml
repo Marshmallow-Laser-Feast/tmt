@@ -12,6 +12,30 @@
         <value>1.000000000</value>
     </key>
     <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:15:14:412</time>
+        <value>1.000000000</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:15:18:750</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:15:43:794</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:15:47:527</time>
+        <value>1.000000000</value>
+    </key>
+    <key>
         <easefunc>1</easefunc>
         <easetype>2</easetype>
         <time>00:18:59:622</time>
