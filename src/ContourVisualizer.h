@@ -30,8 +30,11 @@ public:
     :IVisualizer( "Visualizer/Contour" )
     
     {
+        params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
+        
         
         oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/ContourViz/Brightness";
+        oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/ContourViz/brightnessAudio";
     };
     
     ~ContourVisualizer()
@@ -49,6 +52,8 @@ public:
                             const float time
                            )
     {
+        latestAudioAmp          = audioAmp;
+
         if( !(bool)params[ PARAM_NAME_ENABLED ] ||
             (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f ||
             inputsMap.count( INPUT_NAME ) == 0
@@ -85,6 +90,19 @@ public:
 
     };
     
+    virtual const float getBrightness() const
+    {
+        float brightness            = (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+        float birghtnessAudio       = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        
+        if( birghtnessAudio > 0.0f )
+        {
+            brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
+        }
+        
+        return brightness;
+    }
+
     virtual void draw( float width, float height )
     {
         if( (bool)params[ PARAM_NAME_ENABLED ] && (bool)params[ PARAM_NAME_BRIGHTNESS ] != 0.0f )
@@ -125,6 +143,7 @@ public:
     };
     
 private:
+    float   latestAudioAmp;
     
     msa::physics::World2D       world;
     

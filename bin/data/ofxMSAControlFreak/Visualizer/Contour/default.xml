@@ -6,5 +6,6 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="80"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness/Audio" value="0.000000000"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

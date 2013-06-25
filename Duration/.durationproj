@@ -13,6 +13,26 @@
         </track>
         <track>
             <type>Curves</type>
+            <xmlFileName>curves_0_.xml</xmlFileName>
+            <trackName>curves_0</trackName>
+            <displayName>CameraContourInput/StretchPointsX</displayName>
+            <sendOSC>0</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_1_.xml</xmlFileName>
+            <trackName>curves_1</trackName>
+            <displayName>CameraContourInput/StretchPointsY</displayName>
+            <sendOSC>0</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
             <xmlFileName>curves_6_.xml</xmlFileName>
             <trackName>curves_6</trackName>
             <displayName>DotTrailsViz/Brightness</displayName>
@@ -42,26 +62,6 @@
             <max>1.000000000</max>
         </track>
         <track>
-            <type>Curves</type>
-            <xmlFileName>curves_13_.xml</xmlFileName>
-            <trackName>curves_13</trackName>
-            <displayName>LineViz/Brightness</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>100.000015259</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_14_.xml</xmlFileName>
-            <trackName>curves_14</trackName>
-            <displayName>LineViz/Amp</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
             <type>Audio</type>
             <xmlFileName></xmlFileName>
             <trackName>audio</trackName>
@@ -69,26 +69,6 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <clip>/Users/memo/MLF/Dropbox/Work/Commercial/Live/121201 Measures Taken Saddlers Wells/Audio/measures-total-test19-fix.aif</clip>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_10_.xml</xmlFileName>
-            <trackName>curves_10</trackName>
-            <displayName>LineViz/edgeFixAmount</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
-        </track>
-        <track>
-            <type>Curves</type>
-            <xmlFileName>curves_4_.xml</xmlFileName>
-            <trackName>curves_4</trackName>
-            <displayName>LineViz/noiseAmount2</displayName>
-            <sendOSC>1</sendOSC>
-            <receiveOSC>0</receiveOSC>
-            <min>0.000000000</min>
-            <max>1.000000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -122,9 +102,29 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_0_.xml</xmlFileName>
-            <trackName>curves_0</trackName>
-            <displayName>CameraContourInput/StretchPointsX</displayName>
+            <xmlFileName>curves_12_.xml</xmlFileName>
+            <trackName>curves_12</trackName>
+            <displayName>ContourViz/brightnessAudio</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_13_.xml</xmlFileName>
+            <trackName>curves_13</trackName>
+            <displayName>LineViz/Brightness</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>100.000015259</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_14_.xml</xmlFileName>
+            <trackName>curves_14</trackName>
+            <displayName>LineViz/Amp</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -132,9 +132,9 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_1_.xml</xmlFileName>
-            <trackName>curves_1</trackName>
-            <displayName>CameraContourInput/StretchPointsY</displayName>
+            <xmlFileName>curves_10_.xml</xmlFileName>
+            <trackName>curves_10</trackName>
+            <displayName>LineViz/edgeFixAmount</displayName>
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
@@ -190,11 +190,41 @@
             <min>-50.000000000</min>
             <max>50.000000000</max>
         </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_4_.xml</xmlFileName>
+            <trackName>curves_4</trackName>
+            <displayName>SkeletonViz/Brightness</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>100.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_15_.xml</xmlFileName>
+            <trackName>curves_15</trackName>
+            <displayName>SkeletonViz/brightnessAudio</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_16_.xml</xmlFileName>
+            <trackName>curves_16</trackName>
+            <displayName>LineViz/timeOffset</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>100.000000000</max>
+        </track>
     </page>
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:19:54:068</playhead>
+    <playhead>00:19:01:253</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>
