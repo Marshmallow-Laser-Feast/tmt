@@ -2,7 +2,7 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Video/Camera">
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Update" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Update" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip X" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Flip Y" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="ROI X1" value="0.000000000"></Parameter>
