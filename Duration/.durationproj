@@ -220,11 +220,21 @@
             <min>0.000000000</min>
             <max>100.000000000</max>
         </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_17_.xml</xmlFileName>
+            <trackName>curves_17</trackName>
+            <displayName>SkeletonViz/timeOffset</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>1</receiveOSC>
+            <min>0.000000000</min>
+            <max>100.000000000</max>
+        </track>
     </page>
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:19:01:253</playhead>
+    <playhead>00:20:42:837</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>
