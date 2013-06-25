@@ -51,6 +51,9 @@
 #define PARAM_NAME_MIN_AREA                         "Min Area"
 #define PARAM_NAME_MAX_AREA                         "Max Area"
 
+#define PARAM_NAME_STRETCH_POINTS_X                 "Stretch Points X"
+#define PARAM_NAME_STRETCH_POINTS_Y                 "Stretch Points Y"
+
 #define PARAM_NAME_CENT_TRACK_DIST                  "Centroid Tracking Dist"
 #define PARAM_NAME_CENT_TRACK_PERS                  "Centroid Tracking Pers"
 #define PARAM_NAME_CENT_SAMPLE_SMOOTHING            "Centroid Sample Smoothing"
@@ -146,6 +149,9 @@ public:
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);
         
+        params.addFloat( PARAM_NAME_STRETCH_POINTS_X ).setClamp( true );
+        params.addFloat( PARAM_NAME_STRETCH_POINTS_Y ).setClamp( true );
+        
         params.addFloat( PARAM_NAME_CENT_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_CENT_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_CENT_SAMPLE_SMOOTHING ).setClamp( true );
@@ -195,6 +201,9 @@ public:
         pointSamplesMapDeque.push_back( PointSampleVectorRefMapT() );
         pointVectorSamplesMapDeque.push_back( PointSampleVectorVectorRefMapT() );
         polylineSamplesMapDeque.push_back( PolylineSampleVectorRefMapT() );
+        
+        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS_X ) ] = "/CameraContourInput/StretchPointsX";
+        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS_Y ) ] = "/CameraContourInput/StretchPointsY";
     };
     
     ~VideoAnalysisInput(){};
@@ -265,13 +274,18 @@ public:
                 bboxes.push_back( contourFinder.getBoundingRect(i) );
             }
             
-            vector<unsigned int>    labels  = boundingBoxTracker.track( bboxes );
+            vector<unsigned int>    labels          = boundingBoxTracker.track( bboxes );
+            
+            float                   stretchPoints_x = params[ PARAM_NAME_STRETCH_POINTS_X ];
+            float                   stretchPoints_y = params[ PARAM_NAME_STRETCH_POINTS_Y ];
             
             if( (bool)params[ PARAM_NAME_PROC_CENTROID ] )
             {
                 processCentroids(   params[PARAM_NAME_CENT_TRACK_DIST],
                                     params[PARAM_NAME_CENT_TRACK_PERS],
-                                    params[PARAM_NAME_CENT_SAMPLE_SMOOTHING]
+                                    params[PARAM_NAME_CENT_SAMPLE_SMOOTHING],
+                                    stretchPoints_x,
+                                    stretchPoints_y
                                  );
             }
             
@@ -284,7 +298,9 @@ public:
                                 params[PARAM_NAME_TIPS_THRESHOLD],
                                 params[PARAM_NAME_TIPS_TRACK_DIST],
                                 params[PARAM_NAME_TIPS_TRACK_PERS],
-                                params[PARAM_NAME_TIPS_SAMPLE_SMOOTHING]
+                                params[PARAM_NAME_TIPS_SAMPLE_SMOOTHING],
+                                stretchPoints_x,
+                                stretchPoints_y
                             );
             }
             
@@ -297,7 +313,10 @@ public:
                                 params[PARAM_NAME_CONTOUR_AVERAGE_RADIUS],
                                 params[PARAM_NAME_CONTOUR_TRACK_DIST],
                                 params[PARAM_NAME_CONTOUR_TRACK_PERS],
-                                params[PARAM_NAME_CONTOUR_SAMPLE_SMOOTHING]
+                                params[PARAM_NAME_CONTOUR_SAMPLE_SMOOTHING],
+                                stretchPoints_x,
+                                stretchPoints_y
+
                                );
             }
             
@@ -310,7 +329,10 @@ public:
                                     params[PARAM_NAME_CONVEXHULL_AVERAGE_RADIUS],
                                     params[PARAM_NAME_CONVEXHULL_TRACK_DIST],
                                     params[PARAM_NAME_CONVEXHULL_TRACK_PERS],
-                                    params[PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING]
+                                    params[PARAM_NAME_CONVEXHULL_SAMPLE_SMOOTHING],
+                                    stretchPoints_x,
+                                    stretchPoints_y
+
                                   );
             }
             
@@ -322,7 +344,10 @@ public:
                                     params[PARAM_NAME_SKELETON_SIMPLIFICATION],
                                     params[PARAM_NAME_SKELETON_TRACK_DIST],
                                     params[PARAM_NAME_SKELETON_TRACK_PERS],
-                                    params[PARAM_NAME_SKELETON_SAMPLE_SMOOTHING]
+                                    params[PARAM_NAME_SKELETON_SAMPLE_SMOOTHING],
+                                    stretchPoints_x,
+                                    stretchPoints_y
+
                                  );
             }
         }
@@ -598,7 +623,7 @@ public:
     
 private:
     
-    void processCentroids( float trackingDistance, float trackingPersistance, float smoothing )
+    void processCentroids( float trackingDistance, float trackingPersistance, float smoothing, float stretchPoints_x, float stretchPoints_y )
     {
         vector<cv::Point2f> allFloatPoints;
         
@@ -618,6 +643,7 @@ private:
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
+            cv::Rect r(contourFinder.getBoundingRect(i));
             unsigned int sampleID   = centroidTracker.getLabelFromIndex( i );
             
             if( centroidSmoothersMap.count( sampleID ) == 0 )
@@ -629,7 +655,24 @@ private:
             
             pointSamplesMapDeque.back()[ CENTROID_TAG ]->push_back( PointSampleT() );
             
-            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSample( centroidSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            ofPoint p  = centroidSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
+            
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                ofPoint pNormX;
+                ofPoint pNormY;
+                
+                pNormX.set( p );
+                pNormY.set( p );
+                
+                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                
+                p.interpolate(pNormX, stretchPoints_x);
+                p.interpolate(pNormY, stretchPoints_y);
+            }
+            
+            pointSamplesMapDeque.back()[ CENTROID_TAG ]->back().setSample( p );
             
             if( centroidTracker.existsPrevious( i ) )
             {
@@ -655,7 +698,7 @@ private:
         }
     }
     
-    void processTips( int resampleCount, int smoothAmount, float simplify, float averageRadius, float tipThreshold, float trackingDistance, float trackingPersistance, float smoothing )
+    void processTips( int resampleCount, int smoothAmount, float simplify, float averageRadius, float tipThreshold, float trackingDistance, float trackingPersistance, float smoothing, float stretchPoints_x, float stretchPoints_y )
     {
         vector<cv::Point2f>     allFloatPoints;
         vector<unsigned int>    groupIDs;
@@ -755,6 +798,7 @@ private:
                 pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->push_back( PointSampleVectorT() );
             }
             
+            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
             unsigned int sampleID   = tipTracker.getLabelFromIndex( i );
             
             if( tipsSmoothersMap.count( sampleID ) == 0 )
@@ -765,8 +809,25 @@ private:
             tipsSmoothersMap[ sampleID ].setNewSampleReceived( true );
             
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().push_back( PointSampleT() );
-                        
-            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( tipsSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            
+            ofPoint p  = tipsSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
+            
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                ofPoint pNormX;
+                ofPoint pNormY;
+                
+                pNormX.set( p );
+                pNormY.set( p );
+                
+                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                
+                p.interpolate(pNormX, stretchPoints_x);
+                p.interpolate(pNormY, stretchPoints_y);
+            }
+            
+            pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( p );
             
             if( tipTracker.existsPrevious( i ) )
             {
@@ -792,7 +853,7 @@ private:
         }
     }
     
-    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing )
+    void processContour( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing, float stretchPoints_x, float stretchPoints_y )
     {
         
         vector<cv::Point2f>     allFloatPoints;
@@ -881,6 +942,7 @@ private:
                 polylinePointsVector.push_back( std::vector<ofPoint>() );
             }
             
+            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
             unsigned int sampleID   = contourTracker.getLabelFromIndex( i );
             
             if( contourSmoothersMap.count( sampleID ) == 0 )
@@ -890,7 +952,24 @@ private:
             
             contourSmoothersMap[ sampleID ].setNewSampleReceived( true );
             
-            polylinePointsVector.back().push_back( contourSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            ofPoint p  = contourSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
+            
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                ofPoint pNormX;
+                ofPoint pNormY;
+                
+                pNormX.set( p );
+                pNormY.set( p );
+                
+                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                
+                p.interpolate(pNormX, stretchPoints_x);
+                p.interpolate(pNormY, stretchPoints_y);
+            }
+            
+            polylinePointsVector.back().push_back( p );
         }
         
         std::map<unsigned int, PointSampleSmoother>::iterator it = contourSmoothersMap.begin();
@@ -921,7 +1000,7 @@ private:
         }
     }
     
-    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing )
+    void processConvexHull( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float averageRadius, float trackingDistance, float trackingPersistance, float smoothing, float stretchPoints_x, float stretchPoints_y )
     {
         vector<cv::Point2f>     allFloatPoints;
         vector<unsigned int>    groupIDs;
@@ -1009,6 +1088,7 @@ private:
                 polylinePointsVector.push_back( std::vector<ofPoint>() );
             }
             
+            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
             unsigned int sampleID   = convexHullPointTracker.getLabelFromIndex( i );
             
             if( convexHullSmoothersMap.count( sampleID ) == 0 )
@@ -1018,7 +1098,24 @@ private:
             
             convexHullSmoothersMap[ sampleID ].setNewSampleReceived( true );
 
-            polylinePointsVector.back().push_back( convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            ofPoint p  = convexHullSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
+            
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                ofPoint pNormX;
+                ofPoint pNormY;
+                
+                pNormX.set( p );
+                pNormY.set( p );
+                
+                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                
+                p.interpolate(pNormX, stretchPoints_x);
+                p.interpolate(pNormY, stretchPoints_y);
+            }
+            
+            polylinePointsVector.back().push_back( p );
         }
         
         std::map<unsigned int, PointSampleSmoother>::iterator it = convexHullSmoothersMap.begin();
@@ -1049,7 +1146,7 @@ private:
         }
     }
     
-    void processSkeletons( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float trackingDistance, float trackingPersistance, float smoothing )
+    void processSkeletons( vector<unsigned int> & labels, int resampleCount, int smoothAmount, float simplify, float trackingDistance, float trackingPersistance, float smoothing, float stretchPoints_x, float stretchPoints_y )
     {
         vector<cv::Point2f>     allFloatPoints;
         vector<unsigned int>    groupIDs;
@@ -1083,6 +1180,28 @@ private:
             
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->push_back( PolylineSampleT() );
             
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                cv::Rect r(contourFinder.getBoundingRect(i));
+                
+                for (int i = 0; i < polyline.size(); ++i)
+                {
+                    ofPoint &p = polyline.getVertices()[ i ];
+                    
+                    ofPoint pNormX;
+                    ofPoint pNormY;
+                    
+                    pNormX.set( p );
+                    pNormY.set( p );
+                    
+                    pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                    pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                    
+                    p.interpolate(pNormX, stretchPoints_x);
+                    p.interpolate(pNormY, stretchPoints_y);
+                }
+            }
+            
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setSample( polyline );
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setVelocity( ofPoint( ofxCv::toOf( contourFinder.getVelocity( i ) ) ) );
             polylineSamplesMapDeque.back()[ SKELETON_LINES_TAG ]->back().setSampleID( labels[i] );
@@ -1111,6 +1230,7 @@ private:
                 pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->push_back( PointSampleVectorT() );
             }
             
+            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
             unsigned int sampleID   = skeletonPointsTracker.getLabelFromIndex( i );
             
             if( skeletonSmoothersMap.count( sampleID ) == 0 )
@@ -1122,7 +1242,24 @@ private:
             
             pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().push_back( PointSampleT() );
             
-            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSample( skeletonSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing ) );
+            ofPoint p  = skeletonSmoothersMap[ sampleID ].getSmoothed( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ), smoothing );
+            
+            if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+            {
+                ofPoint pNormX;
+                ofPoint pNormY;
+                
+                pNormX.set( p );
+                pNormY.set( p );
+                
+                pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, image->getWidth() );
+                pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, image->getHeight() );
+                
+                p.interpolate(pNormX, stretchPoints_x);
+                p.interpolate(pNormY, stretchPoints_y);
+            }
+            
+            pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->back().back().setSample( p );
             
             if( skeletonPointsTracker.existsPrevious( i ) )
             {
