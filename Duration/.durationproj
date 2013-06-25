@@ -98,7 +98,7 @@
             <sendOSC>1</sendOSC>
             <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
-            <max>1.000000000</max>
+            <max>0.500000000</max>
         </track>
         <track>
             <type>Curves</type>
@@ -134,7 +134,7 @@
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:13:29:100</playhead>
+    <playhead>00:12:52:429</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>
