@@ -20,7 +20,9 @@
 #include "SkeletonFinder.h"
 
 #include "Input.h"
+
 #include "PointSampleSmoothing.h"
+#include "RectangleSmoothing.h"
 
 #define MIN_AVERAGE_RADIUS                          0.01f
 
@@ -40,6 +42,7 @@
 #define PARAM_NAME_VIS_SKLELETON                    "Draw Skeleton"
 #define PARAM_NAME_VIS_SKLELETON_POINTS             "Draw Skeleton Points"
 #define PARAM_NAME_VIS_SKLELETON_POINTS_IDS         "Draw Skeleton Point IDs"
+#define PARAM_NAME_VIS_BBOX                         "Draw BBox"
 
 #define PARAM_NAME_CACHE_SIZE                       "Cache Size"
 #define PARAM_NAME_CACHE_OFFSET                     "Cache Offset"
@@ -51,6 +54,7 @@
 #define PARAM_NAME_MIN_AREA                         "Min Area"
 #define PARAM_NAME_MAX_AREA                         "Max Area"
 
+#define PARAM_NAME_BBOX_SAMPLE_SMOOTHING            "BBox Sample Smoothing"
 #define PARAM_NAME_STRETCH_POINTS_X                 "Stretch Points X"
 #define PARAM_NAME_STRETCH_POINTS_Y                 "Stretch Points Y"
 
@@ -109,7 +113,9 @@ public:
     static const std::string CENTROID_TAG;
     static const std::string TIPS_TAG;
     static const std::string CONTOUR_TAG;
+    static const std::string CONTOUR_POINTS_TAG;
     static const std::string CONVEXHULL_TAG;
+    static const std::string CONVEXHULL_POINTS_TAG;
     static const std::string SKELETON_LINES_TAG;
     static const std::string SKELETON_POINTS_TAG;
     
@@ -138,6 +144,7 @@ public:
         params.addBool( PARAM_NAME_VIS_SKLELETON ).set( true );
         params.addBool( PARAM_NAME_VIS_SKLELETON_POINTS ).set( true );
         params.addBool( PARAM_NAME_VIS_SKLELETON_POINTS_IDS ).set( true );
+        params.addBool( PARAM_NAME_VIS_BBOX ).set( true );
         
         params.addInt( PARAM_NAME_CACHE_SIZE ).set( 1 );
         params.addInt( PARAM_NAME_CACHE_OFFSET ).setRange(0, 1).setClamp(true);
@@ -149,6 +156,7 @@ public:
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);
         
+        params.addFloat( PARAM_NAME_BBOX_SAMPLE_SMOOTHING ).setClamp( true );
         params.addFloat( PARAM_NAME_STRETCH_POINTS_X ).setClamp( true );
         params.addFloat( PARAM_NAME_STRETCH_POINTS_Y ).setClamp( true );
         
@@ -192,6 +200,8 @@ public:
         pointSampleTags.push_back( CENTROID_TAG );
         
         pointVectorSampleTags.push_back( TIPS_TAG );
+        pointVectorSampleTags.push_back( CONTOUR_POINTS_TAG );
+        pointVectorSampleTags.push_back( CONVEXHULL_POINTS_TAG );
         pointVectorSampleTags.push_back( SKELETON_POINTS_TAG );
         
         polylineSampleTags.push_back( CONTOUR_TAG );
@@ -268,10 +278,39 @@ public:
             skeletonFinder.findSkeletons( *image, contourFinder.getContours(), contourFinder.getBoundingRects(), (bool)params[ PARAM_NAME_SKELETON_PRECISE_PROCESS ] );
             
             bboxes.clear();
+            smoothedBBoxes.clear();
+            
+            for(std::map<unsigned int, RectangleSmoother>::iterator it = bboxSmoothersMap.begin(); it != bboxSmoothersMap.end(); ++it )
+            {
+                it->second.setNewSampleReceived( false );
+            }
+            
+            float smoothing = (float)params[ PARAM_NAME_BBOX_SAMPLE_SMOOTHING ];
             
             for( int i = 0; i < contourFinder.size(); ++i )
             {
+                if( bboxSmoothersMap.count( contourFinder.getLabel( i ) ) == 0 )
+                {
+                    bboxSmoothersMap[ contourFinder.getLabel( i ) ] = RectangleSmoother();
+                }
+                
+                bboxSmoothersMap[ contourFinder.getLabel( i ) ].setNewSampleReceived( true );
+                
+                
+                smoothedBBoxes.push_back( bboxSmoothersMap[ contourFinder.getLabel( i ) ].getSmoothed( contourFinder.getBoundingRect(i), smoothing ) );
                 bboxes.push_back( contourFinder.getBoundingRect(i) );
+            }
+            
+            std::map<unsigned int, RectangleSmoother>::iterator it = bboxSmoothersMap.begin();
+            
+            while( it != bboxSmoothersMap.end() )
+            {
+                if( !it->second.getNewSampleReceived() )
+                {
+                    bboxSmoothersMap.erase( it++ );
+                } else {
+                    ++it;
+                }
             }
             
             vector<unsigned int>    labels          = boundingBoxTracker.track( bboxes );
@@ -506,6 +545,24 @@ public:
             drawPointVectorSamples( getPointVectorSamples( SKELETON_POINTS_TAG ), 2.0f, scale );
         }
         
+        if( (bool)params[ PARAM_NAME_VIS_BBOX ] )
+        {
+            ofPushMatrix();
+            ofScale(scale, scale);
+            
+            ofEnableAlphaBlending();
+            ofSetColor( ofColor::whiteSmoke, 40 );
+            
+            for( int i = 0; i < contourFinder.size(); ++i )
+            {
+                ofRect(smoothedBBoxes[i].tl().x, smoothedBBoxes[i].tl().y, smoothedBBoxes[i].size().width, smoothedBBoxes[i].size().height );
+            }
+            
+            ofDisableAlphaBlending();
+            
+            ofPopMatrix();
+        }
+        
         float yOffset   = 0.0f;
         
         if( (bool)params[ PARAM_NAME_VIS_CENTROID ] )
@@ -560,6 +617,15 @@ public:
         {
             ofSetColor( ofColor::salmon );
             ofDrawBitmapString( "-> Skeleton Points", 20.0f, yOffset + 20.0f );
+            
+            yOffset += 20.0f;
+        }
+        
+        if( (bool)params[ PARAM_NAME_VIS_BBOX ] )
+        {
+            
+            ofSetColor( ofColor::whiteSmoke );
+            ofDrawBitmapString( "-> BBox", 20.0f, yOffset + 20.0f );
         }
         
         if( (bool)params[ PARAM_NAME_VIS_CENTROID_IDS ] )
@@ -643,7 +709,7 @@ private:
         
         for( int i = 0; i < allFloatPoints.size(); ++i )
         {
-            cv::Rect r(contourFinder.getBoundingRect(i));
+            cv::Rect r  = smoothedBBoxes[i];
             unsigned int sampleID   = centroidTracker.getLabelFromIndex( i );
             
             if( centroidSmoothersMap.count( sampleID ) == 0 )
@@ -798,7 +864,8 @@ private:
                 pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
+            cv::Rect r  = smoothedBBoxes[currentGroupId];
+            
             unsigned int sampleID   = tipTracker.getLabelFromIndex( i );
             
             if( tipsSmoothersMap.count( sampleID ) == 0 )
@@ -826,7 +893,7 @@ private:
                 p.interpolate(pNormX, stretchPoints_x);
                 p.interpolate(pNormY, stretchPoints_y);
             }
-            
+        
             pointVectorSamplesMapDeque.back()[ TIPS_TAG ]->back().back().setSample( p );
             
             if( tipTracker.existsPrevious( i ) )
@@ -940,9 +1007,11 @@ private:
                 currentGroupId  = groupIDs[ i ];
                 
                 polylinePointsVector.push_back( std::vector<ofPoint>() );
+                
+                pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
+            cv::Rect r  = smoothedBBoxes[currentGroupId];
             unsigned int sampleID   = contourTracker.getLabelFromIndex( i );
             
             if( contourSmoothersMap.count( sampleID ) == 0 )
@@ -970,6 +1039,19 @@ private:
             }
             
             polylinePointsVector.back().push_back( p );
+            
+            pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().push_back( PointSampleT() );
+            pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().back().setSample( p );
+            
+            if( contourTracker.existsPrevious( i ) )
+            {
+                pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().back().setVelocity( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) - ofPoint(ofxCv::toOf( contourTracker.getPrevious( i ) ) ) );
+            } else {
+                pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().back().setVelocity( ofPoint() );
+            }
+            
+            pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().back().setSampleID( contourTracker.getLabelFromIndex( i ) );
+            pointVectorSamplesMapDeque.back()[ CONTOUR_POINTS_TAG ]->back().back().setGroupID( currentGroupId );
         }
         
         std::map<unsigned int, PointSampleSmoother>::iterator it = contourSmoothersMap.begin();
@@ -1086,9 +1168,11 @@ private:
                 currentGroupId  = groupIDs[ i ];
                 
                 polylinePointsVector.push_back( std::vector<ofPoint>() );
+                
+                pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
+            cv::Rect r  = smoothedBBoxes[currentGroupId];
             unsigned int sampleID   = convexHullPointTracker.getLabelFromIndex( i );
             
             if( convexHullSmoothersMap.count( sampleID ) == 0 )
@@ -1116,6 +1200,19 @@ private:
             }
             
             polylinePointsVector.back().push_back( p );
+            
+            pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().push_back( PointSampleT() );
+            pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().back().setSample( p );
+            
+            if( convexHullPointTracker.existsPrevious( i ) )
+            {
+                pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().back().setVelocity( ofPoint(ofxCv::toOf( allFloatPoints[i] ) ) - ofPoint(ofxCv::toOf( convexHullPointTracker.getPrevious( i ) ) ) );
+            } else {
+                pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().back().setVelocity( ofPoint() );
+            }
+            
+            pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().back().setSampleID( convexHullPointTracker.getLabelFromIndex( i ) );
+            pointVectorSamplesMapDeque.back()[ CONVEXHULL_POINTS_TAG ]->back().back().setGroupID( currentGroupId );
         }
         
         std::map<unsigned int, PointSampleSmoother>::iterator it = convexHullSmoothersMap.begin();
@@ -1230,7 +1327,7 @@ private:
                 pointVectorSamplesMapDeque.back()[ SKELETON_POINTS_TAG ]->push_back( PointSampleVectorT() );
             }
             
-            cv::Rect r(contourFinder.getBoundingRect(currentGroupId));
+            cv::Rect r  = smoothedBBoxes[currentGroupId];
             unsigned int sampleID   = skeletonPointsTracker.getLabelFromIndex( i );
             
             if( skeletonSmoothersMap.count( sampleID ) == 0 )
@@ -1341,7 +1438,10 @@ private:
     ofxCv::SkeletonFinder                           skeletonFinder;
     
     std::vector<cv::Rect>                           bboxes;
-        
+    std::vector<cv::Rect>                           smoothedBBoxes;
+    
+    std::map<unsigned int, RectangleSmoother>       bboxSmoothersMap;
+    
     PointSampleVectorRefMapDequeT                   pointSamplesMapDeque;
     PointSampleVectorVectorRefMapDequeT             pointVectorSamplesMapDeque;
     PolylineSampleVectorRefMapDequeT                polylineSamplesMapDeque;
