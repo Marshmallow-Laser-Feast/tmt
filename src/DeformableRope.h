@@ -95,6 +95,9 @@ public:
         ofPoint a(shape.front());
         ofPoint b(shape.back());
         
+        a.y += centerOffset;
+        b.y += centerOffset;
+        
         rope.set(a, b, physics, easeAmount);
         rope.update();
         
@@ -113,7 +116,7 @@ public:
 
             ofVec2f o;
             if(curvature != 0) o.y += curvature * sin(t * PI);
-            if(centerOffset != 0) o.y += centerOffset;
+//            if(centerOffset != 0) o.y += centerOffset;
 //            if(noiseAmp1) o.y += ta * noiseAmp1 * ofSignedNoise(ts * noisePosScale1);
 //            if(noiseAmp2) o.y += ta * noiseAmp2 * ofSignedNoise(ts * noisePosScale2);
 //            if(noiseAmpX) o.x += ta * noiseAmpX * ofSignedNoise(ts * noisePosScaleX);
