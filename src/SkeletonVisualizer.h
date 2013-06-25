@@ -17,8 +17,9 @@
 
 #include "IVisualizer.h"
 
-#define INPUT_NAME      "Input/Video Analysis"
-#define SKELETON_TAG    "SKELETON_LINES_TAG"
+#define INPUT_NAME                  "Input/Video Analysis"
+#define SKELETON_TAG                "SKELETON_POINTS_TAG"
+#define PARAM_NAME_BRIGHT_AUDIO     "Brightness/Audio"
 
 class SkeletonVisualizer: public IVisualizer
 {
@@ -30,6 +31,9 @@ public:
     :IVisualizer( "Visualizer/Skeleton" )
     
     {
+        params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
+        
+        oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/SkeletonViz/brightnessAudio";
     };
     
     ~SkeletonVisualizer()
@@ -47,6 +51,8 @@ public:
                             const float time
                            )
     {
+        latestAudioAmp          = audioAmp;
+        
         if( !(bool)params[ PARAM_NAME_ENABLED ] ||
             (float)params[ PARAM_NAME_BRIGHTNESS ] == 0.0f ||
             inputsMap.count( INPUT_NAME ) == 0
@@ -57,23 +63,23 @@ public:
             return;
         }
         
-        const Input                 *input          = inputsMap.at( INPUT_NAME );
-        ofVec2f                     inputSize       = input->getSize();
+        const Input                 *input              = inputsMap.at( INPUT_NAME );
+        ofVec2f                     inputSize           = input->getSize();
         
-        PolylineVectorRefT          output          = newOutput();
+        PolylineVectorRefT          output              = newOutput();
         
-        PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( SKELETON_TAG );
+        PointSampleVectorVectorRefT pointVectorSamples  = input->getPointVectorSamples( SKELETON_TAG );
         
         ofVec3f scale( 1.0f / inputSize.x, 1.0f / inputSize.y );
         
-        for( PolylineSampleVectorT::iterator pit = polylineSamples->begin(); pit != polylineSamples->end(); ++pit )
+        for( PointSampleVectorVectorT::const_iterator it = pointVectorSamples->begin(); it != pointVectorSamples->end(); ++it )
         {
             output->push_back( ofPolyline() );
-            output->back().resize( pit->getSample().getVertices().size() );
+            output->back().resize( it->size() );
             
-            for ( int i = 0; i < pit->getSample().getVertices().size(); ++i )
+            for( int pit = 0; pit < it->size(); ++pit )
             {
-                output->back().getVertices()[ i ].set( pit->getSample().getVertices()[ i ] * scale );
+                output->back().getVertices()[ pit ].set( it->at( pit ).getSample() * scale );
             }
         }
         
@@ -120,11 +126,26 @@ public:
         }
     };
     
+    virtual const float getBrightness() const
+    {
+        float brightness            = (float)params[ PARAM_NAME_BRIGHTNESS ] / 100.0f;
+        float birghtnessAudio       = (float)params[ PARAM_NAME_BRIGHT_AUDIO ];
+        
+        if( birghtnessAudio > 0.0f )
+        {
+            brightness          = ofLerp(brightness * (1 - birghtnessAudio), brightness, latestAudioAmp);
+        }
+        
+        return brightness;
+    }
+    
 private:
     
     msa::physics::World2D       world;
     
     ofVec2f                     inputSize;
     ofVec3f                     scale;
+    
+    float                       latestAudioAmp;
 };
 
