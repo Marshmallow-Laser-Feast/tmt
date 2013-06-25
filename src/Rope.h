@@ -10,6 +10,8 @@ public:
     vector<msa::physics::Particle2D*> homeParticles;
     vector<msa::physics::Spring2D*> homeSprings;
     
+    vector<ofVec2f> easedPoints;
+    
     int numParticles;
     float stiffness;
     float stiffnessHome;
@@ -44,9 +46,9 @@ public:
     }
     
     //--------------------------------------------------------------
-    void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics, float smoothing) {
-        a += (_a - a) * (1-smoothing);
-        b += (_b - b) * (1-smoothing);
+    void set(ofPoint _a, ofPoint _b, msa::physics::World2D &physics) {//, float smoothing) {
+//        a += (_a - a) * (1-smoothing);
+//        b += (_b - b) * (1-smoothing);
 
         if(numParticles<2) return;
         
@@ -125,28 +127,27 @@ public:
     
     
     //--------------------------------------------------------------
-    ofPolyline drawVector() {
+    ofPolyline drawVector(float easeAmount) {
         if(particles.empty()) return ofPolyline();
         
+        if(easedPoints.size() != particles.size()) easedPoints.resize(particles.size());
+        
         ofPolyline poly;
-//        poly.curveTo(particles.front()->getPosition(), 8);
         for(int i=0; i<particles.size(); i++) {
-            
-//            poly.curveTo(particles[i]->getPosition(), 8);
-            poly.lineTo(particles[i]->getPosition());
+            easedPoints[i].interpolate(particles[i]->getPosition(), 1 - easeAmount);
+            poly.lineTo(easedPoints[i]);
         }
-//        poly.curveTo(particles.back()->getPosition(), 8);
         return poly;
     }
     
     //--------------------------------------------------------------
-    void drawRaster(float w, float h) {
+    void drawRaster(float w, float h, float easeAmount) {
         if(particles.empty()) return ofPolyline();
 
         ofSetColor(255);
         ofPushMatrix();
         ofScale(w, h);
-        drawVector().draw();
+        drawVector(easeAmount).draw();
         for(int i=0; i<particles.size(); i++) {
             ofCircle(particles[i]->getPosition(), particles[i]->getRadius());
         }
