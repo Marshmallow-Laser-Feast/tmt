@@ -11,19 +11,19 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Audio Noise Amount" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Rope">
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Physics">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="1.000000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="0.656250000"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="iterations" value="10"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="100"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.409999996"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffnessHome" value="0.039999999"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.020000000"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffnessHome" value="0.010000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthMult" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="restLengthSpeed" value="1.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusBase" value="0.000000000"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Deform">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.000398235"></Parameter>
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="centerOffset" value="107"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.089285716"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="centerOffset" value="214"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="0"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Noise">
@@ -41,8 +41,8 @@
             </Parameter>
         </Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CENTROID_TAG" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="TIPS_TAG" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="SKELETON_POINTS_TAG" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="TIPS_TAG" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="SKELETON_POINTS_TAG" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONTOUR_TAG" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONVEXHULL_TAG" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="SKELETON_LINES_TAG" value="0"></Parameter>
