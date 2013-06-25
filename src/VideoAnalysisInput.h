@@ -22,7 +22,6 @@
 #include "Input.h"
 
 #include "PointSampleSmoothing.h"
-#include "RectangleSmoothing.h"
 
 #define MIN_AVERAGE_RADIUS                          0.01f
 
@@ -54,7 +53,10 @@
 #define PARAM_NAME_MIN_AREA                         "Min Area"
 #define PARAM_NAME_MAX_AREA                         "Max Area"
 
+#define PARAM_NAME_BBOX_TRACK_DIST                  "BBox Tracking Dist"
+#define PARAM_NAME_BBOX_TRACK_PERS                  "BBox Tracking Pers"
 #define PARAM_NAME_BBOX_SAMPLE_SMOOTHING            "BBox Sample Smoothing"
+
 #define PARAM_NAME_STRETCH_POINTS_X                 "Stretch Points X"
 #define PARAM_NAME_STRETCH_POINTS_Y                 "Stretch Points Y"
 
@@ -156,7 +158,10 @@ public:
         params.addInt( PARAM_NAME_MIN_AREA ).setRange(0, 100).setClamp(true);
         params.addInt( PARAM_NAME_MAX_AREA ).setRange(0, 10000).setClamp(true);
         
+        params.addFloat( PARAM_NAME_BBOX_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
+        params.addInt( PARAM_NAME_BBOX_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_BBOX_SAMPLE_SMOOTHING ).setClamp( true );
+
         params.addFloat( PARAM_NAME_STRETCH_POINTS_X ).setClamp( true );
         params.addFloat( PARAM_NAME_STRETCH_POINTS_Y ).setClamp( true );
         
@@ -280,41 +285,22 @@ public:
             bboxes.clear();
             smoothedBBoxes.clear();
             
-            for(std::map<unsigned int, RectangleSmoother>::iterator it = bboxSmoothersMap.begin(); it != bboxSmoothersMap.end(); ++it )
-            {
-                it->second.setNewSampleReceived( false );
-            }
-            
-            float smoothing = (float)params[ PARAM_NAME_BBOX_SAMPLE_SMOOTHING ];
-            
             for( int i = 0; i < contourFinder.size(); ++i )
             {
-                if( bboxSmoothersMap.count( contourFinder.getLabel( i ) ) == 0 )
-                {
-                    bboxSmoothersMap[ contourFinder.getLabel( i ) ] = RectangleSmoother();
-                }
-                
-                bboxSmoothersMap[ contourFinder.getLabel( i ) ].setNewSampleReceived( true );
-                
-                
-                smoothedBBoxes.push_back( bboxSmoothersMap[ contourFinder.getLabel( i ) ].getSmoothed( contourFinder.getBoundingRect(i), smoothing ) );
                 bboxes.push_back( contourFinder.getBoundingRect(i) );
             }
             
-            std::map<unsigned int, RectangleSmoother>::iterator it = bboxSmoothersMap.begin();
-            
-            while( it != bboxSmoothersMap.end() )
-            {
-                if( !it->second.getNewSampleReceived() )
-                {
-                    bboxSmoothersMap.erase( it++ );
-                } else {
-                    ++it;
-                }
-            }
+            boundingBoxTracker.setSmoothingRate( (float)params[ PARAM_NAME_BBOX_SAMPLE_SMOOTHING ] );
+            boundingBoxTracker.setMaximumDistance( (float)params[ PARAM_NAME_BBOX_TRACK_DIST ] );
+            boundingBoxTracker.setPersistence( (float)params[ PARAM_NAME_BBOX_TRACK_PERS ] );
             
             vector<unsigned int>    labels          = boundingBoxTracker.track( bboxes );
             
+            for( int i = 0; i < contourFinder.size(); ++i )
+            {
+                smoothedBBoxes.push_back( boundingBoxTracker.getSmoothed( boundingBoxTracker.getLabelFromIndex( i ) ) );
+            }
+                        
             float                   stretchPoints_x = params[ PARAM_NAME_STRETCH_POINTS_X ];
             float                   stretchPoints_y = params[ PARAM_NAME_STRETCH_POINTS_Y ];
             
@@ -1439,8 +1425,6 @@ private:
     
     std::vector<cv::Rect>                           bboxes;
     std::vector<cv::Rect>                           smoothedBBoxes;
-    
-    std::map<unsigned int, RectangleSmoother>       bboxSmoothersMap;
     
     PointSampleVectorRefMapDequeT                   pointSamplesMapDeque;
     PointSampleVectorVectorRefMapDequeT             pointVectorSamplesMapDeque;
