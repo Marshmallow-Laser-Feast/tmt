@@ -11,6 +11,8 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Pick Shortest" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CENTROID_TAG" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="TIPS_TAG" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONTOUR_POINTS_TAG" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONVEXHULL_POINTS_TAG" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="SKELETON_POINTS_TAG" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONTOUR_TAG" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CONVEXHULL_TAG" value="0"></Parameter>

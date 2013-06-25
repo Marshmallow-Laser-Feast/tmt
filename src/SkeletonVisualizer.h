@@ -35,6 +35,7 @@ public:
         
         oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]   = "/SkeletonViz/Brightness";
         oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/SkeletonViz/brightnessAudio";
+        oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]   = "/SkeletonViz/timeOffset";
     };
     
     ~SkeletonVisualizer()

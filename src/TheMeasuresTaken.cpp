@@ -278,13 +278,13 @@ void TheMeasuresTaken::initVisualizers()
     
     visualizers.push_back( dotVisualizer );
     visualizers.push_back( dotTrailsVisualizer );
-    visualizers.push_back( particleVisualizer );
     visualizers.push_back( contourVisualizer );
-    visualizers.push_back( convexHullVisualizer );
     visualizers.push_back( skeletonVisualizer );
-    visualizers.push_back( fixedPointVisualizer );
     visualizers.push_back( lineVisualizer );
+    visualizers.push_back( convexHullVisualizer );
     visualizers.push_back( nearesDotVisualizer );
+    visualizers.push_back( fixedPointVisualizer );
+    visualizers.push_back( particleVisualizer );
     
     for (vector<IVisualizer *>::iterator it = visualizers.begin(); it != visualizers.end(); ++it )
     {
