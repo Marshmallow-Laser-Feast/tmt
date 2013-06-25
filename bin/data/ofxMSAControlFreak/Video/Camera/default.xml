@@ -12,6 +12,6 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Brigtness" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gamma" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Shutter" value="1.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gain" value="0.839999974"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Camera Gain" value="0.379999995"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

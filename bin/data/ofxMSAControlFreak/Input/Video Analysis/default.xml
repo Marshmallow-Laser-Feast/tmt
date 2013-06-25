@@ -15,7 +15,7 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Contours" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Convex Hull" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Points" value="1"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Points" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw Skeleton Point IDs" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Draw BBox" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="1"></Parameter>
@@ -26,11 +26,11 @@
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Erode" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Min Area" value="10"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Max Area" value="10000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="BBox Tracking Dist" value="10.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="BBox Tracking Pers" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="BBox Sample Smoothing" value="0.366071433"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="BBox Tracking Dist" value="29.017856598"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="BBox Tracking Pers" value="4"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="BBox Sample Smoothing" value="0.950892866"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch Points X" value="0.000000000"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch Points Y" value="nan"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Stretch Points Y" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Tracking Dist" value="51.785713196"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Centroid Tracking Pers" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Centroid Sample Smoothing" value="0.500000000"></Parameter>
@@ -56,10 +56,10 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Tracking Dist" value="20.089284897"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Convex Tracking Pers" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Convex Sample Smoothing" value="0.839285731"></Parameter>
-        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Skeleton Precise Processing" value="0"></Parameter>
+        <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Skeleton Precise Processing" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Resampling" value="0"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Smoothing" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Simplification" value="0.000000000"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Simplification" value="2.008928537"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Tracking Dist" value="25.892856598"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Skeleton Tracking Pers" value="4"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Skeleton Sample Smoothing" value="0.000000000"></Parameter>
