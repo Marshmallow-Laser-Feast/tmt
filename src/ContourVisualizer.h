@@ -20,7 +20,8 @@
 #define INPUT_NAME                  "Input/Video Analysis"
 #define CONTOUR_TAG                 "CONTOUR_TAG"
 
-#define PARAM_NAME_STRETCH_POINTS   "Stretch Points"
+#define PARAM_NAME_STRETCH_POINTS_X "Stretch Points X"
+#define PARAM_NAME_STRETCH_POINTS_Y "Stretch Points Y"
 
 class ContourVisualizer: public IVisualizer
 {
@@ -32,10 +33,12 @@ public:
     :IVisualizer( "Visualizer/Contour" )
     
     {
-        params.addFloat( PARAM_NAME_STRETCH_POINTS ).setClamp( true );
+        params.addFloat( PARAM_NAME_STRETCH_POINTS_X ).setClamp( true );
+        params.addFloat( PARAM_NAME_STRETCH_POINTS_Y ).setClamp( true );
         
         oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]     = "/ContourViz/Brightness";
-        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS ) ] = "/CameraContourInput/Stretch Points";
+        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS_X ) ] = "/CameraContourInput/StretchPointsX";
+        oscMappings[ &params.get( PARAM_NAME_STRETCH_POINTS_Y ) ] = "/CameraContourInput/StretchPointsY";
     };
     
     ~ContourVisualizer()
@@ -68,7 +71,8 @@ public:
         
         PolylineVectorRefT          output          = newOutput();
         
-        float                       stretchPoints   = params[ PARAM_NAME_STRETCH_POINTS ];
+        float                       stretchPoints_x = params[ PARAM_NAME_STRETCH_POINTS_X ];
+        float                       stretchPoints_y = params[ PARAM_NAME_STRETCH_POINTS_Y ];
         
         PolylineSampleVectorRefT    polylineSamples = input->getPolylineSamples( CONTOUR_TAG );
         
@@ -81,19 +85,26 @@ public:
             
             for ( int i = 0; i < pit->getSample().getVertices().size(); ++i )
             {
-//                ofPoint point = pit->getSample().getVertices()[ i ] * scale;
-//                
-//                if( stretchPoints > 0 )
-//                {
-//                    ofPoint pNorm;
-//                    
-//                    pNorm.x = ofMap(point.x, 0, inputSize.x, 0, 1.0f );
-//                    pNorm.y = ofMap(point.y, 0, inputSize.y, 0, 1.0f );
-//                    
-//                    point.interpolate(pNorm, stretchPoints);
-//                }
+                ofRectangle r = pit->getSample().getBoundingBox();
                 
-                output->back().getVertices()[ i ].set( pit->getSample().getVertices()[ i ] * scale );
+                ofPoint &p  = pit->getSample().getVertices()[i];
+                
+                if( stretchPoints_x > 0 || stretchPoints_y > 0 )
+                {
+                    ofPoint pNormX;
+                    ofPoint pNormY;
+                    
+                    pNormX.set( p );
+                    pNormY.set( p );
+                    
+                    pNormX.x = ofMap( p.x, r.x, r.x + r.width, 0, inputSize.x);
+                    pNormY.y = ofMap( p.y, r.y, r.y + r.height, 0, inputSize.y);
+                    
+                    p.interpolate(pNormX, stretchPoints_x);
+                    p.interpolate(pNormY, stretchPoints_y);
+                }
+                
+                output->back().getVertices()[ i ].set( p * scale );
             }
             
             output->back().close();
