@@ -20,6 +20,8 @@ public:
     
     DeformableRope(msa::controlfreak::ParameterGroup &params) : params(params) {
         params.startGroup("Rope");
+        params.addFloat("maxShapeDistance").setClamp(true).setRange(0, 1024);
+
         params.startGroup("Physics");
         params.addFloat("drag").setRange(0, 1).setClamp(true);
         params.addInt("iterations").setRange(0, 50).setClamp(true);
@@ -64,6 +66,8 @@ public:
     
     void update(const vector<ofVec2f>& shape) {
         if(shape.size() < 2) return;
+        
+        float maxShapeDistance = params["Rope.maxShapeDistance"];
         
         physics.setDrag(params["Rope.Physics.drag"]);
         physics.setNumIterations(params["Rope.Physics.iterations"]);
@@ -128,31 +132,57 @@ public:
         }
         
         if(amp) {
-            for(int i=0; i<shape.size(); i++) {
-                // shoot a ray up, if there is another point on the same contour, then don't use that point
-                ofVec2f p(shape[i]);
+            for(int i=0; i<rope.particles.size(); i++) {
+                msa::physics::Particle2D &particle = *rope.particles[i];
+                ofVec2f particlePosition(particle.getPosition());
                 
-                bool bIsTop = true;
-                // find a segment which crosses this point
-                for(int j=0; j<shape.size()-1; j++) {
-                    
-                    // don't check segments including this point
-                    if(j < i || j > i+1) {
-                        ofVec2f p1(shape[j]);
-                        ofVec2f p2(shape[j+1]);
-                        // found a segment
-                        if(ofInRange(p.x, MIN(p1.x, p2.x), MAX(p1.x, p2.x))) {
-                            float py = ofMap(p.x, p1.x, p2.x, p1.y, p2.y);
-                            if(py > p.y) bIsTop = false;
-                        }
+                float highestY = 100000;
+                for(int j=1; j<shape.size()-2; j++) {
+                    ofVec2f p1(shape[j]);
+                    ofVec2f p2(shape[j+1]);
+                    // find a segment
+                    if((fabs(p2.x - p1.x) < maxShapeDistance) && ofInRange(particlePosition.x, MIN(p1.x, p2.x), MAX(p1.x, p2.x))) {
+                        float py = ofMap(particlePosition.x, p1.x, p2.x, p1.y, p2.y);
+                        if(py < highestY) highestY = py;
+//                        if(py > p.y) bIsTop = false;
                     }
                 }
-                if(bIsTop) {
-                    int particleIndex = round(ofMap(p.x, a.x, b.x, 0, rope.particles.size()-1));
-                    float homeY = ofMap(particleIndex, 0, rope.particles.size()-1, a.y, b.y);
-                    rope.particles[particleIndex]->moveBy(ofVec2f(0, (p.y - homeY) * amp));
+                
+                if(highestY < 100000) {
+                    float homeY = ofMap(i, 0, rope.particles.size()-1, a.y, b.y);
+                    particle.moveBy(ofVec2f(0, (highestY - homeY) * amp));
                 }
+
+
             }
+
+            
+            
+//            for(int i=0; i<shape.size(); i++) {
+//                // shoot a ray up, if there is another point on the same contour, then don't use that point
+//                ofVec2f p(shape[i]);
+//                
+//                bool bIsTop = true;
+//                // find a segment which crosses this point
+//                for(int j=0; j<shape.size()-1; j++) {
+//                    
+//                    // don't check segments including this point
+//                    if(j < i || j > i+1) {
+//                        ofVec2f p1(shape[j]);
+//                        ofVec2f p2(shape[j+1]);
+//                        // found a segment
+//                        if(ofInRange(p.x, MIN(p1.x, p2.x), MAX(p1.x, p2.x))) {
+//                            float py = ofMap(p.x, p1.x, p2.x, p1.y, p2.y);
+//                            if(py > p.y) bIsTop = false;
+//                        }
+//                    }
+//                }
+//                if(bIsTop) {
+//                    int particleIndex = round(ofMap(p.x, a.x, b.x, 0, rope.particles.size()-1));
+//                    float homeY = ofMap(particleIndex, 0, rope.particles.size()-1, a.y, b.y);
+//                    rope.particles[particleIndex]->moveBy(ofVec2f(0, (p.y - homeY) * amp));
+//                }
+//            }
         }
         
         physics.update();

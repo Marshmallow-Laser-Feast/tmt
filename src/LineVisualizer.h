@@ -49,7 +49,12 @@ public:
         rope = new DeformableRope( params );
         
         oscMappings[ &params.get( "Rope.Deform.amp" ) ]         = "/LineViz/Amp";
-        oscMappings[ &params.get( "Rope.Noise.noiseAmp2" ) ]   = "/LineViz/noiseAmount2";
+        oscMappings[ &params.get( "Rope.Deform.curvature" ) ]     = "/LineViz/curvature";
+        oscMappings[ &params.get( "Rope.Physics.drag" ) ]         = "/LineViz/drag";
+        oscMappings[ &params.get( "Rope.Physics.stiffness" ) ]         = "/LineViz/stiffness";
+        oscMappings[ &params.get( "Rope.Post.smoothPoly" ) ]         = "/LineViz/smoothPoly";
+        oscMappings[ &params.get( "Rope.Post.easeAmount" ) ]         = "/LineViz/easeAmount";
+//        oscMappings[ &params.get( "Rope.Noise.noiseAmp2" ) ]   = "/LineViz/noiseAmount2";
         
         oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]         = "/LineViz/Brightness";
         oscMappings[ &params.get( PARAM_NAME_EDGE_FIX_AMOUNT ) ]    = "/LineViz/edgeFixAmount";
