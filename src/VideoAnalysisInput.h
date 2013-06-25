@@ -202,7 +202,7 @@ public:
         params.addFloat( PARAM_NAME_SKELETON_TRACK_DIST ).setRange(0, 100).setClamp( true ).set( 10.0f );
         params.addInt( PARAM_NAME_SKELETON_TRACK_PERS ).setClamp(true);
         params.addFloat( PARAM_NAME_SKELETON_SAMPLE_SMOOTHING ).setClamp( true );
-        params.addFloat( PARAM_NAME_SKELETON_CONNECTION_THRESHOLD );
+        params.addFloat( PARAM_NAME_SKELETON_CONNECTION_THRESHOLD ).setClamp(true).setRange(0, 400);
         
         pointSampleTags.push_back( CENTROID_TAG );
         

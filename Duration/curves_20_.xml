@@ -18,21 +18,21 @@
         <value>0.000000000</value>
     </key>
     <key>
-        <easefunc>5</easefunc>
-        <easetype>0</easetype>
+        <easefunc>1</easefunc>
+        <easetype>2</easetype>
         <time>00:10:31:883</time>
         <value>0.126976192</value>
     </key>
     <key>
-        <easefunc>0</easefunc>
-        <easetype>0</easetype>
-        <time>00:12:35:501</time>
-        <value>0.526119351</value>
+        <easefunc>1</easefunc>
+        <easetype>2</easetype>
+        <time>00:12:33:788</time>
+        <value>0.275122583</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:12:37:200</time>
+        <time>00:12:34:202</time>
         <value>0.000000000</value>
     </key>
 </keyframes>

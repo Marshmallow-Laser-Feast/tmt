@@ -2,7 +2,7 @@
     <Parameter type="N3msa12controlfreak14ParameterGroupE" name="NoiseDistortionFilter">
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Midi" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Activity Value" value="0.056944996"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Activity Value" value="0.136565387"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scale" value="10.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="OCS Amount Audio" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Offset" value="2.410715103"></Parameter>

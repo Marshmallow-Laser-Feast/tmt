@@ -21,6 +21,7 @@
 #define PARAM_NAME_EDGE_FIX_AMOUNT      "Edge fix Amount"
 #define PARAM_NAME_EDGE_FIX_HEIGHT      "Edge fix Height"
 #define PARAM_NAME_AUDIO_NOISE_AMOUNT   "Audio Noise Amount"
+#define PARAM_NAME_EDGE_WIDTH           "Edge Width"
 #define PARAM_NAME_SORT                 "Sort Points"
 
 struct comparePointX
@@ -43,6 +44,7 @@ public:
     {
         params.addFloat( PARAM_NAME_EDGE_FIX_AMOUNT ).setClamp(true);
         params.addFloat( PARAM_NAME_EDGE_FIX_HEIGHT ).setClamp(true);
+        params.addFloat( PARAM_NAME_EDGE_WIDTH).setClamp(true);
         params.addFloat( PARAM_NAME_AUDIO_NOISE_AMOUNT ).setRange(0, 20).setClamp(true);
         params.addBool(PARAM_NAME_SORT);
      
@@ -58,6 +60,7 @@ public:
         
         oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]         = "/LineViz/Brightness";
         oscMappings[ &params.get( PARAM_NAME_EDGE_FIX_AMOUNT ) ]    = "/LineViz/edgeFixAmount";
+        oscMappings[ &params.get( PARAM_NAME_EDGE_WIDTH ) ]         = "/LineViz/edgeWidth";
         oscMappings[ &params.get( PARAM_NAME_CACHE_OFFSET ) ]       = "/LineViz/timeOffset";
         
     };
@@ -166,6 +169,7 @@ public:
         
         float edgeFixAmount = params[ PARAM_NAME_EDGE_FIX_AMOUNT ];
         float edgeFixHeight = params[ PARAM_NAME_EDGE_FIX_HEIGHT ];
+        float edgeWidth = params[PARAM_NAME_EDGE_WIDTH];
 
         vector<ofVec2f> sortedPoints(points);
         std::sort ( sortedPoints.begin(), sortedPoints.end(), comparePointX__ );
@@ -178,8 +182,8 @@ public:
 //        if( edgeFixAmount )
         {
 //            points.push_back(points.front().interpolated(ofVec3f(0, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
-            points.insert(points.begin(), sortedPoints.front().interpolated(ofVec3f(0, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
-            points.push_back(sortedPoints.back().interpolated(ofVec3f(inputSize.x, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
+            points.insert(points.begin(), sortedPoints.front().interpolated(ofVec3f(edgeWidth * inputSize.x/2, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
+            points.push_back(sortedPoints.back().interpolated(ofVec3f(inputSize.x - edgeWidth * inputSize.x/2, edgeFixHeight * inputSize.y, 0), edgeFixAmount));
         }
         
         
