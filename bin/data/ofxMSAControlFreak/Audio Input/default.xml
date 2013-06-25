@@ -9,10 +9,10 @@
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing Low" value="0.178571433"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Smoothing High" value="1.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Amplitude" value="0.000004062"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ext Audio Amp" value="0.001759578"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled Ext Audio Amp" value="0.016362503"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="LineIn Amp" value="0.001120082"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled LineIn Amp" value="0.021153463"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Ext Audio Amp" value="0.005785740"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled Ext Audio Amp" value="0.053802207"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="LineIn Amp" value="0.032874301"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Scaled LineIn Amp" value="0.505460739"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Position" value="0.139342934"></Parameter>
     </Parameter>
 </ofxMSAControlFreak>

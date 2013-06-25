@@ -122,19 +122,79 @@
         </track>
         <track>
             <type>Curves</type>
-            <xmlFileName>curves_23_.xml</xmlFileName>
-            <trackName>curves_23</trackName>
-            <displayName>CameraContourInput/Stretch Points</displayName>
+            <xmlFileName>curves_0_.xml</xmlFileName>
+            <trackName>curves_0</trackName>
+            <displayName>CameraContourInput/StretchPointsX</displayName>
             <sendOSC>1</sendOSC>
-            <receiveOSC>1</receiveOSC>
+            <receiveOSC>0</receiveOSC>
             <min>0.000000000</min>
             <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_1_.xml</xmlFileName>
+            <trackName>curves_1</trackName>
+            <displayName>CameraContourInput/StretchPointsY</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_2_.xml</xmlFileName>
+            <trackName>curves_2</trackName>
+            <displayName>LineViz/drag</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_3_.xml</xmlFileName>
+            <trackName>curves_3</trackName>
+            <displayName>LineViz/stiffness</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_5_.xml</xmlFileName>
+            <trackName>curves_5</trackName>
+            <displayName>LineViz/smoothPoly</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>50.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_7_.xml</xmlFileName>
+            <trackName>curves_7</trackName>
+            <displayName>LineViz/easeAmount</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>0.000000000</min>
+            <max>1.000000000</max>
+        </track>
+        <track>
+            <type>Curves</type>
+            <xmlFileName>curves_11_.xml</xmlFileName>
+            <trackName>curves_11</trackName>
+            <displayName>LineViz/curvature</displayName>
+            <sendOSC>1</sendOSC>
+            <receiveOSC>0</receiveOSC>
+            <min>-50.000000000</min>
+            <max>50.000000000</max>
         </track>
     </page>
 </tracks>
 <timelineSettings>
     <duration>00:21:14:323</duration>
-    <playhead>00:13:34:550</playhead>
+    <playhead>00:19:54:068</playhead>
     <inpoint>00:00:00:000</inpoint>
     <outpoint>00:21:14:323</outpoint>
     <loop>1</loop>
