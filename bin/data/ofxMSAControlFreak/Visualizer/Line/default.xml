@@ -4,8 +4,8 @@
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="OSC" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="Enabled" value="1"></Parameter>
         <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Size" value="120"></Parameter>
-        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="0"></Parameter>
-        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="75.243278503"></Parameter>
+        <Parameter type="N3msa12controlfreak12ParameterIntE" name="Cache Offset" value="48"></Parameter>
+        <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Brightness" value="100.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Edge fix Amount" value="0.000000000"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Edge fix Height" value="0.941964269"></Parameter>
         <Parameter type="N3msa12controlfreak14ParameterFloatE" name="Audio Noise Amount" value="0.000000000"></Parameter>
@@ -13,7 +13,7 @@
         <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Rope">
             <Parameter type="N3msa12controlfreak14ParameterFloatE" name="maxShapeDistance" value="9.142857552"></Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Physics">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="0.808897555"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="drag" value="0.426813036"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="iterations" value="10"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="numParticles" value="100"></Parameter>
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="stiffness" value="0.140000001"></Parameter>
@@ -24,9 +24,9 @@
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="radiusMult" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Deform">
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.161290348"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="amp" value="0.212855607"></Parameter>
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="centerOffset" value="0"></Parameter>
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="-3"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="curvature" value="0"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Noise">
                 <Parameter type="N3msa12controlfreak12ParameterIntE" name="resample" value="0"></Parameter>
@@ -38,8 +38,8 @@
                 <Parameter type="N3msa12controlfreak14ParameterFloatE" name="noisePosScaleX" value="0.000000000"></Parameter>
             </Parameter>
             <Parameter type="N3msa12controlfreak14ParameterGroupE" name="Post">
-                <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothPoly" value="15"></Parameter>
-                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.678571463"></Parameter>
+                <Parameter type="N3msa12controlfreak12ParameterIntE" name="smoothPoly" value="4"></Parameter>
+                <Parameter type="N3msa12controlfreak14ParameterFloatE" name="easeAmount" value="0.714285731"></Parameter>
             </Parameter>
         </Parameter>
         <Parameter type="N3msa12controlfreak13ParameterBoolE" name="CENTROID_TAG" value="0"></Parameter>

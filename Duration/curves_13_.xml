@@ -12,14 +12,14 @@
         <value>1.000000000</value>
     </key>
     <key>
-        <easefunc>0</easefunc>
-        <easetype>0</easetype>
+        <easefunc>1</easefunc>
+        <easetype>2</easetype>
         <time>00:19:37:851</time>
         <value>1.000000000</value>
     </key>
     <key>
-        <easefunc>0</easefunc>
-        <easetype>0</easetype>
+        <easefunc>1</easefunc>
+        <easetype>2</easetype>
         <time>00:20:41:586</time>
         <value>0.027027011</value>
     </key>

@@ -33,6 +33,7 @@ public:
     {
         params.addFloat( PARAM_NAME_BRIGHT_AUDIO ).setClamp( true );
         
+        oscMappings[ &params.get( PARAM_NAME_BRIGHTNESS ) ]   = "/SkeletonViz/Brightness";
         oscMappings[ &params.get( PARAM_NAME_BRIGHT_AUDIO ) ]   = "/SkeletonViz/brightnessAudio";
     };
     
