@@ -4,13 +4,13 @@
     <Panel name="Visualizer/NearestDot" x="1159.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/Line" x="907.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/Skeleton" x="400.000000000" y="511.000000000" width="250.000000000" height="50.000000000"></Panel>
-    <Panel name="Laser Output" x="764.000000000" y="586.000000000" width="643.000000000" height="233.000000000"></Panel>
     <Panel name="Video/File" x="339.000000000" y="33.000000000" width="237.000000000" height="185.000000000"></Panel>
     <Panel name="Input/Video Analysis" x="582.000000000" y="33.000000000" width="851.000000000" height="302.000000000"></Panel>
     <Panel name="Visualizer/Trails" x="653.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
     <Panel name="Visualizer/FixedPoint" x="653.000000000" y="512.000000000" width="250.000000000" height="50.000000000"></Panel>
-    <Panel name="Stats" x="398.000000000" y="725.000000000" width="364.000000000" height="94.000000000"></Panel>
-    <Panel name="Help" x="399.000000000" y="585.000000000" width="362.000000000" height="116.000000000"></Panel>
-    <Panel name="Video/Camera" x="337.000000000" y="242.000000000" width="242.000000000" height="171.000000000"></Panel>
     <Panel name="Visualizer/Dot" x="400.000000000" y="439.000000000" width="250.000000000" height="50.000000000"></Panel>
+    <Panel name="Help" x="396.000000000" y="700.000000000" width="365.000000000" height="122.000000000"></Panel>
+    <Panel name="Stats" x="397.000000000" y="585.000000000" width="364.000000000" height="91.000000000"></Panel>
+    <Panel name="Laser Output" x="764.000000000" y="586.000000000" width="643.000000000" height="235.000000000"></Panel>
+    <Panel name="Video/Camera" x="337.000000000" y="242.000000000" width="242.000000000" height="171.000000000"></Panel>
 </PanelsData>
